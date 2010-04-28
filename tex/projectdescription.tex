@@ -1,0 +1,209 @@
+\documentclass[10pt,a4paper,final,oneside,openany,article]{memoir}
+% [12pt, 11pt, landscape, titlepage, a4paper, draft, twoside, oneside, 
+%  openleft, openright, openany]
+
+\chapterstyle{hangnum}
+
+%BASIC PACKAGES
+\usepackage{eso-pic,fix-cm,ae,aecompl,ifthen}         
+\usepackage[danish,british]{babel} % last language decides document language!
+\usepackage[utf8x]{inputenc}          %text encoding
+\usepackage{amsmath,amssymb, amsbsy}  % math
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{color}
+%\usepackage{morefloats}
+
+\newsubfloat{figure}
+
+%MISC. PACKAGES
+%\usepackage{multicol}        % \begin{multicols}{2} \end{multicols}
+%\usepackage{array}           % advanced tables
+%\usepackage{multirow}        % advanced tables
+%\usepackage{longtable}       % split tables over pages
+%\usepackage{textcomp}        % symbols
+%\usepackage{verbatim}        % monospace code environment
+%\usepackage{pdflscape}       % \begin{landscape} \end{landscape}
+%\usepackage{semantic}        % Good for proof trees and math ligatures
+%\usepackage[noend]{algorithmic}
+\usepackage{microtype}        % AWESOME typography!
+\usepackage{colortbl}
+\usepackage{marvosym}
+%Kan bruges som \fixme{blabla}. Vises sålænge tex doc er i draft.
+\usepackage[draft] { fixme } 
+
+
+%FONT
+\usepackage[T1]{fontenc}
+\usepackage{palatino}              % font : garamond
+\linespread{1.05}                  % Palatino needs more leading (space between lines)
+\usepackage{bera}
+%\renewcommand{\ttdefault}{cmtt}    % alternative monospace font
+%\renewcommand{\rmdefault}{ugm}
+\usepackage[sc]{mathpazo}
+%\usepackage{euler}                % weirdo math
+%PAGE DIMENSIONS
+
+%\usepackage[left=4.5cm, right=4.5cm, top=4.4cm, bottom=4.5cm]{geometry}
+
+
+%HEADERS
+\makepagestyle{myheadings}
+
+%\makepsmarks{myheadings}{
+%  \def\chaptermark##1{\markboth{%
+%    \ifnum \value{secnumdepth} < -1
+%      \if@mainmatter
+%        \chaptername\ \thechapter\ --- %
+%      \fi
+%    \fi
+%    ##1}{}}
+
+%  \def\sectionmark##1{\markright{%
+%    \ifnum \value{secnumdepth} < 0
+%      \thesection. \ %
+%    \fi
+%    ##1}}
+%}
+%%\makeevenhead{myheadings}{\thechapter\hskip.3cm\vrule\hskip.3cm \leftmark}{}{}
+%\makeoddhead{myheadings}{}{}{\leftmark\hskip.3cm\vrule\hskip.3cm\thechapter}
+%%\makeoddhead{myheadings}{}{}{\rightmark\hskip.3cm\vrule\hskip.3cm\thesection}
+%\makeevenfoot{myheadings}{}{\thepage}{}
+%\makeoddfoot{myheadings}{}{\thepage}{}
+%\pagestyle{myheadings}
+
+% customize chapter pages
+
+\makepagestyle{myheadingschapterpage}
+  \makeevenfoot{myheadingschapterpage}{}{}{\thepage}
+  \makeoddfoot{myheadingschapterpage}{}{}{\thepage}
+\aliaspagestyle{chapter}{myheadingschapterpage}
+\aliaspagestyle{title}{myheadingschapterpage}
+\makeevenfoot{myheadings}{}{}{\thepage}
+\makeoddfoot{myheadings}{}{}{\thepage}
+\pagestyle{myheadings}
+
+
+
+%PDF OUTPUT
+\usepackage{hyperref}             % clickable url's in PDF-output
+\hypersetup{
+%    unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+%    pdftitle={My title},    % title
+%    pdfauthor={Author},     % author
+%    pdfsubject={Subject},   % subject of the document
+%    pdfcreator={Creator},   % creator of the document
+%    pdfproducer={Producer}, % producer of the document
+%    pdfkeywords={keywords}, % list of keywords
+%    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links
+    citecolor=black,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=black           % color of external links
+}
+
+
+
+
+%PRETTY COLORS
+\usepackage{color}
+\definecolor{blue}{rgb}{0,0,0.8}
+\definecolor{green}{rgb}{0,0.5,0}
+\definecolor{red}{rgb}{0.5,0,0}
+\definecolor{grey}{rgb}{0.5,0.5,0.5}
+
+
+%SECTION TITLES
+\def\thefigure{\arabic{figure}}
+%\def\thesection{\arabic{section}}
+%\def\thesubsection{\thesection.\arabic{subsection}}
+%\def\thesubsubsection{\alph{subsubsection}.}
+% \alph \roman \arabin
+%\setcounter{secnumdepth}{3}
+%\setcounter{tocdepth}{3}
+
+
+% USER DEFINED COMMANDS AND ENVIRONMENTS
+%\newcommand{\codevar}[1]{{\tt{\it #1}}}
+%\newcommand{\genericleft}{\langle\hspace{-2.6pt}\vert}  % prints [[
+%\newcommand{\genericright}{\vert\hspace{-2.6pt}\rangle} % prints ]]
+%\newcommand{\generic}[1]{\genericleft #1 \genericright^{\varepsilon}}
+
+%FIGURE CAPTIONS
+%\usepackage[labelformat=empty]{subfig}
+\usepackage{sidecap} % side captions: \begin{SCfigure}[2.7][ht] ...
+\usepackage{caption}
+\captionsetup{margin=0pt, font=small, labelfont=bf, format=hang}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}
+
+%LINE SPACING
+%\usepackage{setspace}
+%EXAMPLE:
+% \singlespacing, \onehalfspacing, \doublespacing, \setstretch{x}
+
+
+%PROGRAM CODE WITH HIGLIGHTING AND SHAZZ!
+%\usepackage{listings}
+\usepackage{amsmath}
+
+
+%DOCUMENT INFO
+\title{
+  Side-chain packing \\
+  \small{Project description}
+}
+\author{
+	Martin Dybdal -- \texttt{dybber@dybber.dk}\\
+	Anders Boesen Lindbo Larsen -- \texttt{abll@diku.dk} \\
+    Esben Skaarup -- \texttt{sben@sben.dk}
+}
+\date{23 March 2010}
+
+\newcommand{\subimgwidth}{.48\textwidth}
+\newcommand{\imgwidth}{.85\textwidth}
+\renewcommand\vec[1]{\boldsymbol{#1}}
+\setcounter{secnumdepth}{0}
+			
+\begin{document}
+\maketitle
+
+\section{Problem statement}
+In this project we want to develop a method for predicting side-chain
+conformations of a protein given its three-dimensional backbone
+structure. Using this method we wont to investigate whether the
+problem gets measurably \textit{easier} (fewer needed
+computation-steps) when the given three-dimensional backbone structure
+is closer to the physically correct structure of the protein.
+
+\section{Motivation}
+The algorithms team at our department have implemented a
+protein-folding approach based solely on the protein backbone. To make
+their model physically accurate they need a way to add the missing
+parts to the folded proteins. Ultimately we want to make the missing
+steps to be able to compete in the \ldots\fixme{which competition was
+  it that Rasmus mentioned?}
+
+Experiments performed by the algorithms team has shown that there
+could possibly be a connection between how \textit{easy} it is to add
+the side-chains to the model and how good their solution to the
+backbone-problem is. Thus, adding side-chains can possibly also
+contribute to the computation of the backbone folding.
+
+\section{Elaboration}
+Adding side chains to a folded backbone may introduce new problems. An
+added side chain can contribute with negative energy making the
+conformation unstable, but at worst an added side chain can collide
+with other parts of the backbone or other side chains.
+
+\section{Learning goals}
+The structure of proteins and the basics of protein folding.
+
+\section{Limitations}
+
+
+% Spørgsmål til Rasmus:
+%  - Energiberegning, Metropolis, Boltzmann etc.
+
+\end{document}
+

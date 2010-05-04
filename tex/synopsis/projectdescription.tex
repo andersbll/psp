@@ -177,33 +177,72 @@ computation-steps) when the given three-dimensional backbone structure
 is closer to the physically correct structure of the protein.
 
 \section{Motivation}
-The algorithms team at our department have implemented a
-protein-folding approach based solely on the protein backbone. To make
-their model physically accurate they need a way to add the missing
-parts to the folded proteins. Ultimately we want to make the missing
-steps to be able to compete in the \ldots\fixme{which competition was
-  it that Rasmus mentioned?}
+The algorithms team at our department have implemented a protein
+structure prediction algorithm based solely on the $C-\alpha$ atoms of
+the protein backbone. In an attempt to get their model closer to the
+actual structure of physical proteins, they need a way to add the
+missing parts to the protein-backbone\footnote{Ultimately, we want to
+  do the missing steps to be able to compete in the
+  CASP9-competition.}.
 
 Experiments performed by the algorithms team has shown that there
 could possibly be a connection between how \textit{easy} it is to add
 the side-chains to the model and how good their solution to the
-backbone-problem is. Thus, adding side-chains can possibly also
-contribute to the computation of the backbone folding.
+backbone-problem is. Thus, adding side-chains and other missing atoms
+can possibly contribute to the computation of the tertiary structure
+of the backbone, by rejecting certain conformations where adding
+side-chains is hard..
 
 \section{Elaboration}
+
+Hej \cite{branden} 
+
+\begin{figure}
+  \centering
+  \subbottom[The $C_{\alpha}$-backbone]{
+    \includegraphics{Calpha_backbone}  
+    \label{fig:Calpha_backbone}
+  }
+  \subbottom[The connection of amino acids in the protein backbone]{
+    \includegraphics{amino_connect}  
+    \label{fig:amino_connect}
+  }
+\end{figure}
+
+
+
+
 Adding side chains to a folded backbone may introduce new problems. An
-added side chain can contribute with negative energy making the
+added side chain can contribute with additional energy making the
 conformation unstable, but at worst an added side chain can collide
 with other parts of the backbone or other side chains.
 
+
+
+
 \section{Learning goals}
-* The structure of proteins and the basics of protein folding.
+Our learning goals for this project includes:
+\begin{itemize}
+\item Models for representing protein structures and side-chains
+\item Basics of protein structure prediction
+\item Applied linear algebra
+\end{itemize}
+
 
 \section{Limitations}
-* Interconnections between side chains.
+\begin{itemize}
+\item Interconnections between side chain atoms from two different
+  aminogroups, such as a disulfid-bridge between two side chains.
+\item Energy computations
+\end{itemize}
+
+\bibliographystyle{unsrt}
+\bibliography{../bibliography}
+
 
 % Spørgsmål til Rasmus:
 %  - Energiberegning, Metropolis, Boltzmann etc.
+%  - Leonard Jones potentialet
 
 \end{document}
 

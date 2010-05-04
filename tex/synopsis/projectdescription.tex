@@ -151,7 +151,7 @@
 
 %DOCUMENT INFO
 \title{
-  Side-chain packing \\
+  Prediction of Side-chain Conformations\\ with an All-atom Model \\
   \small{Project description}
 }
 \author{
@@ -173,15 +173,16 @@
 \section{Problem statement}
 In this project we want to develop a model for representing protein
 structures including all its atoms, an \textit{all-atom model}.  We
-will use this model to find side-chain conformations of a protein
-given only the three-dimensional structure of its backbone.
+will use this model to find side-chain conformations of proteins
+given only the three-dimensional structures of their backbones.
 
-Using this method we will investigate whether the problem gets
-simplified in terms of the number of computation steps (e.g. number of
-collision detections between atom pairs) when the given
-three-dimensional backbone structure is closer to the physically
-correct structure of the protein.
-Furthermore, we want to experiment with the prediction method to see if any features of the protein structure can be utilize to simplify/improve the prediction.
+Using this method we will investigate whether the problem is simpler
+in terms of the number of computation steps (e.g. number of collision
+detections between atom pairs) when the given backbone structure is
+closer to the physically correct structure of the protein.
+Furthermore, we want to experiment with the prediction method to see
+if any features of the protein structure can be utilized to
+improve the prediction.
 
 
 \section{Motivation}
@@ -218,15 +219,16 @@ side-chains is hard.
 
 The building stone of proteins are amino acids\footnote{A detailed
   introduction to the structure of proteins is found in
-  \cite{branden}}. A protein consist of at least one linear chain of
+  \cite{branden}}. A protein consists of at least one linear chain of
 amino acids. In Figure \ref{fig:amino_connect} we have shown how a
 sequence of amino acids are connected. A carbon atom is located at the
-center of each amino acid, this is called the $C_\alpha$ atom. The
+center of each amino acid; this is called the $C_\alpha$ atom. The
 largest variability of the protein structure is found in the angles
-between the individual $C_\alpha$ atoms\cite{lotan04}, \textit{the torsion
-angles}. Thus, the approach taken by the algorithms team at our
-department is to describe the protein structure solely by the
-$C_\alpha$ atoms, in the attempt to do protein structure prediction.
+between the individual $C_\alpha$ atoms\cite{lotan04}, \textit{the
+  torsion angles}. Thus, the approach taken by the algorithms team at
+our department is to describe the protein structure solely by the
+$C_\alpha$ atoms (see Figure \ref{fig:Calpha_backbone}), in the
+attempt to do protein structure prediction.
 
 When a possible fold of a protein is found using this method, we will
 add the missing atoms to construct a model of the complete protein,

@@ -171,12 +171,16 @@
 \maketitle
 
 \section{Problem statement}
-In this project we want to develop a model for representing protein structures including all atoms of the molecule.
-Such a model is called an all-atom model.
-Using this model, we will develop a method for predicting side-chain
-conformations of a protein model given its three-dimensional backbone
-structure.
-With this method we will investigate whether the problem gets simplified in terms of the number computation steps (e.g. number of collision detetections between atom pairs) when the given three-dimensional backbone structure is closer to the physically correct structure of the protein.
+In this project we want to develop a model for representing protein
+structures including all its atoms, an \textit{all-atom model}.  We
+will use this model to find side-chain conformations of a protein
+given only the three-dimensional structure of its backbone.
+
+Using this method we will investigate whether the problem gets
+simplified in terms of the number of computation steps (e.g. number of
+collision detections between atom pairs) when the given
+three-dimensional backbone structure is closer to the physically
+correct structure of the protein.
 Furthermore, we want to experiment with the prediction method to see if any features of the protein structure can be utilize to simplify/improve the prediction.
 
 
@@ -219,24 +223,36 @@ amino acids. In Figure \ref{fig:amino_connect} we have shown how a
 sequence of amino acids are connected. A carbon atom is located at the
 center of each amino acid, this is called the $C_\alpha$ atom. The
 largest variability of the protein structure is found in the angles
-between the individual $C_\alpha$ atoms. Thus, the approach taken by
-the algorithms team at our department is to describe the protein
-structure solely by the $C_\alpha$ atoms, in the attempt to do protein
-structure prediction.
+between the individual $C_\alpha$ atoms\cite{lotan04}, \textit{the torsion
+angles}. Thus, the approach taken by the algorithms team at our
+department is to describe the protein structure solely by the
+$C_\alpha$ atoms, in the attempt to do protein structure prediction.
 
-When a structure of the $C_\alpha$ atoms is found, we will add the missing atoms to construct a model of the complete protein, including side chains. Apart from obtaining the position of all of the atoms, we can use this to measure how well the backbone and side chains fit together, and thereby get a more detailed indicator of how accurate the backbone prediction is.
+When a possible fold of a protein is found using this method, we will
+add the missing atoms to construct a model of the complete protein,
+including side chains. Apart from obtaining the position of all of the
+atoms, we can use this to measure how well the backbone and side
+chains fit together, and thereby get a more detailed indicator of how
+accurate the backbone prediction is.
 
+% Adding side chains to a folded backbone may
+% introduce new problems. An added side chain can contribute with
+% additional free energy, making the conformation unstable, and at worst
+% causing collisions with other parts of the backbone or other side
+% chains.
 
-Adding side chains to a folded backbone may introduce new problems. An
-added side chain can contribute with additional free energy, making the
-conformation unstable, and at worst causing collisions
-with other parts of the backbone or other side chains.
+The stability of a protein is determined by the amount of free energy
+in the structure. The goal of the protein structure prediction is thus
+to find the most plausible protein structure by minimizing the free
+energy. 
+% Something here about how our addition of side chains can be used to
+% determine the quality of their folding.
 
-
-The stability of a protein is determined by the amount of free energy in the structure. 
-The goal of the protein structure prediction is thus to find the most plausible protein structure by minimizing the free energy.
-A realistic energy calculation will require an insight in biochemistry that is beyond the scope of this project. 
-Therefore, we limit ourselves to measure the sum of root mean square deviations, RMSD, on the Euclidean distance between each atom of the true protein structure and our structure prediction.
+A realistic energy calculation will require an insight in
+biochemistry that is beyond the scope of this project.  Therefore, we
+limit ourselves to measure the sum of root mean square deviations,
+RMSD, on the Euclidean distance between each atom of the true protein
+structure and our structure prediction.
 
 
 
@@ -246,7 +262,7 @@ Our learning goals for this project includes:
 \item Models for representing protein structures and side-chains
 \item Basics of protein structure prediction
 % \item Apply linear algebra to represent rotations of protein structures
-\item Apply transformations on protein model using linear algebra
+\item Apply transformations on three-dimensional protein models using linear algebra
 \end{itemize}
 
 

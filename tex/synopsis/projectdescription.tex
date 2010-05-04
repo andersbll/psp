@@ -175,8 +175,7 @@ Using this model, we will develop a method for predicting side-chain
 conformations of a protein model given its three-dimensional backbone
 structure.
 With this method we will investigate whether the
-problem gets measurably \textit{easier} (fewer needed
-computation-steps) when the given three-dimensional backbone structure
+problem gets computationally simpler when the given three-dimensional backbone structure
 is closer to the physically correct structure of the protein.
 
 \section{Motivation}
@@ -221,15 +220,19 @@ $C-\alpha$ atoms. Thus, the approach taken by the algorithms team at
 our department is to describe the protein structure solely by the
 $C-\alpha$ atoms, in the attempt to do protein structure prediction.
 
+When a structure of the $C-\alpha$ atoms is found, we will add the missing atoms to construct a model of the complete protein, including side chains. Apart from obtaining the position of all of the atoms, we can use this to measure how well the backbone and side chains fit together, and thereby get a more detailed indicator of how accurate the backbone prediction is.
 
+The stability of a protein is determined by the amount of free energy in the structure. Free energy is 
 
 Adding side chains to a folded backbone may introduce new problems. An
-added side chain can contribute with additional energy making the
-conformation unstable, but at worst an added side chain can collide
+added side chain can contribute with additional free energy, making the
+conformation unstable, and at worst causing collisions
 with other parts of the backbone or other side chains.
 
 
-A realistic energy calculation will require a molecular insight that is beyond the scope of this project. Therefore, we limit ourselves to a perform a distance calculation between all atom pairs. <rant om hvorfor distance-målet er ok?>.
+A realistic energy calculation will require a molecular insight that is beyond the scope of this project.
+Therefore, we limit ourselves to a distance calculation between all atom pairs.
+<rant om hvorfor distance-målet er ok?>.
 
 
 

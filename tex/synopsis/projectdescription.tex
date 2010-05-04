@@ -6,11 +6,12 @@
 
 %BASIC PACKAGES
 \usepackage{eso-pic,fix-cm,ae,aecompl,ifthen}         
-\usepackage[us,danish]{babel} % last language decides document language!
+\usepackage[danish,english]{babel} % last language decides document language!
 \usepackage[utf8x]{inputenc}          %text encoding
 \usepackage{amsmath,amssymb, amsbsy}  % math
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{color}
+\usepackage[british]{isodate}
 %\usepackage{morefloats}
 
 \newsubfloat{figure}
@@ -158,7 +159,8 @@
 	Anders Boesen Lindbo Larsen -- \texttt{abll@diku.dk} \\
     Esben Skaarup -- \texttt{sben@sben.dk}
 }
-\date{23 March 2010}
+%\datebritish
+\date{\today}
 
 \newcommand{\subimgwidth}{.48\textwidth}
 \newcommand{\imgwidth}{.85\textwidth}
@@ -209,16 +211,17 @@ side-chains is hard.
   }
 \end{figure}
 
-The building stone of proteins are amino acids\cite{branden}. A protein
-consist of
-at least one linear chain of amino acids. In Figure
-\ref{fig:amino_connect} we have shown how a sequence of amino acids
-are connected. A carbon atom is located at the center of each amino
-acid, this is called the $C-\alpha$ atom. The largest variability of
-the protein structure is found in the angles between the individual
-$C-\alpha$ atoms. Thus, the approach taken by the algorithms team at
-our department is to describe the protein structure solely by the
-$C-\alpha$ atoms, in the attempt to do protein structure prediction.
+The building stone of proteins are amino acids\footnote{A detailed
+  introduction to the structure of proteins is found in
+  \cite{branden}}. A protein consist of at least one linear chain of
+amino acids. In Figure \ref{fig:amino_connect} we have shown how a
+sequence of amino acids are connected. A carbon atom is located at the
+center of each amino acid, this is called the $C-\alpha$ atom. The
+largest variability of the protein structure is found in the angles
+between the individual $C-\alpha$ atoms. Thus, the approach taken by
+the algorithms team at our department is to describe the protein
+structure solely by the $C-\alpha$ atoms, in the attempt to do protein
+structure prediction.
 
 When a structure of the $C-\alpha$ atoms is found, we will add the missing atoms to construct a model of the complete protein, including side chains. Apart from obtaining the position of all of the atoms, we can use this to measure how well the backbone and side chains fit together, and thereby get a more detailed indicator of how accurate the backbone prediction is.
 
@@ -253,7 +256,7 @@ Our learning goals for this project includes:
 \item Energy computations
 \end{itemize}
 
-\bibliographystyle{unsrt}
+\bibliographystyle{apalike}
 \bibliography{../bibliography}
 
 

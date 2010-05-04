@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,final,oneside,openany,article]{memoir}
+\documentclass[10pt,a4paper,final,twoside,openany,article]{memoir}
 % [12pt, 11pt, landscape, titlepage, a4paper, draft, twoside, oneside, 
 %  openleft, openright, openany]
 
@@ -169,24 +169,25 @@
 \maketitle
 
 \section{Problem statement}
-In this project we want to develop a model for representing protein structures including all of the atom.
+In this project we want to develop a model for representing protein structures including all atoms of the molecule.
 Such a model is called an all-atom model.
 Using this model, we will develop a method for predicting side-chain
 conformations of a protein model given its three-dimensional backbone
 structure.
 With this method we will investigate whether the
 problem gets measurably \textit{easier} (fewer needed
-computation-steps) when the given three-dimensional backbone structure
+computation steps) when the given three-dimensional backbone structure
 is closer to the physically correct structure of the protein.
+\fixme{vi vil vel også undersøge andre ting?}
 
 \section{Motivation}
 The algorithms team at our department have implemented a protein
-structure prediction algorithm based solely on the $C-\alpha$ atoms of
+structure prediction algorithm based solely on the $C_\alpha$ atoms of
 the protein backbone. In an attempt to get their model closer to the
 actual structure of physical proteins, they need a way to add the
 missing parts to the protein-backbone\footnote{Ultimately, we want to
   do the missing steps to be able to compete in the
-  CASP9-competition.}.
+  CASP competition.}.
 
 Experiments performed by the algorithms team has shown that there
 could possibly be a connection between how \textit{easy} it is to add
@@ -215,22 +216,20 @@ consist of
 at least one linear chain of amino acids. In Figure
 \ref{fig:amino_connect} we have shown how a sequence of amino acids
 are connected. A carbon atom is located at the center of each amino
-acid, this is called the $C-\alpha$ atom. The largest variability of
+acid, this is called the $C_\alpha$ atom. The largest variability of
 the protein structure is found in the angles between the individual
-$C-\alpha$ atoms. Thus, the approach taken by the algorithms team at
+$C_\alpha$ atoms. Thus, the approach taken by the algorithms team at
 our department is to describe the protein structure solely by the
-$C-\alpha$ atoms, in the attempt to do protein structure prediction.
-
-
+$C_\alpha$ atoms, in the attempt to do protein structure prediction.
 
 Adding side chains to a folded backbone may introduce new problems. An
 added side chain can contribute with additional energy making the
-conformation unstable, but at worst an added side chain can collide
+conformation unstable. At worst an added side chain can collide
 with other parts of the backbone or other side chains.
 
-
-A realistic energy calculation will require a molecular insight that is beyond the scope of this project. Therefore, we limit ourselves to a perform a distance calculation between all atom pairs. <rant om hvorfor distance-målet er ok?>.
-
+The goal of the protein structure prediction is thus to find the most plausible protein structure by minimizing the free energy.
+A realistic energy calculation will require an insight in biochemistry that is beyond the scope of this project. 
+Therefore, we limit ourselves to measure the sum of root mean square deviations, RMSD, on the Euclidean distance between each atom of the true protein structure and our structure prediction.
 
 
 \section{Learning goals}

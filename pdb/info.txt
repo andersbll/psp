@@ -1,7 +1,10 @@
 Guide til PDB-format:
+http://www.wwpdb.org/documentation/format32/v3.2.html
+Se også
 http://www.pdb.org/pdb/static.do?p=education_discussion/Looking-at-Structures/intro.html
 
-Proteiner:
+
+Små proteiner:
 http://www.pdb.org/pdb/explore/explore.do?structureId=1UAO , 10 aminosyrer
 http://www.pdb.org/pdb/explore/explore.do?structureId=2JOF , 20 aminosyrer
 

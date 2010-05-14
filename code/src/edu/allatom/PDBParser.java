@@ -8,16 +8,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.math.Vector;
+import edu.geom3D.Cylinder;
 import edu.geom3D.Sphere;
 import edu.j3dScene.J3DScene;
 
 public class PDBParser {
 	
+	private final static float ATOM_DEFAULT_RENDER_SIZE = .75f / 2;
+	private final static float HYDROGEN_RENDER_SIZE = ATOM_DEFAULT_RENDER_SIZE / 2;
+	private final static float BINDING_RENDER_WIDTH = .1f;
+	
 	static class AtomList {
 		
 		static class Atom {
+			public final static double BINDING_DISTANCE_THRESHOLD = 1.6;
+			
 			public final Type type;
 			public final double x, y, z;
+			public List<Atom> neighbors = new LinkedList<Atom>();
+			
 			public enum Type {
 				H, C, N, O, S, UNKNOWN,
 			}
@@ -35,6 +44,16 @@ public class PDBParser {
 		}
 		
 		public void add(Atom atom) {
+			for(Atom a : atoms) {
+				double dx = atom.x - a.x;
+				double dy = atom.y - a.y;
+				double dz = atom.z - a.z;
+				double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+				if(distance < Atom.BINDING_DISTANCE_THRESHOLD) {
+					a.neighbors.add(atom);
+					atom.neighbors.add(a);
+				}
+			}
 			atoms.add(atom);
 		}
 		
@@ -42,15 +61,23 @@ public class PDBParser {
 			J3DScene scene = J3DScene.createJ3DSceneInFrame();
 			for(AtomList.Atom a: atoms){
 				Color c = Color.PINK;
-				float size = .75f;
+				float size = ATOM_DEFAULT_RENDER_SIZE;
 				switch(a.type) {
-				case H: c = Color.GRAY.brighter(); size /= 2; break;
+				case H: c = Color.GRAY.brighter(); size = HYDROGEN_RENDER_SIZE; break;
 				case C: c = Color.DARK_GRAY; break;
 				case N: c = Color.BLUE; break;
 				case O: c = Color.RED; break;
 				case S: c = Color.YELLOW; break;
 				}
 				scene.addShape(new Sphere(new Vector(a.x, a.y, a.z), size), c);
+				for(Atom neighbor : a.neighbors) {
+					if(a.x <= neighbor.x) {
+						scene.addShape(new Cylinder(
+								new Vector(a.x, a.y, a.z),
+								new Vector(neighbor.x, neighbor.y, neighbor.z),
+								BINDING_RENDER_WIDTH));
+					}
+				}
 			}
 			scene.setAxisEnabled(true);
 			scene.centerCamera();

@@ -151,7 +151,7 @@ public class PDBParser {
 	public static void main(String[] args) {
 		PDBParser p = new PDBParser();
 		try {
-			p.parseFile("pdb/1UAO.pdb");
+			p.parseFile("../pdb/1UAO.pdb");
 //			p.parseFile("pdb/2JOF.pdb");
 			p.render();
 		} catch(Exception e) {

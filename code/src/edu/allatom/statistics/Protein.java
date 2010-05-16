@@ -18,4 +18,6 @@ public class Protein {
 		}
 		return atoms;
 	}
+	
+	
 }

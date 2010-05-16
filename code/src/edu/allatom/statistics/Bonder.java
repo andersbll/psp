@@ -2,11 +2,15 @@ package edu.allatom.statistics;
 
 import java.util.Map;
 
+/**
+ *  Baad asss!
+ */
 public class Bonder {
 
-	private static String standardAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"}};
-	private static String nTerminusAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H2","N"},{"H3","N"},{"N","H1"}};
-	private static String cTerminusAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"C","OXT"}};
+	private static String innerAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"}};
+	private static String innerPROAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"}};
+	private static String nTerminusAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"H2","N"},{"H3","N"},{"N","H1"}};
+	private static String cTerminusAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"C","OXT"}};
 
 	private static String ALAAtomPairs[][] = {{"CA","CB"},{"CB","HB1"},{"CB","HB3"},{"HA","CA"},{"HB2","CB"},{"N","H"}};
 	private static String TYRAtomPairs[][] = {{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CD1","CE1"},{"CD1","CG"},{"CD2","CE2"},{"CD2","HD2"},{"CE1","CZ"},{"CE2","HE2"},{"CG","CD2"},{"CZ","CE2"},{"CZ","OH"},{"H","N"},{"HB3","CB"},{"HD1","CD1"},{"HE1","CE1"},{"OH","HH"}};
@@ -30,7 +34,7 @@ public class Bonder {
 		
 		AminoAcid oldaa = firstaa;
 		for (AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size() - 1)) {
-			bondAtomPairs(aa.allatoms, standardAtomPairs);
+			bondInnerAtoms(aa);
 //			bondSideChainAtoms(aa);
 			bondAtoms(oldaa.allatoms.get("C"), aa.allatoms.get("N"));
 			oldaa = aa;
@@ -49,6 +53,17 @@ public class Bonder {
 			break;
 		default:
 			bondSideChainAtoms(aa);
+		}
+	}
+
+	public static void bondInnerAtoms(AminoAcid aa) {
+		bondAtomPairs(aa.allatoms, nTerminusAtomPairs);
+		switch (aa.type) {
+		case PRO:
+			bondAtomPairs(aa.allatoms, innerPROAtomPairs);
+			break;
+		default:
+			bondAtomPairs(aa.allatoms, innerAtomPairs);
 		}
 	}
 
@@ -144,7 +159,7 @@ public class Bonder {
 		for (Atom a1 : aa.allatoms.values()) {
 			for (Atom a2 : aa.allatoms.values()) {
 				if (a1.position.x() < a2.position.x()
-						&& !isInPairList(a1, a2, standardAtomPairs)) {
+						&& !isInPairList(a1, a2, innerAtomPairs)) {
 					double distance = a1.position.distance(a2.position);
 					if (distance > 0
 							&& distance < Atom.BINDING_DISTANCE_THRESHOLD) {

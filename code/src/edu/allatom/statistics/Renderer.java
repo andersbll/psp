@@ -12,10 +12,11 @@ import edu.math.Vector;
 public class Renderer {
 	private final static float ATOM_DEFAULT_RENDER_SIZE = .75f / 2;
 	private final static float HYDROGEN_RENDER_SIZE = ATOM_DEFAULT_RENDER_SIZE / 2;
-	private final static float BINDING_RENDER_WIDTH = .1f;
+	private final static float BINDING_RENDER_WIDTH = .15f;
 
-
-	private Color bondColor = Color.LIGHT_GRAY;
+	private Color bondColor1 = Color.GREEN;
+	private Color bondColor2 = Color.YELLOW;
+	private Color bondColor = bondColor1;
 	private J3DScene scene;
 	
 	public Renderer() {
@@ -31,18 +32,28 @@ public class Renderer {
 	public void render(Protein p) {		
 		List<AminoAcid> aaSeq = p.aaSeq;
 		for(AminoAcid aa : aaSeq) {
-			if(bondColor == Color.LIGHT_GRAY) {
-				bondColor = Color.BLACK;
+			if(bondColor == bondColor1) {
+				bondColor = bondColor2;
 			} else {
-				bondColor = Color.LIGHT_GRAY;			
+				bondColor = bondColor1;			
 			}
-			renderAminoAcid(aa, scene);
+			renderAminoAcid(aa);
 		}
 		redraw();
 	}
 	
-	private void renderAminoAcid(AminoAcid aa, J3DScene scene) {
-		Collection<Atom> atoms = aa.allatoms.values();
+	public void render(AminoAcid aa) {		
+		if(bondColor == bondColor1) {
+			bondColor = bondColor2;
+		} else {
+			bondColor = bondColor1;			
+		}
+		renderAminoAcid(aa);
+		redraw();
+	}
+	
+	private void renderAminoAcid(AminoAcid aa) {
+		Collection<Atom> atoms = aa.getBackBoneAtoms();
 		for(Atom a: atoms){
 			Color c = Color.PINK;
 			float size = ATOM_DEFAULT_RENDER_SIZE;

@@ -81,6 +81,7 @@ public class PDBParser {
 		Protein p;
 		try {
 			p = parseFile("../pdb/1UAO.pdb");
+//			p = parseFile("pdb/2JOF.pdb");
 //			p.parseFile("pdb/2JOF.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -92,9 +93,10 @@ public class PDBParser {
 		aa.calculatePsi();
 		aa.calculatePhi();
 		Renderer renderer = new Renderer();
-		renderer.render(p.aaSeq.get(4));
-		renderer.render(p.aaSeq.get(5));
-		renderer.render(p.aaSeq.get(6));
+//		renderer.render(p.aaSeq.get(4));
+//		renderer.render(p.aaSeq.get(5));
+//		renderer.render(p.aaSeq.get(6));
+		renderer.render(p);
 		//		renderer.render(p);
 	}
 	

@@ -78,6 +78,7 @@ public class PDBParser {
 								BINDING_RENDER_WIDTH));
 					}
 				}
+				System.out.println("...");
 			}
 			scene.setAxisEnabled(true);
 			scene.centerCamera();
@@ -151,7 +152,7 @@ public class PDBParser {
 	public static void main(String[] args) {
 		PDBParser p = new PDBParser();
 		try {
-			p.parseFile("../pdb/1UAO.pdb");
+			p.parseFile("pdb/1UAO.pdb");
 //			p.parseFile("pdb/2JOF.pdb");
 			p.render();
 		} catch(Exception e) {

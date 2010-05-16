@@ -26,18 +26,18 @@ public class Bonder {
 
 	public static void bondAtoms(Protein p) {
 		AminoAcid firstaa = p.aaSeq.get(0);
-//		bondNTerminusAtoms(firstaa);
+		bondNTerminusAtoms(firstaa);
 		
 		AminoAcid oldaa = firstaa;
 		for (AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size() - 1)) {
 			bondAtomPairs(aa.allatoms, standardAtomPairs);
-//			bondSideChainAtoms(aa);
+			bondSideChainAtoms(aa);
 			bondAtoms(oldaa.allatoms.get("C"), aa.allatoms.get("N"));
 			oldaa = aa;
 		}
 		
 		AminoAcid lastaa = p.aaSeq.get(p.aaSeq.size()-1);
-//		bondCTerminusAtoms(lastaa);
+		bondCTerminusAtoms(lastaa);
 		bondAtoms(oldaa.allatoms.get("C"), lastaa.allatoms.get("N"));
 	}
 
@@ -139,7 +139,7 @@ public class Bonder {
 	}
 
 	public static void printAtomBonds(AminoAcid aa) {
-		String atomPairs = "private static String " + aa.type.name
+		String atomPairs = "private static String " + aa.type.name()
 				+ "AtomPairs[][] = {";
 		for (Atom a1 : aa.allatoms.values()) {
 			for (Atom a2 : aa.allatoms.values()) {

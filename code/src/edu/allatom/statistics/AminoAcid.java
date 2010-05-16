@@ -33,7 +33,7 @@ public class AminoAcid {
 	}
 	
 	public String toString() {
-		String s = type.name+":";
+		String s = type.name() + ":";
 		for(String a : allatoms.keySet()) {
 			s += "\n  " + a;
 		}
@@ -45,34 +45,34 @@ public class AminoAcid {
 //	}
 
 	public enum Type {
-		ALA ("ALA"), 
-		ARG ("ARG"),
-		ASN ("ASN"),
-		ASP ("ASP"),
-		CYS ("CYS"),
-		GLU ("GLU"),
-		GLN ("GLN"),
-		GLY ("GLY"),
-		HIS ("HIS"),
-		ILE ("ILE"),
-		LEU ("LEU"),
-		LYS ("LYS"),
-		MET ("MET"),
-		PHE ("PHE"),
-		PRO ("PRO"),
-		SER ("SER"),
-		THR ("THR"),
-		TRP ("TRP"),
-		TYR ("TYR"),
-		VAL ("VAL");
+		ALA, 
+		ARG,
+		ASN,
+		ASP,
+		CYS,
+		GLU,
+		GLN,
+		GLY,
+		HIS,
+		ILE,
+		LEU,
+		LYS,
+		MET,
+		PHE,
+		PRO,
+		SER,
+		THR,
+		TRP,
+		TYR,
+		VAL;
 		
-		public final String name;
-		Type(String name3) {
-			this.name = name3;
-		}
+//		public final String name;
+//		Type(String name3) {
+//			this.name = name3;
+//		}
 		public static Type fromName(String name) {
 			for(Type t : values()) {
-				if(name.equalsIgnoreCase(t.name)) {
+				if(name.equalsIgnoreCase(t.name())) {
 					return t;
 				}
 			}

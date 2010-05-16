@@ -80,7 +80,7 @@ public class PDBParser {
 	public static void main(String[] args) {
 		Protein p;
 		try {
-			p = parseFile("../pdb/2JOF.pdb");
+			p = parseFile("pdb/2JOF.pdb");
 //			p.parseFile("pdb/2JOF.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();

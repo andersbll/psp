@@ -11,7 +11,19 @@ import edu.math.Point;
 import edu.math.Vector;
 
 public class AminoAcid {
-
+	
+	public static final List<String> backBoneAtomNames = new LinkedList<String>() {
+		private static final long serialVersionUID = -5736976839907219408L;
+		{
+			add("CA");
+			add("C");
+			add("O");
+			add("N");
+			add("H");
+//			add("CD");
+		}
+	};
+	
 	public final Type type;
 	public final Map<String, Atom> allatoms; 
 
@@ -77,9 +89,9 @@ public class AminoAcid {
 		atoms.add(allatoms.get("N"));
 		if(type!=Type.PRO) {
 			atoms.add(allatoms.get("H"));
-		} else {
-			atoms.add(allatoms.get("CD"));			
-		}
+		} //else {
+//			atoms.add(allatoms.get("CD"));			
+//		}
 		while(atoms.contains(null)) {
 			atoms.remove(null);
 		}

@@ -1,8 +1,8 @@
-\documentclass[10pt,a4paper,final,oneside,openany,article]{memoir}
+\documentclass[10pt,a4paper,final,oneside,openany,article, twocolumn]{memoir}
 % [12pt, 11pt, landscape, titlepage, a4paper, draft, twoside, oneside, 
 %  openleft, openright, openany]
 
-\chapterstyle{hangnum}
+\chapterstyle{article}
 
 %BASIC PACKAGES
 \usepackage{eso-pic,fix-cm,ae,aecompl,ifthen}         
@@ -32,8 +32,8 @@
 %\usepackage{semantic}        % Good for proof trees and math ligatures
 %\usepackage[noend]{algorithmic}
 \usepackage{microtype}        % AWESOME typography!
-\usepackage{colortbl}
-\usepackage{marvosym}
+%\usepackage{colortbl}
+%\usepackage{marvosym}
 %Kan bruges som \fixme{blabla}. Vises sålænge tex doc er i draft.
 \usepackage[draft]{fixme}
 
@@ -126,7 +126,7 @@
 %\def\thesubsubsection{\alph{subsubsection}.}
 % \alph \roman \arabin
 %\setcounter{secnumdepth}{3}
-%\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{3}
 
 
 % USER DEFINED COMMANDS AND ENVIRONMENTS
@@ -155,16 +155,15 @@
 
 
 %DOCUMENT INFO
-\title{\vspace{-0.5cm}
+\title{\vspace{-2cm}
   Fitting an All-atom Protein Model to a $C_\alpha$-trace\\
-  \vspace{0.1cm}
-  \large{Project description}
 }
 \author{
 	Martin Dybdal -- \texttt{dybber@dybber.dk}\\
 	Anders Boesen Lindbo Larsen -- \texttt{abll@diku.dk} \\
     Esben Skaarup -- \texttt{sben@sben.dk}
 }
+
 %\datebritish
 \date{\today}
 
@@ -172,71 +171,63 @@
 \newcommand{\imgwidth}{.85\textwidth}
 \renewcommand\vec[1]{\boldsymbol{#1}}
 \setcounter{secnumdepth}{0}
+\setcounter{chapter}{0}
+%\renewcommand\thesection{\arabic{section}}
+
+
 			
 \begin{document}
-\maketitle
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+\begin{abstract}
+  When predicting the structure of proteins, it is common simplify the
+  problem by only including few of the protein molecules. In
+  particular, the algorithms group at our department only predicts a
+  folding of a $C_\alpha$-trace, thus not including many backbone
+  atoms and all side-chain molecules.
 
-\section{Problem statement}
-In this project we will develop a method for predicting the full
-structure of proteins, given a promising
-structure of only its $C_\alpha$ atoms (a \textit{$C_\alpha$-trace}). 
-This will require us to create a model for representing protein
-structures including all atoms, an \textit{all-atom model}.
-Furthermore, we want to experiment with the prediction method to see
-if any features of the protein structure can be utilized to
-improve or simplify the prediction.
+  We have developed a method for predicting the full structure of
+  proteins, when given a promising structure of its $C_\alpha$
+  atoms (a \textit{$C_\alpha$-trace}).
+  \vspace{0.5cm}
+\end{abstract}
+  \end{@twocolumnfalse}
+]
 
-\section{Motivation}
+\tableofcontents
+
+\chapter{Introduction}
+Predicting the structure of proteins given only their amino acid
+sequence %\fixme{... bla bla, forklar hvorfor psp er interessant.}
+
 The algorithms group at our department have implemented a protein
 structure prediction algorithm based solely on the $C_\alpha$ atoms of
-the protein backbone. In an attempt to get their model closer to the
-actual structure of physical proteins, they need a way to add the
-missing parts to the protein, to get an all-atom model.  Also,
+the protein backbone\cite{}. In an attempt to get their model closer
+to the actual structure of physical proteins, they needed a way to add
+the missing parts to the protein, to get an all-atom model.  Also,
 supplying an all-atom model is a requirement for participating in the
-CASP experiment.
+CASP experiment\cite{caspwebsite}.
 
-% Experiments performed by the algorithms group has shown that there
-% could possibly be a connection between how \textit{easy} it is to add
-% the side-chains to the model and how good their solution to the
-% backbone-problem is. Thus, adding side-chains and other missing atoms
-% can possibly contribute to the computation of the tertiary structure
-% of the backbone, by rejecting certain conformations where adding
-% side-chains is hard.
-
-\section{Elaboration}
-
-\begin{figure}
-  \centering
-  \subbottom[$C_{\alpha}$-trace]{
-    \includegraphics{Calpha_backbone}  
-    \label{fig:Calpha_backbone}
-  }
-  \subbottom[All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains]{
-    \includegraphics{amino_connect}  
-    \label{fig:amino_connect}
-  }
-  \caption{}
-\end{figure}
-
-
+\section{Protein structure}
 The building stone of proteins are amino acids\footnote{A detailed
   introduction to the structure of proteins is found in
-  \cite{branden}}. A protein consists of at least one linear chain of
-amino acids. In Figure \ref{fig:amino_connect} we have shown how a
-sequence of amino acids is connected. The carbon atom connecting the
-backbone with the side-chains is called the $C_\alpha$ atom. The
-largest variability of the protein structure is found in the angles
-between the individual $C_\alpha$ atoms \cite{lotan04}, \textit{the
-  torsion angles}. Thus, the approach taken by the algorithms group at
-our department is to describe the protein structure solely by the
-$C_\alpha$ atoms (see Figure \ref{fig:Calpha_backbone}), in the
-attempt to do protein structure prediction.
+  \cite{branden}}. A protein consists of one or several chains
+(polymers) of amino acids. In Figure \ref{fig:amino_connect} we have
+shown how a sequence of amino acids is connected. The carbon atom
+connecting the backbone with the side-chains is called the $C_\alpha$
+atom. The largest variability of the protein structure is found in the
+angles between the individual $C_\alpha$ atoms \cite{lotan04},
+\textit{the torsion angles}. Thus, the approach taken by the
+algorithms group at our department is to describe the protein
+structure solely by the $C_\alpha$ atoms (see Figure
+\ref{fig:Calpha_backbone}), in the attempt to do protein structure
+prediction.
 
-The $C_\alpha$-trace generated by this method is used as target in our fitting of the all-atom model
-%method as a target when fitting the all-atom model to the $C_\alpha$ trace.
-The fitting should be conducted, such that it
-minimizes the number of clashes and at the same time minimizes the
-deviation from the target $C_\alpha$-trace.
+The $C_\alpha$-trace generated by this method is used as target in our
+fitting of the all-atom model. The fitting should be conducted, such
+that it minimizes the number of clashes and at the same time minimizes
+the deviation from the target $C_\alpha$-trace.
 
 The stability of a protein is determined by the amount of free energy
 in the structure. The goal of the protein structure prediction is thus
@@ -245,47 +236,15 @@ energy. A realistic energy calculation will require an insight in
 biochemistry that is beyond the scope of this project.  Therefore, we
 limit ourselves to minimize the number of clashes as well as the
 deviation from the provided $C_\alpha$-trace.
-% Therefore, we limit ourselves to measure the sum of root mean square deviations, RMSD, on the Euclidean distance between each atom of the target $C_\alpha$ structure and our structure prediction.
+
+\section{Related Work}
 
 
-%When a promising conformation of a protein is found using this method,
-%we will 
+\chapter{Conclusion}
 
-% When a promising conformation of a protein is found using this method,
-% we will add the missing atoms to construct a model of the complete
-% protein, including side chains. Apart from obtaining the position of
-% all of the atoms, we can use this to measure how well the backbone and
-% side chains fit together, and thereby get a more detailed indicator of
-% how accurate the backbone prediction is.
-
-% Adding side chains to a folded backbone may
-% introduce new problems. An added side chain can contribute with
-% additional free energy, making the conformation unstable, and at worst
-% causing collisions with other parts of the backbone or other side
-% chains.
-% Something here about how our addition of side chains can be used to
-% determine the quality of their folding.
-
-
-
-\section{Learning goals}
-\begin{itemize}
-\item Describe, implement and reason about models for representing
-  protein structures and side-chains.
-\item Describe the basics of proteins and protein structure prediction.
-\item Apply and implement transformations on three-dimensional protein
-  models using linear algebra.
-\end{itemize}
-
-
-\section{Limitations}
-\begin{itemize}
-\item We won't handle possible bonds between side-chain
-  atoms from two different amino groups, such as a disulfid-bridge
-  between two side-chains.
-\item As described above, we will use a naïve energy computation.
-\end{itemize}
-
+\defbibheading{bibliography}[\bibname]{%
+  \chapter{#1}%
+  \markboth{#1}{#1}}
 \printbibliography
 
 \end{document}

@@ -80,19 +80,20 @@ public class PDBParser {
 	public static void main(String[] args) {
 		Protein p;
 		try {
-			p = parseFile("../pdb/1UAO.pdb");
+			p = parseFile("pdb/1UAO.pdb");
 //			p = parseFile("pdb/2JOF.pdb");
-//			p.parseFile("pdb/2JOF.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();
 			return;
 		}
+		Renderer renderer = new Renderer();
 //		Bonder.printAtomBonds(p);
 		Bonder.bondAtoms(p);
-		AminoAcid aa = p.aaSeq.get(5);
-		aa.calculatePsi();
-		aa.calculatePhi();
-		Renderer renderer = new Renderer();
+		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
+			aa.calculatePsi();
+			aa.calculatePhi();
+			System.out.println("");
+		}
 //		renderer.render(p.aaSeq.get(4));
 //		renderer.render(p.aaSeq.get(5));
 //		renderer.render(p.aaSeq.get(6));

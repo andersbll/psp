@@ -13,7 +13,7 @@ public class Atom {
 
 	public final Type type;
 	public final String name;
-	public final Point position;
+	public Point position;
 	public List<Atom> bondsTo = new LinkedList<Atom>();
 
 

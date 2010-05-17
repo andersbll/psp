@@ -9,8 +9,8 @@ public class Bonder {
 
 	private static String innerAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"}};
 	private static String innerPROAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"}};
-	private static String nTerminusAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"H2","N"},{"H3","N"},{"N","H1"}};
-	private static String cTerminusAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"C","OXT"}};
+	private static String nTerminalAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"H2","N"},{"H3","N"},{"N","H1"}};
+	private static String cTerminalAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"C","OXT"}};
 
 	private static String ALAAtomPairs[][] = {{"CA","CB"},{"CB","HB1"},{"CB","HB3"},{"HA","CA"},{"HB2","CB"},{"N","H"}};
 	private static String TYRAtomPairs[][] = {{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CD1","CE1"},{"CD1","CG"},{"CD2","CE2"},{"CD2","HD2"},{"CE1","CZ"},{"CE2","HE2"},{"CG","CD2"},{"CZ","CE2"},{"CZ","OH"},{"H","N"},{"HB3","CB"},{"HD1","CD1"},{"HE1","CE1"},{"OH","HH"}};
@@ -26,7 +26,7 @@ public class Bonder {
 	private static String ARGAtomPairs[][] = {{"CA","HA"},{"CB","CA"},{"CD","CG"},{"CD","HD2"},{"CG","CB"},{"CG","HG2"},{"CZ","NE"},{"CZ","NH1"},{"H","N"},{"H12","NH1"},{"H21","NH2"},{"H22","NH2"},{"HB2","CB"},{"HB3","CB"},{"HD3","CD"},{"HE","NE"},{"HG3","CG"},{"NE","CD"},{"NH1","H11"},{"NH2","CZ"}};
 	private static String THRAtomPairs[][] = {{"CA","HA"},{"CB","CA"},{"CB","CG2"},{"CB","HB"},{"CG2","G21"},{"CG2","G22"},{"G23","CG2"},{"H","N"},{"OG1","CB"},{"OG1","HG1"}};
 
-	private static String GLYTerminusAtomPairs[][] = {{"HA2","CA"},{"HA3","CA"},{"N","H1"}};
+	private static String GLYTerminalAtomPairs[][] = {{"HA2","CA"},{"HA3","CA"},{"N","H1"}};
 
 	public static void bondAtoms(Protein p) {
 		AminoAcid firstaa = p.aaSeq.get(0);
@@ -46,10 +46,10 @@ public class Bonder {
 	}
 
 	public static void bondNTerminusAtoms(AminoAcid aa) {
-		bondAtomPairs(aa.allatoms, nTerminusAtomPairs);
+		bondAtomPairs(aa.allatoms, nTerminalAtomPairs);
 		switch (aa.type) {
 		case GLY:
-			bondAtomPairs(aa.allatoms, GLYTerminusAtomPairs);
+			bondAtomPairs(aa.allatoms, GLYTerminalAtomPairs);
 			break;
 		default:
 			bondSideChainAtoms(aa);
@@ -57,7 +57,7 @@ public class Bonder {
 	}
 
 	public static void bondInnerAtoms(AminoAcid aa) {
-		bondAtomPairs(aa.allatoms, nTerminusAtomPairs);
+		bondAtomPairs(aa.allatoms, nTerminalAtomPairs);
 		switch (aa.type) {
 		case PRO:
 			bondAtomPairs(aa.allatoms, innerPROAtomPairs);
@@ -68,7 +68,7 @@ public class Bonder {
 	}
 
 	public static void bondCTerminusAtoms(AminoAcid aa) {
-		bondAtomPairs(aa.allatoms, cTerminusAtomPairs);
+		bondAtomPairs(aa.allatoms, cTerminalAtomPairs);
 		switch (aa.type) {
 //		case GLY:
 //			bondAtomPairs(aa.allatoms, GLYTerminusAtomPairs);

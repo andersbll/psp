@@ -21,7 +21,8 @@ public class Renderer extends J3DScene implements KeyListener {
 		STICKS,
 	}
 	private RenderMode renderMode = RenderMode.STICKS;
-	private final static boolean renderH = false;
+	private static boolean renderH = true;
+	private static boolean renderBackboneOnly = true;
 	// render mode STICKS:
 	private final static float STICK_WIDTH = .3f;
 	// render mode SPHERES:
@@ -37,11 +38,11 @@ public class Renderer extends J3DScene implements KeyListener {
 	private Color bondColor1 = Color.GREEN;
 	private Color bondColor2 = Color.YELLOW;
 	private Color bondColor = bondColor1;
-	private J3DScene scene;
+//	private J3DScene scene;
 	
 	public Renderer() {
 		super();
-		scene = J3DScene.createJ3DSceneInFrame();
+		J3DScene.createJ3DSceneInFrame(this);
 		setAxisEnabled(true);
 	}
 	public void redraw() {
@@ -82,7 +83,12 @@ public class Renderer extends J3DScene implements KeyListener {
 	}
 	
 	private void renderAminoAcid(AminoAcid aa) {
-		Collection<Atom> atoms = aa.getBackBoneAtoms();
+		Collection<Atom> atoms;
+		if(renderBackboneOnly) {
+			atoms = aa.getBackBoneAtoms();
+		} else {
+			atoms = aa.getAtoms();
+		}
 		for(Atom a: atoms){
 			if(!renderH && a.type == Atom.Type.H) {
 				continue;
@@ -99,10 +105,14 @@ public class Renderer extends J3DScene implements KeyListener {
 			switch(renderMode) {
 			case SPHERES: {
 				Sphere sphere = new Sphere(new Vector(a.position), size);
-				scene.addShape(sphere, c);
+				addShape(sphere, c);
 				shapes.add(sphere);
 				for(Atom neighbor : a.bondsTo) {
 					if(!renderH && neighbor.type == Atom.Type.H) {
+						continue;
+					}
+					if(renderBackboneOnly &&
+							!AminoAcid.backBoneAtomNames.contains(neighbor.name)) {
 						continue;
 					}
 					if(a.position.x() <= neighbor.position.x()) {
@@ -110,19 +120,23 @@ public class Renderer extends J3DScene implements KeyListener {
 								new Vector(a.position),
 								new Vector(neighbor.position),
 								BINDING_RENDER_WIDTH);
-						scene.addShape(cylinder, bondColor);
+						addShape(cylinder, bondColor);
 						shapes.add(cylinder);
 					}
 				}
 				break;
 			} case STICKS: {
+				Shape sphere = new Sphere(new Vector(a.position), STICK_WIDTH);
+				addShape(sphere, c);
+				shapes.add(sphere);
 				for(Atom neighbor : a.bondsTo) {
 					if(!renderH && neighbor.type == Atom.Type.H) {
 						continue;
 					}
-					Shape sphere = new Sphere(new Vector(a.position), STICK_WIDTH);
-					scene.addShape(sphere, c);
-					shapes.add(sphere);
+					if(renderBackboneOnly &&
+							!AminoAcid.backBoneAtomNames.contains(neighbor.name)) {
+						continue;
+					}
 					Vector midway = new Vector(
 							(a.position.x()+neighbor.position.x()) / 2,
 							(a.position.y()+neighbor.position.y()) / 2,
@@ -131,7 +145,7 @@ public class Renderer extends J3DScene implements KeyListener {
 							new Vector(a.position),
 							new Vector(midway),
 							STICK_WIDTH);
-					scene.addShape(cylinder, c);
+					addShape(cylinder, c);
 					shapes.add(cylinder);
 				}
 				break;
@@ -142,16 +156,29 @@ public class Renderer extends J3DScene implements KeyListener {
 	public Canvas3D getCanvas() {
 		Canvas3D c3d = super.getCanvas();
 		c3d.addKeyListener(this);
+		System.out.println("listener aded");
 		return c3d;
 	}
 	
+	/**
+	 * M: toggles render mode
+	 * H: toggles hydrogen
+	 * S: toggles sidechains
+	 */
 	public void keyPressed(KeyEvent e) {
+		System.out.println("!!!");
 		if(e.getKeyCode()==KeyEvent.VK_M) {
 			if(renderMode == RenderMode.SPHERES) {
 				renderMode = RenderMode.STICKS;
 			} else {
 				renderMode = RenderMode.SPHERES;
 			}
+			rerender();
+		} else if(e.getKeyCode() == KeyEvent.VK_H) {
+			renderH = !renderH;
+			rerender();
+		} else if(e.getKeyCode() == KeyEvent.VK_S) {
+			renderBackboneOnly = !renderBackboneOnly;
 			rerender();
 		}
 	}

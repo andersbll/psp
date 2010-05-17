@@ -1,4 +1,4 @@
-package edu.allatom.statistics;
+package edu.allatom;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;

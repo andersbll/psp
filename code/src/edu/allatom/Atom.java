@@ -1,9 +1,9 @@
-package edu.allatom.statistics;
+package edu.allatom;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.allatom.statistics.AminoAcid.Type;
+import edu.allatom.AminoAcid.Type;
 import edu.math.Point;
 
 

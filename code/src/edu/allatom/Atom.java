@@ -22,7 +22,13 @@ public class Atom {
 		this.name = name;
 		this.position = position;
 	}
-	
+
+	public Atom(Atom a) {
+		this.type = a.type;
+		this.name = a.name;
+		this.position = new Point(a.position);
+	}
+
 	public String toString() {
 		String s = name;
 		return s;

@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.math.Matrix;
 import edu.math.Point;
+import edu.math.TransformationMatrix3D;
+import edu.math.Vector;
 
 
 public class PDBParser {
@@ -86,19 +89,31 @@ public class PDBParser {
 			e.printStackTrace();
 			return;
 		}
-		Renderer renderer = new Renderer();
-//		Bonder.printAtomBonds(p);
 		Bonder.bondAtoms(p);
-		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
-			aa.calculatePsi();
-			aa.calculatePhi();
-			System.out.println("");
-		}
-//		renderer.render(p.aaSeq.get(4));
-//		renderer.render(p.aaSeq.get(5));
-//		renderer.render(p.aaSeq.get(6));
+
+		Renderer renderer = new Renderer();
 		renderer.render(p);
-		//		renderer.render(p);
+
+//		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
+//			aa.calculatePsi();
+//			aa.calculatePhi();
+//			System.out.println("");
+//		}
+		
+		CAlphaTrace trace = new CAlphaTrace(p);
+		
+		Vector v = new Vector(3.1, 2.2, 1.3);
+		Matrix m1 = TransformationMatrix3D.createTranslation(v);
+		Matrix m2 = TransformationMatrix3D.createRotation((float) Math.PI, v.normIn());
+		Matrix m = m1.applyTo(m2);
+		p.transformProtein(m);
+		
+		Bender.bendProteinBackbone(p, trace);
+
+//		m = TransformationMatrix3D.createTranslation(new Vector(5, 0.1, 0.1));
+//		p.transformProtein(m);
+
+		renderer.addAndRender(p);
 	}
 	
 }

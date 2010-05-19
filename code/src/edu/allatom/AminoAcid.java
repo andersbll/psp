@@ -32,6 +32,10 @@ public class AminoAcid {
 		allatoms = new TreeMap<String, Atom>();
 	}
 
+	public Atom getAtom(String atomName) {
+		return allatoms.get(atomName);
+	}
+	
 	public AminoAcid(Type type, List<Atom> atoms) {
 		this.type = type;
 		allatoms = new HashMap<String, Atom>();

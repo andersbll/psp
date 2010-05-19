@@ -11,7 +11,7 @@ public class CAlphaTrace {
 		cAlphaAtoms = new LinkedList<CAlpha>();
 		CAlpha caOld = null;
 		for(AminoAcid aa : p.aaSeq) {
-			CAlpha ca = new CAlpha(aa.allatoms.get("C"));
+			CAlpha ca = new CAlpha(new Atom(aa.allatoms.get("CA")));
 			if(caOld != null) {
 				caOld.setNext(ca);
 				ca.setPrev(caOld);
@@ -29,8 +29,8 @@ public class CAlphaTrace {
 		public CAlpha(Atom c){
 			this.c = c;
 		}
-		public CAlpha(Atom c, CAlpha next, CAlpha prev){
-			this.c = c;
+		public CAlpha(Atom a, CAlpha next, CAlpha prev){
+			this.c = a;
 			this.prev = prev;
 			this.next = next;
 		}

@@ -71,6 +71,18 @@ public class Renderer extends J3DScene implements KeyListener {
 		}
 		redraw();
 	}
+	public void addAndRender(Protein p) {
+		List<AminoAcid> aaSeq = p.aaSeq;
+		for(AminoAcid aa : aaSeq) {
+			if(bondColor == bondColor1) {
+				bondColor = bondColor2;
+			} else {
+				bondColor = bondColor1;			
+			}
+			renderAminoAcid(aa);
+		}
+		redraw();
+	}
 	
 	public void render(AminoAcid aa) {		
 		if(bondColor == bondColor1) {

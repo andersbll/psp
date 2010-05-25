@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.math.Matrix;
-import edu.math.Point;
+import edu.math.Vector;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
@@ -65,15 +65,15 @@ public class PDBParser {
 		return s.substring(17, 20).trim();
 	}
 	
-	private static Point getPosition(String s) {
+	private static Vector getPosition(String s) {
 		float x = Float.parseFloat(s.substring(31, 38));
 		float y = Float.parseFloat(s.substring(39, 46));
 		float z = Float.parseFloat(s.substring(47, 54));
-		return new Point(x,y,z);
+		return new Vector(x,y,z);
 	}
 	
 	public static Atom parseAtom(String atomLine) {
-		Point position = getPosition(atomLine);
+		Vector position = getPosition(atomLine);
 		String typeString = atomLine.substring(77, 78).trim();
 		String name = atomLine.substring(13, 16).trim();
 		Atom.Type type = Atom.Type.fromName(typeString);
@@ -92,7 +92,7 @@ public class PDBParser {
 		Bonder.bondAtoms(p);
 
 		Renderer renderer = new Renderer();
-		renderer.render(p);
+//		renderer.render(p);
 
 //		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
 //			aa.calculatePsi();
@@ -100,7 +100,8 @@ public class PDBParser {
 //			System.out.println("");
 //		}
 		
-		CAlphaTrace trace = new CAlphaTrace(p);
+		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+		renderer.addToScene(trace);
 		
 		Vector v = new Vector(3.1, 2.2, 1.3);
 		Matrix m1 = TransformationMatrix3D.createTranslation(v);
@@ -113,7 +114,8 @@ public class PDBParser {
 //		m = TransformationMatrix3D.createTranslation(new Vector(5, 0.1, 0.1));
 //		p.transformProtein(m);
 
-		renderer.addAndRender(p);
+		renderer.addToScene(p);
+		renderer.render();
 	}
 	
 }

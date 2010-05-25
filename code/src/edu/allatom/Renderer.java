@@ -166,7 +166,6 @@ public class Renderer extends J3DScene implements KeyListener {
 	 * S: toggles sidechains
 	 */
 	public void keyPressed(KeyEvent e) {
-		System.out.println("!!!");
 		if(e.getKeyCode()==KeyEvent.VK_M) {
 			if(renderMode == RenderMode.SPHERES) {
 				renderMode = RenderMode.STICKS;

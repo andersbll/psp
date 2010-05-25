@@ -1,6 +1,7 @@
 package edu.allatom;
 
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +15,7 @@ import edu.math.Vector;
 
 public class Bender {
 	
-	public static void bendProteinBackbone(Protein p, LinkedList<Atom>  trace) {
+	public static void bendProteinBackbone(Protein p, LinkedList<Atom>  trace, Renderer renderer) {
 		ListIterator<AminoAcid> aaIterator = p.aaSeq.listIterator();
 		ListIterator<Atom> traceIterator = trace.listIterator();
 		
@@ -39,26 +40,28 @@ public class Bender {
 		p.transformProtein(m);
 				
 		while(true) {
-			System.out.println("hej");
 			aa = aaIterator.next();
+			traceCA = traceIterator.next();
 			if(!(aaIterator.hasNext() || aaIterator.hasNext())) {
 				break;
 			}
 			aaNext = aaIterator.next();
-			aaIterator.previous();
 			traceCANext = traceIterator.next();
+			aaIterator.previous();
+			traceIterator.previous();
 			
 			ca = aa.getAtom("CA");
 			Atom c = aa.getAtom("C");
 			Atom n = aa.getAtom("N");
 			caNext = aaNext.getAtom("CA");
-			for(int i=0;i<1;i++) {
+			for(int i=0;i<1000;i++) {
 				Line phiRotationAxis = new Line(ca.position, atomDistance(n, ca));
 				Vector v1 = phiRotationAxis.projection(caNext.position);
 				Vector v2 = phiRotationAxis.projection(traceCANext.position);
 				Vector v = v1.plus(v2).times(.5f);
-				
-				float phiAngleDiff = v.vectorTo(v1).angleFull(v.vectorTo(v2), atomDistance(n, ca));
+				float angleDiff = 0.04f;
+				float phiAngleDiff = 0.05f*v.vectorTo(traceCANext.position).angleFull(v.vectorTo(caNext.position), atomDistance(n, ca));
+				phiAngleDiff = Math.signum(phiAngleDiff)*angleDiff;
 				m = TransformationMatrix3D.createRotation(phiRotationAxis, phiAngleDiff);
 				p.transformProtein(m,aaIterator.nextIndex()-1,RotationType.PHI);
 				
@@ -67,13 +70,17 @@ public class Bender {
 				v2 = psiRotationAxis.projection(traceCANext.position);
 				v = v1.plus(v2).times(.5f);
 				
-				float psiAngleDiff = v.vectorTo(v1).angleFull(v.vectorTo(v2), atomDistance(ca, c));
-				System.out.println(v.vectorTo(v2));
-				System.out.println(psiAngleDiff+" "+v.vectorTo(v1)+" "+v.vectorTo(v2)+"\n");
+				float psiAngleDiff = 0.05f*v.vectorTo(traceCANext.position).angleFull(v.vectorTo(caNext.position), atomDistance(ca, c));
+				psiAngleDiff = Math.signum(psiAngleDiff)*0.03f;
 				m = TransformationMatrix3D.createRotation(psiRotationAxis, psiAngleDiff);
 				p.transformProtein(m,aaIterator.nextIndex()-1,RotationType.PSI);
+//				renderer.addToScene(caNext.position,.4f,Color.YELLOW);
+//				renderer.addToScene(v1,.4f,Color.PINK);
+//				renderer.addToScene(v2,.4f,Color.CYAN);
+//				renderer.addToScene(v,.4f,Color.MAGENTA);
+				System.out.println("phiAngleDiff: "+phiAngleDiff);
+				System.out.println("psiAngleDiff: "+psiAngleDiff);
 			}
-			break;
 		}
 	}
 	

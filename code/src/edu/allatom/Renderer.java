@@ -23,6 +23,14 @@ public class Renderer extends J3DScene implements KeyListener {
 		SPHERES,
 		STICKS,
 	}
+	private class ShapeStuff {
+		Shape shape;
+		Color c;
+		public ShapeStuff(Shape shape, Color c) {
+			this.shape = shape;
+			this.c = c;
+		}
+	}
 	private RenderMode renderMode = RenderMode.STICKS;
 	private static boolean renderH = true;
 	private static boolean renderBackboneOnly = true;
@@ -38,6 +46,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	// last rendered protein
 	List<Protein> proteins;
 	List<LinkedList<Atom>> calphatraces;
+	List<ShapeStuff> otherShapes;
 
 	// list of all shapes added to the scene
 	List<Shape> shapes = new LinkedList<Shape>();
@@ -51,6 +60,7 @@ public class Renderer extends J3DScene implements KeyListener {
 		super();
 		proteins = new ArrayList<Protein>();
 		calphatraces = new ArrayList<LinkedList<Atom>>();
+		otherShapes = new ArrayList<ShapeStuff>();
 		J3DScene.createJ3DSceneInFrame(this);
 		setAxisEnabled(true);
 	}
@@ -71,12 +81,25 @@ public class Renderer extends J3DScene implements KeyListener {
 		for(LinkedList<Atom> c : calphatraces) {
 			render(c);
 		}
+		for(ShapeStuff s : otherShapes) {
+			addShape(s.shape, s.c);
+		}
 		redraw();
 	}
 
 	public void addToScene(Protein p) {
 		proteins.add(p);
 	}
+
+	public void addToScene(Vector pos, float size, Color color) {
+		ShapeStuff s = new ShapeStuff(new Sphere(pos, size), color);
+		otherShapes.add(s);
+	}
+	public void addToScene(Vector startPos, Vector endPos, float width, Color color) {
+		ShapeStuff s = new ShapeStuff(new Cylinder(startPos, endPos, width), color);
+		otherShapes.add(s);
+	}
+
 	public void addToScene(LinkedList<Atom> c) {
 		calphatraces.add(c);
 	}
@@ -233,7 +256,6 @@ public class Renderer extends J3DScene implements KeyListener {
 	public Canvas3D getCanvas() {
 		Canvas3D c3d = super.getCanvas();
 		c3d.addKeyListener(this);
-		System.out.println("listener aded");
 		return c3d;
 	}
 	
@@ -243,7 +265,6 @@ public class Renderer extends J3DScene implements KeyListener {
 	 * S: toggles sidechains
 	 */
 	public void keyPressed(KeyEvent e) {
-		System.out.println("!!!");
 		if(e.getKeyCode()==KeyEvent.VK_M) {
 			if(renderMode == RenderMode.SPHERES) {
 				renderMode = RenderMode.STICKS;
@@ -265,4 +286,5 @@ public class Renderer extends J3DScene implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
+	
 }

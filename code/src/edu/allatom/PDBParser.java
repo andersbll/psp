@@ -83,8 +83,8 @@ public class PDBParser {
 	public static void main(String[] args) {
 		Protein p;
 		try {
-			p = parseFile("pdb/1UAO.pdb");
-//			p = parseFile("pdb/2JOF.pdb");
+//			p = parseFile("pdb/1UAO.pdb");
+			p = parseFile("pdb/2JOF.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();
 			return;
@@ -109,7 +109,7 @@ public class PDBParser {
 		Matrix m = m1.applyTo(m2);
 		p.transformProtein(m);
 		
-		Bender.bendProteinBackbone(p, trace);
+		Bender.bendProteinBackbone(p, trace, renderer);
 
 //		m = TransformationMatrix3D.createTranslation(new Vector(5, 0.1, 0.1));
 //		p.transformProtein(m);

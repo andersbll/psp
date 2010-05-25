@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.math.Point;
+import edu.math.Matrix;
+import edu.math.Vector;
+import edu.math.TransformationMatrix3D;
+import edu.math.Vector;
 
 
 public class PDBParser {
@@ -62,15 +65,15 @@ public class PDBParser {
 		return s.substring(17, 20).trim();
 	}
 	
-	private static Point getPosition(String s) {
+	private static Vector getPosition(String s) {
 		float x = Float.parseFloat(s.substring(31, 38));
 		float y = Float.parseFloat(s.substring(39, 46));
 		float z = Float.parseFloat(s.substring(47, 54));
-		return new Point(x,y,z);
+		return new Vector(x,y,z);
 	}
 	
 	public static Atom parseAtom(String atomLine) {
-		Point position = getPosition(atomLine);
+		Vector position = getPosition(atomLine);
 		String typeString = atomLine.substring(77, 78).trim();
 		String name = atomLine.substring(13, 16).trim();
 		Atom.Type type = Atom.Type.fromName(typeString);
@@ -86,19 +89,33 @@ public class PDBParser {
 			e.printStackTrace();
 			return;
 		}
-		Renderer renderer = new Renderer();
-//		Bonder.printAtomBonds(p);
 		Bonder.bondAtoms(p);
-		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
-			aa.calculatePsi();
-			aa.calculatePhi();
-			System.out.println("");
-		}
-//		renderer.render(p.aaSeq.get(4));
-//		renderer.render(p.aaSeq.get(5));
-//		renderer.render(p.aaSeq.get(6));
-		renderer.render(p);
-		//		renderer.render(p);
+
+		Renderer renderer = new Renderer();
+//		renderer.render(p);
+
+//		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
+//			aa.calculatePsi();
+//			aa.calculatePhi();
+//			System.out.println("");
+//		}
+		
+		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+		renderer.addToScene(trace);
+		
+		Vector v = new Vector(3.1, 2.2, 1.3);
+		Matrix m1 = TransformationMatrix3D.createTranslation(v);
+		Matrix m2 = TransformationMatrix3D.createRotation((float) Math.PI, v.normIn());
+		Matrix m = m1.applyTo(m2);
+		p.transformProtein(m);
+		
+		Bender.bendProteinBackbone(p, trace);
+
+//		m = TransformationMatrix3D.createTranslation(new Vector(5, 0.1, 0.1));
+//		p.transformProtein(m);
+
+		renderer.addToScene(p);
+		renderer.render();
 	}
 	
 }

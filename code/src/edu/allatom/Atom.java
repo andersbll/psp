@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.allatom.AminoAcid.Type;
-import edu.math.Point;
+import edu.math.Vector;
 
 
 public class Atom {
@@ -13,16 +13,22 @@ public class Atom {
 
 	public final Type type;
 	public final String name;
-	public Point position;
+	public Vector position;
 	public List<Atom> bondsTo = new LinkedList<Atom>();
 
 
-	public Atom(Type type, String name, Point position) {
+	public Atom(Type type, String name, Vector position) {
 		this.type = type;
 		this.name = name;
 		this.position = position;
 	}
-	
+
+	public Atom(Atom a) {
+		this.type = a.type;
+		this.name = a.name;
+		this.position = new Vector(a.position);
+	}
+
 	public String toString() {
 		String s = name;
 		return s;

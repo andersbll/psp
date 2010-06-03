@@ -82,8 +82,9 @@ public class Protein {
 			double dx = cA.position.x() - cAT.position.x();
 			double dy = cA.position.y() - cAT.position.y();
 			double dz = cA.position.z() - cAT.position.z();
-			d += Math.sqrt(dx*dx + dy*dy + dz*dz);
+			d += dx*dx + dy*dy + dz*dz;
 		}
+		d = Math.sqrt(d);
 		d /= aaSeq.size();
 		return d;
 	}

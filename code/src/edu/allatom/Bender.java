@@ -38,54 +38,121 @@ public class Bender {
 		float angle = -atomAngle(traceCA, traceCANext, caNext);
 		m = TransformationMatrix3D.createRotation(traceCA.position, normal, angle);
 		p.transformProtein(m);
-				
+		
+
 		while(true) {
+			aaIterator.previous();
+			AminoAcid aaPrev = aaIterator.next();
 			aa = aaIterator.next();
 			traceCA = traceIterator.next();
-			if(!(aaIterator.hasNext() || aaIterator.hasNext())) {
+			if (!(aaIterator.hasNext() || aaIterator.hasNext())) {
 				break;
 			}
 			aaNext = aaIterator.next();
 			traceCANext = traceIterator.next();
 			aaIterator.previous();
 			traceIterator.previous();
-			
+
 			ca = aa.getAtom("CA");
 			Atom c = aa.getAtom("C");
 			Atom n = aa.getAtom("N");
 			caNext = aaNext.getAtom("CA");
-			for(int i=100;i>0;i--) {
+			Atom nNext = aaNext.getAtom("N");
+			Atom cPrev = aaPrev.getAtom("C");
+			float bestPhi = 0.0f;
+			float bestPsi = 0.0f;
+			float bestDistance = Float.MAX_VALUE;
+
+			for (int iter = 0; iter < 20	; iter++) {
+				// scramble
+				Line psiRotationAxiss = new Line(ca.position,
+						atomDistance(ca, c));
+				m = TransformationMatrix3D.createRotation(psiRotationAxiss,
+						(float) (Math.random() * Math.PI * 4));
+				p.transformProtein(m, aaIterator.nextIndex() - 1,
+						RotationType.PSI);
+				Line phiRotationAxiss = new Line(ca.position,
+						atomDistance(n, ca));
+				m = TransformationMatrix3D.createRotation(phiRotationAxiss,
+						(float) (Math.random() * Math.PI * 4));
+				p.transformProtein(m, aaIterator.nextIndex() - 1,
+						RotationType.PHI);
+
 				Line phiRotationAxis = new Line(ca.position, atomDistance(n, ca));
 				Vector v1 = phiRotationAxis.projection(caNext.position);
 				Vector v2 = phiRotationAxis.projection(traceCANext.position);
 				Vector v = v1.plus(v2).times(.5f);
-				float phiAngleDiff = i/50.0f*v.vectorTo(traceCANext.position).angleFull(v.vectorTo(caNext.position), atomDistance(n, ca));
-//				phiAngleDiff = Math.signum(phiAngleDiff)*0.03f;
-				m = TransformationMatrix3D.createRotation(phiRotationAxis, phiAngleDiff);
-				p.transformProtein(m,aaIterator.nextIndex()-1,RotationType.PHI);
-				
+				float phiAngleDiff = v.vectorTo(traceCANext.position)
+						.angleFull(v.vectorTo(caNext.position),
+								atomDistance(n, ca));
+				m = TransformationMatrix3D.createRotation(phiRotationAxis,
+						phiAngleDiff);
+				p.transformProtein(m, aaIterator.nextIndex() - 1,
+						RotationType.PHI);
+
 				Line psiRotationAxis = new Line(ca.position, atomDistance(ca, c));
 				v1 = psiRotationAxis.projection(caNext.position);
 				v2 = psiRotationAxis.projection(traceCANext.position);
 				v = v1.plus(v2).times(.5f);
-				
-				float psiAngleDiff = i/50.0f*v.vectorTo(traceCANext.position).angleFull(v.vectorTo(caNext.position), atomDistance(ca, c));
-//				psiAngleDiff = Math.signum(psiAngleDiff)*0.03f;
-				m = TransformationMatrix3D.createRotation(psiRotationAxis, psiAngleDiff);
-				p.transformProtein(m,aaIterator.nextIndex()-1,RotationType.PSI);
-//				renderer.addToScene(caNext.position,.4f,Color.YELLOW);
-//				renderer.addToScene(v1,.4f,Color.PINK);
-//				renderer.addToScene(v2,.4f,Color.CYAN);
-//				renderer.addToScene(v,.4f,Color.MAGENTA);
-				System.out.println("phiAngleDiff: "+phiAngleDiff);
-				System.out.println("psiAngleDiff: "+psiAngleDiff);
+				float psiAngleDiff = v.vectorTo(traceCANext.position)
+						.angleFull(v.vectorTo(caNext.position),
+								atomDistance(ca, c));
+				m = TransformationMatrix3D.createRotation(psiRotationAxis,
+						psiAngleDiff);
+				p.transformProtein(m, aaIterator.nextIndex() - 1,
+						RotationType.PSI);
+
+
+				float distance = atomDistance(caNext, traceCANext).length();
+				System.out.println("distance candidate:" + distance);
+				if (distance < bestDistance) {
+					bestPhi = Vector.dihedralAngle(atomDistance(cPrev, n),
+							atomDistance(n, ca), atomDistance(ca, c));
+					bestPsi = Vector.dihedralAngle(atomDistance(n, ca),
+							atomDistance(ca, c), atomDistance(c, nNext));
+					bestDistance = distance;
+				}
 			}
-			System.out.println("\nHURRA\n");
+
+			
+//			 renderer.addToScene(ca.position, .4f, Color.YELLOW);
+//			 renderer.addToScene(caNext.position, .4f, Color.MAGENTA);
+//			 renderer.addToScene(c.position, .4f, Color.ORANGE);
+
+			
+			Line psiRotationAxiss = new Line(ca.position,
+					atomDistance(ca, c));
+			m = TransformationMatrix3D.createRotation(psiRotationAxiss,
+					(float) (Math.random() * Math.PI * 4));
+			p.transformProtein(m, aaIterator.nextIndex() - 1,
+					RotationType.PSI);
+			Line phiRotationAxiss = new Line(ca.position,
+					atomDistance(n, ca));
+			m = TransformationMatrix3D.createRotation(phiRotationAxiss,
+					(float) (Math.random() * Math.PI * 4));
+			p.transformProtein(m, aaIterator.nextIndex() - 1,
+					RotationType.PHI);
+
+			
+			float phiDiff = bestPhi - Vector.dihedralAngle(atomDistance(cPrev, n),
+					atomDistance(n, ca), atomDistance(ca, c));
+			Line phiRotationAxis = new Line(ca.position, atomDistance(n, ca));
+			m = TransformationMatrix3D.createRotation(phiRotationAxis, phiDiff);
+			p.transformProtein(m, aaIterator.nextIndex() - 1, RotationType.PHI);
+
+			float psiDiff = bestPsi - Vector.dihedralAngle(atomDistance(n, ca),
+					atomDistance(ca, c), atomDistance(c, nNext));
+			Line psiRotationAxis = new Line(ca.position, atomDistance(ca, c));
+			m = TransformationMatrix3D.createRotation(psiRotationAxis,
+					psiDiff);
+			p.transformProtein(m, aaIterator.nextIndex() - 1, RotationType.PSI);
+			float distance = atomDistance(caNext, traceCANext).length();
+			System.out.println("new distance:" + distance+"/"+bestDistance);
+
+//			break;
 		}
-		
-		System.out.println("Bending done. RMSD: " + p.cATraceRMSD(trace));
 	}
-	
+
 
 	private static float atomAngle(Atom a0, Atom a1, Atom a2) {
 		Vector v0 = atomDistance(a0, a1);

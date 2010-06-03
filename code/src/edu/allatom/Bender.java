@@ -82,6 +82,8 @@ public class Bender {
 			}
 			System.out.println("\nHURRA\n");
 		}
+		
+		System.out.println("Bending done. RMSD: " + p.cATraceRMSD(trace));
 	}
 	
 

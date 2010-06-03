@@ -82,6 +82,8 @@ public class Bender {
 				System.out.println("psiAngleDiff: "+psiAngleDiff);
 			}
 		}
+		
+		System.out.println("Bending done. RMSD: " + p.cATraceRMSD(trace));
 	}
 	
 

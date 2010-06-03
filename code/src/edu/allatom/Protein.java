@@ -1,6 +1,7 @@
 package edu.allatom;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import edu.math.Matrix;
@@ -72,6 +73,19 @@ public class Protein {
 			i++;
 		}
 	}
-
+	
+	public double cATraceRMSD(LinkedList<Atom> trace) {
+		double d = 0;
+		for(int i=0; i<aaSeq.size(); i++) {
+			Atom cA = aaSeq.get(i).getAtom("CA");
+			Atom cAT = trace.get(i);
+			double dx = cA.position.x() - cAT.position.x();
+			double dy = cA.position.y() - cAT.position.y();
+			double dz = cA.position.z() - cAT.position.z();
+			d += Math.sqrt(dx*dx + dy*dy + dz*dz);
+		}
+		d /= aaSeq.size();
+		return d;
+	}
 	
 }

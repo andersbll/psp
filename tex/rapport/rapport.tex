@@ -14,6 +14,9 @@
 \usepackage[british]{isodate}
 %\usepackage{morefloats}
 \usepackage[style=alphabetic,natbib=true]{biblatex}
+\usepackage{amsmath}
+\usepackage[sc]{mathpazo}
+\usepackage{MnSymbol}
 
 %\bibliographystyle{apalike}
 \bibliography{../bibliography}
@@ -45,7 +48,6 @@
 \usepackage{bera}
 %\renewcommand{\ttdefault}{cmtt}    % alternative monospace font
 %\renewcommand{\rmdefault}{ugm}
-\usepackage[sc]{mathpazo}
 %\usepackage{euler}                % weirdo math
 %PAGE DIMENSIONS
 
@@ -151,7 +153,7 @@
 
 %PROGRAM CODE WITH HIGLIGHTING AND SHAZZ!
 %\usepackage{listings}
-\usepackage{amsmath}
+
 
 
 %DOCUMENT INFO
@@ -170,6 +172,7 @@
 \newcommand{\subimgwidth}{.48\textwidth}
 \newcommand{\imgwidth}{.85\textwidth}
 \renewcommand\vec[1]{\boldsymbol{#1}}
+\newcommand{\rotateAround}[1]{\lcirclearrowright \hspace{-3mm}\colorbox{white}{}{} \hspace{-1.7mm} _{\scriptscriptstyle #1}}
 \setcounter{secnumdepth}{0}
 \setcounter{chapter}{0}
 %\renewcommand\thesection{\arabic{section}}
@@ -181,13 +184,14 @@
   \begin{@twocolumnfalse}
     \maketitle
 \begin{abstract}
-  When predicting the structure of proteins, it is common to simplify the
-  problem by only considering few of the protein molecules. 
-In particular, the algorithms group at our department only predicts a  folding of a $C_\alpha$-trace, thus not including many backbone atoms and all side-chain molecules.
-
-  We have developed a method for predicting the full structure of
-  proteins, when given a promising structure of its $C_\alpha$
-  atoms (a \textit{$C_\alpha$-trace}).
+  When predicting the structure of proteins, it is common simplify the
+  problem by using a model that just includes a few of the protein
+  molecules. In particular, the algorithms group at our department
+  only predicts a folding of the $C_\alpha$-trace, thus not including
+  most backbone atoms and all side-chain molecules. In this report we
+  will investigate a strategy for predicting the structure of a
+  protein including all its atoms (an all-atom model), using an
+  already folded $C_\alpha$-trace as target.
   \vspace{0.5cm}
 \end{abstract}
   \end{@twocolumnfalse}
@@ -196,8 +200,15 @@ In particular, the algorithms group at our department only predicts a  folding o
 \tableofcontents
 
 \chapter{Introduction}
-Predicting the structure of proteins given only their amino acid
-sequence %\fixme{... bla bla, forklar hvorfor psp er interessant.}
+Proteins is perhaps the most important building block of living
+organisms. They a multitude of tasks and is found in all lifeforms,
+from bacteria and unicellular organisms to multicellular organisms
+such as animals. The structure of proteins determine their function. When looking at the large amount of functions
+performed by proteins it should be clear, that understanding how their
+structure is determined is an important research field.
+
+% \fixme{noget med designer drugs, m.m. og hvorfor vi er interesserede
+%   i at forudsige den tertiære struktur}
 
 The algorithms group at our department have implemented a protein
 structure prediction algorithm based solely on the $C_\alpha$ atoms of
@@ -235,11 +246,27 @@ biochemistry that is beyond the scope of this project.  Therefore, we
 limit ourselves to minimize the number of clashes as well as the
 deviation from the provided $C_\alpha$-trace.
 
+\section{Protein Structure Prediction}
+Ab initio vs. denovo
+Rotamers
+RMSD
+
+
 \section{Related Work}
 
 
-\section{}
+\chapter{All-atom Backbone}
 
+$||N - C|| \rotateAround{180^\circ} \rotateAround{90^\circ} \rotateAround{v}$
+
+
+\section{Inverse kinematics}
+
+\chapter{Handling Side-chains}
+
+
+
+\chapter{Evaluation}
 
 \chapter{Conclusion}
 

@@ -1,8 +1,8 @@
-\documentclass[10pt,a4paper,final,oneside,openany,article, twocolumn]{memoir}
+\documentclass[10pt,a4paper,final,oneside,openany,article,twocolumn]{memoir}
 % [12pt, 11pt, landscape, titlepage, a4paper, draft, twoside, oneside, 
 %  openleft, openright, openany]
 
-\chapterstyle{article}
+%\chapterstyle{article}
 
 %BASIC PACKAGES
 \usepackage{eso-pic,fix-cm,ae,aecompl,ifthen}         
@@ -45,7 +45,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{palatino}              % font : garamond
 \linespread{1.05}                  % Palatino needs more leading (space between lines)
-\usepackage{bera}
+\usepackage{beramono}
 %\renewcommand{\ttdefault}{cmtt}    % alternative monospace font
 %\renewcommand{\rmdefault}{ugm}
 %\usepackage{euler}                % weirdo math
@@ -127,8 +127,8 @@
 %\def\thesubsection{\thesection.\arabic{subsection}}
 %\def\thesubsubsection{\alph{subsubsection}.}
 % \alph \roman \arabin
-%\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{1}
 
 
 % USER DEFINED COMMANDS AND ENVIRONMENTS
@@ -163,7 +163,7 @@
 \author{
 	Martin Dybdal -- \texttt{dybber@dybber.dk}\\
 	Anders Boesen Lindbo Larsen -- \texttt{abll@diku.dk} \\
-    Esben Skaarup -- \texttt{sben@sben.dk}
+	Esben Skaarup -- \texttt{sben@sben.dk}
 }
 
 %\datebritish
@@ -172,6 +172,7 @@
 \newcommand{\subimgwidth}{.48\textwidth}
 \newcommand{\imgwidth}{.85\textwidth}
 \renewcommand\vec[1]{\boldsymbol{#1}}
+\newcommand{\Ca}{C$_\alpha$}
 \newcommand{\rotateAround}[1]{\lcirclearrowright \hspace{-3mm}\colorbox{white}{}{} \hspace{-1.7mm} _{\scriptscriptstyle #1}}
 \setcounter{secnumdepth}{0}
 \setcounter{chapter}{0}
@@ -276,7 +277,7 @@ information of proteins with known native structure. This is called as
 \textit{comparative modelling}. Another approach, known as \textit{ab
   initio} or \textit{de novo}, starts ``from scratch'' in the sense,
 that no information apart from the chemical interactions between atoms
-are used. This is the approach take by the algorithms group at our
+are used. This is the approach taken by the algorithms group at our
 department.
 
 % Rotamers
@@ -303,13 +304,27 @@ as target in our fitting of the all-atom model. The fitting should be
 conducted, such that it minimizes the number of clashes and at the
 same time minimizes the deviation from the target $C_\alpha$-trace.
 
+Our fitting problem can be considered as two somewhat separate problems.
+First, the backbone must be fitted to the \Ca-trace. 
+Hereafter, the amino acid residues are added to the backbone changing the backbone conformation only if necessary.
+In the following we have chosen to consider these two tasks separately even though the residue handling will cause changes in the backbone.
 
+In Section \ref{sec:fitting_backbone}, we try to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
+In Section \ref{sec:handling_sidechains}, we try to add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.
+
+%By considering these tasks separately, we simplify our solution since ... \fixme{begrund hvorfor}
+%Fitting the backbone while taking side-chain placement into consideration 
 %%Her vil vi gå igennem vores overordnede strategi:
 
 
 \section{Related Work}
+Todo: snak om SCRWL, der tilføjer side-chains på en fastlåst backbone.
 
-\chapter{All-atom Backbone}
+\chapter{Fitting the all-atom backbone}
+\label{sec:fitting_backbone}
+The first step in our fitting algorithm is to fit the protein backbone to the given \Ca-trace.
+
+
 Her vil vi forklarer det første trin vi udfører: folder backbonen, med
 alle atomer hen til $C_\alpha$-tracet.
 
@@ -320,6 +335,7 @@ $||N - C|| \rotateAround{180^\circ} \rotateAround{90^\circ} \rotateAround{v}$
 Lidt om invers-kinematik.
 
 \chapter{Handling Side-chains}
+\label{sec:handling_sidechains}
 Hvordan vi tilføjer side-chains og derefter tilpasser hele kæden igen.
 
 \chapter{Evaluation}
@@ -328,9 +344,9 @@ evt. ukendte?)
 
 \chapter{Conclusion}
 
-\defbibheading{bibliography}[\bibname]{%
-  \chapter{#1}%
-  \markboth{#1}{#1}}
+%\defbibheading{bibliography}[\bibname]{%
+%  \chapter{#1}%
+%  \markboth{#1}{#1}}
 \printbibliography
 
 \end{document}

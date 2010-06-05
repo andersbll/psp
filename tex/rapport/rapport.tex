@@ -45,7 +45,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{palatino}              % font : garamond
 \linespread{1.05}                  % Palatino needs more leading (space between lines)
-\usepackage{bera}
+\usepackage{beramono}
 %\renewcommand{\ttdefault}{cmtt}    % alternative monospace font
 %\renewcommand{\rmdefault}{ugm}
 %\usepackage{euler}                % weirdo math
@@ -86,6 +86,8 @@
   \makeoddfoot{myheadingschapterpage}{}{}{\thepage}
 \aliaspagestyle{chapter}{myheadingschapterpage}
 \aliaspagestyle{title}{myheadingschapterpage}
+\makeevenhead{myheadings}{}{\scshape \thetitle}{}
+\makeoddhead{myheadings}{}{\footnotesize\scshape \thetitle}{}
 \makeevenfoot{myheadings}{}{}{\thepage}
 \makeoddfoot{myheadings}{}{}{\thepage}
 \pagestyle{myheadings}
@@ -127,8 +129,7 @@
 %\def\thesubsection{\thesection.\arabic{subsection}}
 %\def\thesubsubsection{\alph{subsubsection}.}
 % \alph \roman \arabin
-%\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{1}
 
 
 % USER DEFINED COMMANDS AND ENVIRONMENTS
@@ -173,9 +174,11 @@
 \newcommand{\imgwidth}{.85\textwidth}
 \renewcommand\vec[1]{\boldsymbol{#1}}
 \newcommand{\rotateAround}[1]{\lcirclearrowright \hspace{-3mm}\colorbox{white}{}{} \hspace{-1.7mm} _{\scriptscriptstyle #1}}
-\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{1}
 \setcounter{chapter}{0}
 %\renewcommand\thesection{\arabic{section}}
+\setsecheadstyle{\large\bfseries\raggedright}
+\setsubsecheadstyle{\bfseries}
 
 \twocoltocetc
 \setlength{\absleftindent}{1.5cm}
@@ -185,7 +188,7 @@
 \twocolumn[\maketitle
 \begin{onecolabstract}
   Protein structure prediction is often simplified by using a model
-  that includes only few of the atoms actually present in proteins. In
+  that only includes few of the atoms actually present in proteins. In
   particular, the algorithms group at our department only predicts a
   folding of the $C_\alpha$-trace, and are thus excluding most
   backbone atoms and all side-chain molecules.
@@ -219,7 +222,7 @@ prediction and the related topic protein folding\footnote{The two
   research fields are distinguished by whether the actual folding
   process is simulated (protein folding) or a legal structure is
   sought without computing the intermediate steps (protein structure
-  prediction).} is large an active research fields. It is still an
+  prediction).} are large an active research fields. It is still an
 open problem.
 
 \section{Protein structure}
@@ -229,25 +232,26 @@ The building blocks of proteins are amino acids\footnote{A detailed
 share a common structure. The type of amino acid is identified by an
 attached molecule called the side-chain. A protein consists of one or
 several unbranched chains (polymers) of amino acids. The order of
-amino acids in such a chain is the primary structure of the
-protein. For any given sequence of amino acids it is hypothesised
-(Anfinsens dogma, \cite{anfinsen73, soundararajan2010}) that there is
-a single unique and stable three-dimensional structure with minimum
-amount of free energy. This is known as the native structure of the
-protein and determining it computationally is the problem of protein
-structure prediction.
-
+amino acids in such a chain is the primary structure of the protein.
 In Figure \ref{fig:amino_connect} we have shown how a sequence of
 amino acids are connected. The carbon atom connecting the backbone
 with the side-chains is called the $C_\alpha$-atom.  The largest
 variability of the protein structure is found in the angles between
-the individual $C_\alpha$-atoms \cite{lotan04}, \textit{the torsion
-  angles}. The approach to structure prediction taken by the
-algorithms group at our department is thus to describe the protein
-structure solely by the $C_\alpha$-atoms of the protein
-backbone\fxnote{cite}. Such a sequence of $C_{\alpha}$ atoms is called a
-$C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}).
+the individual $C_\alpha$-atoms \cite{lotan04}. These angles are
+termed $\phi$ and $\psi$ in the literature, Figure \ref{NiceFigure}
+illustrates their definition.
 
+% The approach to structure prediction taken by the
+% algorithms group at our department is thus to describe the protein
+% structure solely by the $C_\alpha$-atoms of the protein
+% backbone\fxnote{cite}. Such a sequence of $C_{\alpha}$ atoms is called a
+% $C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}).
+
+\subsection{\small TODO}
+\begin{itemize}
+\item Rotamers
+\item Evt. Secondary structure: $\alpha$-helices, $\beta$-sheets (+strands) and loops/turns.
+\end{itemize}
 
 \begin{figure}
   \centering
@@ -264,24 +268,51 @@ $C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}).
 
 \section{Protein structure prediction}
 The chemical stability of a protein molecule is determined by the
-amount of free energy in its structure. The goal of protein structure
-prediction is to find the most plausible protein structure by
-minimizing the free energy. 
+amount of free energy in its structure. It is hypothesized
+(\textit{Anfinsens dogma} or the \textit{thermodynamic hypothesis},
+\cite{anfinsen73, soundararajan2010}) that all proteins has a unique
+stable conformation where the free energy is minimized. This
+conformation is known as the native structure of the
+protein. Determining it computationally is the problem of protein
+structure prediction. Thus, protein structure prediction is an energy
+minimization problem.
 
 % Why simplifications are necessary to make the problem
 % computationally feasible.
 
-One approach to protein structure prediction is to use statistical
-information of proteins with known native structure. This is called as
-\textit{comparative modelling}. Another approach, known as \textit{ab
-  initio} or \textit{de novo}, starts ``from scratch'' in the sense,
-that no information apart from the chemical interactions between atoms
-are used. This is the approach take by the algorithms group at our
-department.
+There are generally two approaches to protein structure prediction.
+\textit{Comparative modelling} uses information of template proteins
+with known native structure and similar amino acid sequences when
+performing the prediction. Another approach, known as \textit{ab
+  initio} or \textit{de novo} starts ``from scratch'', in the sense
+that no information from known structures is used, but instead the
+physical/chemical interactions between atoms forms the basis. This
+\textit{ab initio} strategy is the approach taken by the algorithms
+group at our department.
 
 % Rotamers
-% RMSD
 
+\subsection{Evaluating predictions}
+%http://cnx.org/content/m11608/latest/
+To determine the quality of prediction algorithms it is common \cite{}
+to compare predicted structures of a test proteins with the actual
+known structure of that protein. The known structure of such test
+proteins are obtained by other means (e.g. X-ray Crystallography).
+Thus a comparison measure between protein conformations are
+needed. The most widely used comparison measure is \textit{least root mean
+  square deviation}, lRMSD. RMSD is based on the distances between
+corresponding atoms in the two protein conformations under comparison.
+If $\vec{A}$ and $\vec{B}$ are two different conformations of the same protein,
+where $\vec{a}_i$ and $\vec{b}_i$ are the respective coordinates of atom $i$ in the two
+structures, RMSD can be computed by:
+\begin{equation}
+  \label{eq:rmsd}
+  D(\vec{A}, \vec{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\vec{a}_i - \vec{b}_i|^2}
+\end{equation}
+To compute lRMSD, the RMSD has to be minimized by rotation and
+translation of the two conformations. That is, to compute lRMSD, an
+\textit{optimal superpositioning} of the conformations is found and
+RMSD is computed.
 
 
 % Limitation: A realistic energy calculation will require an insight in biochemistry
@@ -308,6 +339,7 @@ same time minimizes the deviation from the target $C_\alpha$-trace.
 
 
 \section{Related Work}
+% SQWRL
 
 \chapter{All-atom Backbone}
 Her vil vi forklarer det første trin vi udfører: folder backbonen, med

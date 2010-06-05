@@ -172,7 +172,7 @@
 \newcommand{\subimgwidth}{.48\textwidth}
 \newcommand{\imgwidth}{.85\textwidth}
 \renewcommand\vec[1]{\boldsymbol{#1}}
-\newcommand{\Ca}{C$_\alpha$}
+\newcommand{\Ca}{C$_{\alpha}$}
 \newcommand{\rotateAround}[1]{\lcirclearrowright \hspace{-3mm}\colorbox{white}{}{} \hspace{-1.7mm} _{\scriptscriptstyle #1}}
 \setcounter{secnumdepth}{0}
 \setcounter{chapter}{0}
@@ -322,17 +322,10 @@ Todo: snak om SCRWL, der tilføjer side-chains på en fastlåst backbone.
 
 \chapter{Fitting the all-atom backbone}
 \label{sec:fitting_backbone}
-The first step in our fitting algorithm is to fit the protein backbone to the given \Ca-trace.
+\input{backbone_fitting}
 
 
-Her vil vi forklarer det første trin vi udfører: folder backbonen, med
-alle atomer hen til $C_\alpha$-tracet.
 
-$||N - C|| \rotateAround{180^\circ} \rotateAround{90^\circ} \rotateAround{v}$
-
-
-\section{Inverse kinematics}
-Lidt om invers-kinematik.
 
 \chapter{Handling Side-chains}
 \label{sec:handling_sidechains}

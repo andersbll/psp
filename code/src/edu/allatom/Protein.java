@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import edu.math.Line;
 import edu.math.Matrix;
+import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
 public class Protein {
@@ -89,4 +93,27 @@ public class Protein {
 		return d;
 	}
 	
+	public void rotate(float angle, int aaIndex, RotationType rotationType) {
+		AminoAcid aa = aaSeq.get(aaIndex);
+		Atom ca = aa.getAtom("CA");
+		
+		switch(rotationType) {
+		case PHI: {
+			Atom n = aa.getAtom("N");
+			Line rotationAxis = new Line(ca.position, n.vectorTo(ca));
+			Matrix rotation = TransformationMatrix3D.createRotation(
+					rotationAxis, angle);
+			transformProtein(rotation, aaIndex, RotationType.PHI);
+			break;
+		} case PSI: {
+			Atom c = aa.getAtom("C");
+			Line rotationAxis = new Line(ca.position, ca.vectorTo(c));
+			Matrix rotation = TransformationMatrix3D.createRotation(
+					rotationAxis, angle);
+			transformProtein(rotation, aaIndex, RotationType.PSI);
+			break;
+		} case OMEGA: {
+			throw new NotImplementedException();
+		}}
+	}
 }

@@ -56,5 +56,9 @@ public class Atom {
 			return null;
 		}
 	}
+	
+	public Vector vectorTo(Atom to) {
+		return position.vectorTo(to.position);
+	}
 
 }

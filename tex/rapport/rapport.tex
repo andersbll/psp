@@ -177,96 +177,154 @@
 \setcounter{chapter}{0}
 %\renewcommand\thesection{\arabic{section}}
 
-
+\twocoltocetc
+\setlength{\absleftindent}{1.5cm}
+\setlength{\absrightindent}{\absleftindent}
 			
 \begin{document}
-\twocolumn[
-  \begin{@twocolumnfalse}
-    \maketitle
-\begin{abstract}
-  When predicting the structure of proteins, it is common simplify the
-  problem by using a model that just includes a few of the protein
-  molecules. In particular, the algorithms group at our department
-  only predicts a folding of the $C_\alpha$-trace, thus not including
-  most backbone atoms and all side-chain molecules. In this report we
-  will investigate a strategy for predicting the structure of a
-  protein including all its atoms (an all-atom model), using an
-  already folded $C_\alpha$-trace as target.
-  \vspace{0.5cm}
-\end{abstract}
-  \end{@twocolumnfalse}
+\twocolumn[\maketitle
+\begin{onecolabstract}
+  Protein structure prediction is often simplified by using a model
+  that includes only few of the atoms actually present in proteins. In
+  particular, the algorithms group at our department only predicts a
+  folding of the $C_\alpha$-trace, and are thus excluding most
+  backbone atoms and all side-chain molecules.
+
+  In this report we will investigate a strategy for predicting the
+  native structure of proteins including all atoms (an all-atom
+  model). Our method uses an already folded $C_\alpha$-trace as target.
+  \vspace{1.5cm}
+\end{onecolabstract}
 ]
+\tableofcontents*
 
-\tableofcontents
+\newpage
 
+\ \\
+
+\hspace{0.5cm}\includegraphics[width=0.4\textwidth]{figures/forside.png}
+
+
+\newpage
 \chapter{Introduction}
-Proteins is perhaps the most important building block of living
-organisms. They a multitude of tasks and is found in all lifeforms,
-from bacteria and unicellular organisms to multicellular organisms
-such as animals. The structure of proteins determine their function. When looking at the large amount of functions
-performed by proteins it should be clear, that understanding how their
-structure is determined is an important research field.
-
-% \fixme{noget med designer drugs, m.m. og hvorfor vi er interesserede
-%   i at forudsige den tertiære struktur}
-
-The algorithms group at our department have implemented a protein
-structure prediction algorithm based solely on the $C_\alpha$ atoms of
-the protein backbone\cite{}. In an attempt to get their model closer
-to the actual structure of physical proteins, they needed a way to add
-the missing parts to the protein, to get an all-atom model.  Also,
-supplying an all-atom model is a requirement for participating in the
-CASP experiment\cite{caspwebsite}.
+Proteins is perhaps the most important molecules of living
+organisms. They perform a multitude of biological tasks and is found
+in all lifeforms, from bacteria and unicellular organisms to
+multicellular organisms such as animals. The chemical abilities and
+biological functions of proteins is determined by their
+three-dimensional structure. The ability to determine this structure
+without performing costly experiments will have many applications in
+medicine (e.g. drug design) and biotechnology. Protein structure
+prediction and the related topic protein folding\footnote{The two
+  research fields are distinguished by whether the actual folding
+  process is simulated (protein folding) or a legal structure is
+  sought without computing the intermediate steps (protein structure
+  prediction).} is large an active research fields. It is still an
+open problem.
 
 \section{Protein structure}
-The building stone of proteins are amino acids\footnote{A detailed
+The building blocks of proteins are amino acids\footnote{A detailed
   introduction to the structure of proteins is found in
-  \cite{branden}}. A protein consists of one or several chains
-(polymers) of amino acids. In Figure \ref{fig:amino_connect} we have
-shown how a sequence of amino acids is connected. The carbon atom
-connecting the backbone with the side-chains is called the $C_\alpha$
-atom. The largest variability of the protein structure is found in the
-angles between the individual $C_\alpha$ atoms \cite{lotan04},
-\textit{the torsion angles}. Thus, the approach taken by the
-algorithms group at our department is to describe the protein
-structure solely by the $C_\alpha$ atoms (see Figure
-\ref{fig:Calpha_backbone}), in the attempt to do protein structure
-prediction.	
+  \cite{branden}}. There are twenty different amino acids which all
+share a common structure. The type of amino acid is identified by an
+attached molecule called the side-chain. A protein consists of one or
+several unbranched chains (polymers) of amino acids. The order of
+amino acids in such a chain is the primary structure of the
+protein. For any given sequence of amino acids it is hypothesised
+(Anfinsens dogma, \cite{anfinsen73, soundararajan2010}) that there is
+a single unique and stable three-dimensional structure with minimum
+amount of free energy. This is known as the native structure of the
+protein and determining it computationally is the problem of protein
+structure prediction.
 
-The $C_\alpha$-trace generated by this method is used as target in our
-fitting of the all-atom model. The fitting should be conducted, such
-that it minimizes the number of clashes and at the same time minimizes
-the deviation from the target $C_\alpha$-trace.
+In Figure \ref{fig:amino_connect} we have shown how a sequence of
+amino acids are connected. The carbon atom connecting the backbone
+with the side-chains is called the $C_\alpha$-atom.  The largest
+variability of the protein structure is found in the angles between
+the individual $C_\alpha$-atoms \cite{lotan04}, \textit{the torsion
+  angles}. The approach to structure prediction taken by the
+algorithms group at our department is thus to describe the protein
+structure solely by the $C_\alpha$-atoms of the protein
+backbone\fxnote{cite}. Such a sequence of $C_{\alpha}$ atoms is called a
+$C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}).
 
-The stability of a protein is determined by the amount of free energy
-in the structure. The goal of the protein structure prediction is thus
-to find the most plausible protein structure by minimizing the free
-energy. A realistic energy calculation will require an insight in
-biochemistry that is beyond the scope of this project.  Therefore, we
-limit ourselves to minimize the number of clashes as well as the
-deviation from the provided $C_\alpha$-trace.
 
-\section{Protein Structure Prediction}
-Ab initio vs. denovo
-Rotamers
-RMSD
+\begin{figure}
+  \centering
+  \subbottom[$C_{\alpha}$-trace]{
+    \includegraphics[width=0.48\textwidth]{figures/Calpha_backbone}  
+    \label{fig:Calpha_backbone}
+  }
+  \subbottom[All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains]{
+    \includegraphics[width=0.48\textwidth]{figures/amino_connect}  
+    \label{fig:amino_connect}
+  }
+  \caption{}
+\end{figure}
+
+\section{Protein structure prediction}
+The chemical stability of a protein molecule is determined by the
+amount of free energy in its structure. The goal of protein structure
+prediction is to find the most plausible protein structure by
+minimizing the free energy. 
+
+% Why simplifications are necessary to make the problem
+% computationally feasible.
+
+One approach to protein structure prediction is to use statistical
+information of proteins with known native structure. This is called as
+\textit{comparative modelling}. Another approach, known as \textit{ab
+  initio} or \textit{de novo}, starts ``from scratch'' in the sense,
+that no information apart from the chemical interactions between atoms
+are used. This is the approach take by the algorithms group at our
+department.
+
+% Rotamers
+% RMSD
+
+
+
+% Limitation: A realistic energy calculation will require an insight in biochemistry
+% that is beyond the scope of this project.  Therefore, we limit
+% ourselves to minimize the number of clashes as well as the deviation
+% from the provided $C_\alpha$-trace.
+
+
+
+\section{Our strategy}
+In an attempt to get the $C_\alpha$ model closer to the actual
+structure of physical proteins, we will in this project try to add the
+missing atoms to the protein, to get an all-atom model.  This will
+also enable our algorithms group to to participate in the CASP
+experiment \cite{caspwebsite}.
+
+The $C_\alpha$-trace generated by their prediction algorithm is used
+as target in our fitting of the all-atom model. The fitting should be
+conducted, such that it minimizes the number of clashes and at the
+same time minimizes the deviation from the target $C_\alpha$-trace.
+
+
+%%Her vil vi gå igennem vores overordnede strategi:
 
 
 \section{Related Work}
 
-
 \chapter{All-atom Backbone}
+Her vil vi forklarer det første trin vi udfører: folder backbonen, med
+alle atomer hen til $C_\alpha$-tracet.
 
 $||N - C|| \rotateAround{180^\circ} \rotateAround{90^\circ} \rotateAround{v}$
 
 
 \section{Inverse kinematics}
+Lidt om invers-kinematik.
 
 \chapter{Handling Side-chains}
-
-
+Hvordan vi tilføjer side-chains og derefter tilpasser hele kæden igen.
 
 \chapter{Evaluation}
+Evaluering af metoden med kørsel på diverse kendte proteiner (og
+evt. ukendte?)
 
 \chapter{Conclusion}
 

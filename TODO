@@ -1,13 +1,15 @@
 Rapport
 =======
 * Skriv den
-* Problem definition
 * RMSD
 * Inverse kinematics
 
 Møde ting
 =========
-* Spørg Rasmus om citering til altid samme native structure. Anfinsens
-   dogma.
+* Spørg Rasmus om citering til altid samme native structure. Anfinsens dogma.
 * Figur af phi og psi vinkler.
-* Er der nogen af deres artikler vi skal læse?
+* Hvorfor benytter I kun C_\alpha traces? Effektivitet eller mere overskuelig model?
+* Er der nogen af deres artikler vi skal læse? 
+   Det kunne være smart hvis vi brugte samme terminologi og
+   navngivning, så det kunne være rart at se en af deres artikler.
+

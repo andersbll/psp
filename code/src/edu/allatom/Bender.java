@@ -42,8 +42,10 @@ public class Bender {
 		p.transformProtein(m);
 		// rotate so the second CA is as close as possible to the second CA of
 		// the trace
-		Vector normal = atomPlaneNormal(traceCA, traceCANext, caNext);
-		float angle = -atomAngle(traceCA, traceCANext, caNext);
+		Vector normal = traceCA.vectorTo(traceCANext).cross(
+				traceCA.vectorTo(caNext)).normIn();
+		float angle = -traceCA.vectorTo(traceCANext).angle(traceCA.vectorTo(caNext));
+		
 		m = TransformationMatrix3D.createRotation(
 				traceCA.position, normal, angle);
 		p.transformProtein(m);
@@ -134,18 +136,18 @@ public class Bender {
 	}
 
 
-	private static float atomAngle(Atom a0, Atom a1, Atom a2) {
-		Vector v0 = a0.vectorTo(a1);
-		Vector v1 = a0.vectorTo(a2);
-		return v0.angle(v1);
-	}
+//	private static float atomAngle(Atom a0, Atom a1, Atom a2) {
+//		Vector v0 = a0.vectorTo(a1);
+//		Vector v1 = a0.vectorTo(a2);
+//		return v0.angle(v1);
+//	}
 
 
-	private static Vector atomPlaneNormal(Atom a0, Atom a1, Atom a2) {
-		Vector v0 = a0.vectorTo(a1);
-		Vector v1 = a0.vectorTo(a2);
-		return v0.cross(v1).normIn();
-	}
+//	private static Vector atomPlaneNormal(Atom a0, Atom a1, Atom a2) {
+//		Vector v0 = a0.vectorTo(a1);
+//		Vector v1 = a0.vectorTo(a2);
+//		return v0.cross(v1).normIn();
+//	}
 	
 //	private static void bendResidue(AminoAcid aa, CAlphaTrace.CAlpha cAlpha) {
 //		//rotation

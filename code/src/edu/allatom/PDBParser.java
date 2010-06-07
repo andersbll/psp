@@ -27,6 +27,10 @@ public class PDBParser {
 		// get first model data
 		int firstModelStart = data.indexOf("\nMODEL ");
 		int secondModelStart = data.indexOf("\nMODEL ", firstModelStart + 1);
+		if (firstModelStart ==-1 ) {
+			firstModelStart = data.indexOf("\nATOM ");
+			secondModelStart = data.length();
+		}
 		String firstModel = data.substring(firstModelStart, secondModelStart);
 
 		List<String> atomLines = new LinkedList<String>();
@@ -84,7 +88,7 @@ public class PDBParser {
 		Protein p;
 		try {
 //			p = parseFile("pdb/1UAO.pdb");
-			p = parseFile("pdb/2JOF.pdb");
+			p = parseFile("pdb/2WU9.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();
 			return;

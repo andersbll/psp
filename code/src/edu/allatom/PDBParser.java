@@ -28,6 +28,7 @@ public class PDBParser {
 		int firstModelStart = data.indexOf("\nMODEL ");
 		int secondModelStart = data.indexOf("\nMODEL ", firstModelStart + 1);
 		if (firstModelStart ==-1 ) {
+			// if no MODEL exist, just begin from first atom
 			firstModelStart = data.indexOf("\nATOM ");
 			secondModelStart = data.length();
 		}
@@ -88,7 +89,10 @@ public class PDBParser {
 		Protein p;
 		try {
 //			p = parseFile("pdb/1UAO.pdb");
-			p = parseFile("pdb/2WU9.pdb");
+//			p = parseFile("pdb/2JOF.pdb");
+//			p = parseFile("pdb/2KQ6.pdb");
+			p = parseFile("pdb/2KQU.pdb");
+//			p = parseFile("pdb/1N7Z.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();
 			return;

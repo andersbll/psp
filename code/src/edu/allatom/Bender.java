@@ -55,7 +55,7 @@ public class Bender {
 			// extract next amino acid and trace atom
 			aa = aaIterator.next();
 			traceCA = traceIterator.next();
-			if(!(aaIterator.hasNext() || aaIterator.hasNext())) {
+			if(!(aaIterator.hasNext() || traceIterator.hasNext())) {
 				// we're done
 				break;
 			}

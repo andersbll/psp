@@ -63,7 +63,7 @@ public class Statistics {
 		System.out.println("image saved to " + filename);
 	}
 	
-	private static BufferedImage ramachandranRasterPlot(Protein p) {
+	private static BufferedImage ramachandranPNGPlot(Protein p) {
 		BufferedImage image = new BufferedImage(RAMACHRANDRAN_PLOT_SIZE,
 				RAMACHRANDRAN_PLOT_SIZE, BufferedImage.TYPE_BYTE_GRAY);
 		Graphics g = image.getGraphics();
@@ -97,8 +97,8 @@ public class Statistics {
 		return image;
 	}
 	
-	public static void dumpRamachandranRasterPlot(Protein p, String filename) {
-		BufferedImage plot = ramachandranRasterPlot(p);
+	public static void dumpRamachandranPNGPlot(Protein p, String filename) {
+		BufferedImage plot = ramachandranPNGPlot(p);
 		System.out.println("image generated");
 		try {
 			ImageIO.write(plot, "PNG", new File(filename));

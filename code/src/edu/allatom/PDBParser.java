@@ -98,7 +98,7 @@ public class PDBParser {
 		}
 		Bonder.bondAtoms(p);
 		
-//		Statistics.dumpRamachandranRasterPlot(
+//		Statistics.dumpRamachandranPNGPlot(
 //				p, "/Users/sben/Datalogi/allatom/ramachandran.png");
 //		Statistics.dumpRamachandranSVGPlot(
 //				p, "/Users/sben/Datalogi/allatom/ramachandran.svg");

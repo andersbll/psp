@@ -1,5 +1,6 @@
 package edu.allatom;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,4 +117,5 @@ public class Protein {
 			throw new NotImplementedException();
 		}}
 	}
+	
 }

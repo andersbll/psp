@@ -88,16 +88,22 @@ public class PDBParser {
 	public static void main(String[] args) {
 		Protein p;
 		try {
-//			p = parseFile("pdb/1UAO.pdb");
-//			p = parseFile("pdb/2JOF.pdb");
-//			p = parseFile("pdb/2KQ6.pdb");
-			p = parseFile("pdb/2KQU.pdb");
-//			p = parseFile("pdb/1N7Z.pdb");
+//			p = parseFile("pdb/1UAO.pdb"); // meget lille
+			p = parseFile("pdb/2JOF.pdb"); // lille
+//			p = parseFile("pdb/2KQ6.pdb"); // 78
+//			p = parseFile("pdb/2WU9.pdb"); // grande
 		} catch(Exception e) {
 			e.printStackTrace();
 			return;
 		}
 		Bonder.bondAtoms(p);
+		
+//		Statistics.dumpRamachandranRasterPlot(
+//				p, "/Users/sben/Datalogi/allatom/ramachandran.png");
+//		Statistics.dumpRamachandranSVGPlot(
+//				p, "/Users/sben/Datalogi/allatom/ramachandran.svg");
+//		if(2 > 1)
+//			return;
 
 		Renderer renderer = new Renderer();
 //		renderer.render(p);

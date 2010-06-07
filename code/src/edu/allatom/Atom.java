@@ -8,6 +8,7 @@ import edu.math.Vector;
 
 
 public class Atom {
+	public final static double COLLISION_RADIUS = 1.5;
 	public final static double BINDING_DISTANCE_THRESHOLD = 1.6;
 
 
@@ -59,6 +60,10 @@ public class Atom {
 	
 	public Vector vectorTo(Atom to) {
 		return position.vectorTo(to.position);
+	}
+	
+	public boolean collides(Atom atom) {
+		return vectorTo(atom).length() < COLLISION_RADIUS*2;
 	}
 
 }

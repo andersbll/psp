@@ -28,6 +28,7 @@ public class PDBParser {
 		int firstModelStart = data.indexOf("\nMODEL ");
 		int secondModelStart = data.indexOf("\nMODEL ", firstModelStart + 1);
 		if (firstModelStart ==-1 ) {
+			// if no MODEL exist, just begin from first atom
 			firstModelStart = data.indexOf("\nATOM ");
 			secondModelStart = data.length();
 		}
@@ -91,7 +92,6 @@ public class PDBParser {
 			p = parseFile("pdb/2JOF.pdb"); // lille
 //			p = parseFile("pdb/2KQ6.pdb"); // 78
 //			p = parseFile("pdb/2WU9.pdb"); // grande
-//			p = parseFile("pdb/2WUR.pdb");
 		} catch(Exception e) {
 			e.printStackTrace();
 			return;

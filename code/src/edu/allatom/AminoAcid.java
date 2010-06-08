@@ -1,6 +1,5 @@
 package edu.allatom;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-
-import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 import edu.math.Point;
 import edu.math.Vector;

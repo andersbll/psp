@@ -89,8 +89,8 @@ public class PDBParser {
 		Protein p;
 		try {
 //			p = parseFile("pdb/1UAO.pdb"); // meget lille
-			p = parseFile("pdb/2JOF.pdb"); // lille
-//			p = parseFile("pdb/2KQ6.pdb"); // 78
+//			p = parseFile("pdb/2JOF.pdb"); // lille
+			p = parseFile("pdb/2KQ6.pdb"); // 78
 //			p = parseFile("pdb/2WU9.pdb"); // grande
 		} catch(Exception e) {
 			e.printStackTrace();

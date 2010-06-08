@@ -10,6 +10,7 @@ import edu.math.Matrix;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
+
 public class Bender {
 	
 	/**
@@ -29,13 +30,11 @@ public class Bender {
 		// align the first 2 CA's before starting iterative bending.
 		// extract first amino acids 
 		AminoAcid aa = aaIterator.next();
-		AminoAcid aaNext = aaIterator.next();
+		AminoAcid aaNext = Util.iteratorPeek(aaIterator);
 		Atom ca = aa.getAtom("CA");
 		Atom caNext = aaNext.getAtom("CA");
 		Atom traceCA = traceIterator.next();
-		Atom traceCANext = traceIterator.next();
-		aaIterator.previous(); //oops, went too far - lulz @ dybber
-		traceIterator.previous();
+		Atom traceCANext = Util.iteratorPeek(traceIterator);
 		// translate so starting CA coincides with the first CA of the trace
 		Vector t = ca.vectorTo(traceCA);// atomDistance(ca, traceCA);
 		Matrix m = TransformationMatrix3D.createTranslation(t);
@@ -59,10 +58,8 @@ public class Bender {
 				// we're done
 				break;
 			}
-			aaNext = aaIterator.next();
-			traceCANext = traceIterator.next();
-			aaIterator.previous();
-			traceIterator.previous();
+			aaNext = Util.iteratorPeek(aaIterator);
+			traceCANext = Util.iteratorPeek(traceIterator);
 			int aaIndex = aaIterator.nextIndex() - 1;
 			
 			// extract atoms from this amino acid

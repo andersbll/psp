@@ -46,7 +46,7 @@ public class Bender {
 		float angle = -traceCA.vectorTo(traceCANext).angle(traceCA.vectorTo(caNext));
 		
 		m = TransformationMatrix3D.createRotation(
-				traceCA.position, normal, angle);
+				new Vector(traceCA.position), normal, angle);
 		p.transformProtein(m);
 		
 		// bend the remaining acids
@@ -72,11 +72,11 @@ public class Bender {
 			// TODO use some threshold instead of fixed loop limit?
 			for(int step=0; step<10; step++) {
 				// find points for psi rotation
-				Line psiRotationAxis = new Line(ca.position, ca.vectorTo(c));
+				Line psiRotationAxis = new Line(new Vector(ca.position), ca.vectorTo(c));
 				Vector caNextRotationCenter =
-						psiRotationAxis.projection(caNext.position);
+						psiRotationAxis.projection(new Vector(caNext.position));
 				Vector traceCANextRotationCenter =
-						psiRotationAxis.projection(traceCANext.position);
+						psiRotationAxis.projection(new Vector(traceCANext.position));
 				// find optimal phi rotation angle
 				float psiAngleDiff = traceCANextRotationCenter.vectorTo(
 						traceCANext.position).angleFull(caNextRotationCenter.
@@ -85,11 +85,11 @@ public class Bender {
 				p.rotate(psiAngleDiff, aaIndex, RotationType.PSI);				
 				
 				// find points for phi rotation
-				Line phiRotationAxis = new Line(ca.position, n.vectorTo(ca));
+				Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
 				caNextRotationCenter =
-						phiRotationAxis.projection(caNext.position);
+						phiRotationAxis.projection(new Vector(caNext.position));
 				traceCANextRotationCenter =
-						phiRotationAxis.projection(traceCANext.position);
+						phiRotationAxis.projection(new Vector(traceCANext.position));
 				// find optimal psi rotation angle
 				float phiAngleDiff = traceCANextRotationCenter.vectorTo(
 						traceCANext.position).angleFull(caNextRotationCenter.

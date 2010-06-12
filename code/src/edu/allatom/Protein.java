@@ -101,14 +101,14 @@ public class Protein {
 		switch(rotationType) {
 		case PHI: {
 			Atom n = aa.getAtom("N");
-			Line rotationAxis = new Line(ca.position, n.vectorTo(ca));
+			Line rotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
 			Matrix rotation = TransformationMatrix3D.createRotation(
 					rotationAxis, angle);
 			transformProtein(rotation, aaIndex, RotationType.PHI);
 			break;
 		} case PSI: {
 			Atom c = aa.getAtom("C");
-			Line rotationAxis = new Line(ca.position, ca.vectorTo(c));
+			Line rotationAxis = new Line(new Vector(ca.position), ca.vectorTo(c));
 			Matrix rotation = TransformationMatrix3D.createRotation(
 					rotationAxis, angle);
 			transformProtein(rotation, aaIndex, RotationType.PSI);

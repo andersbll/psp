@@ -18,6 +18,8 @@
 \usepackage[sc]{mathpazo}
 \usepackage{MnSymbol}
 
+\usepackage{fixltx2e} % To prevent the figures from being placed out-of-order with respect to their "non-starred" counterparts
+
 %\bibliographystyle{apalike}
 \bibliography{../bibliography}
 
@@ -45,8 +47,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{palatino}              % font : garamond
 \linespread{1.05}                  % Palatino needs more leading (space between lines)
-\usepackage{beramono}
-%\renewcommand{\ttdefault}{cmtt}    % alternative monospace font
+%\usepackage[scaled]{beramono}
+\renewcommand{\ttdefault}{cmtt}    % alternative monospace font
 %\renewcommand{\rmdefault}{ugm}
 %\usepackage{euler}                % weirdo math
 %PAGE DIMENSIONS
@@ -204,7 +206,6 @@
 
 \newpage
 
-\ \\
 
 \hspace{0.5cm}\includegraphics[width=0.4\textwidth]{figures/forside.png}
 
@@ -278,6 +279,13 @@ Rotamers (evt. calculating bond angles and bond lengths)
   }
   \caption{}
 \end{figure}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.75\textwidth]{figures/protein-torsion-angles}
+  \label{fig:protein-torsion-angles}
+  \caption{}
+\end{figure*}
 
 \section{Protein structure prediction}
 The chemical stability of a protein molecule is determined by the
@@ -377,9 +385,9 @@ evt. ukendte?)
 
 \chapter{Conclusion}
 
-\defbibheading{bibliography}[\bibname]{
-  \chapter{#1}
-  \markboth{#1}{#1}}
+%\defbibheading{bibliography}[\bibname]{
+%  \chapter{#1}
+%  \markboth{#1}{#1}}
 \printbibliography
 
 \end{document}

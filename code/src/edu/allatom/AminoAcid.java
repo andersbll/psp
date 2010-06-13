@@ -18,6 +18,12 @@ import edu.math.Point;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
+/**
+ * Describe class <code>AminoAcid</code> here.
+ *
+ * @author <a href="mailto:dybber@waterbear">Martin Dybdal</a>
+ * @version 1.0
+ */
 public class AminoAcid {
 	
 	public static final List<String> backBoneAtomNames = new LinkedList<String>() {
@@ -28,25 +34,14 @@ public class AminoAcid {
 			add("O");
 			add("N");
 			add("H");
-//			add("CD");
 		}
 	};
 	
 	// map of valid rotamers of each amino acid type.
 	// must be loaded from a rotamer library (load*RotamerLibrary()) before use.
 	private static Map<Type, List<Rotamer>> validRotamers;
-	// number of chi angles for each amino acid
-//	private static Map<Type, Integer> chiCountByType = new TreeMap<Type, Integer>() {
-//		private static final long serialVersionUID = 4133784286918804422L;
-//		{
-//			put(Type.HIS, 2);
-//		}
-//	};
-	
-//	sidechains = {
-//		Type.ALA: [Atom(Atom.Type.C, "C1", Vector(0, 0, 0))]
-//	}	
-	
+
+	// AminoAcid types specification
 	public enum Type {
 		ALA (
 			0,
@@ -499,6 +494,7 @@ public class AminoAcid {
 	
 	// functions for running statistics and stuff on sidechains
 	
+
 	private static Atom getAtomByLabel(List<Atom> atoms, String label) {
 		for(Atom a : atoms) {
 			if(a.name.matches(label)) {
@@ -507,8 +503,21 @@ public class AminoAcid {
 		}
 		return null;
 	}
+
+	
+	/**
+	 * <code>getChiAngle</code> calculates the specified chi angle of the protein
+	 *
+	 * @param angleNumber number of the chi angle (0-3)
+	 * @param type the type of amino acid
+	 * @param atoms the atoms of the aminoacid
+	 * @return the specified chi angle
+	 */
 	private static double getChiAngle(int angleNumber, Type type, List<Atom> atoms) {
 		Atom dihedralAtoms[] = new Atom[4];
+
+		// Which atoms are used to calculate the chi angle depends on
+		// which chi angle to compute
 		switch(angleNumber) {
 		case 0:
 			dihedralAtoms[0] = getAtomByLabel(atoms, "N");
@@ -535,12 +544,15 @@ public class AminoAcid {
 			dihedralAtoms[3] = getAtomByLabel(atoms, ".Z");
 			break;
 		}
+		// Determine the chi angle by the four atom positions
 		return Vector.dihedralAngle(
 				dihedralAtoms[0].position,
 				dihedralAtoms[1].position,
 				dihedralAtoms[2].position,
 				dihedralAtoms[3].position);
 	}
+	
+
 	private static List<Atom> getSidechainAtomsAfter(
 			Type type, List<Atom> atoms, Atom terminator) {
 		List<String> labels = new LinkedList<String>();
@@ -579,9 +591,13 @@ public class AminoAcid {
 		
 		return atomsAfter;
 	}
+
+	
 	private static void setChiAngle(int angleNumber, double angle, Type type, List<Atom> atoms) {
 		Vector rotationVector = null;
 		Atom rotationAtoms[] = null;
+
+		// Find the two atoms that define the vector to rotate around
 		switch(angleNumber) {
 		case 0:
 			rotationAtoms = new Atom[]{
@@ -606,11 +622,14 @@ public class AminoAcid {
 				new Vector(rotationAtoms[1].position), rotationVector,
 				(float) angle);
 		
+		// Rotate all atoms affected by the change in chi-angle
 		List<Atom> atomsToRotate = getSidechainAtomsAfter(type, atoms, rotationAtoms[1]);
 		for(Atom a : atomsToRotate) {
 			a.position = rotation.applyTo(new Vector(a.position));
 		}
 	}
+
+	// Set the chi angle to zero
 	private static void resetChiAngle(int angleNumber, Type type, List<Atom> atoms) {
 		double chiAngleBefore = getChiAngle(angleNumber, type, atoms);
 		System.out.println("Chi angle before: " + chiAngleBefore);
@@ -618,6 +637,7 @@ public class AminoAcid {
 		double chiAngleAfter = getChiAngle(angleNumber, type, atoms);
 		System.out.println("Chi angle after: " + chiAngleAfter);
 	}
+	// Filter amino acids
 	public static List<AminoAcid> getAminoAcidsOfType(Protein protein, Type type) {
 		List<AminoAcid> acids = new LinkedList<AminoAcid>();
 		for(AminoAcid acid : protein.aaSeq) {
@@ -632,6 +652,7 @@ public class AminoAcid {
 			resetChiAngle(chi, type, atoms);
 		}
 	}
+	// Translate sidechain to (0,0,0)
 	public static void resetSidechainPosition(Type type, List<Atom> atoms) {
 		Vector translation = getAtomByLabel(atoms, "CA").
 				position.vectorTo(new Point(0, 0, 0));
@@ -639,7 +660,12 @@ public class AminoAcid {
 			a.position = translation.plus(a.position);
 		}
 	}
-	public static List<Atom> getAverageSidechain(
+
+	/**
+	 * Calculate the average position of all side chain atoms
+	 */
+	public static List<Atom> 
+		getAverageSidechain(
 			Type type, List<List<Atom>> sidechains) {
 		//TODO fix this function!
 		List<String> labels = new LinkedList<String>();
@@ -662,6 +688,12 @@ public class AminoAcid {
 		Bonder.bondSideChainAtoms(new AminoAcid(type, averageSidechain));
 		return averageSidechain;
 	}
+	
+	/**
+	 * Writes Java code that defines an array containing all atoms in the list.
+	 *
+	 * @return a <code>String</code> containing the java code
+	 */
 	public static String sidechainJavaRepresentation(List<Atom> atoms) {
 		String s = "";
 		s += "new Atom[]{\n";

@@ -3,9 +3,11 @@ package edu.allatom;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.allatom.AminoAcid.Type;
 import edu.math.Matrix;
 import edu.math.Vector;
 import edu.math.TransformationMatrix3D;
@@ -51,7 +53,7 @@ public class PDBParser {
 				if(aminoAcid != null) {
 					aaSeq.add(aminoAcid);
 				}
-				AminoAcid.Type aaType = AminoAcid.Type.fromName(getAAName(line));
+				AminoAcid.Type aaType = AminoAcid.Type.valueOf(getAAName(line));
 				aminoAcid = new AminoAcid(aaType);
 
 			}
@@ -89,8 +91,8 @@ public class PDBParser {
 		Protein p;
 		try {
 //			p = parseFile("pdb/1UAO.pdb"); // meget lille
-//			p = parseFile("pdb/2JOF.pdb"); // lille
-			p = parseFile("pdb/2KQ6.pdb"); // 78
+			p = parseFile("pdb/2JOF.pdb"); // lille
+//			p = parseFile("pdb/2KQ6.pdb"); // 78
 //			p = parseFile("pdb/2WU9.pdb"); // grande
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -107,6 +109,8 @@ public class PDBParser {
 
 		Renderer renderer = new Renderer();
 //		renderer.render(p);
+		
+//		neatSidechainStatisticsStuff(renderer, p);
 
 //		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
 //			aa.calculatePsi();
@@ -130,6 +134,32 @@ public class PDBParser {
 
 		renderer.addToScene(p);
 		renderer.render();
+	}
+	
+	private static void neatSidechainStatisticsStuff(Renderer renderer, Protein p) {
+		AminoAcid.Type type = Type.GLU;
+		
+		List<AminoAcid> instances = AminoAcid.getAminoAcidsOfType(p, type);
+		System.out.println(instances.size() + " instances of " + type.name() + " found");
+		
+//		List<List<Atom>> sidechains = new LinkedList<List<Atom>>();
+//		for(AminoAcid aa : instances) {
+//			List<Atom> sidechain = new LinkedList<Atom>();
+//			sidechain.addAll(aa.allatoms.values());
+//			sidechains.add(sidechain);
+//		}
+//		List<Atom> averageAA = AminoAcid.getAverageSidechain(type, sidechains);
+//		AminoAcid aa = new AminoAcid(type, averageAA);
+		AminoAcid aa = instances.get(0);
+		List<Atom> atoms = new LinkedList<Atom>();
+		atoms.addAll(aa.allatoms.values());
+		AminoAcid.resetSidechainPosition(aa.type, atoms);
+		AminoAcid.resetSidechainChiAngles(aa.type, atoms);
+		List<AminoAcid> aaList = new LinkedList<AminoAcid>();
+		aaList.add(aa);
+		renderer.addToScene(new Protein(aaList));
+		
+		System.out.println("ugly code:\n" + AminoAcid.sidechainJavaRepresentation(atoms));
 	}
 	
 }

@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -33,7 +32,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	}
 	private RenderMode renderMode = RenderMode.STICKS;
 	private static boolean renderH = true;
-	private static boolean renderBackboneOnly = true;
+	private static boolean renderBackboneOnly = false;
 	
 	private final static int C_ALPHA_OPACITY = 100;
 	// render mode STICKS:
@@ -45,7 +44,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	
 	// last rendered protein
 	List<Protein> proteins;
-	List<LinkedList<Atom>> calphatraces;
+	List<List<Atom>> calphatraces;
 	List<ShapeStuff> otherShapes;
 
 	// list of all shapes added to the scene
@@ -59,7 +58,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	public Renderer() {
 		super();
 		proteins = new ArrayList<Protein>();
-		calphatraces = new ArrayList<LinkedList<Atom>>();
+		calphatraces = new ArrayList<List<Atom>>();
 		otherShapes = new ArrayList<ShapeStuff>();
 		J3DScene.createJ3DSceneInFrame(this);
 		setAxisEnabled(true);
@@ -78,7 +77,7 @@ public class Renderer extends J3DScene implements KeyListener {
 		for(Protein p : proteins) {
 			render(p);
 		}
-		for(LinkedList<Atom> c : calphatraces) {
+		for(List<Atom> c : calphatraces) {
 			render(c);
 		}
 		for(ShapeStuff s : otherShapes) {
@@ -100,7 +99,7 @@ public class Renderer extends J3DScene implements KeyListener {
 		otherShapes.add(s);
 	}
 
-	public void addToScene(LinkedList<Atom> c) {
+	public void addToScene(List<Atom> c) {
 		calphatraces.add(c);
 	}
 	
@@ -195,7 +194,7 @@ public class Renderer extends J3DScene implements KeyListener {
 		}		
 	}
 	
-	private void render(LinkedList<Atom> trace) {
+	private void render(List<Atom> trace) {
 		ListIterator<Atom> iterator = trace.listIterator();
 		while(true) {
 			Atom a = iterator.next();

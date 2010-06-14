@@ -633,11 +633,16 @@ public class AminoAcid {
 
 	// Set the chi angle to zero
 	private static void resetChiAngle(int angleNumber, Type type, List<Atom> atoms) {
-		double chiAngleBefore = getChiAngle(angleNumber, type, atoms);
-		System.out.println("Chi angle before: " + chiAngleBefore);
-		setChiAngle(angleNumber, -getChiAngle(angleNumber, type, atoms), type, atoms);
-		double chiAngleAfter = getChiAngle(angleNumber, type, atoms);
-		System.out.println("Chi angle after: " + chiAngleAfter);
+		if(angleNumber == 0) {
+			Atom gamma = getAtomByLabel(atoms, ".G.?");
+			setChiAngle(0, -Math.PI/2 + Math.atan2(gamma.position.y(), gamma.position.z()), type, atoms);
+		} else {
+			double chiAngleBefore = getChiAngle(angleNumber, type, atoms);
+			System.out.println("Chi angle before: " + chiAngleBefore);
+			setChiAngle(angleNumber, -getChiAngle(angleNumber, type, atoms), type, atoms);
+			double chiAngleAfter = getChiAngle(angleNumber, type, atoms);
+			System.out.println("Chi angle after: " + chiAngleAfter);
+		}
 	}
 	// Filter amino acids
 	public static List<AminoAcid> getAminoAcidsOfType(Protein protein, Type type) {
@@ -656,8 +661,8 @@ public class AminoAcid {
 	}
 
 	public static void resetSidechain(Type type, List<Atom> atoms) {
-		resetSidechainChiAngles(type, atoms);
 		resetSidechainPosition(type, atoms);
+		
 		Atom cbeta = getAtomByLabel(atoms, "CB");
 		if(cbeta == null) {
 			cbeta = getAtomByLabel(atoms, "HA3");
@@ -682,6 +687,8 @@ public class AminoAcid {
 		for(Atom a : atoms) {
 			a.position = rotationZ.applyTo(new Vector(a.position));
 		}
+		
+		resetSidechainChiAngles(type, atoms);
 	}
 
 	// Translate sidechain to (0,0,0)
@@ -699,7 +706,6 @@ public class AminoAcid {
 	public static List<Atom> 
 		getAverageSidechain(
 			Type type, List<List<Atom>> sidechains) {
-		//TODO fix this function!
 		List<String> labels = new LinkedList<String>();
 		for(Atom a : sidechains.get(0)) {
 			labels.add(a.name);
@@ -711,13 +717,17 @@ public class AminoAcid {
 			for(List<Atom> sidechain : sidechains) {
 				a = getAtomByLabel(sidechain, label);
 				averagePosition.plusIn(a.position);
+				System.out.println(label + ": " + a.position);
 			}
 			averagePosition.divideIn(sidechains.size());
+			System.out.println(label + ": " + averagePosition);
+			System.out.println();
 			Atom averageAtom = new Atom(a.type, label, averagePosition);
 			averageSidechain.add(averageAtom);
 		}
 		
 		Bonder.bondSideChainAtoms(new AminoAcid(type, averageSidechain));
+		Bonder.bondBackboneAtoms(new AminoAcid(type, averageSidechain));
 		return averageSidechain;
 	}
 	

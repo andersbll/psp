@@ -235,57 +235,36 @@ share a common structure. The type of amino acid is identified by an
 attached molecule called the side-chain. A protein consists of one or
 several unbranched chains (polymers) of amino acids. The order of
 amino acids in such a chain is the primary structure of the protein.
-Figure \ref{fig:amino_connect} shows how a sequence of amino acids are
-connected in a structure diagram. The carbon atom connecting the
-backbone with the side-chains is called the $C_\alpha$-atom. In the
-structure prediction problem it is common \fxwarning{cite} to reduce the
-problem by using a model that describes the protein solely by its
-$C_\alpha$-atoms. Such a sequence of $C_{\alpha}$ atoms is called a
-$C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}).
+The structure diagram in Figure \ref{fig:amino_connect} shows how a
+sequence of amino acids are connected. The carbon atom connecting the
+backbone with the side-chains is called the $C_\alpha$-atom. It is the
+torsional angles around the two bonds going out from each
+$C_\alpha$-atom, that are the primary determinator of the protein
+structure\fxwarning{cite}. Thus, when solving the structure prediction problem it is
+common \fxwarning{cite} to reduce the problem by using a model that
+describes the protein solely by its $C_\alpha$-atoms. Such a sequence
+of $C_{\alpha}$ atoms is called a $C_{\alpha}$-trace (see Figure
+\ref{fig:Calpha_backbone}).
 
-\subsection{\small TODO}
-\begin{itemize}
-\item Evt. Secondary structure: $\alpha$-helices, $\beta$-sheets (+strands) and loops/turns.
-\end{itemize}
+In Section \ref{chap:protein_geometry} we will describe the geometry
+of the protein backbone and its side chains in detail.
 
+%% Evt. Secondary structure: $\alpha$-helices, $\beta$-sheets
+%% (+strands) and loops/turns.
 
-\subsection{Protein geometry}
-The representation of proteins shown in the structure diagram of
-Figure \ref{fig:amino_connect} is suitable for determining the
-chemical properties of the molecules, how atoms are arranged and the
-bonding between atoms. However, to be able to do calculate on the
-precise structure of the proteins we need a more precise
-description. That is, we need to include bond lengths, bond angles and
-torsional angles into the model.
-
-\subsubsection{Backbone geometry}
-The largest variability of the protein structure is found in the
-angles between the individual $C_\alpha$-atoms \cite{lotan04}. These
-angles are termed $\phi$ and $\psi$ in the literature, Figure
-\fxwarning{figure} illustrates their definition.
-
-\subsubsection{Side-chain geometry}
-Rotamers (evt. calculating bond angles and bond lengths)
 
 \begin{figure}
   \centering
-  \subbottom[$C_{\alpha}$-trace]{
+  \subbottom[]{
     \includegraphics[width=0.48\textwidth]{figures/Calpha_backbone}  
     \label{fig:Calpha_backbone}
   }
-  \subbottom[All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains]{
+  \subbottom[]{
     \includegraphics[width=0.48\textwidth]{figures/amino_connect}  
     \label{fig:amino_connect}
   }
-  \caption{}
+  \caption{(a) $C_{\alpha}$-trace. (b) All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains}
 \end{figure}
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.75\textwidth]{figures/protein-torsion-angles}
-  \label{fig:protein-torsion-angles}
-  \caption{}
-\end{figure*}
 
 \section{Protein structure prediction}
 The chemical stability of a protein molecule is determined by the
@@ -342,6 +321,8 @@ RMSD is computed.
 % from the provided $C_\alpha$-trace.
 
 
+\section{Related Work}
+Todo: snak om SCWRL, der tilføjer side-chains på en fastlåst backbone.
 
 \section{Our strategy}
 In an attempt to get the $C_\alpha$ model closer to the actual
@@ -360,23 +341,24 @@ First, the backbone must be fitted to the \Ca-trace.
 Hereafter, the amino acid residues are added to the backbone changing the backbone conformation only if necessary.
 In the following we have chosen to consider these two tasks separately even though the residue handling will cause changes in the backbone.
 
-In Section \ref{sec:fitting_backbone}, we try to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
-In Section \ref{sec:handling_sidechains}, we try to add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.
+In Section \ref{chap:fitting_backbone}, we try to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
+In Section \ref{chap:handling_sidechains}, we try to add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.
 
 %By considering these tasks separately, we simplify our solution since ... \fixme{begrund hvorfor}
 %Fitting the backbone while taking side-chain placement into consideration 
 %%Her vil vi gå igennem vores overordnede strategi:
 
-\section{Related Work}
-Todo: snak om SCRWL, der tilføjer side-chains på en fastlåst backbone.
+\chapter{Protein geometry}
+\label{chap:protein_geometry}
+\input{protein_geometry}
 
 
 \chapter{Fitting the all-atom backbone}
-\label{sec:fitting_backbone}
+\label{chap:fitting_backbone}
 \input{backbone_fitting}
 
 \chapter{Handling side-chains}
-\label{sec:handling_sidechains}
+\label{chap:handling_sidechains}
 \input{handling_side-chains}
 
 \chapter{Evaluation}

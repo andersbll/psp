@@ -1,5 +1,6 @@
 package edu.allatom;
 
+import java.awt.Color;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -658,26 +659,28 @@ public class AminoAcid {
 		resetSidechainChiAngles(type, atoms);
 		resetSidechainPosition(type, atoms);
 		Atom cbeta = getAtomByLabel(atoms, "CB");
-		Vector2D xnorm = new Vector2D(1,0);
-		Vector cbeta_vec = new Vector(cbeta.position);
+		if(cbeta == null) {
+			cbeta = getAtomByLabel(atoms, "HA3");
+		}
 		
-		Vector2D yproj = new Vector2D(cbeta_vec.x(), cbeta_vec.z());
-		Vector2D zproj = new Vector2D(cbeta_vec.x(), cbeta_vec.y());
-		float yproj_angle = yproj.rotationAngle(xnorm);
-		float zproj_angle = zproj.rotationAngle(xnorm);
-
-		Matrix rotation1 = TransformationMatrix3D.createRotation(new Vector(0,0,0), 
-		                                                         new Vector(0,1,0),
-		                                                         (float) yproj_angle);
-
-		Matrix rotation2 = TransformationMatrix3D.createRotation(new Vector(0,0,0), 
-		                                                         new Vector(0,0,1),
-		                                                         (float) zproj_angle);
-
-		Matrix rotation = rotation1.applyTo(rotation2);
-
+		Vector cbeta_vec = new Vector(cbeta.position);
+		float yproj_angle = (float)Math.atan2(cbeta_vec.z(), cbeta_vec.x());
+		Matrix rotationY = TransformationMatrix3D.createRotation(
+				new Vector(0,0,0), 
+				new Vector(0,1,0),
+				(float) yproj_angle);
 		for(Atom a : atoms) {
-			a.position = rotation.applyTo(new Vector(a.position));
+			a.position = rotationY.applyTo(new Vector(a.position));
+		}
+
+		cbeta_vec = new Vector(cbeta.position);
+		float zproj_angle = -(float)Math.atan2(cbeta_vec.y(),cbeta_vec.x());
+		Matrix rotationZ = TransformationMatrix3D.createRotation(
+				new Vector(0,0,0), 
+                new Vector(0,0,1),
+                (float) zproj_angle);
+		for(Atom a : atoms) {
+			a.position = rotationZ.applyTo(new Vector(a.position));
 		}
 	}
 

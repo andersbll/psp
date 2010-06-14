@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.allatom.AminoAcid.Type;
+import edu.geom3D.Sphere;
 import edu.math.Matrix;
 import edu.math.Vector;
 import edu.math.TransformationMatrix3D;
@@ -91,8 +92,8 @@ public class PDBParser {
 		Protein p;
 		try {
 //			p = parseFile("pdb/1UAO.pdb"); // meget lille
-			p = parseFile("pdb/2JOF.pdb"); // lille
-//			p = parseFile("pdb/2KQ6.pdb"); // 78
+//			p = parseFile("pdb/2JOF.pdb"); // lille
+			p = parseFile("pdb/2KQ6.pdb"); // 78
 //			p = parseFile("pdb/2WU9.pdb"); // grande
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -106,11 +107,9 @@ public class PDBParser {
 //				p, "/Users/sben/Datalogi/allatom/ramachandran.svg");
 //		if(2 > 1)
 //			return;
-
 		Renderer renderer = new Renderer();
 //		renderer.render(p);
 		
-//		neatSidechainStatisticsStuff(renderer, p);
 
 //		for(AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size()-2)) {
 //			aa.calculatePsi();
@@ -128,16 +127,18 @@ public class PDBParser {
 		p.transformProtein(m);
 		
 		Bender.bendProteinBackbone(p, trace, renderer);
+//		neatSidechainStatisticsStuff(renderer, p);
 
 //		m = TransformationMatrix3D.createTranslation(new Vector(5, 0.1, 0.1));
 //		p.transformProtein(m);
 
 		renderer.addToScene(p);
+		renderer.addShape(new Sphere(new Vector(0,0,0),.4f));
 		renderer.render();
 	}
 	
 	private static void neatSidechainStatisticsStuff(Renderer renderer, Protein p) {
-		AminoAcid.Type type = Type.GLU;
+		AminoAcid.Type type = Type.GLY;
 		
 		List<AminoAcid> instances = AminoAcid.getAminoAcidsOfType(p, type);
 		System.out.println(instances.size() + " instances of " + type.name() + " found");
@@ -153,8 +154,9 @@ public class PDBParser {
 		AminoAcid aa = instances.get(0);
 		List<Atom> atoms = new LinkedList<Atom>();
 		atoms.addAll(aa.allatoms.values());
-		AminoAcid.resetSidechainPosition(aa.type, atoms);
-		AminoAcid.resetSidechainChiAngles(aa.type, atoms);
+//		AminoAcid.resetSidechainPosition(aa.type, atoms);
+//		AminoAcid.resetSidechainChiAngles(aa.type, atoms);
+		AminoAcid.resetSidechain(aa.type, atoms);
 		List<AminoAcid> aaList = new LinkedList<AminoAcid>();
 		aaList.add(aa);
 		renderer.addToScene(new Protein(aaList));

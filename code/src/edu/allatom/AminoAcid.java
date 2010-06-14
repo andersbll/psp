@@ -17,6 +17,7 @@ import edu.math.Matrix;
 import edu.math.Point;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
+import edu.math.Vector2D;
 
 /**
  * Describe class <code>AminoAcid</code> here.
@@ -652,6 +653,34 @@ public class AminoAcid {
 			resetChiAngle(chi, type, atoms);
 		}
 	}
+
+	public static void resetSidechain(Type type, List<Atom> atoms) {
+		resetSidechainChiAngles(type, atoms);
+		resetSidechainPosition(type, atoms);
+		Atom cbeta = getAtomByLabel(atoms, "CB");
+		Vector2D xnorm = new Vector2D(1,0);
+		Vector cbeta_vec = new Vector(cbeta.position);
+		
+		Vector2D yproj = new Vector2D(cbeta_vec.x(), cbeta_vec.z());
+		Vector2D zproj = new Vector2D(cbeta_vec.x(), cbeta_vec.y());
+		float yproj_angle = yproj.rotationAngle(xnorm);
+		float zproj_angle = zproj.rotationAngle(xnorm);
+
+		Matrix rotation1 = TransformationMatrix3D.createRotation(new Vector(0,0,0), 
+		                                                         new Vector(0,1,0),
+		                                                         (float) yproj_angle);
+
+		Matrix rotation2 = TransformationMatrix3D.createRotation(new Vector(0,0,0), 
+		                                                         new Vector(0,0,1),
+		                                                         (float) zproj_angle);
+
+		Matrix rotation = rotation1.applyTo(rotation2);
+
+		for(Atom a : atoms) {
+			a.position = rotation.applyTo(new Vector(a.position));
+		}
+	}
+
 	// Translate sidechain to (0,0,0)
 	public static void resetSidechainPosition(Type type, List<Atom> atoms) {
 		Vector translation = getAtomByLabel(atoms, "CA").

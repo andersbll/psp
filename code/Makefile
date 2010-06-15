@@ -9,4 +9,4 @@ clean:
 	rm srcfiles
 
 run:
-	java -Djava.library.path=/usr/lib/jni -cp ./classes:/usr/share/java/j3dcore.jar:/usr/share/java/j3dutils.jar:/usr/share/java/vecmath.jar edu.allatom.Main
+	java -Djava.library.path=/usr/lib/jni -cp ./classes:/usr/share/java/j3dcore.jar:/usr/share/java/j3dutils.jar:/usr/share/java/vecmath.jar edu.allatom.StructureStats

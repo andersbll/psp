@@ -13,7 +13,6 @@ import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
 public class Protein {
-	
 	public enum RotationType { PHI, PSI, OMEGA };
 	
 	List<AminoAcid> aaSeq;
@@ -26,6 +25,14 @@ public class Protein {
 		List<Atom> atoms = new ArrayList<Atom>();
 		for(AminoAcid aa : aaSeq) {
 			atoms.addAll(aa.getAtoms());
+		}
+		return atoms;
+	}
+
+	public List<Atom> getBackboneAtoms() {
+		List<Atom> atoms = new LinkedList<Atom>();
+		for(AminoAcid aa : aaSeq) {
+			atoms.addAll(aa.getBackboneAtoms());
 		}
 		return atoms;
 	}
@@ -116,6 +123,5 @@ public class Protein {
 		} case OMEGA: {
 			throw new NotImplementedException();
 		}}
-	}
-	
+	}	
 }

@@ -3,6 +3,7 @@ package edu.allatom;
 import java.awt.Color;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,14 +21,9 @@ import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 import edu.math.Vector2D;
 
-/**
- * Describe class <code>AminoAcid</code> here.
- *
- * @author <a href="mailto:dybber@waterbear">Martin Dybdal</a>
- * @version 1.0
- */
-public class AminoAcid {
-	
+
+
+public class AminoAcid {	
 	public static final List<String> backBoneAtomNames = new LinkedList<String>() {
 		private static final long serialVersionUID = -5736976839907219408L;
 		{
@@ -41,158 +37,10 @@ public class AminoAcid {
 	
 	// map of valid rotamers of each amino acid type.
 	// must be loaded from a rotamer library (load*RotamerLibrary()) before use.
-	private static Map<Type, List<Rotamer>> validRotamers;
-
-	// AminoAcid types specification
-	public enum Type {
-		ALA (
-			0,
-			new Atom[]{
-//				new Atom(Atom.Type.C, "C1", new Vector(0, 0, 0)),
-//				new Atom(Atom.Type.C, "C1", new Vector(0, 0, 1)),
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB1"},{"CB","HB2"},{"CB","HB3"}}
-		),
-		ARG (
-			4,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","NE"},{"CG","HG2"},{"CG","HG3"},{"CZ","NE"},{"CZ","NH1"},{"CZ","NH2"},{"H11","NH1"},{"H12","NH1"},{"H21","NH2"},{"H22","NH2"},{"HE","NE"}}
-		),
-		ASN (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CG","ND2"},{"CG","OD1"},{"D21","ND2"},{"D22","ND2"}}),
-		ASP (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CG","OD1"},{"CG","OD2"}}
-		),
-		CYS (
-			1,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","SG"},{"HG","SG"}}
-		),
-		GLN (
-			3,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","NE2"},{"CD","OE1"},{"CG","HG2"},{"CG","HG3"},{"E21","NE2"},{"E22","NE2"}}
-		),
-		GLU (
-			3,
-			new Atom[]{
-			},
-			new String[][]{{"CA","HA"},{"CB","CA"},{"CB","CG"},{"CB","HB3"},{"CD","OE1"},{"CD","OE2"},{"CG","CD"},{"CG","HG2"},{"H","N"},{"HB2","CB"},{"HG3","CG"}}
-		),
-		GLY (
-			0,
-			new Atom[]{
-			},
-			new String[][]{{"CA","HA2"},{"CA","HA3"}}
-		),
-		HIS (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD2","CG"},{"CD2","HD2"},{"CD2","NE2"},{"CE1","HE1"},{"CE1","ND1"},{"CE1","NE2"},{"CG","ND1"}} //FIXME abll: jeg mener at {"HE2","NE2"} skal tilføjes
-		),
-		ILE (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG1"},{"CB","CG2"},{"CB","HB"},{"CD1","CG1"},{"CD1","D11"},{"CD1","D12"},{"CD1","D13"},{"CG1","G12"},{"CG1","G13"},{"CG2","G21"},{"CG2","G22"},{"CG2","G23"}}
-		),
-		LEU (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CG"},{"CD1","D11"},{"CD1","D12"},{"CD1","D13"},{"CD2","CG"},{"CD2","D21"},{"CD2","D22"},{"CD2","D23"},{"CG","HG"}}
-		),
-		LYS (
-			4,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CE"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CE","HE2"},{"CE","HE3"},{"CE","NZ"},{"CG","HG2"},{"CG","HG3"},{"HZ1","NZ"},{"HZ2","NZ"},{"HZ3","NZ"}}
-		),
-		MET (
-			3,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CE","HE1"},{"CE","HE2"},{"CE","HE3"},{"CE","SD"},{"CG","HG2"},{"CG","HG3"},{"CG","SD"}}
-		),
-		PHE (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CE1"},{"CD1","CG"},{"CD1","HD1"},{"CD2","CE2"},{"CD2","CG"},{"CD2","HD2"},{"CE1","CZ"},{"CE1","HE1"},{"CE2","CZ"},{"CE2","HE2"},{"CZ","HZ"}}
-		),
-		PRO (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","N"},{"CG","HG2"},{"CG","HG3"}}
-		),
-		SER (
-			1,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","OG"},{"HG","OG"}}
-		),
-		THR (
-			1,
-			new Atom[]{
-			},
-			new String[][]{{"CA","HA"},{"CB","CA"},{"CB","CG2"},{"CB","HB"},{"CG2","G21"},{"CG2","G22"},{"G23","CG2"},{"H","N"},{"OG1","CB"},{"OG1","HG1"}}
-		),
-		TRP (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CG"},{"CD1","HD1"},{"CD1","NE1"},{"CD2","CE2"},{"CD2","CE3"},{"CD2","CG"},{"CE2","CZ2"},{"CE2","NE1"},{"CE3","CZ3"},{"CE3","HE3"},{"CH2","CZ2"},{"CH2","CZ3"},{"CH2","HH2"},{"CZ2","HZ2"},{"CZ3","HZ3"},{"HE1","NE1"}}
-		),
-		TYR (
-			2,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CE1"},{"CD1","CG"},{"CD1","HD1"},{"CD2","CE2"},{"CD2","CG"},{"CD2","HD2"},{"CE1","CZ"},{"CE1","HE1"},{"CE2","CZ"},{"CE2","HE2"},{"CZ","OH"},{"HH","OH"}}
-		),
-		VAL (
-			1,
-			new Atom[]{
-			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG1"},{"CB","CG2"},{"CB","HB"},{"CG1","G11"},{"CG1","G12"},{"CG1","G13"},{"CG2","G21"},{"CG2","G22"},{"CG2","G23"}}
-		);
-		
-		List<String> followBond(String atomLabel) {
-			Set<String> destinations = new HashSet<String>();
-			for(String s[] : atomBonds) {
-				if(s[0].equals(atomLabel)) {
-					destinations.add(s[1]);
-				}
-				if(s[1].equals(atomLabel)) {
-					destinations.add(s[0]);
-				}
-			}
-			return new LinkedList<String>(destinations);
-		}
-		
-		int chiAngleCount;
-		Atom[] sidechainAtoms;
-		String[][] atomBonds;
-		Type(int chiN, Atom[] atoms, String[][] bonds) {
-			sidechainAtoms = atoms;
-			chiAngleCount = chiN;
-			atomBonds = bonds;
-		}
-	}
-	
+	private static Map<AminoAcidType, List<Rotamer>> validRotamers;	
 	private static Random random = new Random(System.currentTimeMillis());
 	
-	public final Type type;
+	public final AminoAcidType type;
 	public final Map<String, Atom> allatoms;
 	
 	// list of rotamers that have been tried for this amino acid
@@ -203,7 +51,7 @@ public class AminoAcid {
 	// the chosen rotamer. if null, no rotamer is chosen yet.
 	public Rotamer rotamer;
 
-	public AminoAcid(Type type) {
+	public AminoAcid(AminoAcidType type) {
 		this.type = type;
 		allatoms = new TreeMap<String, Atom>();
 	}
@@ -212,7 +60,7 @@ public class AminoAcid {
 		return allatoms.get(atomName);
 	}
 	
-	public AminoAcid(Type type, List<Atom> atoms) {
+	public AminoAcid(AminoAcidType type, List<Atom> atoms) {
 		this.type = type;
 		allatoms = new HashMap<String, Atom>();
 		for(Atom a : atoms) {
@@ -223,8 +71,8 @@ public class AminoAcid {
 	public double psi() {
 		Atom Catom = this.allatoms.get("C");
 		Point neighborN = null;
-		for(Atom a : Catom.bondsTo) {
-			if(a.name.equals("N")){
+		for(Atom a : Catom.getBonds()) {
+			if(a.label.equals("N")){
 				neighborN = a.position;
 			}
 		}
@@ -243,8 +91,8 @@ public class AminoAcid {
 		Atom Natom = this.allatoms.get("N");
 		Point N = Natom.position;
 		Point neighborC = null;
-		for(Atom a : Natom.bondsTo) {
-			if(a.name.equals("C")){
+		for(Atom a : Natom.getBonds()) {
+			if(a.label.equals("C")){
 				neighborC = a.position;
 			}
 		}
@@ -255,23 +103,24 @@ public class AminoAcid {
 	}
 
 	public void addAtom(Atom a) {
-		allatoms.put(a.name, a);
+		allatoms.put(a.label, a);
 	}
 	
 	public Collection<Atom> getAtoms() {
 		return allatoms.values();
 	}
-	public List<Atom> getBackBoneAtoms() {
+
+	public List<Atom> getBackboneAtoms() {
 		List<Atom> atoms = new LinkedList<Atom>();
-		atoms.add(allatoms.get("CA"));
-		atoms.add(allatoms.get("C"));
-		atoms.add(allatoms.get("O"));
-		atoms.add(allatoms.get("N"));
-		if(type!=Type.PRO) {
-			atoms.add(allatoms.get("H"));
-		} //else {
-//			atoms.add(allatoms.get("CD"));			
-//		}
+		atoms.add(getAtom("CA"));
+		atoms.add(getAtom("C"));
+		atoms.add(getAtom("O"));
+		atoms.add(getAtom("N"));
+		atoms.add(getAtom("HA"));
+		if(type!=AminoAcidType.PRO) {
+			atoms.add(getAtom("H"));
+		}
+
 		while(atoms.contains(null)) {
 			atoms.remove(null);
 		}
@@ -284,48 +133,7 @@ public class AminoAcid {
 			s += "\n  " + a;
 		}
 		return s;
-	}
-	
-//	public enum SequencePosition {
-//		N_TERMINUS, MIDDLE, C_TERMINUS;
-//	}
-
-//	public enum Type {
-//		ALA, 
-//		ARG,
-//		ASN,
-//		ASP,
-//		CYS,
-//		GLN,
-//		GLU,
-//		GLY,
-//		HIS,
-//		ILE,
-//		LEU,
-//		LYS,
-//		MET,
-//		PHE,
-//		PRO,
-//		SER,
-//		THR,
-//		TRP,
-//		TYR,
-//		VAL;
-//		
-////		public final String name;
-////		Type(String name3) {
-////			this.name = name3;
-////		}
-//		public static Type fromName(String name) {
-//			for(Type t : values()) {
-//				if(name.equalsIgnoreCase(t.name())) {
-//					return t;
-//				}
-//			}
-//			return null;
-//		}
-//	}
-	
+	}	
 	
 	private static class Rotamer {
 		double probability;
@@ -408,7 +216,7 @@ public class AminoAcid {
 			if(aa != this) {
 				Iterable<Atom> collidees;
 				if(aa.rotamer == null) {
-					collidees = aa.getBackBoneAtoms();
+					collidees = aa.getBackboneAtoms();
 				} else {
 					collidees = aa.allatoms.values();
 				}
@@ -435,9 +243,9 @@ public class AminoAcid {
 		String data = sb.toString();
 		
 		// parse data
-		validRotamers = new TreeMap<Type, List<Rotamer>>();
+		validRotamers = new TreeMap<AminoAcidType, List<Rotamer>>();
 		String lines[] = data.substring(data.indexOf("\nARG ")).split("\n");
-		Type previousType = null;
+		AminoAcidType previousType = null;
 		List<Rotamer> rotamersOfCurrentType = new LinkedList<Rotamer>();
 		for(String line : lines) {
 			if(line.trim().length() == 0) {
@@ -450,14 +258,14 @@ public class AminoAcid {
 				}
 			}
 			
-			Type type = Type.valueOf(tokens.get(0));
+			AminoAcidType type = AminoAcidType.valueOf(tokens.get(0));
 			if(type == null) {
 				System.out.println("Unknown amino acid in rotamer library: " +
 						tokens.get(0));
 			}
 			Rotamer rotamer = new Rotamer();
 			rotamer.probability = Double.parseDouble(tokens.get(7)) / 100;
-			for(int p=0; p<Type.valueOf(type.toString()).chiAngleCount; p++) {
+			for(int p=0; p<AminoAcidType.valueOf(type.toString()).chiAngleCount; p++) {
 				rotamer.chis[p] = Double.parseDouble(tokens.get(11 + 2*p));
 			}
 			
@@ -474,15 +282,15 @@ public class AminoAcid {
 		alaRotamer.probability = 1;
 		List<Rotamer> alaRotamers = new LinkedList<Rotamer>();
 		alaRotamers.add(alaRotamer);
-		validRotamers.put(Type.ALA, alaRotamers);
+		validRotamers.put(AminoAcidType.ALA, alaRotamers);
 		
 		Rotamer glyRotamer = new Rotamer();
 		glyRotamer.probability = 1;
 		List<Rotamer> glyRotamers = new LinkedList<Rotamer>();
 		glyRotamers.add(glyRotamer);
-		validRotamers.put(Type.GLY, glyRotamers);
+		validRotamers.put(AminoAcidType.GLY, glyRotamers);
 		
-//		List<Rotamer> aspRotamers = validRotamers.get(Type.ARG);
+//		List<Rotamer> aspRotamers = validRotamers.get(AminoAcidType.ARG);
 //		double p = 0;
 //		for(Rotamer r : aspRotamers) {
 //			System.out.println(r);
@@ -499,13 +307,12 @@ public class AminoAcid {
 
 	private static Atom getAtomByLabel(List<Atom> atoms, String label) {
 		for(Atom a : atoms) {
-			if(a.name.matches(label)) {
+			if(a.label.matches(label)) {
 				return a;
 			}
 		}
 		return null;
 	}
-
 	
 	/**
 	 * <code>getChiAngle</code> calculates the specified chi angle of the protein
@@ -515,7 +322,7 @@ public class AminoAcid {
 	 * @param atoms the atoms of the aminoacid
 	 * @return the specified chi angle
 	 */
-	private static double getChiAngle(int angleNumber, Type type, List<Atom> atoms) {
+	private static double getChiAngle(int angleNumber, AminoAcidType type, List<Atom> atoms) {
 		Atom dihedralAtoms[] = new Atom[4];
 
 		// Which atoms are used to calculate the chi angle depends on
@@ -556,7 +363,7 @@ public class AminoAcid {
 	
 
 	private static List<Atom> getSidechainAtomsAfter(
-			Type type, List<Atom> atoms, Atom terminator) {
+			AminoAcidType type, List<Atom> atoms, Atom terminator) {
 		List<String> labels = new LinkedList<String>();
 		
 		labels.add("N");
@@ -564,14 +371,14 @@ public class AminoAcid {
 		labels.add("CA");
 		labels.add("O");
 		labels.add("H");
-		if(type == Type.GLY) {
+		if(type == AminoAcidType.GLY) {
 			labels.add("HA2");
 		} else {
 			labels.add("HA");
 		}
 		
 		String a = "CA";
-		while(!a.equals(terminator.name)) {
+		while(!a.equals(terminator.label)) {
 			String next = null;
 			for(String neighbor : type.followBond(a)) {
 				if(!labels.contains(neighbor)) {
@@ -586,7 +393,7 @@ public class AminoAcid {
 		
 		List<Atom> atomsAfter = new LinkedList<Atom>();
 		for(Atom atom : atoms) {
-			if(!labels.contains(atom.name)) {
+			if(!labels.contains(atom.label)) {
 				atomsAfter.add(atom);
 			}
 		}
@@ -595,7 +402,7 @@ public class AminoAcid {
 	}
 
 	
-	private static void setChiAngle(int angleNumber, double angle, Type type, List<Atom> atoms) {
+	private static void setChiAngle(int angleNumber, double angle, AminoAcidType type, List<Atom> atoms) {
 		Vector rotationVector = null;
 		Atom rotationAtoms[] = null;
 
@@ -632,7 +439,7 @@ public class AminoAcid {
 	}
 
 	// Set the chi angle to zero
-	private static void resetChiAngle(int angleNumber, Type type, List<Atom> atoms) {
+	private static void resetChiAngle(int angleNumber, AminoAcidType type, List<Atom> atoms) {
 		if(angleNumber == 0) {
 			Atom gamma = getAtomByLabel(atoms, ".G.?");
 			setChiAngle(0, -Math.PI/2 + Math.atan2(gamma.position.y(), gamma.position.z()), type, atoms);
@@ -645,7 +452,7 @@ public class AminoAcid {
 		}
 	}
 	// Filter amino acids
-	public static List<AminoAcid> getAminoAcidsOfType(Protein protein, Type type) {
+	public static List<AminoAcid> getAminoAcidsOfType(Protein protein, AminoAcidType type) {
 		List<AminoAcid> acids = new LinkedList<AminoAcid>();
 		for(AminoAcid acid : protein.aaSeq) {
 			if(acid.type.equals(type)) {
@@ -654,13 +461,13 @@ public class AminoAcid {
 		}
 		return acids;
 	}
-	public static void resetSidechainChiAngles(Type type, List<Atom> atoms) {
+	public static void resetSidechainChiAngles(AminoAcidType type, List<Atom> atoms) {
 		for(int chi=0; chi<type.chiAngleCount; chi++) {
 			resetChiAngle(chi, type, atoms);
 		}
 	}
 
-	public static void resetSidechain(Type type, List<Atom> atoms) {
+	public static void resetSidechain(AminoAcidType type, List<Atom> atoms) {
 		resetSidechainPosition(type, atoms);
 		
 		Atom cbeta = getAtomByLabel(atoms, "CB");
@@ -692,7 +499,7 @@ public class AminoAcid {
 	}
 
 	// Translate sidechain to (0,0,0)
-	public static void resetSidechainPosition(Type type, List<Atom> atoms) {
+	public static void resetSidechainPosition(AminoAcidType type, List<Atom> atoms) {
 		Vector translation = getAtomByLabel(atoms, "CA").
 				position.vectorTo(new Point(0, 0, 0));
 		for(Atom a : atoms) {
@@ -705,10 +512,10 @@ public class AminoAcid {
 	 */
 	public static List<Atom> 
 		getAverageSidechain(
-			Type type, List<List<Atom>> sidechains) {
+			AminoAcidType type, List<List<Atom>> sidechains) {
 		List<String> labels = new LinkedList<String>();
 		for(Atom a : sidechains.get(0)) {
-			labels.add(a.name);
+			labels.add(a.label);
 		}
 		List<Atom> averageSidechain = new LinkedList<Atom>();
 		for(String label : labels) {
@@ -740,7 +547,7 @@ public class AminoAcid {
 		String s = "";
 		s += "new Atom[]{\n";
 		for(Atom a : atoms) {
-			s += "	new Atom(Atom.Type." + a.type + "), \"" + a.name + "\", " +
+			s += "	new Atom(Atom.Type." + a.type + "), \"" + a.label + "\", " +
 					"new Vector(" + a.position.x() + ", " + a.position.y() +
 					", " + a.position.z() + ")),\n";
 		}

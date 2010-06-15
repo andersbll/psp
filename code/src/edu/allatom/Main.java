@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 
-import edu.allatom.AminoAcid.Type;
+import edu.allatom.AminoAcidType;
 
 import edu.geom3D.Sphere;
 import edu.math.Matrix;
@@ -16,15 +16,14 @@ import edu.math.TransformationMatrix3D;
 public class Main {
 
 	public static void main(String[] args) {
+		Protein p;
+		Renderer renderer = new Renderer();
 
 		String pdbfile;
 		//pdbfile = "pdb/1UAO.pdb"; // meget lille
 		pdbfile = "pdb/2JOF.pdb"; // lille
 		//pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 		//pdbfile = "pdb/2WU9.pdb"; // grande
-
-		Protein p;
-		Renderer renderer = new Renderer();
 
 		try {
 			p = PDBParser.parseFile(pdbfile);
@@ -57,12 +56,8 @@ public class Main {
 		// Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 	}
 
-	private static void ramachandranPlot(Protein p) {
-	}
-
-
 	private static void neatSidechainStatisticsStuff(Renderer renderer, Protein p) {
-		AminoAcid.Type type = Type.LYS;
+		AminoAcidType type = AminoAcidType.LYS;
 		
 		List<AminoAcid> instances = AminoAcid.getAminoAcidsOfType(p, type);
 		System.out.println(instances.size() + " instances of " + type.name() + " found");

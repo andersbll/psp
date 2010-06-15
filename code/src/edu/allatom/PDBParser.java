@@ -47,7 +47,7 @@ public class PDBParser {
 				if(aminoAcid != null) {
 					aaSeq.add(aminoAcid);
 				}
-				AminoAcid.Type aaType = AminoAcid.Type.valueOf(getAAName(line));
+				AminoAcidType aaType = AminoAcidType.valueOf(getAAName(line));
 				aminoAcid = new AminoAcid(aaType);
 
 			}

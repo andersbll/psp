@@ -118,7 +118,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	private void render(AminoAcid aa) {
 		Collection<Atom> atoms;
 		if(renderBackboneOnly) {
-			atoms = aa.getBackBoneAtoms();
+			atoms = aa.getBackboneAtoms();
 		} else {
 			atoms = aa.getAtoms();
 		}
@@ -140,12 +140,12 @@ public class Renderer extends J3DScene implements KeyListener {
 				Sphere sphere = new Sphere(new Vector(a.position), size);
 				addShape(sphere, c);
 				shapes.add(sphere);
-				for(Atom neighbor : a.bondsTo) {
+				for(Atom neighbor : a.getBonds()) {
 					if(!renderH && neighbor.type == Atom.Type.H) {
 						continue;
 					}
 					if(renderBackboneOnly &&
-							!AminoAcid.backBoneAtomNames.contains(neighbor.name)) {
+					   !AminoAcid.backBoneAtomNames.contains(neighbor.label)) {
 						continue;
 					}
 					if(a.position.x() <= neighbor.position.x()) {
@@ -166,12 +166,12 @@ public class Renderer extends J3DScene implements KeyListener {
 				}
 				addShape(sphere, c);
 				shapes.add(sphere);
-				for(Atom neighbor : a.bondsTo) {
+				for(Atom neighbor : a.getBonds()) {
 					if(!renderH && neighbor.type == Atom.Type.H) {
 						continue;
 					}
 					if(renderBackboneOnly &&
-							!AminoAcid.backBoneAtomNames.contains(neighbor.name)) {
+							!AminoAcid.backBoneAtomNames.contains(neighbor.label)) {
 						continue;
 					}
 					Vector midway = new Vector(
@@ -213,7 +213,7 @@ public class Renderer extends J3DScene implements KeyListener {
 //				Sphere sphere = new Sphere(new Vector(a.position), size);
 //				addShape(sphere, c);
 //				shapes.add(sphere);
-//				for(Atom neighbor : a.bondsTo) {
+//				for(Atom neighbor : a.getBonds()) {
 //					if(!renderH && neighbor.type == Atom.Type.H) {
 //						continue;
 //					}

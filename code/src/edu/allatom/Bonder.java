@@ -15,24 +15,25 @@ public class Bonder {
 	public final static String cTerminalAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"},{"C","OXT"}};
 	public final static String PROcTerminalAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"C","OXT"}};
 	
-	public static void bondAtoms(Protein p) {
+	public static boolean bondAtoms(Protein p) {
 		AminoAcid firstaa = p.aaSeq.get(0);
-		bondNTerminusAtoms(firstaa);
+		if(!bondNTerminusAtoms(firstaa)) return false;
 		
 		AminoAcid oldaa = firstaa;
 		for (AminoAcid aa : p.aaSeq.subList(1, p.aaSeq.size() - 1)) {
-			bondBackboneAtoms(aa);
-			bondSideChainAtoms(aa);
+			if(!bondBackboneAtoms(aa)) return false;
+			if(!bondSideChainAtoms(aa)) return false;
 			bondAtoms(oldaa.allatoms.get("C"), aa.allatoms.get("N"));
 			oldaa = aa;
 		}
 		
 		AminoAcid lastaa = p.aaSeq.get(p.aaSeq.size()-1);
-		bondCTerminusAtoms(lastaa);
+		if(!bondCTerminusAtoms(lastaa)) return false;
 		bondAtoms(oldaa.allatoms.get("C"), lastaa.allatoms.get("N"));
+		return true;
 	}
 
-	public static void bondBackboneAtoms(AminoAcid aa) {
+	public static boolean bondBackboneAtoms(AminoAcid aa) {
 		String atomPairs[][] = null;
 		switch (aa.type) {
 		case PRO:
@@ -42,12 +43,14 @@ public class Bonder {
 			atomPairs = backboneAtomPairs;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.println("av, parring af backbone fejlede:\n");
+			//System.out.println("av, parring af backbone fejlede:\n");
 			printAtomBonds(aa);
+			return false;
 		}
+		return true;
 	}
 	
-	public static void bondNTerminusAtoms(AminoAcid aa) {
+	public static boolean bondNTerminusAtoms(AminoAcid aa) {
 		String atomPairs[][] = null;
 		switch (aa.type) {
 //		case GLY:
@@ -57,13 +60,15 @@ public class Bonder {
 			atomPairs = nTerminalAtomPairs;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.println("av, N-terminal parring fejlede");
+			//System.out.println("av, N-terminal parring fejlede");
 			printAtomBonds(aa);
+			return false;
 		}
 		bondSideChainAtoms(aa);
+		return true;
 	}
 
-	public static void bondCTerminusAtoms(AminoAcid aa) {
+	public static boolean bondCTerminusAtoms(AminoAcid aa) {
 		String atomPairs[][] = null;
 		atomPairs = cTerminalAtomPairs;
 		if(aa.type == AminoAcidType.PRO) {
@@ -71,24 +76,27 @@ public class Bonder {
 		}
 
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.println("av, C-terminal parring fejlede");
+			//System.out.println("av, C-terminal parring fejlede");
 			printAtomBonds(aa);
+			return false;
 		}
 		bondSideChainAtoms(aa);
+		return true;
 	}
 	
-	public static void bondSideChainAtoms(AminoAcid aa) {
+	public static boolean bondSideChainAtoms(AminoAcid aa) {
 		String atomPairs[][] = aa.type.atomBonds;
 		if(atomPairs == null) {
-			System.out.println("Av, forkert aminosyre: ");
+			//System.out.println("Av, forkert aminosyre: ");
 			printAtomBonds(aa);
-			
-			return;
+			return false;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.print("Av, parring af sidekæde fejlede:\n  ");
+			//System.out.print("Av, parring af sidekæde fejlede:\n  ");
 			printAtomBonds(aa);
+			return false;
 		}
+		return true;
 	}
 
 	private static boolean bondAtomPairs(Map<String,Atom> atoms, String pairs[][]) {
@@ -96,7 +104,7 @@ public class Bonder {
 			Atom a0 = atoms.get(pair[0]);
 			Atom a1 = atoms.get(pair[1]);
 			if(a0==null || a1==null) {
-				System.out.println("a0:"+pair[0]+"  a1:"+pair[1]);
+				//System.out.println("a0:"+pair[0]+"  a1:"+pair[1]);
 				return false;
 			}
 			bondAtoms(a0,a1);
@@ -143,7 +151,7 @@ public class Bonder {
 			}
 		}
 		atomPairs = atomPairs.substring(0, atomPairs.length() - 1) + "};";
-		System.out.println(atomPairs);
+		//System.out.println(atomPairs);
 
 	}
 	

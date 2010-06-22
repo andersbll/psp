@@ -129,6 +129,8 @@ public class Protein {
 	private static final float LENGTH_CA_C = 1.5287709f;
 	private static final float LENGTH_N_CA = 1.4674187f;
 	private static final float LENGTH_C_N = 1.3272529f;
+	private static final float LENGTH_N_Hproj = 0.9810132f;
+	private static final float LENGTH_Hplane_Hproj = 0.018687172f;
 	
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
 		List<AminoAcid> acids = new ArrayList<AminoAcid>();
@@ -157,7 +159,6 @@ public class Protein {
 			aa.addAtom(o);
 			acids.add(aa);
 			
-			System.out.println("add");
 			aa = new AminoAcid(aminoAcidTypes.get(i++));
 			a -= 1.07835*f;
 			n = new Atom(Atom.Type.N, "N", new Point(
@@ -165,6 +166,12 @@ public class Protein {
 					(float) (c.position.y() + Math.sin(a)*LENGTH_C_N),
 					0));
 			aa.addAtom(n);
+			b = a + (Math.PI + 2.0847397) * f;
+			Atom h = new Atom(Atom.Type.H, "H", new Point(
+					(float) (n.position.x() + Math.cos(b)*LENGTH_N_Hproj),
+					(float) (n.position.y() + Math.sin(b)*LENGTH_N_Hproj),
+					LENGTH_Hplane_Hproj));
+			aa.addAtom(h);
 			a += (Math.PI - 2.114792)*f;
 			ca = new Atom(Atom.Type.C, "CA", new Point(
 					(float) (n.position.x() + Math.cos(a)*LENGTH_N_CA),
@@ -172,7 +179,7 @@ public class Protein {
 					0));
 			aa.addAtom(ca);
 		}
-		//
+		//TODO fix last aa
 		
 		Bonder.bondAtoms(acids);
 		return new Protein(acids);

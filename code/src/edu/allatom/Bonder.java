@@ -32,6 +32,20 @@ public class Bonder {
 		bondAtoms(oldaa.allatoms.get("C"), lastaa.allatoms.get("N"));
 		return true;
 	}
+	
+	public static boolean bondAtoms(List<AminoAcid> acids) {
+		AminoAcid firstaa = acids.get(0);
+		
+		AminoAcid oldaa = firstaa;
+		for (AminoAcid aa : acids) {
+			bondBackboneAtoms(aa);
+			bondSideChainAtoms(aa);
+			bondAtoms(oldaa.allatoms.get("C"), aa.allatoms.get("N"));
+			oldaa = aa;
+		}
+		
+		return true;
+	}
 
 	public static boolean bondBackboneAtoms(AminoAcid aa) {
 		String atomPairs[][] = null;
@@ -43,7 +57,7 @@ public class Bonder {
 			atomPairs = backboneAtomPairs;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			//System.out.println("av, parring af backbone fejlede:\n");
+			System.out.println("av, parring af backbone fejlede:\n");
 			printAtomBonds(aa);
 			return false;
 		}
@@ -60,7 +74,7 @@ public class Bonder {
 			atomPairs = nTerminalAtomPairs;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			//System.out.println("av, N-terminal parring fejlede");
+			System.out.println("av, N-terminal parring fejlede");
 			printAtomBonds(aa);
 			return false;
 		}
@@ -76,7 +90,7 @@ public class Bonder {
 		}
 
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			//System.out.println("av, C-terminal parring fejlede");
+			System.out.println("av, C-terminal parring fejlede");
 			printAtomBonds(aa);
 			return false;
 		}
@@ -87,12 +101,12 @@ public class Bonder {
 	public static boolean bondSideChainAtoms(AminoAcid aa) {
 		String atomPairs[][] = aa.type.atomBonds;
 		if(atomPairs == null) {
-			//System.out.println("Av, forkert aminosyre: ");
+			System.out.println("Av, forkert aminosyre: ");
 			printAtomBonds(aa);
 			return false;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			//System.out.print("Av, parring af sidekæde fejlede:\n  ");
+			System.out.print("Av, parring af sidekæde fejlede:\n  ");
 			printAtomBonds(aa);
 			return false;
 		}
@@ -104,7 +118,7 @@ public class Bonder {
 			Atom a0 = atoms.get(pair[0]);
 			Atom a1 = atoms.get(pair[1]);
 			if(a0==null || a1==null) {
-				//System.out.println("a0:"+pair[0]+"  a1:"+pair[1]);
+				System.out.println("a0:"+pair[0]+"  a1:"+pair[1]);
 				return false;
 			}
 			bondAtoms(a0,a1);
@@ -151,7 +165,7 @@ public class Bonder {
 			}
 		}
 		atomPairs = atomPairs.substring(0, atomPairs.length() - 1) + "};";
-		//System.out.println(atomPairs);
+		System.out.println(atomPairs);
 
 	}
 	

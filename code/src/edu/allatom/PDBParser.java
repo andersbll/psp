@@ -76,7 +76,9 @@ public class PDBParser {
 	public static Atom parseAtom(String atomLine) {
 		Vector position = getPosition(atomLine);
 		String typeString = atomLine.substring(77, 78).trim();
-		String name = atomLine.substring(13, 16).trim();
+		// WARNING: in the next line, the 12 should actually be 13 to parse
+		// correct pdb files. 12 is used because some pdb files are incorrect 
+		String name = atomLine.substring(12, 16).trim();
 		Atom.Type type = Atom.Type.fromName(typeString);
 		return new Atom(type, name, position);
 	}	

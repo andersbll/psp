@@ -378,17 +378,19 @@ public class AminoAcid {
 		}
 		
 		String a = "CA";
+//		System.out.println("searching for terminator: " + terminator.label);
 		while(!a.equals(terminator.label)) {
 			String next = null;
 			for(String neighbor : type.followBond(a)) {
 				if(!labels.contains(neighbor)) {
 					labels.add(neighbor);
-					if(!neighbor.startsWith("H")) {
+					if(!neighbor.startsWith("H") && next == null) {
 						next = neighbor;
 					}
 				}
 			}
 			a = next;
+//			System.out.println(a);
 		}
 		
 		List<Atom> atomsAfter = new LinkedList<Atom>();
@@ -422,7 +424,7 @@ public class AminoAcid {
 			break;
 		case 3:
 			rotationAtoms = new Atom[]{
-					getAtomByLabel(atoms, ".D"), getAtomByLabel(atoms, ".E")};
+					getAtomByLabel(atoms, ".D"), getAtomByLabel(atoms, "[^H]E")};
 			break;
 		}
 		rotationVector = rotationAtoms[0].position.vectorTo(
@@ -444,11 +446,11 @@ public class AminoAcid {
 			Atom gamma = getAtomByLabel(atoms, ".G.?");
 			setChiAngle(0, -Math.PI/2 + Math.atan2(gamma.position.y(), gamma.position.z()), type, atoms);
 		} else {
-			double chiAngleBefore = getChiAngle(angleNumber, type, atoms);
-			System.out.println("Chi angle before: " + chiAngleBefore);
+//			double chiAngleBefore = getChiAngle(angleNumber, type, atoms);
+//			System.out.println("Chi angle before: " + chiAngleBefore);
 			setChiAngle(angleNumber, -getChiAngle(angleNumber, type, atoms), type, atoms);
-			double chiAngleAfter = getChiAngle(angleNumber, type, atoms);
-			System.out.println("Chi angle after: " + chiAngleAfter);
+//			double chiAngleAfter = getChiAngle(angleNumber, type, atoms);
+//			System.out.println("Chi angle after: " + chiAngleAfter);
 		}
 	}
 	// Filter amino acids
@@ -514,21 +516,28 @@ public class AminoAcid {
 		getAverageSidechain(
 			AminoAcidType type, List<List<Atom>> sidechains) {
 		List<String> labels = new LinkedList<String>();
-		for(Atom a : sidechains.get(0)) {
+		List<Atom> shortestSidechain = null; // yes, they should have the same length...
+		for(List<Atom> s : sidechains) {
+			if(shortestSidechain == null
+					|| shortestSidechain.size() < shortestSidechain.size());
+			shortestSidechain = s;
+		}
+		for(Atom a : shortestSidechain) {
 			labels.add(a.label);
 		}
 		List<Atom> averageSidechain = new LinkedList<Atom>();
 		for(String label : labels) {
 			Vector averagePosition = new Vector(0, 0, 0);
 			Atom a = null;
+			int found = 0;
 			for(List<Atom> sidechain : sidechains) {
 				a = getAtomByLabel(sidechain, label);
-				averagePosition.plusIn(a.position);
-				System.out.println(label + ": " + a.position);
+				if(a != null) {
+					averagePosition.plusIn(a.position);
+					found++;
+				}
 			}
-			averagePosition.divideIn(sidechains.size());
-			System.out.println(label + ": " + averagePosition);
-			System.out.println();
+			averagePosition.divideIn(found);
 			Atom averageAtom = new Atom(a.type, label, averagePosition);
 			averageSidechain.add(averageAtom);
 		}
@@ -547,9 +556,9 @@ public class AminoAcid {
 		String s = "";
 		s += "new Atom[]{\n";
 		for(Atom a : atoms) {
-			s += "	new Atom(Atom.Type." + a.type + "), \"" + a.label + "\", " +
-					"new Vector(" + a.position.x() + ", " + a.position.y() +
-					", " + a.position.z() + ")),\n";
+			s += "	new Atom(Atom.Type." + a.type + ", \"" + a.label + "\", " +
+					"new Point(" + a.position.x() + "f, " + a.position.y() +
+					"f, " + a.position.z() + "f)),\n";
 		}
 		s += "},\n";
 		return s;

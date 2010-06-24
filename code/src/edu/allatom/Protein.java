@@ -131,6 +131,8 @@ public class Protein {
 	private static final float LENGTH_C_N = 1.3272529f;
 	private static final float LENGTH_N_Hproj = 0.9810132f;
 	private static final float LENGTH_Hplane_Hproj = 0.018687172f;
+	private static final float LENGTH_CA_HAproj = 0.61467975f;
+	private static final float LENGTH_HAplane_HAproj = 0.88209957f;
 	
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
 		List<AminoAcid> acids = new ArrayList<AminoAcid>();
@@ -144,7 +146,7 @@ public class Protein {
 		aa.addAtom(ca);
 		double a = Math.PI/2;
 		while(i < aminoAcidTypes.size()) {
-			double f = i%2 == 0 ? -1 : 1;
+			float f = i%2 == 0 ? -1 : 1;
 			a += (Math.PI-2.1611323)*f;
 			Atom c = new Atom(Atom.Type.C, "C", new Point(
 					(float)(ca.position.x() + Math.cos(a)*LENGTH_CA_C),
@@ -170,7 +172,7 @@ public class Protein {
 			Atom h = new Atom(Atom.Type.H, "H", new Point(
 					(float) (n.position.x() + Math.cos(b)*LENGTH_N_Hproj),
 					(float) (n.position.y() + Math.sin(b)*LENGTH_N_Hproj),
-					LENGTH_Hplane_Hproj));
+					LENGTH_Hplane_Hproj * f));
 			aa.addAtom(h);
 			a += (Math.PI - 2.114792)*f;
 			ca = new Atom(Atom.Type.C, "CA", new Point(
@@ -178,6 +180,15 @@ public class Protein {
 					(float) (n.position.y() + Math.sin(a)*LENGTH_N_CA),
 					0));
 			aa.addAtom(ca);
+
+            String HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
+
+            b = a + (Math.PI + 2.1751032) * -f;
+			Atom ha = new Atom(Atom.Type.H, HAname, new Point(
+					(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
+					(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
+					LENGTH_HAplane_HAproj * f));
+			aa.addAtom(ha);
 		}
 		//TODO fix last aa
 		

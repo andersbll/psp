@@ -1,6 +1,9 @@
 package edu.allatom;
 
 import java.io.File;
+import edu.math.Vector;
+import edu.math.Plane;
+import edu.math.Point;
 
 import java.util.*;
 
@@ -98,6 +101,13 @@ public class StructureStats {
 		return Float.POSITIVE_INFINITY;
 	}
 
+	private static float distance(Map<String, Float> bondlengths, Point a, Point b, String name) {
+        float dist = a.distance(b);
+        bondlengths.put(name, dist);
+        return dist;
+	}
+
+
 	/* Returns angle A in radians */
 	public static float cos_relation(float a, float b, float c) {
 		return (float)Math.acos((Math.pow(b, 2) + Math.pow(c, 2) - Math.pow(a,2))/ (2*b*c));
@@ -116,6 +126,14 @@ public class StructureStats {
 		return Float.POSITIVE_INFINITY;
 	}	
 
+    //If you work with a plane defined by point and normal
+    public static Point ClosestPointOnPlane(Plane plane, Point point)
+    {
+        float distance = plane.getNorm().dot(new Vector(point).minus(new Vector(plane.getP())));
+        return (new Vector(plane.getNorm().times(distance))).minus(new Vector(point));
+    }
+
+
 	public static Map<String, Float> computeBackboneBondLengths (AminoAcid aa) {
 		HashMap<String, Float> bondlengths = new HashMap<String, Float>();
 
@@ -127,10 +145,13 @@ public class StructureStats {
 		Atom O = aa.getAtom("O");
 		Atom next_N = null;
 		Atom next_CA = null;
+        Atom next_H = null;
 		if(C != null) {
 			next_N = C.followBond("N");
-			if(next_N != null)
+			if(next_N != null) {
 				next_CA = next_N.followBond("CA");
+                next_H = next_N.followBond("H");
+            }
 		}
 
 		/* Compute bond lengths */
@@ -158,6 +179,26 @@ public class StructureStats {
 		float CA_C_N = angle(bondlengths, CAtoN, CA_C, C_N, "CA-C-N");
 		float C_N_H = angle(bondlengths, CtoH, C_N, N_H, "C-N-H");
 		float C_N_CA = angle(bondlengths, CtoCA, C_N, N_CA, "C-N-CA");
+
+        if(next_N != null && next_CA != null && C != null && next_H != null) {
+            Plane planeH = new Plane(new Vector(next_N.position), next_N.vectorTo(next_CA).cross(next_N.vectorTo(C)));
+            Point projH = planeH.projectOnto(new Vector (next_H.position)); // ClosestPointOnPlane(planeH, next_H.position);
+            float distHPlaneH = distance(bondlengths, projH, next_H.position, "distHPlaneH");
+            float CtoprojH = distance(bondlengths, C.position, projH, "C..projH");
+            float NtoprojH = distance(bondlengths, next_N.position, projH, "N..projH");
+            //System.out.println(projH + " " + next_H.position + " distance: "  + distHPlaneH  + " _distance_: "  + planeH.getDistance(next_H.position));
+            float C_N_projH = angle(bondlengths, CtoprojH, C_N, NtoprojH, "projHangle");
+        }
+
+        if(N != null && CA != null && C != null && HA != null) {
+            Plane planeHA = new Plane(new Vector(CA.position), CA.vectorTo(N).cross(CA.vectorTo(C)));
+            Point projHA = planeHA.projectOnto(new Vector (HA.position)); // ClosestPointOnPlane(planeH, next_H.position);
+            float distHAPlaneHA = distance(bondlengths, projHA, HA.position, "distHAPlaneHA");
+            float NtoprojHA = distance(bondlengths, N.position, projHA, "N..projHA");
+            float CAtoprojHA = distance(bondlengths, CA.position, projHA, "CA..projHA");
+            System.out.println(projHA + " " + HA.position + " distance: "  + distHAPlaneHA  + " _distance_: "  + planeHA.getDistance(HA.position));
+            float N_CA_projHA = angle(bondlengths, NtoprojHA, N_CA, CAtoprojHA, "projHAangle");
+        }
 
 		return bondlengths;
 	}

@@ -1,25 +1,20 @@
 package edu.allatom;
 
-import java.awt.Color;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.TreeMap;
 
 import edu.math.Matrix;
 import edu.math.Point;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
-import edu.math.Vector2D;
 
 
 
@@ -200,6 +195,13 @@ public class AminoAcid {
 	private void applyRotamer(Rotamer rotamer) {
 		this.rotamer = rotamer;
 		//TODO
+		List<Atom> atoms = new LinkedList<Atom>();
+		for(int i=0; i<type.chiAngleCount; i++) {
+			for(String label : type.chiAffectedAtomNames[i]) {
+				atoms.add(allatoms.get(label));
+			}
+			setChiAngle(i, rotamer.chis[i], type, new LinkedList<Atom>(allatoms.values()));
+		}
 	}
 	
 	/**
@@ -427,6 +429,7 @@ public class AminoAcid {
 					getAtomByLabel(atoms, ".D"), getAtomByLabel(atoms, "[^H]E")};
 			break;
 		}
+		System.out.println(rotationAtoms[0] + ", " + rotationAtoms[0]);
 		rotationVector = rotationAtoms[0].position.vectorTo(
 				rotationAtoms[1].position);
 		Matrix rotation = TransformationMatrix3D.createRotation(

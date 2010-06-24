@@ -20,7 +20,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HB1", new Point(1.9092338f, -0.0045806468f, -0.011174381f)),
 					new Atom(Atom.Type.H, "H", new Point(0.2107803f, 1.7220597f, -0.7106306f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB1"},{"CB","HB2"},{"CB","HB3"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB1"},{"CB","HB2"},{"CB","HB3"}},
+			new String[][]{{}, {}, {}, {}}
 	),
 	ARG (
 			4,
@@ -50,7 +51,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG2", new Point(2.754526f, 1.6261079f, 0.87693137f)),
 					new Atom(Atom.Type.N, "NE", new Point(-0.2563241f, 1.8837262f, -0.011592612f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","NE"},{"CG","HG2"},{"CG","HG3"},{"CZ","NE"},{"CZ","NH1"},{"CZ","NH2"},{"H11","NH1"},{"H12","NH1"},{"H21","NH2"},{"H22","NH2"},{"HE","NE"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","NE"},{"CG","HG2"},{"CG","HG3"},{"CZ","NE"},{"CZ","NH1"},{"CZ","NH2"},{"H11","NH1"},{"H12","NH1"},{"H21","NH2"},{"H22","NH2"},{"HE","NE"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"NE", "HD2", "HD3"}, {"CZ", "NH1", "NH2", "H11", "H12", "H21", "H22"}}
 	),
 	ASN (
 			2,
@@ -70,7 +72,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "H", new Point(-0.6495756f, 1.9688237f, 0.44353706f)),
 					new Atom(Atom.Type.C, "CG", new Point(2.1018245f, 1.4364347f, -2.980232E-8f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CG","ND2"},{"CG","OD1"},{"HD21","ND2"},{"HD22","ND2"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CG","ND2"},{"CG","OD1"},{"HD21","ND2"},{"HD22","ND2"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"ND2", "OD1", "HD21", "HD22"}, {}, {}}
 	),
 	ASP (
 			2,
@@ -88,13 +91,15 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CA", new Point(0.0f, 0.0f, 0.0f)),
 					new Atom(Atom.Type.H, "H", new Point(0.03767878f, 0.19501129f, 0.16318467f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CG","OD1"},{"CG","OD2"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CG","OD1"},{"CG","OD2"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"OD1", "OD2"}, {}, {}}
 	),
 	CYS (
 			1,
 			new Atom[]{
 			},//TODO
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","SG"},{"HG","SG"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","SG"},{"HG","SG"}},
+			new String[][]{{"SG", "HB2", "HB3", "HG"}, {}, {}, {}}
 	),
 	GLN (
 			3,
@@ -117,7 +122,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HE22", new Point(-0.95292693f, 2.7675352f, -0.0038419564f)),
 					new Atom(Atom.Type.H, "HE21", new Point(-0.44900092f, 1.152188f, -7.9524517E-4f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","NE2"},{"CD","OE1"},{"CG","HG2"},{"CG","HG3"},{"E21","NE2"},{"E22","NE2"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","NE2"},{"CD","OE1"},{"CG","HG2"},{"CG","HG3"},{"HE21","NE2"},{"HE22","NE2"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"NE2", "OE1", "HE21", "HE22"}, {}}
 	),
 	GLU (
 			3,
@@ -138,7 +144,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG2", new Point(2.7200966f, 1.6106765f, 0.8783227f)),
 					new Atom(Atom.Type.O, "OE2", new Point(1.2619245f, 3.6744132f, -7.763609E-4f)),
 			},
-			new String[][]{{"CA","HA"},{"CB","CA"},{"CB","CG"},{"CB","HB3"},{"CD","OE1"},{"CD","OE2"},{"CG","CD"},{"CG","HG2"},{"H","N"},{"HB2","CB"},{"HG3","CG"}}
+			new String[][]{{"CA","HA"},{"CB","CA"},{"CB","CG"},{"CB","HB3"},{"CD","OE1"},{"CD","OE2"},{"CG","CD"},{"CG","HG2"},{"H","N"},{"HB2","CB"},{"HG3","CG"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"OE1", "OE2"}, {}}
 	),
 	GLY (
 			0,
@@ -151,7 +158,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CA", new Point(0.0f, 0.0f, 0.0f)),
 					new Atom(Atom.Type.H, "H", new Point(-0.68066025f, -0.55785584f, -0.18243046f)),
 			},
-			new String[][]{{"CA","HA2"},{"CA","HA3"}}
+			new String[][]{{"CA","HA2"},{"CA","HA3"}},
+			new String[][]{{}, {}, {}, {}}
 	),
 	HIS (
 			2,
@@ -174,7 +182,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CE1", new Point(3.5366921f, 3.0424094f, -0.0067913234f)),
 					new Atom(Atom.Type.C, "CD2", new Point(1.4147894f, 2.6264033f, -1.1920929E-7f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD2","CG"},{"CD2","HD2"},{"CD2","NE2"},{"CE1","HE1"},{"CE1","ND1"},{"CE1","NE2"},{"CG","ND1"}} //FIXME abll: jeg mener at {"HE2","NE2"} skal tilføjes
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD2","CG"},{"CD2","HD2"},{"CD2","NE2"},{"CE1","HE1"},{"CE1","ND1"},{"CE1","NE2"},{"CG","ND1"},{"HE2","NE2"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD2", "ND1", "HD2", "NE2", "CE1", "HE1", "HE2"}, {}, {}}
 	),
 	ILE (
 			2,
@@ -199,7 +208,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG13", new Point(2.7626708f, 1.636232f, -0.86860394f)),
 					new Atom(Atom.Type.H, "HG12", new Point(2.7555873f, 1.6410934f, 0.87976056f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG1"},{"CB","CG2"},{"CB","HB"},{"CD1","CG1"},{"CD1","HD11"},{"CD1","HD12"},{"CD1","HD13"},{"CG1","HG12"},{"CG1","HG13"},{"CG2","HG21"},{"CG2","HG22"},{"CG2","HG23"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG1"},{"CB","CG2"},{"CB","HB"},{"CD1","CG1"},{"CD1","HD11"},{"CD1","HD12"},{"CD1","HD13"},{"CG1","HG12"},{"CG1","HG13"},{"CG2","HG21"},{"CG2","HG22"},{"CG2","HG23"}},
+			new String[][]{{"CG1", "CG2", "HB", "HG21", "HG22", "HG23"}, {"CD1", "HD11", "HD12", "HD13", "HG12", "HG13"}, {}, {}}
 	),
 	LEU (
 			2,
@@ -224,7 +234,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CD2", new Point(3.1211028f, 1.682629f, 1.2273533f)),
 					new Atom(Atom.Type.C, "CD1", new Point(1.0336741f, 2.540317f, -2.6283992E-8f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CG"},{"CD1","HD11"},{"CD1","HD12"},{"CD1","HD13"},{"CD2","CG"},{"CD2","HD21"},{"CD2","HD22"},{"CD2","HD23"},{"CG","HG"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CG"},{"CD1","HD11"},{"CD1","HD12"},{"CD1","HD13"},{"CD2","CG"},{"CD2","HD21"},{"CD2","HD22"},{"CD2","HD23"},{"CG","HG"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD1", "CD2", "HG", "HD11", "HD12", "HD13", "HD21", "HD22", "HD23", }, {}, {}}
 	),
 	LYS (
 			4,
@@ -252,7 +263,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG3", new Point(2.7415595f, 1.5994806f, -0.88292754f)),
 					new Atom(Atom.Type.H, "HG2", new Point(2.7470908f, 1.597155f, 0.8758384f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CE"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CE","HE2"},{"CE","HE3"},{"CE","NZ"},{"CG","HG2"},{"CG","HG3"},{"HZ1","NZ"},{"HZ2","NZ"},{"HZ3","NZ"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CE"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CE","HE2"},{"CE","HE3"},{"CE","NZ"},{"CG","HG2"},{"CG","HG3"},{"HZ1","NZ"},{"HZ2","NZ"},{"HZ3","NZ"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"CE", "HD2", "HD3"}, {"NZ", "HE1", "HE2", "HZ1", "HZ2", "HZ3"}}
 	),
 	MET (
 			3,
@@ -275,7 +287,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG3", new Point(2.7251253f, 1.567364f, -0.89128375f)),
 					new Atom(Atom.Type.H, "HG2", new Point(2.7627268f, 1.5554309f, 0.8528357f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CE","HE1"},{"CE","HE2"},{"CE","HE3"},{"CE","SD"},{"CG","HG2"},{"CG","HG3"},{"CG","SD"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CE","HE1"},{"CE","HE2"},{"CE","HE3"},{"CE","SD"},{"CG","HG2"},{"CG","HG3"},{"CG","SD"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"SD", "HG2", "HG3"}, {"CE", "HE1", "HE2", "HE3"}, {}}
 	),
 	PHE (
 			2,
@@ -301,7 +314,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CD2", new Point(3.459166f, 1.6877842f, -0.006403208f)),
 					new Atom(Atom.Type.C, "CD1", new Point(1.1829197f, 2.528405f, -2.3841858E-7f)),
 				},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CE1"},{"CD1","CG"},{"CD1","HD1"},{"CD2","CE2"},{"CD2","CG"},{"CD2","HD2"},{"CE1","CZ"},{"CE1","HE1"},{"CE2","CZ"},{"CE2","HE2"},{"CZ","HZ"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CE1"},{"CD1","CG"},{"CD1","HD1"},{"CD2","CE2"},{"CD2","CG"},{"CD2","HD2"},{"CE1","CZ"},{"CE1","HE1"},{"CE2","CZ"},{"CE2","HE2"},{"CZ","HZ"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD1", "CE1", "CD2", "CE2", "CZ", "HD1", "HD2", "HE1", "HE2", "HZ"}, {}, {}}
 	),
 	PRO (
 			2,
@@ -322,7 +336,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG3", new Point(2.4883904f, 1.7155303f, -0.89877653f)),
 					new Atom(Atom.Type.H, "HG2", new Point(2.5207396f, 1.7220876f, 0.8833633f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","N"},{"CG","HG2"},{"CG","HG3"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","N"},{"CG","HG2"},{"CG","HG3"}},
+			new String[][]{{}, {}, {}, {}}
 	),
 	SER (
 			1,
@@ -339,7 +354,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CA", new Point(0.0f, 0.0f, 0.0f)),
 					new Atom(Atom.Type.H, "H", new Point(-0.085914075f, -0.4415348f, 0.9337152f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","OG"},{"HG","OG"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","OG"},{"HG","OG"}},
+			new String[][]{{"OG", "HG", "HB2", "HB3"}, {}, {}, {}}
 	),
 	THR (
 			1,
@@ -359,7 +375,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.O, "OG1", new Point(2.0060391f, -0.67720604f, 1.1564322f)),
 					new Atom(Atom.Type.H, "HG1", new Point(2.6943424f, -0.6617912f, 1.2552574f)),
 			},
-			new String[][]{{"CA","HA"},{"CB","CA"},{"CB","CG2"},{"CB","HB"},{"CG2","HG21"},{"CG2","HG22"},{"HG23","CG2"},{"H","N"},{"OG1","CB"},{"OG1","HG1"}}
+			new String[][]{{"CA","HA"},{"CB","CA"},{"CB","CG2"},{"CB","HB"},{"CG2","HG21"},{"CG2","HG22"},{"HG23","CG2"},{"H","N"},{"OG1","CB"},{"OG1","HG1"}},
+			new String[][]{{"CG2", "OG1", "HG1", "HG21", "HG22", "HG23", "HB"}, {}, {}, {}}
 	),
 	TRP (
 			2,
@@ -389,7 +406,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CD1", new Point(1.2708465f, 2.5190399f, 2.3841858E-7f)),
 					new Atom(Atom.Type.H, "HH2", new Point(6.7634773f, 3.8910403f, 0.03443885f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CG"},{"CD1","HD1"},{"CD1","NE1"},{"CD2","CE2"},{"CD2","CE3"},{"CD2","CG"},{"CE2","CZ2"},{"CE2","NE1"},{"CE3","CZ3"},{"CE3","HE3"},{"CH2","CZ2"},{"CH2","CZ3"},{"CH2","HH2"},{"CZ2","HZ2"},{"CZ3","HZ3"},{"HE1","NE1"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CG"},{"CD1","HD1"},{"CD1","NE1"},{"CD2","CE2"},{"CD2","CE3"},{"CD2","CG"},{"CE2","CZ2"},{"CE2","NE1"},{"CE3","CZ3"},{"CE3","HE3"},{"CH2","CZ2"},{"CH2","CZ3"},{"CH2","HH2"},{"CZ2","HZ2"},{"CZ3","HZ3"},{"HE1","NE1"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD1", "HD1", "NE1", "HE1", "CE2", "CD2", "CE3", "CZ2", "CE3", "HE3", "CZ3", "CH2", "HH2", "HZ2", "HZ3"}, {}, {}}
 	),
 	TYR (
 			2,
@@ -416,7 +434,8 @@ enum AminoAcidType {
 					new Atom(Atom.Type.C, "CD2", new Point(3.4966807f, 1.7372794f, -0.0063523054f)),
 					new Atom(Atom.Type.C, "CD1", new Point(1.2035816f, 2.5277731f, 3.5762787E-7f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CE1"},{"CD1","CG"},{"CD1","HD1"},{"CD2","CE2"},{"CD2","CG"},{"CD2","HD2"},{"CE1","CZ"},{"CE1","HE1"},{"CE2","CZ"},{"CE2","HE2"},{"CZ","OH"},{"HH","OH"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD1","CE1"},{"CD1","CG"},{"CD1","HD1"},{"CD2","CE2"},{"CD2","CG"},{"CD2","HD2"},{"CE1","CZ"},{"CE1","HE1"},{"CE2","CZ"},{"CE2","HE2"},{"CZ","OH"},{"HH","OH"}},
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD1", "CE1", "CD2", "CE2", "CZ", "HD1", "HD2", "HE1", "HE2", "OH", "HH"}, {}, {}}
 	),
 	VAL (
 			1,
@@ -438,12 +457,14 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG13", new Point(3.1818562f, 1.4655569f, -0.017361283f)),
 					new Atom(Atom.Type.H, "HG12", new Point(1.7355436f, 1.9903432f, -0.87856925f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG1"},{"CB","CG2"},{"CB","HB"},{"CG1","HG11"},{"CG1","HG12"},{"CG1","HG13"},{"CG2","HG21"},{"CG2","HG22"},{"CG2","HG23"}}
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG1"},{"CB","CG2"},{"CB","HB"},{"CG1","HG11"},{"CG1","HG12"},{"CG1","HG13"},{"CG2","HG21"},{"CG2","HG22"},{"CG2","HG23"}},
+			new String[][]{{"CG1", "CG2", "HB", "HG11", "HG12", "HG13", "HG21", "HG22", "HG23"}, {}, {}, {}}
 	);
 
 	int chiAngleCount;
 	Atom[] sidechainAtoms;
 	String[][] atomBonds;
+	String[][] chiAffectedAtomNames;
 
 	List<String> followBond(String atomLabel) {
 		Set<String> destinations = new HashSet<String>();
@@ -458,9 +479,10 @@ enum AminoAcidType {
 		return new LinkedList<String>(destinations);
 	}
 
-	AminoAcidType(int chiN, Atom[] atoms, String[][] bonds) {
+	AminoAcidType(int chiN, Atom[] atoms, String[][] bonds, String[][] chiAtoms) {
 		sidechainAtoms = atoms;
 		chiAngleCount = chiN;
 		atomBonds = bonds;
+		chiAffectedAtomNames = chiAtoms;
 	}
 }

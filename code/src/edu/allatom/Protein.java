@@ -145,23 +145,90 @@ public class Protein {
 		Atom ca = new Atom(Atom.Type.C, "CA", new Point(0, LENGTH_N_CA, 0));
 		aa.addAtom(ca);
 		double a = Math.PI/2;
+		float f = 0;
+		String HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
+        double b = a + (Math.PI + 2.1751032) * -f;
+		Atom ha = new Atom(Atom.Type.H, HAname, new Point(
+				(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
+				(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
+				LENGTH_HAplane_HAproj * f));
+		aa.addAtom(ha); //TODO fix position
 		while(i < aminoAcidTypes.size()) {
-			float f = i%2 == 0 ? -1 : 1;
+			System.out.println(type);
+			f = i%2 == 0 ? -1 : 1;
 			a += (Math.PI-2.1611323)*f;
 			Atom c = new Atom(Atom.Type.C, "C", new Point(
 					(float)(ca.position.x() + Math.cos(a)*LENGTH_CA_C),
 					(float)(ca.position.y() + Math.sin(a)*LENGTH_CA_C),
 					0));
 			aa.addAtom(c);
-			double b = a + (Math.PI - 2.1054177) *f;
+			b = a + (Math.PI - 2.1054177) *f;
 			Atom o = new Atom(Atom.Type.O, "O", new Point(
 					(float) (c.position.x() + Math.cos(b)*LENGTH_C_O),
 					(float) (c.position.y() + Math.sin(b)*LENGTH_C_O),
 					0));
 			aa.addAtom(o);
+			
+			// place the sidechain
+			Atom cb = null;
+			for(Atom sa : type.sidechainAtoms) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					Point position = new Vector(sa.position).plus(ca.position);
+					Atom atom = new Atom(sa.type, sa.label, position);
+					aa.addAtom(atom);
+					if(atom.label.equals("CB")) {
+						cb = atom;
+					} else if(type == AminoAcidType.GLY && atom.label.equals("HA3")) {
+						cb = atom;
+					}
+				}
+			}
+			// rotate sidechain to point to the N atom
+			Vector rotationVector = ca.vectorTo(cb).cross(ca.vectorTo(n));
+			float rotationAngle = ca.vectorTo(cb).angle(ca.vectorTo(n));
+			Matrix rotationMatrix = TransformationMatrix3D.createRotation(new Vector(ca.position), rotationVector, rotationAngle);
+			for(Atom sa : aa.allatoms.values()) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					sa.position = rotationMatrix.applyTo(new Vector(sa.position));
+				}
+			}
+			// rotate sidechain to point correctly
+			Vector rotationVector1 = ca.vectorTo(c).cross(ca.vectorTo(n));
+			float rotationAngle1 = 2.1617115f; //N_CA_projCB
+			Matrix rotationMatrix1 = TransformationMatrix3D.createRotation(
+					new Vector(ca.position), rotationVector1, rotationAngle1);
+			for(Atom sa : aa.allatoms.values()) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					sa.position = rotationMatrix1.applyTo(new Vector(sa.position));
+				}
+			}
+			Vector rotationVector2 = ca.position.vectorTo(new Vector(
+					rotationMatrix.applyTo(new Vector(cb.position))));
+			float rotationAngle2 = 0.9287418f * f; //CB_CA_projCB
+			Matrix rotationMatrix2 = TransformationMatrix3D.createRotation(
+					new Vector(ca.position), rotationVector2, rotationAngle2);
+			for(Atom sa : aa.allatoms.values()) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					sa.position = rotationMatrix2.applyTo(new Vector(sa.position));
+				}
+			}
+			boolean rotamerStatus;
+//			do {
+//				rotamerStatus = aa.nextRotamer();
+				rotamerStatus = aa.nextCollisionlessRotamer(new Protein(acids));
+//			} while(rotamerStatus);
+//			if(!rotamerStatus) {
+//				System.out.println("no more rotamers");
+//			}
+			
 			acids.add(aa);
 			
-			aa = new AminoAcid(aminoAcidTypes.get(i++));
+			type = aminoAcidTypes.get(i++);
+			aa = new AminoAcid(type);
 			a -= 1.07835*f;
 			n = new Atom(Atom.Type.N, "N", new Point(
 					(float) (c.position.x() + Math.cos(a)*LENGTH_C_N),
@@ -181,10 +248,9 @@ public class Protein {
 					0));
 			aa.addAtom(ca);
 
-            String HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
-
+            HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
             b = a + (Math.PI + 2.1751032) * -f;
-			Atom ha = new Atom(Atom.Type.H, HAname, new Point(
+			ha = new Atom(Atom.Type.H, HAname, new Point(
 					(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 					(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
 					LENGTH_HAplane_HAproj * f));

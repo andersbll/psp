@@ -1,5 +1,6 @@
 package edu.allatom;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
@@ -31,10 +32,20 @@ public class Main {
 			e.printStackTrace();
 			return;
 		}
-
+		
+		try {
+			AminoAcid.loadDunbrachRotamerLibrary("pdb/bbind02.May.lib");
+		} catch (IOException e) {
+			System.out.println("Dunbrach library file not found!");
+			return;
+		}
+		
+//		neatSidechainStatisticsStuff(renderer, p);
+		List<AminoAcidType> typeTrace = getTypeTrace(p);
+//		renderUncoiledProtein(renderer, typeTrace);
+		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 //		renderProtein(renderer, p);
-		neatSidechainStatisticsStuff(renderer, p);
-//		renderUncoiledProtein(renderer);
 
 		renderer.render();
 
@@ -42,10 +53,8 @@ public class Main {
 		// Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 	}
 	
-	private static void renderProtein(Renderer renderer, Protein p) {
-		Bonder.bondAtoms(p);
-		
-		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+	private static void rendAndBend(Renderer renderer, Protein p, LinkedList<Atom> trace) {
+//		Bonder.bondAtoms(p);
 
 		// Currently the trace is exactly on top of the protein.
 		// So we rotate and push the protein around to make it a problem
@@ -60,20 +69,20 @@ public class Main {
 		Bender.bendProteinBackbone(p, trace, renderer);
 	}
 	
-	private static void renderUncoiledProtein(Renderer renderer) {
-		List<AminoAcidType> aminoAcidTypes = new LinkedList<AminoAcidType>();
-		aminoAcidTypes.add(AminoAcidType.ALA);
-		aminoAcidTypes.add(AminoAcidType.GLY);
-		aminoAcidTypes.add(AminoAcidType.GLU);
-		aminoAcidTypes.add(AminoAcidType.GLU);
-		aminoAcidTypes.add(AminoAcidType.GLU);
+	private static void renderUncoiledProtein(Renderer renderer, List<AminoAcidType> typeTrace) {
+//		List<AminoAcidType> aminoAcidTypes = new LinkedList<AminoAcidType>();
+//		aminoAcidTypes.add(AminoAcidType.VAL);
+//		aminoAcidTypes.add(AminoAcidType.GLU);
+//		aminoAcidTypes.add(AminoAcidType.LYS);
+//		aminoAcidTypes.add(AminoAcidType.GLN);
+//		aminoAcidTypes.add(AminoAcidType.ARG);
 //		aminoAcidTypes.add(AminoAcidType.GLU);
 //		aminoAcidTypes.add(AminoAcidType.GLU);
 //		aminoAcidTypes.add(AminoAcidType.GLU);
 //		aminoAcidTypes.add(AminoAcidType.GLU);
 //		aminoAcidTypes.add(AminoAcidType.GLU);
 //		aminoAcidTypes.add(AminoAcidType.GLU);
-		renderer.addToScene(Protein.getUncoiledProtein(aminoAcidTypes));
+		renderer.addToScene(Protein.getUncoiledProtein(typeTrace));
 	}
 
 	private static void neatSidechainStatisticsStuff(Renderer renderer, Protein p) {
@@ -124,5 +133,13 @@ public class Main {
 			
 			System.out.println("ugly code:\n" + AminoAcid.sidechainJavaRepresentation(atoms));
 		}
+	}
+	
+	private static List<AminoAcidType> getTypeTrace(Protein p) {
+		List<AminoAcidType> trace = new LinkedList<AminoAcidType>();
+		for(AminoAcid aa : p.aaSeq) {
+			trace.add(aa.type);
+		}
+		return trace;
 	}
 }

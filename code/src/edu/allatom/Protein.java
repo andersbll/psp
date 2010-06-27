@@ -138,6 +138,8 @@ public class Protein {
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
 		List<AminoAcid> acids = new ArrayList<AminoAcid>();
 		int i = 0;
+		int initialCollisions = 0;
+		int collisions = 0;
 		
 		AminoAcidType type = aminoAcidTypes.get(i++);
 		AminoAcid aa = new AminoAcid(type);
@@ -220,7 +222,13 @@ public class Protein {
 			boolean rotamerStatus;
 //			do {
 //				rotamerStatus = aa.nextRotamer();
+				if(aa.collides(new Protein(acids))) {
+					initialCollisions++;
+				}
 				rotamerStatus = aa.nextCollisionlessRotamer(new Protein(acids));
+				if(!rotamerStatus) {
+					collisions++;
+				}
 //			} while(rotamerStatus);
 //			if(!rotamerStatus) {
 //				System.out.println("no more rotamers");
@@ -262,6 +270,7 @@ public class Protein {
 		//TODO fix last aa
 		
 		Bonder.bondAtoms(acids);
+		System.out.println("Collisions before/after: " + initialCollisions + "/" + collisions);
 		return new Protein(acids);
 	}
 }

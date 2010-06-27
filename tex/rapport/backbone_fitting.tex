@@ -6,17 +6,19 @@ Only the amino acid types are provided; no spatial structure information about t
 
 \section{Limitations}
 The adjustable parameters in a protein backbone structure consists of bond angles, dihedral angles and bond lengths.
-As the dihedral angles are by far the most influencial parameters w.r.t the overall protein structure, we allow ourselves to perform the simplification of not considering bond lengths and bond angles.
-More specifically, we will only consider the $\phi$ and $\psi$ angles and use a bacbone structure template for all other parameters.
-Thus, the protein bacbone to be folded is a sequence of identical amino acid backbones that can only be modified by adjusting $\phi$ and $\psi$ for each amino acid.
+As the dihedral angles are by far the most influential parameters w.r.t the overall protein structure, we allow ourselves to perform the simplification of not considering bond lengths and bond angles.
+More specifically, we will only consider the $\phi$ and $\psi$ angles and use known constants backbone structure template for all other parameters.
+Thus, the protein backbone to be folded becomes a sequence of identical amino acid backbones that can only be modified by adjusting $\phi$ and $\psi$ for each amino acid.
 
 
 \section{Inverse kinematics}
-With the above limitations in place the backbone fitting problem can be regarded as a simple inverse kinematics (IK) problem.
+With the above limitations in place the backbone fitting problem can be regarded as an inverse kinematics (IK) problem.
 IK is the process of determining angles of joints in a chain of rigid links in order to achieve a desired pose of the entire spatial structure.
-In our case, the spatial structure consists of a series of links (atom bonds) connected by joints (atoms).
-The desired pose is simply to make a \Ca-atom in the protein come as close as possible to its corresponding \Ca-trace target. \fxfatal{skal vi indsætte en simpel IK-illustration her?} 
-As we have decided not to touch the joint angles (bond angles), the only adjustable angles in the kinematic chain are the dihedral angles around the atom bonds.
+In our case, the spatial structure consists of a series of atom bonds (links) connected by atoms (joints).
+The desired pose is the \Ca-target.
+%simply to make a \Ca-atom in the protein come as close as possible to its corresponding \Ca-trace target.
+\fxfatal{skal vi indsætte en simpel IK-illustration her?} 
+As we have decided not to consider the bond angles (joint angles), the only adjustable angles in the kinematic chain are the dihedral angles around the atom bonds.
 
 Several IK methods exist and have been utilized in protein structure prediction:
 \cite{shenkin1987} describe a Jacobian solution that provide a linear approximation capable of handling lower limit constraints on interatomic distances between certain atoms.

@@ -114,16 +114,25 @@ public class Bonder {
 	}
 
 	private static boolean bondAtomPairs(Map<String,Atom> atoms, String pairs[][]) {
+		boolean result = true;
 		for (String pair[] : pairs) {
 			Atom a0 = atoms.get(pair[0]);
 			Atom a1 = atoms.get(pair[1]);
 			if(a0==null || a1==null) {
-				System.out.println("a0:"+pair[0]+"  a1:"+pair[1]);
-				return false;
+				System.out.print("parringsfejl mellem "+pair[0]+" og  "+pair[1]+":");
+				if(a0==null) {
+					System.out.print(" "+ pair[0]+" findes ikke");
+				}
+				if(a1==null) {
+					System.out.print(" "+ pair[1]+" findes ikke");
+				}
+				System.out.println(" ");
+				result = false;
+				continue;
 			}
 			bondAtoms(a0,a1);
 		}		
-		return true;
+		return result;
 	}
 	
 	public static void bondAtoms(Atom a1, Atom a2) {

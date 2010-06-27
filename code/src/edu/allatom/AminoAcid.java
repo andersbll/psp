@@ -19,17 +19,6 @@ import edu.math.Vector;
 
 
 public class AminoAcid {	
-	public static final List<String> backBoneAtomNames = new LinkedList<String>() {
-		private static final long serialVersionUID = -5736976839907219408L;
-		{
-			add("CA");
-			add("C");
-			add("O");
-			add("N");
-			add("H");
-		}
-	};
-	
 	// map of valid rotamers of each amino acid type.
 	// must be loaded from a rotamer library (load*RotamerLibrary()) before use.
 	private static Map<AminoAcidType, List<Rotamer>> validRotamers;	
@@ -566,5 +555,14 @@ public class AminoAcid {
 		s += "},\n";
 		return s;
 	}
+	
+	public static List<AminoAcidType> makeTypeTrace(List<AminoAcid> trace) {
+		List<AminoAcidType> typeTrace = new LinkedList<AminoAcidType>();
+		for(AminoAcid aa : trace) {
+			typeTrace.add(aa.type);
+		}
+		return typeTrace;
+	}
+
 
 }

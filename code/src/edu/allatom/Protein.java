@@ -243,12 +243,14 @@ public class Protein {
 					(float) (c.position.y() + Math.sin(a)*LENGTH_C_N),
 					0));
 			aa.addAtom(n);
-			b = a + (Math.PI + 2.0847397) * f;
-			Atom h = new Atom(Atom.Type.H, "H", new Point(
-					(float) (n.position.x() + Math.cos(b)*LENGTH_N_Hproj),
-					(float) (n.position.y() + Math.sin(b)*LENGTH_N_Hproj),
-					LENGTH_Hplane_Hproj * f));
-			aa.addAtom(h);
+			if(type!=AminoAcidType.PRO) {
+				b = a + (Math.PI + 2.0847397) * f;		
+				Atom h = new Atom(Atom.Type.H, "H", new Point(
+						(float) (n.position.x() + Math.cos(b)*LENGTH_N_Hproj),
+						(float) (n.position.y() + Math.sin(b)*LENGTH_N_Hproj),
+						LENGTH_Hplane_Hproj * f));
+				aa.addAtom(h);
+			}
 			a += (Math.PI - 2.114792)*f;
 			ca = new Atom(Atom.Type.C, "CA", new Point(
 					(float) (n.position.x() + Math.cos(a)*LENGTH_N_CA),

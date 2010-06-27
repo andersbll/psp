@@ -51,7 +51,7 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG2", new Point(2.754526f, 1.6261079f, 0.87693137f)),
 					new Atom(Atom.Type.N, "NE", new Point(-0.2563241f, 1.8837262f, -0.011592612f)),
 			},
-			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","NE"},{"CG","HG2"},{"CG","HG3"},{"CZ","NE"},{"CZ","NH1"},{"CZ","NH2"},{"H11","NH1"},{"H12","NH1"},{"H21","NH2"},{"H22","NH2"},{"HE","NE"}},
+			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","NE"},{"CG","HG2"},{"CG","HG3"},{"CZ","NE"},{"CZ","NH1"},{"CZ","NH2"},{"HH11","NH1"},{"HH12","NH1"},{"HH21","NH2"},{"HH22","NH2"},{"HE","NE"}},
 			new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"NE", "HD2", "HD3"}, {"CZ", "NH1", "NH2", "H11", "H12", "H21", "H22"}}
 	),
 	ASN (
@@ -324,7 +324,7 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HD3", new Point(0.63426304f, 3.1070147f, -0.6227222f)),
 					new Atom(Atom.Type.H, "HB3", new Point(1.9562129f, -0.49511132f, -0.88778144f)),
 					new Atom(Atom.Type.H, "HB2", new Point(1.9495054f, -0.4893711f, 0.8960867f)),
-					new Atom(Atom.Type.O, "OXT", new Point(-1.2780714f, -1.2394655f, 0.4798122f)),
+//					new Atom(Atom.Type.O, "OXT", new Point(-1.2780714f, -1.2394655f, 0.4798122f)),
 					new Atom(Atom.Type.C, "C", new Point(-0.5478119f, 0.21833281f, -1.4283396f)),
 					new Atom(Atom.Type.H, "HA", new Point(-0.36621895f, 0.77802575f, 0.65928733f)),
 					new Atom(Atom.Type.C, "CB", new Point(1.5596279f, 0.0f, -3.7252903E-8f)),

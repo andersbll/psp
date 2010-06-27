@@ -21,8 +21,8 @@ public class Main {
 
 		String pdbfile;
 //		pdbfile = "pdb/1UAO.pdb"; // meget lille
-		pdbfile = "pdb/2JOF.pdb"; // lille
-//		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
+//		pdbfile = "pdb/2JOF.pdb"; // lille
+		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
 		
 		Protein p;
@@ -41,10 +41,11 @@ public class Main {
 		}
 		
 //		neatSidechainStatisticsStuff(renderer, p);
-		List<AminoAcidType> typeTrace = getTypeTrace(p);
+		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
 //		renderUncoiledProtein(renderer, typeTrace);
 		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
-		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
+		renderUncoiledProtein(renderer,typeTrace);
+//		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 //		renderProtein(renderer, p);
 
 		renderer.render();
@@ -135,11 +136,4 @@ public class Main {
 		}
 	}
 	
-	private static List<AminoAcidType> getTypeTrace(Protein p) {
-		List<AminoAcidType> trace = new LinkedList<AminoAcidType>();
-		for(AminoAcid aa : p.aaSeq) {
-			trace.add(aa.type);
-		}
-		return trace;
-	}
 }

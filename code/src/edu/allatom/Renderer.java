@@ -145,7 +145,7 @@ public class Renderer extends J3DScene implements KeyListener {
 						continue;
 					}
 					if(renderBackboneOnly &&
-					   !AminoAcid.backBoneAtomNames.contains(neighbor.label)) {
+					   aa.getBackboneAtoms().contains(neighbor.label)) {
 						continue;
 					}
 					if(a.position.x() <= neighbor.position.x()) {
@@ -171,7 +171,7 @@ public class Renderer extends J3DScene implements KeyListener {
 						continue;
 					}
 					if(renderBackboneOnly &&
-							!AminoAcid.backBoneAtomNames.contains(neighbor.label)) {
+							aa.getBackboneAtoms().contains(neighbor.label)) {
 						continue;
 					}
 					Vector midway = new Vector(

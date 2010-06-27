@@ -21,8 +21,8 @@ public class Main {
 
 		String pdbfile;
 //		pdbfile = "pdb/1UAO.pdb"; // meget lille
-//		pdbfile = "pdb/2JOF.pdb"; // lille
-		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
+		pdbfile = "pdb/2JOF.pdb"; // lille
+//		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
 		
 		Protein p;
@@ -42,18 +42,24 @@ public class Main {
 		
 //		neatSidechainStatisticsStuff(renderer, p);
 		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
-//		renderUncoiledProtein(renderer, typeTrace);
 		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
-		renderUncoiledProtein(renderer,typeTrace);
-//		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
+//		renderUncoiledProtein(renderer,typeTrace);
+		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 //		renderProtein(renderer, p);
 
-		renderer.render();
+//		bendAndRamaPlot(Protein.getUncoiledProtein(typeTrace), trace);
+	}
 
-		// Statistics.dumpRamachandranPNGPlot(p, "ramachandran.png");
-		// Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
+	private static void renderProtein(Renderer renderer, Protein p) {
+		Bonder.bondAtoms(p);
+		renderer.addToScene(p);
 	}
 	
+	private static void bendAndRamaPlot(Protein p, LinkedList<Atom> trace) {
+		// Statistics.dumpRamachandranPNGPlot(p, "ramachandran.png");
+		Bender.bendProteinBackbone(p, trace, null);
+		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
+	}
 	private static void rendAndBend(Renderer renderer, Protein p, LinkedList<Atom> trace) {
 //		Bonder.bondAtoms(p);
 
@@ -68,6 +74,8 @@ public class Main {
 		renderer.addToScene(trace);
 		renderer.addToScene(p);
 		Bender.bendProteinBackbone(p, trace, renderer);
+		renderer.render();
+//		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 	}
 	
 	private static void renderUncoiledProtein(Renderer renderer, List<AminoAcidType> typeTrace) {

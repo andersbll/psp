@@ -36,11 +36,13 @@ public class Bonder {
 	public static boolean bondAtoms(List<AminoAcid> acids) {
 		AminoAcid firstaa = acids.get(0);
 		
-		AminoAcid oldaa = firstaa;
+		AminoAcid oldaa = null;
 		for (AminoAcid aa : acids) {
 			bondBackboneAtoms(aa);
 			bondSideChainAtoms(aa);
-			bondAtoms(oldaa.allatoms.get("C"), aa.allatoms.get("N"));
+			if(oldaa!=null) {
+				bondAtoms(oldaa.allatoms.get("C"), aa.allatoms.get("N"));
+			}
 			oldaa = aa;
 		}
 		

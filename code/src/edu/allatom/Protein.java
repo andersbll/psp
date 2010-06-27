@@ -134,6 +134,7 @@ public class Protein {
 	private static final float LENGTH_CA_HAproj = 0.61467975f;
 	private static final float LENGTH_HAplane_HAproj = 0.88209957f;
 	
+	//TODO: 'H' bliver ikke indsat i den første aminosyre - bizart!
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
 		List<AminoAcid> acids = new ArrayList<AminoAcid>();
 		int i = 0;

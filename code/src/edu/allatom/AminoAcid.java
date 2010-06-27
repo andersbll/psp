@@ -213,7 +213,7 @@ public class AminoAcid {
 	 * @param protein
 	 * @return
 	 */
-	private boolean collides(Protein protein) {
+	public boolean collides(Protein protein) {
 		for(AminoAcid aa : protein.aaSeq) {
 			if(aa != this) {
 				Iterable<Atom> collidees;
@@ -429,7 +429,7 @@ public class AminoAcid {
 					getAtomByLabel(atoms, ".D"), getAtomByLabel(atoms, "[^H]E")};
 			break;
 		}
-		System.out.println(rotationAtoms[0] + ", " + rotationAtoms[0]);
+//		System.out.println(rotationAtoms[0] + ", " + rotationAtoms[0]);
 		rotationVector = rotationAtoms[0].position.vectorTo(
 				rotationAtoms[1].position);
 		Matrix rotation = TransformationMatrix3D.createRotation(

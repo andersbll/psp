@@ -6,7 +6,14 @@ import java.util.*;
  *  Baad asss!
  */
 public class Bonder {
+	
+	public static int VERBOSITY_NONE = 0;
+	public static int VERBOSITY_ERRORS = 1;
+	public static int VERBOSITY_WARNINGS = 2;
+	public static int VERBOSITY_INFO = 3;
 
+	public static int VERBOSITY = VERBOSITY_NONE;
+	
 	public final static String backboneAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"},{"H","N"}};
 	public final static String PRObackboneAtomPairs[][] = {{"C","CA"},{"C","O"},{"N","CA"}};
 
@@ -59,8 +66,10 @@ public class Bonder {
 			atomPairs = backboneAtomPairs;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.println("av, parring af backbone fejlede:\n");
-			printAtomBonds(aa);
+			if(VERBOSITY >= VERBOSITY_WARNINGS) {
+				System.out.println("av, parring af backbone fejlede:\n");
+				printAtomBonds(aa);
+			}
 			return false;
 		}
 		return true;
@@ -76,8 +85,10 @@ public class Bonder {
 			atomPairs = nTerminalAtomPairs;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.println("av, N-terminal parring fejlede");
-			printAtomBonds(aa);
+			if(VERBOSITY >= VERBOSITY_WARNINGS) {
+				System.out.println("av, N-terminal parring fejlede");
+				printAtomBonds(aa);
+			}
 			return false;
 		}
 		bondSideChainAtoms(aa);
@@ -92,8 +103,10 @@ public class Bonder {
 		}
 
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.println("av, C-terminal parring fejlede");
-			printAtomBonds(aa);
+			if(VERBOSITY >= VERBOSITY_WARNINGS) {
+				System.out.println("av, C-terminal parring fejlede");
+				printAtomBonds(aa);
+			}
 			return false;
 		}
 		bondSideChainAtoms(aa);
@@ -103,13 +116,17 @@ public class Bonder {
 	public static boolean bondSideChainAtoms(AminoAcid aa) {
 		String atomPairs[][] = aa.type.atomBonds;
 		if(atomPairs == null) {
-			System.out.println("Av, forkert aminosyre: ");
-			printAtomBonds(aa);
+			if(VERBOSITY >= VERBOSITY_WARNINGS) {
+				System.out.println("Av, forkert aminosyre: ");
+				printAtomBonds(aa);
+			}
 			return false;
 		}
 		if(!bondAtomPairs(aa.allatoms, atomPairs)) {
-			System.out.print("Av, parring af sidekæde fejlede:\n  ");
-			printAtomBonds(aa);
+			if(VERBOSITY >= VERBOSITY_WARNINGS) {
+				System.out.print("Av, parring af sidekæde fejlede:\n  ");
+				printAtomBonds(aa);
+			}
 			return false;
 		}
 		return true;
@@ -121,14 +138,16 @@ public class Bonder {
 			Atom a0 = atoms.get(pair[0]);
 			Atom a1 = atoms.get(pair[1]);
 			if(a0==null || a1==null) {
-				System.out.print("parringsfejl mellem "+pair[0]+" og  "+pair[1]+":");
-				if(a0==null) {
-					System.out.print(" "+ pair[0]+" findes ikke");
+				if(VERBOSITY >= VERBOSITY_WARNINGS) {
+					System.out.print("parringsfejl mellem "+pair[0]+" og  "+pair[1]+":");
+					if(a0==null) {
+						System.out.print(" "+ pair[0]+" findes ikke");
+					}
+					if(a1==null) {
+						System.out.print(" "+ pair[1]+" findes ikke");
+					}
+					System.out.println(" ");
 				}
-				if(a1==null) {
-					System.out.print(" "+ pair[1]+" findes ikke");
-				}
-				System.out.println(" ");
 				result = false;
 				continue;
 			}

@@ -97,7 +97,17 @@ enum AminoAcidType {
 	CYS (
 			1,
 			new Atom[]{
-			},//TODO
+					new Atom(Atom.Type.H, "HB3", new Point(1.8817486f, -0.5170557f, -0.88060683f)),
+					new Atom(Atom.Type.H, "HB2", new Point(1.8824797f, -0.516465f, 0.8796464f)),
+					new Atom(Atom.Type.S, "SG", new Point(2.2713218f, 1.6661733f, -8.34465E-8f)),
+					new Atom(Atom.Type.H, "HA", new Point(-0.35149163f, -0.29982442f, 0.347533f)),
+					new Atom(Atom.Type.C, "C", new Point(-0.5296445f, 0.63536894f, 0.12871958f)),
+					new Atom(Atom.Type.N, "N", new Point(-0.50880826f, -0.21466565f, -0.5649061f)),
+					new Atom(Atom.Type.C, "CB", new Point(1.5295967f, 2.7567149E-8f, -6.3329937E-9f)),
+					new Atom(Atom.Type.O, "O", new Point(-0.40396777f, 1.0308244f, 0.07041655f)),
+					new Atom(Atom.Type.C, "CA", new Point(0.0f, 0.0f, 0.0f)),
+					new Atom(Atom.Type.H, "H", new Point(-0.20234674f, -0.38371354f, -0.8416474f)),
+			},//TODO der mangler et h på svovl
 			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","HB2"},{"CB","HB3"},{"CB","SG"},{"HG","SG"}},
 			new String[][]{{"SG", "HB2", "HB3", "HG"}, {}, {}, {}}
 	),

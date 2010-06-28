@@ -24,11 +24,9 @@ public class Main {
 //		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
 		
-		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
+//		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
 //		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus
-//		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
-		
-		
+		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
 		
 		Protein p;
 		try {
@@ -48,12 +46,26 @@ public class Main {
 //		neatSidechainStatisticsStuff(renderer, p);
 		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
 		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
-//		renderUncoiledProtein(renderer,typeTrace);
+////		renderUncoiledProtein(renderer,typeTrace);
 		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
-//		renderProtein(renderer, p);
-//		renderCollisions(renderer, p);
+////		renderProtein(renderer, p);
+////		renderCollisions(renderer, p);
+//		
+////		bendAndRamaPlot(Protein.getUncoiledProtein(typeTrace), trace);
 		
-//		bendAndRamaPlot(Protein.getUncoiledProtein(typeTrace), trace);
+		LinkedList<String> aLotOfStuffToBend = new LinkedList<String>() {
+			private static final long serialVersionUID = 2933079052992091488L;
+			{
+				add("pdb/1UAO.pdb"); // meget lille
+				add("pdb/2JOF.pdb"); // lille
+				add("pdb/2KQ6.pdb"); // 78 amino acids
+	//			add("pdb/2WU9.pdb"); // grande
+				add("pdb/1CTF_3.6.pdb"); // rasmus
+				add("pdb/2CRO_2.9.pdb"); // rasmus
+				add("pdb/2CRO_6.2.pdb"); // rasmus
+			}
+		};
+//		doALotOfBending(aLotOfStuffToBend);
 	}
 
 	private static void renderProtein(Renderer renderer, Protein p) {
@@ -119,7 +131,7 @@ public class Main {
 	private static void neatSidechainStatisticsStuff(Renderer renderer, Protein p) {
 //		AminoAcidType type = AminoAcidType.LYS;
 		for(AminoAcidType type : AminoAcidType.values()) {
-		
+//		AminoAcidType type = AminoAcidType.CYS; {
 			List<AminoAcid> instances = AminoAcid.getAminoAcidsOfType(p, type);
 			System.out.println(instances.size() + " instances of " + type.name() + " found");
 			if(instances.size() == 0) {
@@ -163,6 +175,32 @@ public class Main {
 	//		renderer.addToScene(new Protein(averageAcidList));
 			
 			System.out.println("ugly code:\n" + AminoAcid.sidechainJavaRepresentation(atoms));
+		}
+	}
+	
+	private static void doALotOfBending(List<String> filenames) {
+		for(String filename :filenames) {
+			Protein p = null;
+			try {
+				p = PDBParser.parseFile(filename);
+			} catch(Exception e) {
+				System.err.println("Error reading/parsing file: " + filename);
+				continue;
+			}
+			try {
+				List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
+				LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+				System.out.println("PDB file: " + filename + " (" + trace.size() + " acids):");
+				Protein protein = Protein.getUncoiledProtein(typeTrace);
+				Bender.bendProteinBackbone(protein, trace, null);
+				System.out.println("Minimum RMSD: " + (float)protein.minRMSD(trace)
+						+ " (" + (float)protein.cATraceRMSD(trace) + ")");
+			} catch(Exception e) {
+				System.err.println("Error bending protein: " + filename);
+				e.printStackTrace();
+				continue;
+			}
+			System.out.println();
 		}
 	}
 	

@@ -11,6 +11,7 @@ import edu.geom3D.Sphere;
 import edu.math.Line;
 import edu.math.Matrix;
 import edu.math.Point;
+import edu.math.Superposition;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
@@ -159,7 +160,6 @@ public class Protein {
 				LENGTH_HAplane_HAproj * f));
 		aa.addAtom(ha); //TODO fix position
 		while(i < aminoAcidTypes.size()) {
-			System.out.println(type);
 			f = i%2 == 0 ? -1 : 1;
 			a += (Math.PI-2.1611323)*f;
 			Atom c = new Atom(Atom.Type.C, "C", new Point(
@@ -269,11 +269,24 @@ public class Protein {
 					LENGTH_HAplane_HAproj * f));
 			aa.addAtom(ha);
 		}
+//		acids.add(aa);
 		//TODO fix last aa
 		
 		Bonder.bondAtoms(acids);
 		Protein p = new Protein(acids);
 		
 		return p;
+	}
+	
+	public double minRMSD(List<Atom> caTrace) {
+		List<Vector> trace1 = new LinkedList<Vector>();
+		for(AminoAcid aa : aaSeq) {
+			trace1.add(new Vector(aa.getAtom("CA").position));
+		}
+		List<Vector> trace2 = new LinkedList<Vector>();
+		for(Atom a : caTrace.subList(0, caTrace.size() - 1)) {//TODO fix last aa!
+			trace2.add(new Vector(a.position));
+		}
+		return Superposition.minRMSD(trace1, trace2);
 	}
 }

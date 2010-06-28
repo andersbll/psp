@@ -1,7 +1,6 @@
 package edu.allatom;
 
 
-import java.awt.Color;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -139,14 +138,12 @@ public class Bender {
 			if(aaa.collides(p) != null) {
 				actualCollisionsAfterMoreElimination++;
 			}
-			System.out.println(aaa.rotamer);
-			System.out.println(aaa.allatoms.values().size());
 		}
 		System.out.println("Collisions initial/elimination/more: "
 //				+ initialCollisions + "/" + collisions + "/"
 				+ collisionsBeforeElimination + "/"
-				+ collisionsAfterElimination + "/" + collisionsAfterMoreElimination
-				+ "(" + actualCollisionsAfterElimination + "/" + actualCollisionsAfterMoreElimination + ")");
+				+ collisionsAfterElimination + "(" + actualCollisionsAfterElimination + ")/"
+				+ collisionsAfterMoreElimination + "(" + actualCollisionsAfterMoreElimination + ")");
 		
 //		// DEBUG visualize rotation before rotating
 //		double caNextOldDistance = caNext.position.distance(traceCANext.position);

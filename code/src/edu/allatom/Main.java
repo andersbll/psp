@@ -21,8 +21,14 @@ public class Main {
 		String pdbfile;
 //		pdbfile = "pdb/1UAO.pdb"; // meget lille
 //		pdbfile = "pdb/2JOF.pdb"; // lille
-		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
+//		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
+		
+		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
+//		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus
+//		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
+		
+		
 		
 		Protein p;
 		try {

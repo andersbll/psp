@@ -48,8 +48,9 @@ public class Main {
 		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
 ////		renderUncoiledProtein(renderer,typeTrace);
 		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
-////		renderProtein(renderer, p);
-////		renderCollisions(renderer, p);
+//		renderProtein(renderer, p);
+//		renderCollisions(renderer, p);
+		
 //		
 ////		bendAndRamaPlot(Protein.getUncoiledProtein(typeTrace), trace);
 		
@@ -65,7 +66,7 @@ public class Main {
 				add("pdb/2CRO_6.2.pdb"); // rasmus
 			}
 		};
-//		doALotOfBending(aLotOfStuffToBend);
+		doALotOfBending(aLotOfStuffToBend);
 	}
 
 	private static void renderProtein(Renderer renderer, Protein p) {
@@ -98,12 +99,6 @@ public class Main {
 
 		// Currently the trace is exactly on top of the protein.
 		// So we rotate and push the protein around to make it a problem
-		Vector v = new Vector(3.1, 2.2, 1.3);
-		Matrix m1 = TransformationMatrix3D.createTranslation(v);
-		Matrix m2 = TransformationMatrix3D.createRotation((float) Math.PI, v.normIn());
-		Matrix m = m1.applyTo(m2);
-
-		p.transformProtein(m);
 		renderer.addToScene(trace);
 		renderer.addToScene(p);
 		Bender.bendProteinBackbone(p, trace, renderer);
@@ -179,7 +174,8 @@ public class Main {
 	}
 	
 	private static void doALotOfBending(List<String> filenames) {
-		for(String filename :filenames) {
+		for(String filename : filenames) {
+			long startTime = System.nanoTime();
 			Protein p = null;
 			try {
 				p = PDBParser.parseFile(filename);
@@ -200,6 +196,7 @@ public class Main {
 				e.printStackTrace();
 				continue;
 			}
+			System.out.println("Total time: " + (System.nanoTime()-startTime)/1000000 + " ms");
 			System.out.println();
 		}
 	}

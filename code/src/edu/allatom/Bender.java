@@ -2,6 +2,7 @@ package edu.allatom;
 
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import edu.allatom.Protein.RotationType;
@@ -187,7 +188,9 @@ public class Bender {
 		for(AminoAcid aa : p.aaSeq) {
 			aa.resetUsedRotamers();
 		}
+		int i=0;
 		for(AminoAcid aa : p.aaSeq) {
+			i++;
 			if(aa.collides(p) != null) {
 				if(aa.nextCollisionlessRotamer(p)) {
 					continue;
@@ -195,17 +198,17 @@ public class Bender {
 			} else {
 				continue;
 			}
-			AminoAcid previousCollidee = null;
+			List<AminoAcid> previousCollidees = new LinkedList<AminoAcid>();
 			outer: while(aa.collides(p) != null) {
 				AminoAcid collidee = aa.collides(p);
 				if(collidee == null) {
 					break;
 				}
-				if(collidee == previousCollidee) {
+				if(previousCollidees.contains(collidee)) {
 					collisionsLeft++;
 					break;
 				}
-				previousCollidee = collidee;
+				previousCollidees.add(collidee);
 				aa.resetUsedRotamers();
 				while(aa.collides(p) == collidee) {
 					if(!collidee.nextCollisionlessRotamer(p)) {

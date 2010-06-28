@@ -23,6 +23,7 @@ public class AminoAcid {
 	// must be loaded from a rotamer library (load*RotamerLibrary()) before use.
 	private static Map<AminoAcidType, List<Rotamer>> validRotamers;	
 	private static Random random = new Random(System.currentTimeMillis());
+	private static final boolean DETERMINISTIC = true;
 	
 	public final AminoAcidType type;
 	public final Map<String, Atom> allatoms;
@@ -141,18 +142,32 @@ public class AminoAcid {
 			return false;
 		}
 		double r = random.nextDouble() * (1 - usedRotamersProbability);
+		if(DETERMINISTIC) {
+			r = 0;
+		}
+		List<Rotamer> notAdd = new LinkedList<Rotamer>();
 		for(Rotamer rotamer : validRotamers.get(type)) {
 			if(!usedRotamers.contains(rotamer)) {
 				usedRotamers.add(rotamer);
 				usedRotamersProbability += rotamer.probability;
 				if(r <= rotamer.probability) {
 					applyRotamer(rotamer);
+//					for(Rotamer rt : notAdd) {
+//						usedRotamers.remove(rt);
+//						usedRotamersProbability += rt.probability;
+//					}
 					return true;
 				} else {
 					r -= rotamer.probability;
+					usedRotamers.remove(rotamer);
+//					notAdd.add(rotamer);
 				}
 			}
 		}
+//		for(Rotamer rt : notAdd) {
+//			usedRotamers.remove(rt);
+//			usedRotamersProbability += rt.probability;
+//		}
 		return false;
 	}
 	
@@ -161,8 +176,12 @@ public class AminoAcid {
 	 */
 	public void resetUsedRotamers() {
 		usedRotamers.clear();
-		usedRotamers.add(rotamer);
-		usedRotamersProbability = rotamer.probability;
+		if(rotamer == null) {
+			usedRotamersProbability = 0;
+		} else {
+			usedRotamers.add(rotamer);
+			usedRotamersProbability = rotamer.probability;
+		}
 	}
 	
 	/**

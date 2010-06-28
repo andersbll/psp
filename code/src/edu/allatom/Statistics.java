@@ -32,7 +32,7 @@ public class Statistics {
 				"style=\"stroke:rgb(0,0,0); stroke-width:.2%\"/>\n\n";
 		for(AminoAcid aa : p.aaSeq) {
 			try {
-				System.out.println("phi " + aa.phi() + ", psi " + aa.psi());
+//				System.out.println("phi " + aa.phi() + ", psi " + aa.psi());
 				double x = (aa.phi() / 360. + 0.5) * 100;
 				double y = 100 - (aa.psi() / 360. + 0.5) * 100;
 				plot += "<circle cx=\"" + x + "%\" cy=\"" + y +

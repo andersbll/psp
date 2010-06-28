@@ -1,6 +1,7 @@
 package edu.allatom;
 
 
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -51,6 +52,7 @@ public class Bender {
 		
 		// bend the remaining acids
 		while(true) {
+//		for(int woop=0;woop<6;woop++) {
 			// extract next amino acid and trace atom
 			aa = aaIterator.next();
 			traceCA = traceIterator.next();
@@ -67,10 +69,19 @@ public class Bender {
 			Atom c = aa.getAtom("C");
 			Atom n = aa.getAtom("N");
 			caNext = aaNext.getAtom("CA");
-			
+
+			// set phi and psi to more realistic values in the hope that
+			// it will give better convergence
+//			p.rotate(+(float)(2/3.*Math.PI), aaIndex, RotationType.PHI);
+//			p.rotate(-(float)(2/3.*Math.PI), aaIndex, RotationType.PSI);
+//			System.out.println("phi:"+aa.phi()+" psi:"+aa.psi());
+
 			// adjust phi and psi iteratively
 			// TODO use some threshold instead of fixed loop limit?
 			for(int step=0; step<10; step++) {
+				// find points for phi rotation
+
+				{
 				// find points for psi rotation
 				Line psiRotationAxis = new Line(new Vector(ca.position), ca.vectorTo(c));
 				Vector caNextRotationCenter =
@@ -82,20 +93,30 @@ public class Bender {
 						traceCANext.position).angleFull(caNextRotationCenter.
 						vectorTo(caNext.position), ca.vectorTo(c));
 				// perform phi rotation
-				p.rotate(psiAngleDiff, aaIndex, RotationType.PSI);				
-				
-				// find points for phi rotation
-				Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
-				caNextRotationCenter =
-						phiRotationAxis.projection(new Vector(caNext.position));
-				traceCANextRotationCenter =
-						phiRotationAxis.projection(new Vector(traceCANext.position));
-				// find optimal psi rotation angle
-				float phiAngleDiff = traceCANextRotationCenter.vectorTo(
-						traceCANext.position).angleFull(caNextRotationCenter.
-						vectorTo(caNext.position), n.vectorTo(ca));
-				// perform phi rotation
-				p.rotate(phiAngleDiff, aaIndex, RotationType.PHI);
+				p.rotate(psiAngleDiff, aaIndex, RotationType.PSI);
+//				if(woop==5 && step==9) {
+//					renderer.addToScene(new Vector(ca.position), 0.4f, Color.YELLOW);
+//					renderer.addToScene(new Vector(traceCA.position), 0.4f, Color.RED);
+//					renderer.addToScene(traceCANextRotationCenter, 0.4f, Color.GREEN);
+//					renderer.addToScene(caNextRotationCenter, 0.4f, Color.GREEN);
+//					System.out.println("vinkel:" + psiAngleDiff);
+//					break;
+//				}
+				}
+				{
+					Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
+					Vector caNextRotationCenter =
+							phiRotationAxis.projection(new Vector(caNext.position));
+					Vector traceCANextRotationCenter =
+							phiRotationAxis.projection(new Vector(traceCANext.position));
+					// find optimal psi rotation angle
+					float phiAngleDiff = traceCANextRotationCenter.vectorTo(
+							traceCANext.position).angleFull(caNextRotationCenter.
+							vectorTo(caNext.position), n.vectorTo(ca));
+					// perform phi rotation
+					p.rotate(phiAngleDiff, aaIndex, RotationType.PHI);
+					}
+
 			}
 		}
 

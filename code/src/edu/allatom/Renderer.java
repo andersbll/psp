@@ -31,8 +31,8 @@ public class Renderer extends J3DScene implements KeyListener {
 		}
 	}
 	private RenderMode renderMode = RenderMode.STICKS;
-	private static boolean renderH = true;
-	private static boolean renderBackboneOnly = false;
+	private static boolean renderH = false;
+	private static boolean renderBackboneOnly = true;
 	
 	private final static int C_ALPHA_OPACITY = 100;
 	// render mode STICKS:
@@ -104,6 +104,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	}
 	
 	private void render(Protein p) {
+//		List<AminoAcid> aaSeq = p.aaSeq.subList(0, 8);
 		List<AminoAcid> aaSeq = p.aaSeq;
 		for(AminoAcid aa : aaSeq) {
 			if(bondColor == bondColor1) {

@@ -120,6 +120,34 @@ public class Bender {
 			}
 		}
 
+		int collisionsBeforeElimination = 0;
+		for(AminoAcid aaa : p.aaSeq) {
+			if(aaa.collides(p) != null) {
+				collisionsBeforeElimination++;
+			}
+		}
+		int collisionsAfterElimination = tryToEliminateCollisions(p);
+		int actualCollisionsAfterElimination = 0;
+		for(AminoAcid aaa : p.aaSeq) {
+			if(aaa.collides(p) != null) {
+				actualCollisionsAfterElimination++;
+			}
+		}
+		int collisionsAfterMoreElimination = tryToEliminateCollisions(p);
+		int actualCollisionsAfterMoreElimination = 0;
+		for(AminoAcid aaa : p.aaSeq) {
+			if(aaa.collides(p) != null) {
+				actualCollisionsAfterMoreElimination++;
+			}
+			System.out.println(aaa.rotamer);
+			System.out.println(aaa.allatoms.values().size());
+		}
+		System.out.println("Collisions initial/elimination/more: "
+//				+ initialCollisions + "/" + collisions + "/"
+				+ collisionsBeforeElimination + "/"
+				+ collisionsAfterElimination + "/" + collisionsAfterMoreElimination
+				+ "(" + actualCollisionsAfterElimination + "/" + actualCollisionsAfterMoreElimination + ")");
+		
 //		// DEBUG visualize rotation before rotating
 //		double caNextOldDistance = caNext.position.distance(traceCANext.position);
 //		float psiAngleDiff2 = v.vectorTo(traceCANext.position)
@@ -153,6 +181,47 @@ public class Bender {
 
 	}
 
+	/**
+	 * Tries to push the sidechains around to eliminate collisions.
+	 * This resets the rotamers used by the amino acids.
+	 */
+	public static int tryToEliminateCollisions(Protein p) {
+		int collisionsLeft = 0;
+		for(AminoAcid aa : p.aaSeq) {
+			aa.resetUsedRotamers();
+		}
+		for(AminoAcid aa : p.aaSeq) {
+			if(aa.collides(p) != null) {
+				if(aa.nextCollisionlessRotamer(p)) {
+					continue;
+				}
+			} else {
+				continue;
+			}
+			AminoAcid previousCollidee = null;
+			outer: while(aa.collides(p) != null) {
+				AminoAcid collidee = aa.collides(p);
+				if(collidee == null) {
+					break;
+				}
+				if(collidee == previousCollidee) {
+					collisionsLeft++;
+					break;
+				}
+				previousCollidee = collidee;
+				aa.resetUsedRotamers();
+				while(aa.collides(p) == collidee) {
+					if(!collidee.nextCollisionlessRotamer(p)) {
+						if(!aa.nextRotamer()) {
+							collisionsLeft++;
+							break outer;
+						}
+					}
+				}
+			}
+		}
+		return collisionsLeft;
+	}
 
 //	private static float atomAngle(Atom a0, Atom a1, Atom a2) {
 //		Vector v0 = a0.vectorTo(a1);

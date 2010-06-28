@@ -9,7 +9,7 @@ import edu.math.Point;
 import edu.math.Vector;
 
 public class Atom {
-	public final static double COLLISION_RADIUS = .6;
+	public final static double COLLISION_RADIUS = .2;
 	public final static double BINDING_DISTANCE_THRESHOLD = 1.6;
 	public enum Type {
 		H, C, N, O, S, 

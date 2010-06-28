@@ -1,9 +1,9 @@
 package edu.allatom;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 
 import edu.allatom.AminoAcidType;
 
@@ -13,7 +13,6 @@ import edu.math.Vector;
 import edu.math.TransformationMatrix3D;
 
 
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -21,8 +20,8 @@ public class Main {
 
 		String pdbfile;
 //		pdbfile = "pdb/1UAO.pdb"; // meget lille
-		pdbfile = "pdb/2JOF.pdb"; // lille
-//		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
+//		pdbfile = "pdb/2JOF.pdb"; // lille
+		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
 		
 		Protein p;
@@ -46,13 +45,29 @@ public class Main {
 //		renderUncoiledProtein(renderer,typeTrace);
 		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 //		renderProtein(renderer, p);
-
+//		renderCollisions(renderer, p);
+		
 //		bendAndRamaPlot(Protein.getUncoiledProtein(typeTrace), trace);
 	}
 
 	private static void renderProtein(Renderer renderer, Protein p) {
 		Bonder.bondAtoms(p);
 		renderer.addToScene(p);
+	}
+	
+	private static void renderCollisions(Renderer renderer, Protein p) {
+		for(AminoAcid aa : p.aaSeq) {
+			if(aa.collides(p) != null) {
+				for(Atom a : aa.allatoms.values()) {
+					for(Atom b : aa.collides(p).allatoms.values()) {
+						if(a.collides(b)) {
+							renderer.addShape(new Sphere(new Vector(new Vector(a.position)
+									.plus(b.position)).times(0.5f), 0.5f), Color.PINK);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private static void bendAndRamaPlot(Protein p, LinkedList<Atom> trace) {
@@ -74,6 +89,7 @@ public class Main {
 		renderer.addToScene(trace);
 		renderer.addToScene(p);
 		Bender.bendProteinBackbone(p, trace, renderer);
+		renderCollisions(renderer, p);
 		renderer.render();
 //		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 	}

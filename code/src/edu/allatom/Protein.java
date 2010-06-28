@@ -222,7 +222,7 @@ public class Protein {
 			boolean rotamerStatus;
 //			do {
 //				rotamerStatus = aa.nextRotamer();
-				if(aa.collides(new Protein(acids))) {
+				if(aa.collides(new Protein(acids)) != null) {
 					initialCollisions++;
 				}
 				rotamerStatus = aa.nextCollisionlessRotamer(new Protein(acids));
@@ -270,7 +270,70 @@ public class Protein {
 		//TODO fix last aa
 		
 		Bonder.bondAtoms(acids);
-		System.out.println("Collisions before/after: " + initialCollisions + "/" + collisions);
-		return new Protein(acids);
+		Protein p = new Protein(acids);
+		int collisionsAfterElimination = p.tryToEliminateCollisions();
+		int actualCollisionsAfterElimination = 0;
+		for(AminoAcid aaa : p.aaSeq) {
+			if(aaa.collides(p) != null) {
+				actualCollisionsAfterElimination++;
+			}
+		}
+		int collisionsAfterMoreElimination = p.tryToEliminateCollisions();
+		int actualCollisionsAfterMoreElimination = 0;
+		for(AminoAcid aaa : p.aaSeq) {
+			if(aaa.collides(p) != null) {
+				actualCollisionsAfterMoreElimination++;
+			}
+			System.out.println(aaa.rotamer);
+			System.out.println(aaa.allatoms.values().size());
+		}
+		System.out.println("Collisions initial/rotamers/elimination/more: "
+				+ initialCollisions + "/" + collisions + "/"
+				+ collisionsAfterElimination + "/" + collisionsAfterMoreElimination
+				+ "(" + actualCollisionsAfterElimination + "/" + actualCollisionsAfterMoreElimination + ")");
+		
+		return p;
+	}
+	
+	/**
+	 * Tries to push the sidechains around to eliminate collisions.
+	 * This resets the rotamers used by the amino acids.
+	 */
+	public int tryToEliminateCollisions() {
+		int collisionsLeft = 0;
+		for(AminoAcid aa : aaSeq) {
+			aa.resetUsedRotamers();
+		}
+		for(AminoAcid aa : aaSeq) {
+			if(aa.collides(this) != null) {
+				if(aa.nextCollisionlessRotamer(this)) {
+					continue;
+				}
+			} else {
+				continue;
+			}
+			AminoAcid previousCollidee = null;
+			outer: while(aa.collides(this) != null) {
+				AminoAcid collidee = aa.collides(this);
+				if(collidee == null) {
+					break;
+				}
+				if(collidee == previousCollidee) {
+					collisionsLeft++;
+					break;
+				}
+				previousCollidee = collidee;
+				aa.resetUsedRotamers();
+				while(aa.collides(this) == collidee) {
+					if(!collidee.nextCollisionlessRotamer(this)) {
+						if(!aa.nextRotamer()) {
+							collisionsLeft++;
+							break outer;
+						}
+					}
+				}
+			}
+		}
+		return collisionsLeft;
 	}
 }

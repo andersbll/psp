@@ -157,6 +157,15 @@ public class AminoAcid {
 	}
 	
 	/**
+	 * Resets the rotamers so that the used rotamers can be picked again.
+	 */
+	public void resetUsedRotamers() {
+		usedRotamers.clear();
+		usedRotamers.add(rotamer);
+		usedRotamersProbability = rotamer.probability;
+	}
+	
+	/**
 	 * Apply the next rotamer chosen from all valid rotamers except the ones
 	 * already used, and except those that collides with the given protein.
 	 * 
@@ -170,7 +179,7 @@ public class AminoAcid {
 			if(!anymore) {
 				return false;
 			}
-		} while(collides(protein));
+		} while(collides(protein) != null);
 		return true;
 	}
 	
@@ -200,9 +209,9 @@ public class AminoAcid {
 	 * are ignored.
 	 * 
 	 * @param protein
-	 * @return
+	 * @return One of the colliding amino acids, or null if there are no collisions
 	 */
-	public boolean collides(Protein protein) {
+	public AminoAcid collides(Protein protein) {
 		for(AminoAcid aa : protein.aaSeq) {
 			if(aa != this) {
 				Iterable<Atom> collidees;
@@ -214,13 +223,13 @@ public class AminoAcid {
 				for(Atom a : collidees) {
 					for(Atom b : allatoms.values()) {
 						if(a.collides(b)) {
-							return true;
+							return aa;
 						}
 					}
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	static void loadDunbrachRotamerLibrary(String filename) throws IOException {

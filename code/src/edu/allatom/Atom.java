@@ -51,8 +51,7 @@ public class Atom {
 	}
 
 	public String toString() {
-		String s = label;
-		return s;
+        return this.label;
 	}
 
 	public Vector vectorTo(Atom to) {

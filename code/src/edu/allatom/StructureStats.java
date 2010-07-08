@@ -44,10 +44,10 @@ public class StructureStats {
 		HashMap<String, Float> averages = new HashMap<String, Float>();
 		for(Map.Entry<String, List<Float>> entry : values.entrySet()) {
 			float mu = average(entry.getValue());
-			float sigma = variance(entry.getValue());
+			float sigma = stddev(entry.getValue());
 			averages.put(entry.getKey(), mu);
 			System.out.println(entry.getKey() + " average: " + mu);
-			System.out.println(entry.getKey() + " variance: " + sigma + " \n");
+			System.out.println(entry.getKey() + " stddev: " + sigma + " \n");
 		}
 		return averages;
 	}
@@ -62,13 +62,13 @@ public class StructureStats {
 	}
 
 
-	public static float variance(List<Float> list) {
+	public static float stddev(List<Float> list) {
 		float mu = average(list);
 		List<Float> l = new LinkedList<Float>();
 		for(float v : list) {
 			l.add((float)Math.pow((v - mu),2.0));
 		}
-		return average(l);
+		return (float)Math.sqrt(average(l));
 	}
 
 
@@ -116,6 +116,7 @@ public class StructureStats {
 	private static float angle(Map<String, Float> bondlengths, float dist_a, float dist_b, float dist_c, String name) {
 		if(dist_a < Float.POSITIVE_INFINITY && dist_b < Float.POSITIVE_INFINITY && dist_c < Float.POSITIVE_INFINITY) {
 			float angle = cos_relation(dist_a, dist_b, dist_c);
+            angle = (float) (angle/Math.PI) * 180f;
 			if(Float.isNaN(angle)) {
 			   return Float.POSITIVE_INFINITY;
 			} else {
@@ -140,6 +141,7 @@ public class StructureStats {
 		Atom H = aa.getAtom("H");
 		Atom N = aa.getAtom("N");
 		Atom CA = aa.getAtom("CA");
+        Atom CB = aa.getAtom("CB");
 		Atom HA = aa.getAtom("HA");
 		Atom C = aa.getAtom("C");
 		Atom O = aa.getAtom("O");
@@ -157,6 +159,7 @@ public class StructureStats {
 		/* Compute bond lengths */
 		float N_CA = distance(bondlengths, N, CA, "N-CA");
 		float CA_C = distance(bondlengths, CA, C, "CA-C");
+		float CA_CB = distance(bondlengths, CA, CB, "CA-CB");
 		float C_O = distance(bondlengths, C, O, "C-O");
 		float CA_HA = distance(bondlengths, CA, HA, "CA_HA");
 		float C_N = distance(bondlengths, C, next_N, "C_N");
@@ -179,26 +182,35 @@ public class StructureStats {
 		float CA_C_N = angle(bondlengths, CAtoN, CA_C, C_N, "CA-C-N");
 		float C_N_H = angle(bondlengths, CtoH, C_N, N_H, "C-N-H");
 		float C_N_CA = angle(bondlengths, CtoCA, C_N, N_CA, "C-N-CA");
-
+        
         if(next_N != null && next_CA != null && C != null && next_H != null) {
             Plane planeH = new Plane(new Vector(next_N.position), next_N.vectorTo(next_CA).cross(next_N.vectorTo(C)));
-            Point projH = planeH.projectOnto(new Vector (next_H.position)); // ClosestPointOnPlane(planeH, next_H.position);
+            Point projH = planeH.projectOnto(new Vector (next_H.position));
             float distHPlaneH = distance(bondlengths, projH, next_H.position, "distHPlaneH");
             float CtoprojH = distance(bondlengths, C.position, projH, "C..projH");
             float NtoprojH = distance(bondlengths, next_N.position, projH, "N..projH");
-            //System.out.println(projH + " " + next_H.position + " distance: "  + distHPlaneH  + " _distance_: "  + planeH.getDistance(next_H.position));
-            float C_N_projH = angle(bondlengths, CtoprojH, C_N, NtoprojH, "projHangle");
+                    float C_N_projH = angle(bondlengths, CtoprojH, C_N, NtoprojH, "projHangle");
         }
 
         if(N != null && CA != null && C != null && HA != null) {
             Plane planeHA = new Plane(new Vector(CA.position), CA.vectorTo(N).cross(CA.vectorTo(C)));
-            Point projHA = planeHA.projectOnto(new Vector (HA.position)); // ClosestPointOnPlane(planeH, next_H.position);
+            Point projHA = planeHA.projectOnto(new Vector (HA.position)); 
             float distHAPlaneHA = distance(bondlengths, projHA, HA.position, "distHAPlaneHA");
             float NtoprojHA = distance(bondlengths, N.position, projHA, "N..projHA");
             float CAtoprojHA = distance(bondlengths, CA.position, projHA, "CA..projHA");
-            System.out.println(projHA + " " + HA.position + " distance: "  + distHAPlaneHA  + " _distance_: "  + planeHA.getDistance(HA.position));
             float N_CA_projHA = angle(bondlengths, NtoprojHA, N_CA, CAtoprojHA, "projHAangle");
         }
+
+        if(N != null && CA != null && C != null && CB != null) {
+            Plane planeCB = new Plane(new Vector(CA.position), CA.vectorTo(N).cross(CA.vectorTo(C)));
+            Point projCB = planeCB.projectOnto(new Vector (CB.position));
+            float distCBPlaneCB = distance(bondlengths, projCB, CB.position, "distCBPlaneCB");
+            float NtoprojCB = distance(bondlengths, N.position, projCB, "N..projCB");
+            float CAtoprojCB = distance(bondlengths, CA.position, projCB, "CA..projCB");
+            float CB_CA_projCB = angle(bondlengths, distCBPlaneCB, CA_CB, CAtoprojCB, "CB_CA_projCB");
+            float N_CA_projCB = angle(bondlengths, NtoprojCB, N_CA, CAtoprojCB, "N_CA_projCB");
+        }
+
 
 		return bondlengths;
 	}

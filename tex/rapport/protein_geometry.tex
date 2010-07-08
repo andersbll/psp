@@ -1,19 +1,84 @@
+\fixme{C skal hedde C' i figuren - evt. tilføj $\omega$-vinklen samt navne på
+  eksempel bond lengths og bond angles. }
 \begin{figure*}
   \centering
   \includegraphics[width=0.75\textwidth]{figures/protein-torsion-angles}
-  \label{fig:protein-torsion-angles}
   \caption{}
+  \label{fig:protein-torsion-angles}
 \end{figure*}
 
 The representation of proteins shown in the structure diagram of
 Figure \ref{fig:amino_connect} is suitable for determining the
 chemical properties of the molecules, how atoms are arranged and the
-bonding between atoms. However, to be able to do calculate on the
-precise structure of the proteins we need a more precise
-description. That is, we need to include bond lengths, bond angles and
-torsional angles into the model.
+bonding between atoms. However, to describe an exact model of the
+protein structure we need a more precise characterization. That is, we
+need to include the concepts of bond lengths, bond angles and
+torsional angles into the model. Refer to Figure
+\ref{fig:protein-torsion-angles} while reading the following
+explanation of these concepts. 
 
 \section{Backbone geometry}
+\textit{Bond lengths} are the distances between the individual atoms
+in a molecule (usually measured in Ångstrøm). We will name the
+individual bond lengths by the name of the two atoms which the bond
+connects, e.g. the distance between a \Ca\ and N atom in a amino acid
+is called \Ca -N. We have computed bond lengths for all bonds in the
+backbone, the results are shown in Table \ref{}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{lrr}
+    \toprule
+    Bond & Avg. bond length & Variance \\ \midrule
+    C-O   & 1.22817 Å & 0.017310 \\
+    CA-C  & 1.52877 Å & 0.686234 \\
+    N-CA  & 1.46741 Å & 0.684254 \\ 
+    C-N   & 1.42495 Å & 2.008427 \\
+    N-H   & 0.97796 Å & 0.036754 \\
+    CA-CB & 1.53308 Å & 0.029612 \\
+    CA-HA & 1.07797 Å & 0.977148 \\ \bottomrule
+  \end{tabular}
+  \vspace{1mm}
+  \caption{Average bond lengths}
+  \label{tab:average_bond_lengths}
+\end{table}
+
+A \textit{bond angle} is an angle between two outgoing bonds from a
+single atom. As an example, the between the bonds N-\Ca\ and \Ca -C'
+is called N-\Ca -C'. Table \ref{} shows average values for the
+backbone bond angles.
+
+\begin{table}
+  \centering
+  \begin{tabular}{l>{$}r<{^\circ$}>{$}r<{$}}
+    \toprule
+    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Variance} \\ \midrule    
+    H-N-CA & 118.976166 & 4.3146915 \\
+    N-CA-C & 123.791794 & 8.018781  \\
+    CA-C-O & 120.63178  & 1.7235639 \\
+    CA-C-N & 61.60119   & 1.1315447 \\
+    C-N-CA & 121.39281  & 3.5245345 \\
+    C-N-H  & 122.248085 & 1400.5367 \\ \bottomrule
+  \end{tabular}
+  \vspace{1mm}
+  \caption{Average bond angles}
+  \label{tab:average_bond_angles}
+\end{table}
+
+A torsional angle is rotational angle around a bond. In the backbone,
+there are three of such torsional angles. The $\phi$ and $\psi$ angles
+was mentioned earlier. The last one, the $\omega$-angle, is almost
+always $0^{\circ}$ and sometimes $180^{\circ}$ according to
+\cite{probik}. We will assume that the $\omega$ angle is \textit{always}
+$0^{\circ}$. \fixme{or do we assume this?}. To be more precise the
+three torsional angles can be defined as dihedral angles between two
+planes. For example, the $\phi$ angle can be described by the angle
+between the two planes defined by the atoms C'$_{n-1}$, N$_n$ and \Ca $_n$ as well
+as N$_n$, \Ca $_n$ and C'$_n$.
+
+
+
+
 Torsion angles, phi, psi, (omega)
 Bond lengths
 Bond angles

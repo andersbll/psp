@@ -104,7 +104,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	}
 	
 	private void render(Protein p) {
-//		List<AminoAcid> aaSeq = p.aaSeq.subList(0, 8);
+//		List<AminoAcid> aaSeq = p.aaSeq.subList(0, 5);
 		List<AminoAcid> aaSeq = p.aaSeq;
 		for(AminoAcid aa : aaSeq) {
 			if(bondColor == bondColor1) {
@@ -196,6 +196,7 @@ public class Renderer extends J3DScene implements KeyListener {
 	}
 	
 	private void render(List<Atom> trace) {
+//		ListIterator<Atom> iterator = trace.subList(0,5).listIterator();
 		ListIterator<Atom> iterator = trace.listIterator();
 		while(true) {
 			Atom a = iterator.next();

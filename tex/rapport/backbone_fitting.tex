@@ -24,7 +24,7 @@ To simplify the problem, we can separately consider each backbone \Ca as an end-
 In this way the problem is decomposed into many small IK problems.
 However, this simplification is not entirely valid as the entire backbone cannot be fitted by solving many local problems.
 For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca well to its target, but in such a way that the next \Ca in the backbone cannot come close to its target.
-Therefore, a good solution should take global context into account when solving a local IK problem. 
+Therefore, a good solution should take global context into account when solving IK problems locally. 
 
 An IK problem may have multiple solutions depending on the number of degrees of freedom (DOF) given by the adjustable angles.
 In our fitting problem, we just want a single solution.
@@ -37,7 +37,7 @@ In these cases, we just want a solution that is somewhat close to the target.
 
 \subsection{Related work}
 Several IK solving methods exist and have been utilized in protein structure prediction.
-However, these methods are mainly concerning the \emph{loop closure} problem \cite{coutsias2004kinematic} where the goal is to connect a single amino acid to a target by adjusting a chain of several residues (typically between 4 and 14).
+However, these methods are mainly concerning the \emph{loop closure} problem \cite{coutsias2004kinematic} which differs from our problem since the goal is to fit a single amino acid to a target by adjusting angles in a chain of several residues (typically between 4 and 14).
   
 \cite{shenkin1987} describes a Jacobian solution in which the partial derivatives model the movement of the end of the kinematic chain relative to the angular changes.
 To calculate the necessary angular changes the Jacobian is simply inverted.
@@ -51,14 +51,24 @@ CCD decomposes the problem by solving one angle at a time wrt. the end-effector.
 1 DOF problems are simple and can be solved analytically.
 This is done repeatedly up the link chain, making the end-effector position converge towards the target.
 To give more realistic results, a Ramachandran probability map is used to determine if a proposed angle is acceptable. 
-\cite{canutescu2003} claims to have very fast performance. 
-However, their method may fail to find solutions for short amino acid sequences.
+It is claimed that their method has very fast performance. 
+However, the algorithm may fail to find solutions for short amino acid sequences.
+In \cite{boomsma2005full}, the CCD method is extended to include bond angles.
 
-Finally, \cite{wedemeyer1999exact} has proposed a method for solving loop closures with 6 DOFs in closed form by reducing the problem to extracting roots of a polynomial.
+Finally, \cite{wedemeyer1999exact} has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial.
 
 
 \section{Our solution}
+The backbone fitting problem is different from the loop closure problem as the end-effector covers the entire backbone.
+Therefore, the methods above cannot be applied directly to our problem.
+As discussed, we must take the global solution into consideration when solving a local IK problem.
 
+We have chosen to experiment with the CCD approach as it is simple, fast, numerically stable, and flexible (ie. it is easy to introduce algorithmic constraints).
+
+\subsection{Cyclic coordinate descent}
+
+
+\subsection{Results}
 
 %We begin from one end of the amino acid sequence by placing the first two amino acids such that they match the beginning of the \Ca-trace target.
 

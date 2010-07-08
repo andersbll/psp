@@ -48,32 +48,35 @@ public class Main {
 		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
 ////		renderUncoiledProtein(renderer,typeTrace);
 		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
+
+//		renderer.addToScene(trace);
 //		renderProtein(renderer, p);
 //		renderCollisions(renderer, p);
 		
 //		
 ////		bendAndRamaPlot(Protein.getUncoiledProtein(typeTrace), trace);
 		
-		LinkedList<String> aLotOfStuffToBend = new LinkedList<String>() {
-			private static final long serialVersionUID = 2933079052992091488L;
-			{
-				add("pdb/1UAO.pdb"); // meget lille
-				add("pdb/2JOF.pdb"); // lille
-				add("pdb/2KQ6.pdb"); // 78 amino acids
-	//			add("pdb/2WU9.pdb"); // grande
-				add("pdb/1CTF_3.6.pdb"); // rasmus
-				add("pdb/2CRO_2.9.pdb"); // rasmus
-				add("pdb/2CRO_6.2.pdb"); // rasmus
-			}
-		};
-		doALotOfBending(aLotOfStuffToBend);
+//		LinkedList<String> aLotOfStuffToBend = new LinkedList<String>() {
+//			private static final long serialVersionUID = 2933079052992091488L;
+//			{
+//				add("pdb/1UAO.pdb"); // meget lille
+//				add("pdb/2JOF.pdb"); // lille
+//				add("pdb/2KQ6.pdb"); // 78 amino acids
+//	//			add("pdb/2WU9.pdb"); // grande
+//				add("pdb/1CTF_3.6.pdb"); // rasmus
+//				add("pdb/2CRO_2.9.pdb"); // rasmus
+//				add("pdb/2CRO_6.2.pdb"); // rasmus
+//			}
+//		};
+//		doALotOfBending(aLotOfStuffToBend);
 	}
 
 	private static void renderProtein(Renderer renderer, Protein p) {
 		Bonder.bondAtoms(p);
 		renderer.addToScene(p);
+		renderer.render();
 	}
-	
+
 	private static void renderCollisions(Renderer renderer, Protein p) {
 		for(AminoAcid aa : p.aaSeq) {
 			if(aa.collides(p) != null) {
@@ -101,7 +104,9 @@ public class Main {
 		// So we rotate and push the protein around to make it a problem
 		renderer.addToScene(trace);
 		renderer.addToScene(p);
-		Bender.bendProteinBackbone(p, trace, renderer);
+		BenderCCDWindow.bendProteinBackbone(p, trace, renderer);
+		System.out.println(p.cATraceRMSD(trace));
+		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 		renderCollisions(renderer, p);
 		renderer.render();
 //		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");

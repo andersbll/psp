@@ -136,6 +136,14 @@ public class Protein {
 	private static final float LENGTH_Hplane_Hproj = 0.018687172f;
 	private static final float LENGTH_CA_HAproj = 0.61467975f;
 	private static final float LENGTH_HAplane_HAproj = 0.88209957f;
+	private static final float ANGLE_CA_HA = 2.1751032f;
+	private static final float ANGLE_CA_C = 2.1611323f;
+	private static final float ANGLE_C_O = 2.1054177f;
+	private static final float ANGLE_N_CA_projCB = 2.1617115f;
+	private static final float ANGLE_CB_CA_projCB = 0.9287418f;
+	private static final float ANGLE_C_N = 1.07835f;
+	private static final float ANGLE_N_H = 2.0847397f;
+	private static final float ANGLE_N_CA = 2.114792f;
 	
 	//TODO: 'H' bliver ikke indsat i den første aminosyre - bizart!
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
@@ -153,7 +161,7 @@ public class Protein {
 		double a = Math.PI/2;
 		float f = 0;
 		String HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
-        double b = a + (Math.PI + 2.1751032) * -f;
+        double b = a + (Math.PI + ANGLE_CA_HA) * -f;
 		Atom ha = new Atom(Atom.Type.H, HAname, new Point(
 				(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 				(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
@@ -161,13 +169,13 @@ public class Protein {
 		aa.addAtom(ha); //TODO fix position
 		while(i < aminoAcidTypes.size()) {
 			f = i%2 == 0 ? -1 : 1;
-			a += (Math.PI-2.1611323)*f;
+			a += (Math.PI - ANGLE_CA_C) * f;
 			Atom c = new Atom(Atom.Type.C, "C", new Point(
 					(float)(ca.position.x() + Math.cos(a)*LENGTH_CA_C),
 					(float)(ca.position.y() + Math.sin(a)*LENGTH_CA_C),
 					0));
 			aa.addAtom(c);
-			b = a + (Math.PI - 2.1054177) *f;
+			b = a + (Math.PI - ANGLE_C_O) *f;
 			Atom o = new Atom(Atom.Type.O, "O", new Point(
 					(float) (c.position.x() + Math.cos(b)*LENGTH_C_O),
 					(float) (c.position.y() + Math.sin(b)*LENGTH_C_O),
@@ -201,7 +209,7 @@ public class Protein {
 			}
 			// rotate sidechain to point correctly
 			Vector rotationVector1 = ca.vectorTo(c).cross(ca.vectorTo(n));
-			float rotationAngle1 = 2.1617115f; //N_CA_projCB
+			float rotationAngle1 = ANGLE_N_CA_projCB;
 			Matrix rotationMatrix1 = TransformationMatrix3D.createRotation(
 					new Vector(ca.position), rotationVector1, rotationAngle1);
 			for(Atom sa : aa.allatoms.values()) {
@@ -212,7 +220,7 @@ public class Protein {
 			}
 			Vector rotationVector2 = ca.position.vectorTo(new Vector(
 					rotationMatrix.applyTo(new Vector(cb.position))));
-			float rotationAngle2 = 0.9287418f * f; //CB_CA_projCB
+			float rotationAngle2 = ANGLE_CB_CA_projCB * f;
 			Matrix rotationMatrix2 = TransformationMatrix3D.createRotation(
 					new Vector(ca.position), rotationVector2, rotationAngle2);
 			for(Atom sa : aa.allatoms.values()) {
@@ -240,21 +248,21 @@ public class Protein {
 			
 			type = aminoAcidTypes.get(i++);
 			aa = new AminoAcid(type);
-			a -= 1.07835*f;
+			a -= ANGLE_C_N * f;
 			n = new Atom(Atom.Type.N, "N", new Point(
 					(float) (c.position.x() + Math.cos(a)*LENGTH_C_N),
 					(float) (c.position.y() + Math.sin(a)*LENGTH_C_N),
 					0));
 			aa.addAtom(n);
 			if(type!=AminoAcidType.PRO) {
-				b = a + (Math.PI + 2.0847397) * f;		
+				b = a + (Math.PI + ANGLE_N_H) * f;		
 				Atom h = new Atom(Atom.Type.H, "H", new Point(
 						(float) (n.position.x() + Math.cos(b)*LENGTH_N_Hproj),
 						(float) (n.position.y() + Math.sin(b)*LENGTH_N_Hproj),
 						LENGTH_Hplane_Hproj * f));
 				aa.addAtom(h);
 			}
-			a += (Math.PI - 2.114792)*f;
+			a += (Math.PI - ANGLE_N_CA) * f;
 			ca = new Atom(Atom.Type.C, "CA", new Point(
 					(float) (n.position.x() + Math.cos(a)*LENGTH_N_CA),
 					(float) (n.position.y() + Math.sin(a)*LENGTH_N_CA),
@@ -262,7 +270,7 @@ public class Protein {
 			aa.addAtom(ca);
 
             HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
-            b = a + (Math.PI + 2.1751032) * -f;
+            b = a + (Math.PI + ANGLE_CA_HA) * -f;
 			ha = new Atom(Atom.Type.H, HAname, new Point(
 					(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 					(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),

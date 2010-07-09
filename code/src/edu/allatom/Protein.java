@@ -127,24 +127,63 @@ public class Protein {
 			throw new NotImplementedException();
 		}}
 	}
+
+
+// private static final float LENGTH_CA_CB = 1.532714f;
+// private static final float LENGTH_CA_HA = 1.0747181f;
+// private static final float LENGTH_N_H = 0.97930175f;
+// private static final float ANGLE_C_O = 2.1054177f;
+// private static final float ANGLE_C_N = 1.07835f;
+// private static final float ANGLE_CA_C = 2.1611323f;
+	// private static final float ANGLE_N_H = 2.0847397f;
+	// private static final float ANGLE_N_CA = 2.114792f;
+// private static final float ANGLE_N_CA_projCB = 2.1617115f;
+// private static final float ANGLE_CB_CA_projCB = 0.9287418f;
+
+
+// private static final float ANGLE_H_N_CA = 2.0761454f;
+// private static final float LENGTH_CA..O = 2.397302f;
+// private static final float LENGTH_CA..N = 2.4298022f;
+// private static final float LENGTH_N..C = 2.4622786f;
+// private static final float LENGTH_C..H = 1.9958001f;
+// private static final float LENGTH_C..CA = 2.4357588f;
+// private static final float LENGTH_H..CA = 2.1230228f;
 	
-	private static final float LENGTH_C_O = 1.2281702f;
-	private static final float LENGTH_CA_C = 1.5287709f;
-	private static final float LENGTH_N_CA = 1.4674187f;
-	private static final float LENGTH_C_N = 1.3272529f;
-	private static final float LENGTH_N_Hproj = 0.9810132f;
-	private static final float LENGTH_Hplane_Hproj = 0.018687172f;
-	private static final float LENGTH_CA_HAproj = 0.61467975f;
-	private static final float LENGTH_HAplane_HAproj = 0.88209957f;
+
+// private static final float LENGTH_CA..projCB = 0.9118956f;
+// private static final float LENGTH_N..projHA = 1.8863802f;
+// private static final float LENGTH_N..projCB = 2.1127536f;
+// private static final float LENGTH_distCBPlaneCB = 1.2294171f;
+// private static final float LENGTH_C..projH = 1.9950385f;
+
+// private static final float LENGTH_projHAangle = 2.1748586f;
+// private static final float LENGTH_projHangle = 2.086573f;
+
+
+
+
+//---
+private static final float LENGTH_C_O = 1.2259989f;
+private static final float LENGTH_CA_C = 1.5272093f;
+private static final float LENGTH_N_CA = 1.4680145f;
+private static final float LENGTH_C_N = 1.3233874f;
+private static final float ANGLE_N_CA_C = 2.160362f;
+private static final float ANGLE_CA_C_O = 2.1067827f;
+private static final float ANGLE_CA_C_N = 2.0382223f;
+private static final float ANGLE_C_N_CA = 2.1197803f;
+private static final float ANGLE_C_N_H = 2.085841f;
+private static final float ANGLE_N_CA_projCB = 2.1552231f;
+private static final float ANGLE_CB_CA_projCB = 0.932577f;
+private static final float LENGTH_HAplane_HAproj = 0.8833212f;
+private static final float LENGTH_Hplane_Hproj = 0.023912556f;
+private static final float LENGTH_N_Hproj = 0.9777301f;
+private static final float LENGTH_CA_HAproj = 0.6108196f;
+//---
+
 	private static final float ANGLE_CA_HA = 2.1751032f;
-	private static final float ANGLE_CA_C = 2.1611323f;
-	private static final float ANGLE_C_O = 2.1054177f;
-	private static final float ANGLE_N_CA_projCB = 2.1617115f;
-	private static final float ANGLE_CB_CA_projCB = 0.9287418f;
-	private static final float ANGLE_C_N = 1.07835f;
-	private static final float ANGLE_N_H = 2.0847397f;
-	private static final float ANGLE_N_CA = 2.114792f;
-	
+
+
+
 	//TODO: 'H' bliver ikke indsat i den første aminosyre - bizart!
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
 		List<AminoAcid> acids = new ArrayList<AminoAcid>();
@@ -166,16 +205,16 @@ public class Protein {
 				(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 				(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
 				LENGTH_HAplane_HAproj * f));
-		aa.addAtom(ha); //TODO fix position
+		//aa.addAtom(ha); //TODO fix position
 		while(i < aminoAcidTypes.size()) {
 			f = i%2 == 0 ? -1 : 1;
-			a += (Math.PI - ANGLE_CA_C) * f;
+			a += (Math.PI - ANGLE_N_CA_C) * f;
 			Atom c = new Atom(Atom.Type.C, "C", new Point(
 					(float)(ca.position.x() + Math.cos(a)*LENGTH_CA_C),
 					(float)(ca.position.y() + Math.sin(a)*LENGTH_CA_C),
 					0));
 			aa.addAtom(c);
-			b = a + (Math.PI - ANGLE_C_O) *f;
+			b = a + (Math.PI - ANGLE_CA_C_O) *f;
 			Atom o = new Atom(Atom.Type.O, "O", new Point(
 					(float) (c.position.x() + Math.cos(b)*LENGTH_C_O),
 					(float) (c.position.y() + Math.sin(b)*LENGTH_C_O),
@@ -248,21 +287,21 @@ public class Protein {
 			
 			type = aminoAcidTypes.get(i++);
 			aa = new AminoAcid(type);
-			a -= ANGLE_C_N * f;
+			a -= ANGLE_CA_C_N * f;
 			n = new Atom(Atom.Type.N, "N", new Point(
 					(float) (c.position.x() + Math.cos(a)*LENGTH_C_N),
 					(float) (c.position.y() + Math.sin(a)*LENGTH_C_N),
 					0));
 			aa.addAtom(n);
 			if(type!=AminoAcidType.PRO) {
-				b = a + (Math.PI + ANGLE_N_H) * f;		
+				b = a + (Math.PI + ANGLE_C_N_H) * f;		
 				Atom h = new Atom(Atom.Type.H, "H", new Point(
 						(float) (n.position.x() + Math.cos(b)*LENGTH_N_Hproj),
 						(float) (n.position.y() + Math.sin(b)*LENGTH_N_Hproj),
 						LENGTH_Hplane_Hproj * f));
 				aa.addAtom(h);
 			}
-			a += (Math.PI - ANGLE_N_CA) * f;
+			a += (Math.PI - ANGLE_C_N_CA) * f;
 			ca = new Atom(Atom.Type.C, "CA", new Point(
 					(float) (n.position.x() + Math.cos(a)*LENGTH_N_CA),
 					(float) (n.position.y() + Math.sin(a)*LENGTH_N_CA),
@@ -275,7 +314,7 @@ public class Protein {
 					(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 					(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
 					LENGTH_HAplane_HAproj * f));
-			aa.addAtom(ha);
+			//aa.addAtom(ha);
 		}
 //		acids.add(aa);
 		//TODO fix last aa

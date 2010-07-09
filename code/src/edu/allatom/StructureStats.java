@@ -13,6 +13,7 @@ public class StructureStats {
 
 		Protein p;
 		File path = new File("./pdb/hash");
+        File brokenDir = new File("./pdb/broken");
 		
 		HashMap<String, List<Float>> bondlengths = new HashMap<String, List<Float>>();
 		
@@ -22,6 +23,14 @@ public class StructureStats {
 				p = PDBParser.parseFile(f.toString());
 				Bonder.bondAtoms(p);			
 				Map<String, List<Float>> blengths = computeBackboneBondLengths(p);
+				// for(Map.Entry<String, List<Float>> entry : blengths.entrySet()) {
+                //     for(Float v : entry.getValue()) {
+                //         if(v > 2) {
+                //             f.renameTo(new File(brokenDir, f.getName()));
+                //             break;
+                //         }
+                //     }
+                // }
 
 				for(Map.Entry<String, List<Float>> entry : blengths.entrySet()) {
 					List<Float> lengths = bondlengths.get(entry.getKey());
@@ -37,17 +46,34 @@ public class StructureStats {
 				return;
 			}
 		}
-		averages(bondlengths);
+		Map<String, Float> averageVals = averages(bondlengths);
 	}
 
+    public static final int LATEX = 0;
+    public static final int JAVA = 1;
+    public static final int READABLE = 2;
+
+    public static int PrintFormat = JAVA;
 	public static Map<String, Float> averages(Map<String, List<Float>> values) {
 		HashMap<String, Float> averages = new HashMap<String, Float>();
 		for(Map.Entry<String, List<Float>> entry : values.entrySet()) {
+            int size = entry.getValue().size();
 			float mu = average(entry.getValue());
 			float sigma = stddev(entry.getValue());
 			averages.put(entry.getKey(), mu);
-			System.out.println(entry.getKey() + " average: " + mu);
-			System.out.println(entry.getKey() + " stddev: " + sigma + " \n");
+
+            
+        if(PrintFormat == LATEX) {
+            System.out.println(size + "    " + entry.getKey() + " & " + mu + " Å & " + sigma + "\\\\");
+        }
+        else if(PrintFormat == JAVA) {
+            System.out.println("private static final float LENGTH_" + entry.getKey() + " = " + mu + "f;");
+        }
+        else {
+            System.out.println(entry.getKey() + " average: " + mu);
+            System.out.println(entry.getKey() + " stddev: " + sigma + " \n");
+        }
+
 		}
 		return averages;
 	}
@@ -116,7 +142,6 @@ public class StructureStats {
 	private static float angle(Map<String, Float> bondlengths, float dist_a, float dist_b, float dist_c, String name) {
 		if(dist_a < Float.POSITIVE_INFINITY && dist_b < Float.POSITIVE_INFINITY && dist_c < Float.POSITIVE_INFINITY) {
 			float angle = cos_relation(dist_a, dist_b, dist_c);
-            angle = (float) (angle/Math.PI) * 180f;
 			if(Float.isNaN(angle)) {
 			   return Float.POSITIVE_INFINITY;
 			} else {
@@ -157,13 +182,13 @@ public class StructureStats {
 		}
 
 		/* Compute bond lengths */
-		float N_CA = distance(bondlengths, N, CA, "N-CA");
-		float CA_C = distance(bondlengths, CA, C, "CA-C");
+		float N_CA =  distance(bondlengths, N, CA,  "N-CA");
+		float CA_C =  distance(bondlengths, CA, C,  "CA-C");
 		float CA_CB = distance(bondlengths, CA, CB, "CA-CB");
-		float C_O = distance(bondlengths, C, O, "C-O");
-		float CA_HA = distance(bondlengths, CA, HA, "CA_HA");
-		float C_N = distance(bondlengths, C, next_N, "C_N");
-		float N_H = distance(bondlengths, N, H, "N-H");
+		float C_O =   distance(bondlengths, C, O,   "C-O");
+		float CA_HA = distance(bondlengths, CA, HA, "CA-HA");
+		float C_N =   distance(bondlengths, C, next_N, "C-N");
+		float N_H =   distance(bondlengths, N, H,    "N-H");
 		
 		/* These are not existing bonds, but the distances are used
 		 * for computing bond angles. 
@@ -172,8 +197,8 @@ public class StructureStats {
 		float CtoCA = distance(bondlengths, C, next_CA, "C..CA");
 		float CAtoO = distance(bondlengths, CA, O, "CA..O");
 		float HtoCA = distance(bondlengths, H, CA, "H..CA");
-		float CAtoN = distance(bondlengths, CA, N, "CA..N");
-		float CtoH = distance(bondlengths, C, H, "C..H");
+		float CAtoN = distance(bondlengths, CA, next_N, "CA..N");
+		float CtoH = distance(bondlengths, C, next_H, "C..H");
 
 		/* Compute bondangles*/
 		float H_N_CA = angle(bondlengths, HtoCA, N_H, N_CA, "H-N-CA");
@@ -189,7 +214,7 @@ public class StructureStats {
             float distHPlaneH = distance(bondlengths, projH, next_H.position, "distHPlaneH");
             float CtoprojH = distance(bondlengths, C.position, projH, "C..projH");
             float NtoprojH = distance(bondlengths, next_N.position, projH, "N..projH");
-                    float C_N_projH = angle(bondlengths, CtoprojH, C_N, NtoprojH, "projHangle");
+            float C_N_projH = angle(bondlengths, CtoprojH, C_N, NtoprojH, "projHangle");
         }
 
         if(N != null && CA != null && C != null && HA != null) {
@@ -210,7 +235,6 @@ public class StructureStats {
             float CB_CA_projCB = angle(bondlengths, distCBPlaneCB, CA_CB, CAtoprojCB, "CB_CA_projCB");
             float N_CA_projCB = angle(bondlengths, NtoprojCB, N_CA, CAtoprojCB, "N_CA_projCB");
         }
-
 
 		return bondlengths;
 	}

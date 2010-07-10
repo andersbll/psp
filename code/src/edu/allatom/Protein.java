@@ -186,7 +186,7 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 
 	//TODO: 'H' bliver ikke indsat i den første aminosyre - bizart!
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
-		List<AminoAcid> acids = new ArrayList<AminoAcid>();
+		List<AminoAcid> acids = new ArrayList<AminoAcid>(aminoAcidTypes.size());
 		int i = 0;
 		int initialCollisions = 0;
 		int collisions = 0;
@@ -287,7 +287,7 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 			
 			type = aminoAcidTypes.get(i++);
 			aa = new AminoAcid(type);
-			a -= ANGLE_CA_C_N * f;
+			a -= (Math.PI - ANGLE_CA_C_N) * f;
 			n = new Atom(Atom.Type.N, "N", new Point(
 					(float) (c.position.x() + Math.cos(a)*LENGTH_C_N),
 					(float) (c.position.y() + Math.sin(a)*LENGTH_C_N),

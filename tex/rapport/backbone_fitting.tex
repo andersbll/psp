@@ -37,16 +37,17 @@ In these cases, we just want a solution that is somewhat close to the target.
 
 \subsection{Related work}
 Several IK solving methods exist and have been utilized in protein structure prediction.
-However, these methods are mainly concerning the \emph{loop closure} problem \cite{coutsias2004kinematic} which differs from our problem since the goal is to fit a single amino acid to a target by adjusting angles in a chain of several residues (typically between 4 and 14).
+However, these methods are mainly concerning the \emph{loop closure} problem \cite{coutsias2004kinematic} which differs from our problem since the goal is to fit a single amino acid to a target by adjusting angles in a chain of residues (typically between 4 and 14).
   
-\cite{shenkin1987} describes a Jacobian solution in which the partial derivatives model the movement of the end of the kinematic chain relative to the angular changes.
+Shenkin et al. describe a Jacobian solution in which the partial derivatives model the movement of the end of the kinematic chain relative to the angular changes\cite{shenkin1987}.
 To calculate the necessary angular changes the Jacobian is simply inverted.
 The method then works iteratively by calculating the angular changes and adjusting the angles correspondingly in each step in order to move the end effector towards its target.
 %Moreover, the method is capable of handling lower limit constraints on interatomic distances between the end.
-This method has one downside according to \cite{canutescu2003}.
-If the Jacobian matrix is close to singular by coincidence, the inversion is ill posed yielding unstable results.
 
-Instead, \cite{canutescu2003} proposes a \emph{cyclic coordinate descent} (CCD) method.
+The Jacobian approach has one downside according to Canutescu and Dunbrack
+\cite{canutescu2003}.
+If the Jacobian matrix is close to singular by coincidence, the inversion is ill posed yielding unstable results.
+Instead, they propose a \emph{cyclic coordinate descent} (CCD) method.
 CCD decomposes the problem by solving one angle at a time wrt. the end-effector.
 1 DOF problems are simple and can be solved analytically.
 This is done repeatedly up the link chain, making the end-effector position converge towards the target.
@@ -55,30 +56,112 @@ It is claimed that their method has very fast performance.
 However, the algorithm may fail to find solutions for short amino acid sequences.
 In \cite{boomsma2005full}, the CCD method is extended to include bond angles.
 
-Finally, \cite{wedemeyer1999exact} has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial.
+Finally, Wedemeyer and Scheraga has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial\cite{wedemeyer1999exact}.
 
 
 \section{Our solution}
 The backbone fitting problem is different from the loop closure problem as the end-effector covers the entire backbone.
 Therefore, the methods above cannot be applied directly to our problem.
-As discussed, we must take the global solution into consideration when solving a local IK problem.
+%As discussed, we must take the global solution into consideration when solving a local IK problem.
 
-We have chosen to experiment with the CCD approach as it is simple, fast, numerically stable, and flexible (ie. it is easy to introduce algorithmic constraints).
+We have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (ie. it is easy to introduce algorithmic constraints).
 
 \subsection{Cyclic coordinate descent}
+In the following, we present a single step in the CCD method with an end-effector consisting of three consecutive \Ca backbone atoms.
+In Figure \ref{fig:ccd} the situation is illustrated.
+CCD works iteratively by adjusting one angle at time according to the end-effector.
+In this case the angle to be adjusted is the $\phi$ angle between N and C$_{\alpha0}$.
+In the illustration, T$_{1-3}$ denote the end-effector target (from the \Ca-trace). O$_{1-3}$ are the projections of C$_{\alpha1-3}$ on the rotation axis. C$_{\alpha1-3}$ and C$'_{\alpha1-3}$ denote the position of the end-effector before and after the rotation respectively.
+Furthermore, for $i=1,2,3$ we denote the vectors
+ $$\v{r}_i = \overrightarrow{\text{O}_i\text{C}}_{\alpha i}~~,~~ \v{t}_i = \overrightarrow{\text{O}_i\text{T}}_{\alpha i} , $$
+$$\v{d}_i = \overrightarrow{\text{T}_i\text{C}}'_{\alpha i} = \overrightarrow{\text{O}_i\text{C}}'_{\alpha i}-\overrightarrow{\text{O}_i\text{T}}_{\alpha i}$$
+where
+$$\overrightarrow{\text{O}_i\text{C}}'_{\alpha i} = ||\v{r}_i||\cos\theta\hat{\v{r}}_i + ||\v{r}_i||\cos\theta\hat{\v{n}}_i$$
+if we define a local coordinate system from the orthogonal vectors $\hat{\v{r}}_i, \hat{\v{a}}, \hat{\v{n}}_i$ with $\hat{\v{r}}_i$ being the unit vector of $\v{r}_i$, $\hat{\v{a}}$ being the unit vector of the rotation axis $\v{a}$ and $\v{n}_i = \hat{\v{a}} \times \hat{\v{r}}_i$.
+Thus, $\v{d}_i$ is given by
+$$\v{d}_i =  ||\v{r}_i||\cos\theta\hat{\v{r}}_i + ||\v{r}_i||\cos\theta\hat{\v{n}}_i - \v{t}_i$$
 
+The rotation $\theta$ around $\v{a}$ is chosen such that the sum of square distances $S$ between the rotated end-effector and the target is minimized.
+$$S=||\v{d}_1||^2+||\v{d}_2||^2+||\v{d}_3||^2$$
+with the square distance of $\v{d}_i$ given by
+\begin{eqnarray*}
+||\v{d}_i||^2 &=& ||\v{r}_i||^2 + ||\v{t}_i||^2 - 2||\v{r}_i||\cos\theta(\v{t}_i\cdot\hat{\v{r}}_i)\\
+&& - 2||\v{r}_i||\sin\theta(\v{t}_i\cdot\hat{\v{n}}_i)
+\end{eqnarray*}
 
-\subsection{Results}
-
-%We begin from one end of the amino acid sequence by placing the first two amino acids such that they match the beginning of the \Ca-trace target.
-
-
-%$||N - C|| \rotateAround{180^\circ} \rotateAround{90^\circ} \rotateAround{v}$
+To find the extreme values of $S$ we take the first-order derivative wrt. $\theta$
+$$\dfrac{dS}{d\theta} = \dfrac{d\left(||\v{d}_1||^2\right)}{d\theta} + \dfrac{d\left(||\v{d}_2||^2\right)}{d\theta} + \dfrac{d\left(||\v{d}_3||^2\right)}{d\theta}$$
+where
+$$\dfrac{d\left(||\v{d}_i||^2\right)}{d\theta} = 2||\v{r}_i||\sin\theta(\v{t}_i\cdot\hat{\v{r}}_i) - 2||\v{r}_i||\cos\theta(\v{t}_i\cdot\hat{\v{n}}_i)$$
+For $\frac{dS}{d\theta} = 0$ we isolate $\theta$
+\begin{eqnarray*}
+% & 0 &= 2||\v{r}_i||\sin\theta(\v{t}_i\cdot\hat{\v{r}}_i) - 2||\v{r}_i||\cos\theta(\v{t}_i\cdot\hat{\v{n}}_i) \\
+%\Leftrightarrow  & ||\v{r}_i||\sin\theta(\v{t}_i\cdot\hat{\v{r}}_i) &= ||\v{r}_i||\cos\theta(\v{t}_i\cdot\hat{\v{n}}_i) \\
+\tan\theta = \dfrac{||\v{r}_1||(\v{t}_1\cdot\hat{\v{n}}_1) + ||\v{r}_2||(\v{t}_2\cdot\hat{\v{n}}_2) + ||\v{r}_3||(\v{t}_3\cdot\hat{\v{n}}_3)}{||\v{r}_1||(\v{t}_1\cdot\hat{\v{r}}_1) + ||\v{r}_2||(\v{t}_2\cdot\hat{\v{r}}_2) + ||\v{r}_3||(\v{t}_3\cdot\hat{\v{r}}_3)}
+\\
+\end{eqnarray*}
+Inverting the tangent will give an angle that either minimizes or maximizes $S$.
+To get the correct angle, we must look at the sign of the second order derivative of $S$.
+\begin{eqnarray*}
+\dfrac{d^2S}{d\theta^2} = \dfrac{d^2\left(||\v{d}_1||^2\right)}{d\theta^2} + \dfrac{d^2\left(||\v{d}_2||^2\right)}{d\theta^2} + \dfrac{d^2\left(||\v{d}_3||^2\right)}{d\theta^2}
+\end{eqnarray*}
+where 
+\begin{eqnarray*}
+\dfrac{d^2\left(||\v{d}_i||^2\right)}{d\theta^2} = 2||\v{r}_i||\cos\theta(\v{t}_i\cdot\hat{\v{r}}_i) + 2||\v{r}_i||\sin\theta(\v{t}_i\cdot\hat{\v{n}}_i)
+\end{eqnarray*}
+If value of the second order derivative is positive, the angle minimizes $S$. 
+If not, we shift the angle by $\pi$ to get the correct angle (the two angles are separated by $\pi$ radians).
 
 \begin{figure}
   \centering
-	\includegraphics[width=0.75\columnwidth]{figures/ccd_angles}
-	\label{fig:ccd_angles}
+	\includegraphics[width=0.98\columnwidth]{figures/ccd}
+	\label{fig:ccd}
   \caption{}
 \end{figure}
+
+
+\subsection{Fitting algorithm}
+The protein backbone is fitted to the given \Ca-trace using the CCD method.
+For each of the $\phi$ and $\psi$ angles from the N-terminus to the C-terminus we select a window along the backbone and perform CCD on it.
+The window consists of the residue of the angle to be adjusted and the following $w$ residues. When approaching the end of the backbone, the window size is reduced accordingly.
+The algorithm is roughly sketched in Algorithm \ref{alg:ccd}.
+
+
+\begin{algorithm}
+\caption{Sketch of backbone fitting algorithm}
+\label{alg:ccd}
+\begin{algorithmic}
+%\WHILE {$i < max\_iterations$ \AND $rmsd(backbone, trace) > threshold$} 
+	\STATE $i \gets 0$
+	\WHILE {$i < size(backbone)$}
+%		\STATE $C_\alpha \gets backbone[i]$
+%	\FOR {$C_\alpha \in backbone$}
+		\STATE $j \gets 0$
+		\WHILE {$j < window\_iterations$} 
+			\STATE $window \gets make\_window(backbone[i])$
+%			\STATE $trace\_window \gets make\_window(trace[i])$
+%			\STATE $k \gets 0$
+%			\WHILE {$k < size(window)$}
+			\WHILE {$window \neq \varnothing$}
+%				\STATE $C \gets window[k]$
+				\STATE $C_\alpha \gets remove\_first(window)$
+				\STATE $\phi \gets get\_\phi(C_\alpha)$
+				\STATE $ccd(\phi,window)$
+				\STATE $\psi \gets get\_\psi(C_\alpha)$
+				\STATE $ccd(\psi,window)$
+%				\STATE $k	 \gets k+1$
+			\ENDWHILE
+			\STATE $j \gets j+1$
+		\ENDWHILE
+		\STATE $i \gets i+1$
+	\ENDWHILE
+%	\STATE $i \gets i+1$
+%\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+In our experience, a good value of $W$ is around 10 since a lookahead of 10 amino acids is sufficient to avoid good local conformation that lead to an unfavorable global conformation.
+
+
+\subsection{Results}
 

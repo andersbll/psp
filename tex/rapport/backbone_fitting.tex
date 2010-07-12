@@ -20,10 +20,10 @@ The end of the the linked chain is called the \emph{end-effector}.
 In our case, the spatial structure consists of a series of atoms (joints) connected by atom bonds (links).
 Our backbone fitting problem is not an ordinary IK problem since we have multiple end-effectors in form of the target \Ca-trace.
 
-To simplify the problem, we can separately consider each backbone \Ca as an end-effector that must reach its corresponding target \Ca.
+To simplify the problem, we can separately consider each backbone \Ca\ as an end-effector that must reach its corresponding target \Ca.
 In this way the problem is decomposed into many small IK problems.
 However, this simplification is not entirely valid as the entire backbone cannot be fitted by solving many local problems.
-For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca well to its target, but in such a way that the next \Ca in the backbone cannot come close to its target.
+For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca\ well to its target, but in such a way that the next \Ca\ in the backbone cannot come close to its target.
 Therefore, a good solution should take global context into account when solving IK problems locally. 
 
 An IK problem may have multiple solutions depending on the number of degrees of freedom (DOF) given by the adjustable angles.
@@ -36,10 +36,15 @@ In these cases, we just want a solution that is somewhat close to the target.
 %\fxfatal{skal vi indsætte en simpel IK-illustration her?} 
 
 \subsection{Related work}
-Several IK solving methods exist and have been utilized in protein structure prediction.
-However, these methods are mainly concerning the \emph{loop closure} problem \cite{coutsias2004kinematic} which differs from our problem since the goal is to fit a single amino acid to a target by adjusting angles in a chain of residues (typically between 4 and 14).
+Several IK solving methods exist and have been utilized in protein
+structure prediction.  However, these methods are mainly concerning
+the \emph{loop closure} problem \cite{coutsias2004kinematic} which
+differs from our problem, since the only constraint is that the
+position two ends of the chain must be locked. In these problems the
+chains are also often relatively small (typically 4-14 amino acids),
+
   
-Shenkin et al. describe a Jacobian solution in which the partial derivatives model the movement of the end of the kinematic chain relative to the angular changes\cite{shenkin1987}.
+Shenkin et al. describe a Jacobian solution in which the partial derivatives model the movement of the end of the kinematic chain relative to the angular changes, \cite{shenkin1987}.
 To calculate the necessary angular changes the Jacobian is simply inverted.
 The method then works iteratively by calculating the angular changes and adjusting the angles correspondingly in each step in order to move the end effector towards its target.
 %Moreover, the method is capable of handling lower limit constraints on interatomic distances between the end.
@@ -56,7 +61,7 @@ It is claimed that their method has very fast performance.
 However, the algorithm may fail to find solutions for short amino acid sequences.
 In \cite{boomsma2005full}, the CCD method is extended to include bond angles.
 
-Finally, Wedemeyer and Scheraga has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial\cite{wedemeyer1999exact}.
+Finally, Wedemeyer and Scheraga has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial, \cite{wedemeyer1999exact}.
 
 
 \section{Our solution}
@@ -67,26 +72,27 @@ Therefore, the methods above cannot be applied directly to our problem.
 We have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (ie. it is easy to introduce algorithmic constraints).
 
 \subsection{Cyclic coordinate descent}
-In the following, we present a single step in the CCD method with an end-effector consisting of three consecutive \Ca backbone atoms.
+In the following, we present a single step in the CCD method with an end-effector consisting of three consecutive \Ca\ backbone atoms.
 In Figure \ref{fig:ccd} the situation is illustrated.
 CCD works iteratively by adjusting one angle at time according to the end-effector.
-In this case the angle to be adjusted is the $\phi$ angle between N and C$_{\alpha0}$.
+In this case the angle to be adjusted is the $\phi$ angle around the bond between N and C$_{\alpha0}$.
 In the illustration, T$_{1-3}$ denote the end-effector target (from the \Ca-trace). O$_{1-3}$ are the projections of C$_{\alpha1-3}$ on the rotation axis. C$_{\alpha1-3}$ and C$'_{\alpha1-3}$ denote the position of the end-effector before and after the rotation respectively.
 Furthermore, for $i=1,2,3$ we denote the vectors
  $$\v{r}_i = \overrightarrow{\text{O}_i\text{C}}_{\alpha i}~~,~~ \v{t}_i = \overrightarrow{\text{O}_i\text{T}}_{\alpha i} , $$
 $$\v{d}_i = \overrightarrow{\text{T}_i\text{C}}'_{\alpha i} = \overrightarrow{\text{O}_i\text{C}}'_{\alpha i}-\overrightarrow{\text{O}_i\text{T}}_{\alpha i}$$
-where
-$$\overrightarrow{\text{O}_i\text{C}}'_{\alpha i} = ||\v{r}_i||\cos\theta\hat{\v{r}}_i + ||\v{r}_i||\cos\theta\hat{\v{n}}_i$$
-if we define a local coordinate system from the orthogonal vectors $\hat{\v{r}}_i, \hat{\v{a}}, \hat{\v{n}}_i$ with $\hat{\v{r}}_i$ being the unit vector of $\v{r}_i$, $\hat{\v{a}}$ being the unit vector of the rotation axis $\v{a}$ and $\v{n}_i = \hat{\v{a}} \times \hat{\v{r}}_i$.
-Thus, $\v{d}_i$ is given by
-$$\v{d}_i =  ||\v{r}_i||\cos\theta\hat{\v{r}}_i + ||\v{r}_i||\cos\theta\hat{\v{n}}_i - \v{t}_i$$
 
-The rotation $\theta$ around $\v{a}$ is chosen such that the sum of square distances $S$ between the rotated end-effector and the target is minimized.
+To compute $\overrightarrow{\text{O}_i\text{C}}'_{\alpha i}$, we define a local coordinate system from the orthogonal vectors $\hat{\v{r}}_i, \hat{\v{a}}, \hat{\v{n}}_i$ with $\hat{\v{r}}_i$ being the unit vector of $\v{r}_i$, $\hat{\v{a}}$ being the unit vector of the rotation axis $\v{a}$ and $\v{n}_i = \hat{\v{a}} \times \hat{\v{r}}_i$. We can now compute the vector by:
+$$\overrightarrow{\text{O}_i\text{C}}'_{\alpha i} = \hat{\v{r}}_i||\v{r}_i||\cos\theta + \hat{\v{n}}_i||\v{r}_i||\cos\theta$$
+
+And thus, $\v{d}_i$ is given by
+$$\v{d}_i =  \hat{\v{r}}_i||\v{r}_i||\cos\theta + \hat{\v{n}}_i||\v{r}_i||\cos\theta - \v{t}_i$$
+
+The rotation $\theta$ around $\v{a}$ is chosen such that the sum of square distances $S$ between the rotated end-effectors and their targets are minimized.
 $$S=||\v{d}_1||^2+||\v{d}_2||^2+||\v{d}_3||^2$$
 with the square distance of $\v{d}_i$ given by
 \begin{eqnarray*}
-||\v{d}_i||^2 &=& ||\v{r}_i||^2 + ||\v{t}_i||^2 - 2||\v{r}_i||\cos\theta(\v{t}_i\cdot\hat{\v{r}}_i)\\
-&& - 2||\v{r}_i||\sin\theta(\v{t}_i\cdot\hat{\v{n}}_i)
+||\v{d}_i||^2 &=& ||\v{r}_i||^2 + ||\v{t}_i||^2 - 2(\v{t}_i\cdot\hat{\v{r}}_i)||\v{r}_i||\cos\theta\\
+&& - 2(\v{t}_i\cdot\hat{\v{n}}_i)||\v{r}_i||\sin\theta
 \end{eqnarray*}
 
 To find the extreme values of $S$ we take the first-order derivative wrt. $\theta$
@@ -100,7 +106,7 @@ For $\frac{dS}{d\theta} = 0$ we isolate $\theta$
 \tan\theta = \dfrac{||\v{r}_1||(\v{t}_1\cdot\hat{\v{n}}_1) + ||\v{r}_2||(\v{t}_2\cdot\hat{\v{n}}_2) + ||\v{r}_3||(\v{t}_3\cdot\hat{\v{n}}_3)}{||\v{r}_1||(\v{t}_1\cdot\hat{\v{r}}_1) + ||\v{r}_2||(\v{t}_2\cdot\hat{\v{r}}_2) + ||\v{r}_3||(\v{t}_3\cdot\hat{\v{r}}_3)}
 \\
 \end{eqnarray*}
-Inverting the tangent will give an angle that either minimizes or maximizes $S$.
+Inverting the tangent will find an extreme value for the angle (that either minimizes or maximizes $S$).
 To get the correct angle, we must look at the sign of the second order derivative of $S$.
 \begin{eqnarray*}
 \dfrac{d^2S}{d\theta^2} = \dfrac{d^2\left(||\v{d}_1||^2\right)}{d\theta^2} + \dfrac{d^2\left(||\v{d}_2||^2\right)}{d\theta^2} + \dfrac{d^2\left(||\v{d}_3||^2\right)}{d\theta^2}
@@ -115,8 +121,8 @@ If not, we shift the angle by $\pi$ to get the correct angle (the two angles are
 \begin{figure}
   \centering
 	\includegraphics[width=0.98\columnwidth]{figures/ccd}
-	\label{fig:ccd}
   \caption{}
+  \label{fig:ccd}
 \end{figure}
 
 
@@ -135,12 +141,10 @@ In practice we repeat the entire algorithm until convergence is reached.
 \label{alg:ccd}
 \begin{algorithmic}
 %\WHILE {$i < max\_iterations$ \AND $rmsd(backbone, trace) > threshold$} 
-	\STATE $i \gets 0$
-	\WHILE {$i < size(backbone)$}
+	\FOR {$i \gets 0$ \textbf{to} $size(backbone)$}
 %		\STATE $C_\alpha \gets backbone[i]$
 %	\FOR {$C_\alpha \in backbone$}
-		\STATE $j \gets 0$
-		\WHILE {$j < window\_iterations$} 
+		\FOR {$j \gets 0$ \textbf{to} $window\_iterations$}
 			\STATE $window \gets make\_window(backbone[i])$
 %			\STATE $trace\_window \gets make\_window(trace[i])$
 %			\STATE $k \gets 0$
@@ -148,16 +152,14 @@ In practice we repeat the entire algorithm until convergence is reached.
 			\WHILE {$window \neq \varnothing$}
 %				\STATE $C \gets window[k]$
 				\STATE $C_\alpha \gets remove\_first(window)$
-				\STATE $\phi \gets get\_\phi(C_\alpha)$
+				\STATE $\phi \gets get_\phi(C_\alpha)$
 				\STATE $ccd(\phi,window)$
-				\STATE $\psi \gets get\_\psi(C_\alpha)$
+				\STATE $\psi \gets get_\psi(C_\alpha)$
 				\STATE $ccd(\psi,window)$
 %				\STATE $k	 \gets k+1$
 			\ENDWHILE
-			\STATE $j \gets j+1$
-		\ENDWHILE
-		\STATE $i \gets i+1$
-	\ENDWHILE
+		\ENDFOR
+	\ENDFOR
 %	\STATE $i \gets i+1$
 %\ENDWHILE
 \end{algorithmic}

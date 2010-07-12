@@ -57,6 +57,9 @@ public class Protein {
 				case PHI:
 					//TODO rotér ikke alle atomer!
 					for(Atom a : aa.getAtoms()) {
+						if(a.label.equals("H")) {
+							continue;
+						}
 						Vector v = new Vector(a.position);
 						a.position = m.applyToIn(v);
 					}

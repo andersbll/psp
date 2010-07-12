@@ -123,9 +123,12 @@ If not, we shift the angle by $\pi$ to get the correct angle (the two angles are
 \subsection{Fitting algorithm}
 The protein backbone is fitted to the given \Ca-trace using the CCD method.
 For each of the $\phi$ and $\psi$ angles from the N-terminus to the C-terminus we select a window along the backbone and perform CCD on it.
-The window consists of the residue of the angle to be adjusted and the following $w$ residues. When approaching the end of the backbone, the window size is reduced accordingly.
+The window is selected so that it consists of the residue of the angle to be adjusted and the following $w$ residues. 
+When approaching the end of the backbone, the window size is reduced accordingly.
+A window of size $w$ will have an end-effector with $w$ points in space.
+As end-effector target we select a window in the \Ca-trace corresponding to the backbone window. 
 The algorithm is roughly sketched in Algorithm \ref{alg:ccd}.
-
+In practice we repeat the entire algorithm until convergence is reached.
 
 \begin{algorithm}
 \caption{Sketch of backbone fitting algorithm}
@@ -160,8 +163,18 @@ The algorithm is roughly sketched in Algorithm \ref{alg:ccd}.
 \end{algorithmic}
 \end{algorithm}
 
-In our experience, a good value of $W$ is around 10 since a lookahead of 10 amino acids is sufficient to avoid good local conformation that lead to an unfavorable global conformation.
-
 
 \subsection{Results}
+
+In our experience, a good value of $w$ is around 10 since a lookahead of 10 amino acids is sufficient to avoid good local conformation that lead to an unfavorable global conformation.
+
+%TODO plot rmsd som funktion af window size
+
+%TODO plot rmsd som funktion af repetitions
+
+%TODO plot rmsd som funktion af window repetitions - maybe!
+
+%TODO billede af foldet backbone med \Ca trace
+
+
 

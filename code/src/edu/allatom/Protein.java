@@ -170,7 +170,7 @@ private static final float LENGTH_C_O = 1.2259989f;
 private static final float LENGTH_CA_C = 1.5272093f;
 private static final float LENGTH_N_CA = 1.4680145f;
 private static final float LENGTH_C_N = 1.3233874f;
-private static final float ANGLE_N_CA_C = 1.9304782;
+private static final float ANGLE_N_CA_C = 1.9304782f;
 private static final float ANGLE_CA_C_O = 2.1067827f;
 private static final float ANGLE_CA_C_N = 2.0382223f;
 private static final float ANGLE_C_N_CA = 2.1197803f;
@@ -318,7 +318,85 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 					LENGTH_HAplane_HAproj * f));
 			aa.addAtom(ha);
 		}
-//		acids.add(aa);
+
+			a += (Math.PI - ANGLE_N_CA_C) * f;
+			Atom c = new Atom(Atom.Type.C, "C", new Point(
+					(float)(ca.position.x() + Math.cos(a)*LENGTH_CA_C),
+					(float)(ca.position.y() + Math.sin(a)*LENGTH_CA_C),
+					0));
+			aa.addAtom(c);
+			b = a + (Math.PI - ANGLE_CA_C_O) *f;
+			Atom o = new Atom(Atom.Type.O, "O", new Point(
+					(float) (c.position.x() + Math.cos(b)*LENGTH_C_O),
+					(float) (c.position.y() + Math.sin(b)*LENGTH_C_O),
+					0));
+			aa.addAtom(o);
+			
+			// place the sidechain
+			Atom cb = null;
+			for(Atom sa : type.sidechainAtoms) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					Point position = new Vector(sa.position).plus(ca.position);
+					Atom atom = new Atom(sa.type, sa.label, position);
+					aa.addAtom(atom);
+					if(atom.label.equals("CB")) {
+						cb = atom;
+					} else if(type == AminoAcidType.GLY && atom.label.equals("HA3")) {
+						cb = atom;
+					}
+				}
+			}
+			// rotate sidechain to point to the N atom
+			Vector rotationVector = ca.vectorTo(cb).cross(ca.vectorTo(n));
+			float rotationAngle = ca.vectorTo(cb).angle(ca.vectorTo(n));
+			Matrix rotationMatrix = TransformationMatrix3D.createRotation(new Vector(ca.position), rotationVector, rotationAngle);
+			for(Atom sa : aa.allatoms.values()) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					sa.position = rotationMatrix.applyTo(new Vector(sa.position));
+				}
+			}
+			// rotate sidechain to point correctly
+			Vector rotationVector1 = ca.vectorTo(c).cross(ca.vectorTo(n));
+			float rotationAngle1 = ANGLE_N_CA_projCB;
+			Matrix rotationMatrix1 = TransformationMatrix3D.createRotation(
+					new Vector(ca.position), rotationVector1, rotationAngle1);
+			for(Atom sa : aa.allatoms.values()) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					sa.position = rotationMatrix1.applyTo(new Vector(sa.position));
+				}
+			}
+			Vector rotationVector2 = ca.position.vectorTo(new Vector(
+					rotationMatrix.applyTo(new Vector(cb.position))));
+			float rotationAngle2 = ANGLE_CB_CA_projCB * f;
+			Matrix rotationMatrix2 = TransformationMatrix3D.createRotation(
+					new Vector(ca.position), rotationVector2, rotationAngle2);
+			for(Atom sa : aa.allatoms.values()) {
+				if(!sa.label.equals("N") && !sa.label.equals("CA") && !sa.label.equals("C")
+						&& !sa.label.equals("O") && !sa.label.equals("H") && !sa.label.equals(HAname)) {
+					sa.position = rotationMatrix2.applyTo(new Vector(sa.position));
+				}
+			}
+
+			boolean rotamerStatus;
+//			do {
+//				rotamerStatus = aa.nextRotamer();
+				if(aa.collides(new Protein(acids)) != null) {
+					initialCollisions++;
+				}
+				rotamerStatus = aa.nextCollisionlessRotamer(new Protein(acids));
+				if(!rotamerStatus) {
+					collisions++;
+				}
+//			} while(rotamerStatus);
+//			if(!rotamerStatus) {
+//				System.out.println("no more rotamers");
+//			}
+
+
+		acids.add(aa);
 		//TODO fix last aa
 		
 		Bonder.bondAtoms(acids);

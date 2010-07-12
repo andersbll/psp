@@ -1,9 +1,13 @@
 package edu.allatom;
 
 
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import edu.allatom.Protein.RotationType;
 import edu.math.Line;
@@ -11,8 +15,12 @@ import edu.math.Matrix;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
-
 public class Bender {
+	
+	private static final int WINDOW_SIZE = 8;
+	private static final float DAMPING_FACTOR = 1f;
+	private static final int WINDOW_REPETITIONS = 20;
+	private static final int REPETITIONS = 20;
 	
 	/**
 	 * Bend a protein to try to match a given c_alpha trace.
@@ -25,101 +33,125 @@ public class Bender {
 	 */
 	public static void bendProteinBackbone(
 				Protein p, LinkedList<Atom> trace, Renderer renderer) {
-		ListIterator<AminoAcid> aaIterator = p.aaSeq.listIterator();
-		ListIterator<Atom> traceIterator = trace.listIterator();
-		
+			
+		// create reverse trace and backbone 
+		List<AminoAcid> aaSeq = p.aaSeq;
+		LinkedList<AminoAcid> aaSeqReverse = new LinkedList<AminoAcid>();
+		LinkedList<Atom> traceReverse = new LinkedList<Atom>();
+		for(int i=0; i<aaSeq.size(); i++) {
+			aaSeqReverse.add(aaSeq.get(aaSeq.size()-i-1));
+			traceReverse.add(trace.get(aaSeq.size()-i-1));
+		}
+
 		// align the first 2 CA's before starting iterative bending.
 		// extract first amino acids 
+		ListIterator<AminoAcid> aaIterator = aaSeq.listIterator();
+		ListIterator<Atom> traceIterator = trace.listIterator();
+
 		AminoAcid aa = aaIterator.next();
 		AminoAcid aaNext = Util.iteratorPeek(aaIterator);
 		Atom ca = aa.getAtom("CA");
 		Atom caNext = aaNext.getAtom("CA");
-		Atom traceCA = traceIterator.next();
+		Atom tCA = traceIterator.next();
 		Atom traceCANext = Util.iteratorPeek(traceIterator);
 		// translate so starting CA coincides with the first CA of the trace
-		Vector t = ca.vectorTo(traceCA);// atomDistance(ca, traceCA);
+		Vector t = ca.vectorTo(tCA);// atomDistance(ca, traceCA);
 		Matrix m = TransformationMatrix3D.createTranslation(t);
 		p.transformProtein(m);
 		// rotate so the second CA is as close as possible to the second CA of
 		// the trace
-		Vector normal = traceCA.vectorTo(traceCANext).cross(
-				traceCA.vectorTo(caNext)).normIn();
-		float angle = -traceCA.vectorTo(traceCANext).angle(traceCA.vectorTo(caNext));
+		Vector normal = tCA.vectorTo(traceCANext).cross(
+				tCA.vectorTo(caNext)).normIn();
+		float angle = -tCA.vectorTo(traceCANext).angle(tCA.vectorTo(caNext));
 		
 		m = TransformationMatrix3D.createRotation(
-				new Vector(traceCA.position), normal, angle);
+				new Vector(tCA.position), normal, angle);
 		p.transformProtein(m);
+
+		// start bending
+		for(int repetition=0; repetition<REPETITIONS; repetition++) {
 		
-		// bend the remaining acids
-		while(true) {
-//		for(int woop=0;woop<6;woop++) {
-			// extract next amino acid and trace atom
-			aa = aaIterator.next();
-			traceCA = traceIterator.next();
-			if(!(aaIterator.hasNext() && traceIterator.hasNext())) {
-				// we're done
-				break;
-			}
-			aaNext = Util.iteratorPeek(aaIterator);
-			traceCANext = Util.iteratorPeek(traceIterator);
-			int aaIndex = aaIterator.nextIndex() - 1;
-			
-			// extract atoms from this amino acid
-			ca = aa.getAtom("CA");
-			Atom c = aa.getAtom("C");
-			Atom n = aa.getAtom("N");
-			caNext = aaNext.getAtom("CA");
-
-			// set phi and psi to more realistic values in the hope that
-			// it will give better convergence
-//			p.rotate(+(float)(2/3.*Math.PI), aaIndex, RotationType.PHI);
-//			p.rotate(-(float)(2/3.*Math.PI), aaIndex, RotationType.PSI);
-//			System.out.println("phi:"+aa.phi()+" psi:"+aa.psi());
-
-			// adjust phi and psi iteratively
-			// TODO use some threshold instead of fixed loop limit?
-			for(int step=0; step<10; step++) {
-				// find points for phi rotation
-
-				{
-				// find points for psi rotation
-				Line psiRotationAxis = new Line(new Vector(ca.position), ca.vectorTo(c));
-				Vector caNextRotationCenter =
-						psiRotationAxis.projection(new Vector(caNext.position));
-				Vector traceCANextRotationCenter =
-						psiRotationAxis.projection(new Vector(traceCANext.position));
-				// find optimal phi rotation angle
-				float psiAngleDiff = traceCANextRotationCenter.vectorTo(
-						traceCANext.position).angleFull(caNextRotationCenter.
-						vectorTo(caNext.position), ca.vectorTo(c));
-				// perform phi rotation
-				p.rotate(psiAngleDiff, aaIndex, RotationType.PSI);
-//				if(woop==5 && step==9) {
-//					renderer.addToScene(new Vector(ca.position), 0.4f, Color.YELLOW);
-//					renderer.addToScene(new Vector(traceCA.position), 0.4f, Color.RED);
-//					renderer.addToScene(traceCANextRotationCenter, 0.4f, Color.GREEN);
-//					renderer.addToScene(caNextRotationCenter, 0.4f, Color.GREEN);
-//					System.out.println("vinkel:" + psiAngleDiff);
-//					break;
-//				}
-				}
-				{
-					Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
-					Vector caNextRotationCenter =
-							phiRotationAxis.projection(new Vector(caNext.position));
-					Vector traceCANextRotationCenter =
-							phiRotationAxis.projection(new Vector(traceCANext.position));
-					// find optimal psi rotation angle
-					float phiAngleDiff = traceCANextRotationCenter.vectorTo(
-							traceCANext.position).angleFull(caNextRotationCenter.
-							vectorTo(caNext.position), n.vectorTo(ca));
-					// perform phi rotation
-					p.rotate(phiAngleDiff, aaIndex, RotationType.PHI);
-					}
-
-			}
+		boolean reverse = repetition%2 == 1;
+		if(reverse) { 
+			aaIterator = aaSeqReverse.listIterator();
+			traceIterator = traceReverse.listIterator();			
+		} else {
+			aaIterator = aaSeq.listIterator();
+			traceIterator = trace.listIterator();
 		}
+		
+		// iterate over the residues and bend each residue
+		while(aaIterator.nextIndex()<p.aaSeq.size()
+				&& traceIterator.nextIndex()<trace.size()) {
+			List<AminoAcid> backboneAA = new ArrayList<AminoAcid>();
+			List<Atom> traceCA = new ArrayList<Atom>();
+			int lookaheadWindow = 0;
+			while(lookaheadWindow<WINDOW_SIZE
+					&& aaIterator.hasNext() && traceIterator.hasNext()) {
+				backboneAA.add(aaIterator.next());
+				traceCA.add(traceIterator.next());
+				lookaheadWindow++;
+			}
+			// hurrah for Java-iteratorer
+			while (lookaheadWindow>1) {
+				aaIterator.previous();
+				traceIterator.previous();
+				 lookaheadWindow--;
+			}
+			
+			// index of current residue offset
+			int aaIndex = aaIterator.nextIndex() - 1;
+//			if(reverse)
+//			System.out.println("aaIndex: "+aaIndex);
+			// adjust phi and psi of residues in window
+			// TODO use a distance threshold instead of fixed loop limit?
+			for(int step=0; step<WINDOW_REPETITIONS; step++) {
+//				System.out.println(p.aaSeq.size()-aaIndex-1);
+				for(int windowOffset=0; 
+						windowOffset<Math.min(WINDOW_SIZE-1, p.aaSeq.size()-aaIndex-1); 
+						windowOffset++) {
+//					System.out.println("  windowOffset: "+(windowOffset));
+					aa = backboneAA.get(windowOffset);
+					ca = aa.getAtom("CA");
+					Atom c = aa.getAtom("C");
+					Atom n = aa.getAtom("N"); 
+					List<AminoAcid> backboneWindow = backboneAA.subList(windowOffset+1, backboneAA.size());
+					List<Atom> traceWindow = traceCA.subList(windowOffset+1, traceCA.size());
+					boolean debug = step==9 && aaIndex==1 && windowOffset==0;
+					if(reverse) {						
+						// find optimal psi rotation angle
+						Line psiRotationAxis = new Line(new Vector(ca.position), c.vectorTo(ca));
+						float psiAngleDiff = angleFromCCD(psiRotationAxis, backboneWindow, 
+								traceWindow, renderer, false);
+						rotate(psiAngleDiff, aaIndex+windowOffset, RotationType.PSI, aaSeqReverse, reverse);	
+						// find optimal phi rotation angle
+						Line phiRotationAxis = new Line(new Vector(n.position), ca.vectorTo(n));
+						float phiAngleDiff = angleFromCCD(phiRotationAxis, backboneWindow, 
+								traceWindow, renderer, false);
+						rotate(phiAngleDiff, aaIndex+windowOffset, RotationType.PHI, aaSeqReverse, reverse);
 
+					} else {
+						// find optimal phi rotation angle
+						Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
+						float phiAngleDiff = angleFromCCD(phiRotationAxis, backboneWindow, 
+								traceWindow, renderer, false);
+						rotate(phiAngleDiff, aaIndex+windowOffset, RotationType.PHI, aaSeq, reverse);
+
+						// find optimal psi rotation angle
+						Line psiRotationAxis = new Line(new Vector(c.position), ca.vectorTo(c));
+						float psiAngleDiff = angleFromCCD(psiRotationAxis, backboneWindow, 
+								traceWindow, renderer, false);
+						rotate(psiAngleDiff, aaIndex+windowOffset, RotationType.PSI, aaSeq, reverse);
+						if(debug) {
+							renderer.addToScene(new Vector(ca.position), 0.4f, Color.MAGENTA);
+							renderer.addToScene(new Vector(c.position), 0.4f, Color.MAGENTA);
+//							return;
+						}
+					}
+				}
+			}
+//			return;
+		}
 		int collisionsBeforeElimination = 0;
 		for(AminoAcid aaa : p.aaSeq) {
 			if(aaa.collides(p) != null) {
@@ -145,38 +177,138 @@ public class Bender {
 				+ collisionsBeforeElimination + "/"
 				+ collisionsAfterElimination + "(" + actualCollisionsAfterElimination + ")/"
 				+ collisionsAfterMoreElimination + "(" + actualCollisionsAfterMoreElimination + ")");
+		System.out.println(p.cATraceRMSD(trace));
+	}
+	}
+	public static void rotate(float angle, int aaIndex, RotationType rotationType, List<AminoAcid> aaSeq, boolean reverse) {
+		AminoAcid aa = aaSeq.get(aaIndex);
+		Atom ca = aa.getAtom("CA");
 		
-//		// DEBUG visualize rotation before rotating
-//		double caNextOldDistance = caNext.position.distance(traceCANext.position);
-//		float psiAngleDiff2 = v.vectorTo(traceCANext.position)
-//				.angleFull(v.vectorTo(caNext.position),
-//				atomDistance(ca, c));
-//		if(aaIterator.nextIndex() == 8 && step == 0) {
-//			psiAngleDiff = v2.vectorTo(traceCANext.position)
-//					.angleFull(v1.vectorTo(caNext.position),
-//					atomDistance(ca, c));
-//			renderer.addToScene(v, .4f, Color.YELLOW);
-//			renderer.addToScene(traceCANext.position, .4f, Color.ORANGE.darker());
-//			renderer.addToScene(caNext.position, .4f, Color.PINK);
-//			renderer.addToScene(ca.position, .4f, Color.GREEN);
-//			renderer.addToScene(n.position, .4f, Color.GREEN);
-////			renderer.addToScene(caNext.position, .4f, Color.PINK);
-//			System.out.println("tried turning " + psiAngleDiff);// +
-////					"(" + psiAngleDiff2 + ")");
-//			break;
-//		}
-		
-//		// DEBUG visualize rotation after rotating
-//		double caDistance = caNext.position.distance(traceCANext.position);
-//		System.out.println("psi: distance reduced from " + caNextOldDistance +
-//				" to " + caDistance);
-//			if(aaIterator.nextIndex() == 6 && step == 0) {
-//				renderer.addToScene(caNext.position, .4f, Color.PINK);
-//				renderer.addToScene(traceCANext.position, .4f, Color.ORANGE.darker());
-//				System.out.println("tried turning " + theta);
-//				break;
-//			}
+		if(reverse) {
+			angle = -angle;
+		}
+		switch(rotationType) {
+		case PHI: {
+			Atom n = aa.getAtom("N");
+			Line rotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
+			Matrix rotation = TransformationMatrix3D.createRotation(
+					rotationAxis, angle);
+			transformProtein(rotation, aaIndex, RotationType.PHI, aaSeq, reverse);
+			break;
+		} case PSI: {
+			Atom c = aa.getAtom("C");
+			Line rotationAxis = new Line(new Vector(c.position), ca.vectorTo(c));
+			Matrix rotation = TransformationMatrix3D.createRotation(
+					rotationAxis, angle);
+			transformProtein(rotation, aaIndex, RotationType.PSI, aaSeq, reverse);
+			break;
+		} case OMEGA: {
+			throw new NotImplementedException();
+		}}
+	}
+	
+	private static void transformProtein(Matrix m, int aaIdx,
+			RotationType type, List<AminoAcid> aaSeq, boolean reverse) {
+		AminoAcid aa = aaSeq.get(aaIdx);
+		if(reverse){
+			switch (type) {
+			case PHI:
+				Atom a = aa.getAtom("H");
+				if (a != null) { // prolin doesn't have H
+					Vector v = new Vector(a.position);
+					a.position = m.applyToIn(v);
+				}
+				break;
+			case PSI:
+				for (Atom at : aa.getAtoms()) {
+					if (at.label.equals("O")) {
+						continue;
+					}
+					Vector v = new Vector(at.position);
+					at.position = m.applyToIn(v);
+				}
+				break;
+			case OMEGA:
+				// TODO
+				break;
+			}
+		} else {
+			switch(type) {
+			case PHI:
+				for(Atom a : aa.getAtoms()) {
+					if(a.label.equals("H")) {
+						continue;
+					}
+					Vector v = new Vector(a.position);
+					a.position = m.applyToIn(v);
+				}
+				break;
+			case PSI:
+				Atom a = aa.getAtom("O");
+				Vector v = new Vector(a.position);
+				a.position = m.applyToIn(v);
+				break;
+			case OMEGA:
+				//TODO
+				break;
+			}			
+		}
+		for (int i = aaIdx+1; i < aaSeq.size(); i++) {
+			aa = aaSeq.get(i);
+			for (Atom a : aa.getAtoms()) {
+				Vector v = new Vector(a.position);
+				a.position = m.applyToIn(v);
+			}
+		}
+	}
 
+	private static float angleFromCCD(Line rotationAxis,
+			List<AminoAcid> backboneAA, List<Atom> traceCA, Renderer renderer, boolean debug) {
+		int lookahead = backboneAA.size();
+		
+		float[] r_mag = new float[lookahead];
+		Vector[] r_unit = new Vector[lookahead];
+		Vector[] t = new Vector[lookahead];
+		Vector[] n_unit = new Vector[lookahead];
+
+		// collect vectors
+		for(int l=0; l<lookahead; l++) {
+			Vector Ca = new Vector(backboneAA.get(l).getAtom("CA").position);
+			Vector T = new Vector(traceCA.get(l).position);
+			Vector O = rotationAxis.projection(Ca);
+			Vector r = O.vectorTo(Ca);
+			r_mag[l] = r.length();
+			r_unit[l] = r.norm();
+			t[l] = O.vectorTo(T);
+			n_unit[l] = rotationAxis.getDirection().norm().cross(r_unit[l]);
+		}
+		
+		// calculate angle
+		float tan_alpha_denom = 0;
+		float tan_alpha_num = 0;
+		for(int i=0; i<lookahead; i++) {
+			tan_alpha_num += t[i].dot(n_unit[i]) * r_mag[i];
+			tan_alpha_denom += t[i].dot(r_unit[i]) * r_mag[i];	
+		}
+		float tan_alpha = tan_alpha_num/tan_alpha_denom;
+		float alpha = (float)Math.atan(tan_alpha);
+		
+		// determine 2. derivative
+		float second_derivative = 0;
+		for(int i=0; i<lookahead; i++) {
+			second_derivative += Math.cos(alpha) * t[i].dot(r_unit[i])*2*r_mag[i]
+					+ Math.sin(alpha) * t[i].dot(n_unit[i])*2*r_mag[i];
+		}
+		
+		// adjust angle according to 2. derivative
+        if (second_derivative<0) {
+            if (alpha>0) {
+                alpha -= Math.PI;
+            } else {
+                alpha += Math.PI;
+            }
+        }
+		return alpha*DAMPING_FACTOR;
 	}
 
 	/**
@@ -222,26 +354,4 @@ public class Bender {
 		}
 		return collisionsLeft;
 	}
-
-//	private static float atomAngle(Atom a0, Atom a1, Atom a2) {
-//		Vector v0 = a0.vectorTo(a1);
-//		Vector v1 = a0.vectorTo(a2);
-//		return v0.angle(v1);
-//	}
-
-
-//	private static Vector atomPlaneNormal(Atom a0, Atom a1, Atom a2) {
-//		Vector v0 = a0.vectorTo(a1);
-//		Vector v1 = a0.vectorTo(a2);
-//		return v0.cross(v1).normIn();
-//	}
-	
-//	private static void bendResidue(AminoAcid aa, CAlphaTrace.CAlpha cAlpha) {
-//		//rotation
-////		Vector n = atomPlaneNormal(caFirst, cAlphaFirst.c, cAlphaFirst.next.c);
-////		float angle = atomAngle(caFirst, cAlphaFirst.c, cAlphaFirst.next.c);
-////		Matrix m1 = TransformationMatrix3D.createRotation(0,n);
-////		Matrix m = m0.applyTo(m1);
-//	}
-
 }

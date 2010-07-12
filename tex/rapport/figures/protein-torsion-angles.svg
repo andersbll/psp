@@ -308,6 +308,107 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3018"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-4"
+       style="overflow:visible">
+      <path
+         id="path4127-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3061"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-88"
+       style="overflow:visible">
+      <path
+         id="path4127-92"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3101"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5"
+       style="overflow:visible">
+      <path
+         id="path4127-93"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3141"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-9"
+       style="overflow:visible">
+      <path
+         id="path4127-97"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3188"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3904"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3926"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -317,8 +418,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="208.33474"
-     inkscape:cy="51.798581"
+     inkscape:cx="140.97944"
+     inkscape:cy="51.229931"
      inkscape:document-units="px"
      inkscape:current-layer="g352"
      showgrid="false"
@@ -335,7 +436,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -410,7 +511,7 @@
          id="path426" />
       <path
          d="m 386.3,-52.286751 c 0,-13.4203 -10.88,-24.3 -24.3,-24.3 -13.421,0 -24.3,10.8797 -24.3,24.3 0,13.4203 10.879,24.3 24.3,24.3 13.42,0 24.3,-10.8797 24.3,-24.3 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.90123074;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:5.40738446,1.80246149;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
          id="path438" />
       <path
          d="m 829.97541,-74.625054 c 0,-9.941 -8.059,-17.999998 -18,-17.999998 -9.941,0 -18,8.058998 -18,17.999998 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18 z"
@@ -418,11 +519,11 @@
          id="path458" />
       <path
          d="m 910.02211,-59.887281 c 0,-14.911 -12.089,-27 -27,-27 -14.912,0 -27,12.089 -27,27 0,14.9113 12.088,27 27,27 14.911,0 27,-12.0887 27,-27"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.45061538;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.90123077;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5.40738455,0.90123077;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
          id="path460" />
       <path
          d="m 81.8,-320.18723 c 0,-9.941 -8.059,-18 -18,-18 -9.941,0 -18,8.059 -18,18 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5632692;stroke-miterlimit:8.80000019;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.90123077;stroke-miterlimit:9.39999962;stroke-opacity:1;stroke-dasharray:5.40738455,0.90123077;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
          id="path472" />
       <path
          d="m 245.80468,-237.00362 4.60234,-60.63778"
@@ -461,16 +562,16 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
          id="path502" />
       <text
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="326.48846"
-         x="58.400021"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="325.67902"
+         x="57.749298"
          id="text558"
          transform="scale(1,-1)">
         <tspan
            id="tspan560"
-           y="326.48846"
-           x="58.400021"
-           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">R</tspan>
+           y="325.67902"
+           x="57.749298"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
@@ -521,16 +622,16 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
          id="path676" />
       <text
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="60.807987"
-         x="354.73999"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="59.60915"
+         x="353.9324"
          id="text680"
          transform="scale(1,-1)">
         <tspan
            id="tspan682"
-           y="60.807987"
-           x="354.73999"
-           style="font-size:21.60000038px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">R</tspan>
+           y="59.60915"
+           x="353.9324"
+           style="font-size:21.60000038px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
@@ -545,7 +646,7 @@
            style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
       </text>
       <text
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
          y="69.367683"
          x="874.92285"
          id="text710"
@@ -554,7 +655,7 @@
            id="tspan712"
            y="69.367683"
            x="874.92285"
-           style="font-size:24.29999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">R</tspan>
+           style="font-size:24.29999923999999822px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
@@ -602,15 +703,15 @@
          id="path466" />
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="195.98801"
-         x="669.5"
+         y="195.26904"
+         x="668.68835"
          id="text692"
          transform="scale(1,-1)">
         <tspan
            id="tspan694"
-           y="195.98801"
-           x="669.5"
-           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C</tspan>
+           y="195.26904"
+           x="668.68835"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C'</tspan>
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
@@ -626,20 +727,20 @@
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="237.26822"
-         x="763.21979"
+         y="236.24049"
+         x="762.68219"
          id="text700"
          transform="scale(1,-1)">
         <tspan
            id="tspan702"
-           y="237.26822"
-           x="763.21979"
+           y="236.24049"
+           x="762.68219"
            style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">N</tspan>
         <tspan
            id="tspan704"
-           y="320.008"
-           x="771.61981"
-           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+           y="318.98029"
+           x="771.08221"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std" />
       </text>
       <path
          d="m 594.8,-297.6877 0.9,28.8"
@@ -655,19 +756,19 @@
          id="path394" />
       <path
          d="m 612.8,-315.68814 c 0,-9.94101 -8.059,-18.00001 -18,-18.00001 -9.941,0 -18,8.059 -18,18.00001 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.90123077;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:9.39999962;stroke-opacity:1;stroke-dasharray:5.40738455,0.90123077;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
          id="path470" />
       <text
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="321.98846"
-         x="589.3999"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="321.17993"
+         x="588.74933"
          id="text538"
          transform="scale(1,-1)">
         <tspan
            id="tspan540"
-           y="321.98846"
-           x="589.3999"
-           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">R</tspan>
+           y="321.17993"
+           x="588.74933"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
@@ -695,15 +796,15 @@
          id="path434" />
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="221.72812"
-         x="427.15991"
+         y="220.98785"
+         x="426.08795"
          id="text714"
          transform="scale(1,-1)">
         <tspan
            id="tspan716"
-           y="221.72812"
-           x="427.15991"
-           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C</tspan>
+           y="220.98785"
+           x="426.08795"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C'</tspan>
       </text>
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
@@ -755,15 +856,15 @@
          id="path410" />
       <text
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
-         y="195.98831"
-         x="142.9995"
+         y="195.26813"
+         x="142.18832"
          id="text730"
          transform="scale(1,-1)">
         <tspan
            id="tspan732"
-           y="195.98831"
-           x="142.9995"
-           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C</tspan>
+           y="195.26813"
+           x="142.18832"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C'</tspan>
       </text>
       <path
          d="m 266.3,-229.58676 c 0,-12.095 -9.805,-21.9 -21.9,-21.9 -12.095,0 -21.9,9.805 -21.9,21.9 0,12.095 9.805,21.9 21.9,21.9 12.095,0 21.9,-9.805 21.9,-21.9 z"
@@ -1132,6 +1233,125 @@
              id="tspan690-9">α</tspan>
         </text>
       </g>
+      <g
+         transform="translate(-192.21692,-40.795108)"
+         id="g6705-9-8"
+         style="font-size:22.53076935px">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(1.6533387,1.5306295,1.5306295,-1.6533387,-491.63014,-331.52822)"
+           d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+           sodipodi:ry="3.8626099"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119-0-8"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729-7-8"
+           d="m 379.51815,-184.58808 -3.31572,-1.94144"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+        <text
+           transform="scale(1,-1)"
+           id="text6691-7-6"
+           y="182.18428"
+           x="361.53403"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="182.18428"
+             x="361.53403"
+             sodipodi:role="line"
+             id="tspan6931-8">ω</tspan></text>
+      </g>
+      <g
+         transform="translate(337.95629,-41.050487)"
+         id="g6705-9-8-5"
+         style="font-size:22.53076935px">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(1.6533387,1.5306295,1.5306295,-1.6533387,-491.63014,-331.52822)"
+           d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+           sodipodi:ry="3.8626099"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119-0-8-7"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729-7-8-0"
+           d="m 379.51815,-184.58808 -3.31572,-1.94144"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+        <text
+           transform="scale(1,-1)"
+           id="text6691-7-6-8"
+           y="182.18428"
+           x="361.53403"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="182.18428"
+             x="361.53403"
+             sodipodi:role="line"
+             id="tspan6931-8-1">ω</tspan></text>
+      </g>
+      <g
+         id="g3207">
+        <text
+           transform="matrix(1,0,0,-1,-192.21692,-40.795108)"
+           xml:space="preserve"
+           style="font-size:22.53076934999999992px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           x="649.31061"
+           y="149.09862"
+           id="text6691-7-6-80"><tspan
+             id="tspan6931-8-9"
+             sodipodi:role="line"
+             x="649.31061"
+             y="149.09862">ω</tspan></text>
+        <g
+           style="font-size:22.53076935px"
+           id="g6705-7-8-2-8"
+           transform="matrix(0.98149759,-0.19147451,0.19147451,0.98149759,133.2283,45.892941)">
+          <g
+             style="font-size:22.53076935px"
+             transform="matrix(-1,0,0,1,771.08172,3.6984209)"
+             id="g6751-9-4-2">
+            <path
+               sodipodi:open="true"
+               sodipodi:end="8.403886"
+               sodipodi:start="4.4450932"
+               transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+               d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+               sodipodi:ry="3.8626099"
+               sodipodi:rx="7.4201674"
+               sodipodi:cy="211.6479"
+               sodipodi:cx="332.58929"
+               id="path4119-6-7-3-5"
+               style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+               sodipodi:type="arc" />
+            <path
+               id="path5729-0-0-6-3"
+               d="m 389.57211,-161.12243 3.31572,1.94144"
+               style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+          </g>
+        </g>
+      </g>
+      <text
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="235.14905"
+         x="762.78235"
+         id="text700-6"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan704-1"
+           y="317.88879"
+           x="771.18237"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
     </g>
   </g>
 </svg>

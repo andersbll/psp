@@ -8,9 +8,7 @@ import java.util.List;
 import edu.allatom.AminoAcidType;
 
 import edu.geom3D.Sphere;
-import edu.math.Matrix;
-import edu.math.Vector;
-import edu.math.TransformationMatrix3D;
+import edu.math.*;
 
 
 public class Main {
@@ -21,12 +19,12 @@ public class Main {
 		String pdbfile;
 //		pdbfile = "pdb/1UAO.pdb"; // meget lille
 //		pdbfile = "pdb/2JOF.pdb"; // lille
-//		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
+		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
 		
 //		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
-//		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus
-		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
+		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus
+//		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
 		
 		Protein p;
 		try {
@@ -104,7 +102,7 @@ public class Main {
 		// So we rotate and push the protein around to make it a problem
 		renderer.addToScene(trace);
 		renderer.addToScene(p);
-		BenderCCDWindow.bendProteinBackbone(p, trace, renderer);
+		Bender.bendProteinBackbone(p, trace, renderer);
 		System.out.println(p.cATraceRMSD(trace));
 		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 		renderCollisions(renderer, p);

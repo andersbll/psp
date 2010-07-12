@@ -47,76 +47,6 @@ public class Protein {
 		}
 	}
 
-	public void transformProtein(Matrix m, int aaIdx, RotationType type) {
-		int i = 0;
-		for(AminoAcid aa : aaSeq) {
-			if(i < aaIdx) {
-				;
-			} else if(i == aaIdx) {
-				switch(type) {
-				case PHI:
-					//TODO rotér ikke alle atomer!
-					for(Atom a : aa.getAtoms()) {
-						if(a.label.equals("H")) {
-							continue;
-						}
-						Vector v = new Vector(a.position);
-						a.position = m.applyToIn(v);
-					}
-					break;
-				case PSI:
-					Atom a = aa.getAtom("O");
-					Vector v = new Vector(a.position);
-					a.position = m.applyToIn(v);
-					break;
-				case OMEGA:
-					//TODO
-					break;
-				}
-			} else {
-				for(Atom a : aa.getAtoms()) {
-					Vector v = new Vector(a.position);
-					a.position = m.applyToIn(v);
-				}
-			}
-			i++;
-		}
-	}
-
-	private void transformProteinReverse(Matrix m, int aaIdx, RotationType type) {
-		int i = aaSeq.size()-1;
-		for(AminoAcid aa : aaSeq) {
-			if(i > aaIdx) {
-				;
-			} else if(i == aaIdx) {
-				switch(type) {
-				case PHI:
-					Atom a = aa.getAtom("H");
-					Vector v = new Vector(a.position);
-					a.position = m.applyToIn(v);
-					break;
-				case PSI:
-					for(Atom at : aa.getAtoms()) {
-						if(at.label.equals("O")) {
-							continue;
-						}
-						v = new Vector(at.position);
-						at.position = m.applyToIn(v);
-					}
-					break;
-				case OMEGA:
-					//TODO
-					break;
-				}
-			} else {
-				for(Atom a : aa.getAtoms()) {
-					Vector v = new Vector(a.position);
-					a.position = m.applyToIn(v);
-				}
-			}
-			i--;
-		}
-	}
 	
 	public double cATraceRMSD(LinkedList<Atom> trace) {
 		double d = 0;
@@ -133,52 +63,6 @@ public class Protein {
 		return d;
 	}
 	
-	public void rotate(float angle, int aaIndex, RotationType rotationType) {
-		AminoAcid aa = aaSeq.get(aaIndex);
-		Atom ca = aa.getAtom("CA");
-		
-		switch(rotationType) {
-		case PHI: {
-			Atom n = aa.getAtom("N");
-			Line rotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
-			Matrix rotation = TransformationMatrix3D.createRotation(
-					rotationAxis, angle);
-			transformProtein(rotation, aaIndex, RotationType.PHI);
-			break;
-		} case PSI: {
-			Atom c = aa.getAtom("C");
-			Line rotationAxis = new Line(new Vector(c.position), ca.vectorTo(c));
-			Matrix rotation = TransformationMatrix3D.createRotation(
-					rotationAxis, angle);
-			transformProtein(rotation, aaIndex, RotationType.PSI);
-			break;
-		} case OMEGA: {
-			throw new NotImplementedException();
-		}}
-	}
-	public void rotateReverse(float angle, int aaIndex, RotationType rotationType) {
-		AminoAcid aa = aaSeq.get(aaIndex);
-		Atom ca = aa.getAtom("CA");
-		
-		switch(rotationType) {
-		case PHI: {
-			Atom n = aa.getAtom("N");
-			Line rotationAxis = new Line(new Vector(n.position), ca.vectorTo(n));
-			Matrix rotation = TransformationMatrix3D.createRotation(
-					rotationAxis, angle);
-			transformProteinReverse(rotation, aaIndex, RotationType.PHI);
-			break;
-		} case PSI: {
-			Atom c = aa.getAtom("C");
-			Line rotationAxis = new Line(new Vector(ca.position), c.vectorTo(ca));
-			Matrix rotation = TransformationMatrix3D.createRotation(
-					rotationAxis, angle);
-			transformProteinReverse(rotation, aaIndex, RotationType.PSI);
-			break;
-		} case OMEGA: {
-			throw new NotImplementedException();
-		}}
-	}
 
 
 // private static final float LENGTH_CA_CB = 1.532714f;

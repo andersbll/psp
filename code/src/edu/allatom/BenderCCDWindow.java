@@ -18,7 +18,7 @@ public class BenderCCDWindow {
 	private static final int WINDOW_SIZE = 11;
 	private static final float DAMPING_FACTOR = 1f;
 	private static final int WINDOW_REPETITIONS = 8;
-	private static final int REPETITIONS = 20;
+	private static final int REPETITIONS = 5;
 	
 	/**
 	 * Bend a protein to try to match a given c_alpha trace.
@@ -91,23 +91,23 @@ public class BenderCCDWindow {
 					ca = aa.getAtom("CA");
 					Atom c = aa.getAtom("C");
 					Atom n = aa.getAtom("N");
-					List<AminoAcid> lookaheadBackboneWindow =
+					List<AminoAcid> backboneWindow =
 						backboneAA.subList(windowOffset+1, backboneAA.size());
-					List<Atom> lookaheadTraceWindow =
+					List<Atom> traceWindow =
 						traceCA.subList(windowOffset+1, traceCA.size());
 
 					boolean debug = step==9 && aaIndex==1 && windowOffset==0;
 
 					// find optimal phi rotation angle
 					Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
-					float phiAngleDiff = angleFromCCD(phiRotationAxis, lookaheadBackboneWindow, 
-							lookaheadTraceWindow, renderer, false);
+					float phiAngleDiff = angleFromCCD(phiRotationAxis, backboneWindow, 
+							traceWindow, renderer, false);
 					p.rotate(phiAngleDiff, aaIndex+windowOffset, RotationType.PHI);
 
 					// find optimal psi rotation angle
 					Line psiRotationAxis = new Line(new Vector(c.position), ca.vectorTo(c));
-					float psiAngleDiff = angleFromCCD(psiRotationAxis, lookaheadBackboneWindow, 
-							lookaheadTraceWindow, renderer, false);
+					float psiAngleDiff = angleFromCCD(psiRotationAxis, backboneWindow, 
+							traceWindow, renderer, false);
 					p.rotate(psiAngleDiff, aaIndex+windowOffset, RotationType.PSI);				
 					if(debug) {
 						renderer.addToScene(new Vector(ca.position), 0.4f, Color.MAGENTA);
@@ -193,7 +193,7 @@ public class BenderCCDWindow {
                 alpha += Math.PI;
             }
         }
-		return alpha*DAMPING_FACTOR ;
+		return alpha*DAMPING_FACTOR;
 	}
 
 	/**

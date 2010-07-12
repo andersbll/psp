@@ -220,10 +220,10 @@ public class StructureStats {
         if(N != null && CA != null && C != null && HA != null) {
             Plane planeHA = new Plane(new Vector(CA.position), CA.vectorTo(N).cross(CA.vectorTo(C)));
             Point projHA = planeHA.projectOnto(new Vector (HA.position)); 
-            float distHAPlaneHA = distance(bondlengths, projHA, HA.position, "distHAPlaneHA");
+            float distHAPlaneHA = distance(bondlengths, projHA, HA.position, "HA..projHA");
             float NtoprojHA = distance(bondlengths, N.position, projHA, "N..projHA");
             float CAtoprojHA = distance(bondlengths, CA.position, projHA, "CA..projHA");
-            float N_CA_projHA = angle(bondlengths, NtoprojHA, N_CA, CAtoprojHA, "projHAangle");
+            float N_CA_projHA = angle(bondlengths, NtoprojHA, N_CA, CAtoprojHA, "N-CA-projHA");
         }
 
         if(N != null && CA != null && C != null && CB != null) {

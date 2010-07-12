@@ -175,16 +175,14 @@ private static final float ANGLE_C_N_H = 2.085841f;
 private static final float ANGLE_N_CA_projCB = 2.1552231f;
 private static final float ANGLE_CB_CA_projCB = 0.932577f;
 private static final float LENGTH_HAplane_HAproj = 0.8833212f;
+private static final float ANGLE_N_CA_HAproj = 2.1748586f;
 private static final float LENGTH_Hplane_Hproj = 0.023912556f;
 private static final float LENGTH_N_Hproj = 0.9777301f;
 private static final float LENGTH_CA_HAproj = 0.6108196f;
 //---
 
-	private static final float ANGLE_CA_HA = 2.1751032f;
 
-
-
-	//TODO: 'H' bliver ikke indsat i den første aminosyre - bizart!
+	//TODO: 'H' bliver ikke indsat i den første aminosyre
 	public static Protein getUncoiledProtein(List<AminoAcidType> aminoAcidTypes) {
 		List<AminoAcid> acids = new ArrayList<AminoAcid>(aminoAcidTypes.size());
 		int i = 0;
@@ -198,14 +196,14 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 		Atom ca = new Atom(Atom.Type.C, "CA", new Point(0, LENGTH_N_CA, 0));
 		aa.addAtom(ca);
 		double a = Math.PI/2;
-		float f = 0;
+		float f = -1;
 		String HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
-        double b = a + (Math.PI + ANGLE_CA_HA) * -f;
+        double b = a + (Math.PI + ANGLE_N_CA_HAproj) * -f;
 		Atom ha = new Atom(Atom.Type.H, HAname, new Point(
 				(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 				(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
 				LENGTH_HAplane_HAproj * f));
-		//aa.addAtom(ha); //TODO fix position
+		aa.addAtom(ha);
 		while(i < aminoAcidTypes.size()) {
 			f = i%2 == 0 ? -1 : 1;
 			a += (Math.PI - ANGLE_N_CA_C) * f;
@@ -268,6 +266,7 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 					sa.position = rotationMatrix2.applyTo(new Vector(sa.position));
 				}
 			}
+
 			boolean rotamerStatus;
 //			do {
 //				rotamerStatus = aa.nextRotamer();
@@ -309,12 +308,12 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 			aa.addAtom(ca);
 
             HAname = (aa.type == AminoAcidType.GLY ? "HA2" : "HA");
-            b = a + (Math.PI + ANGLE_CA_HA) * -f;
+            b = a + (Math.PI + ANGLE_N_CA_HAproj) * -f;
 			ha = new Atom(Atom.Type.H, HAname, new Point(
 					(float) (ca.position.x() + Math.cos(b)*LENGTH_CA_HAproj),
 					(float) (ca.position.y() + Math.sin(b)*LENGTH_CA_HAproj),
 					LENGTH_HAplane_HAproj * f));
-			//aa.addAtom(ha);
+			aa.addAtom(ha);
 		}
 //		acids.add(aa);
 		//TODO fix last aa

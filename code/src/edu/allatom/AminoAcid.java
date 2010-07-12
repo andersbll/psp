@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.TreeSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -211,13 +212,16 @@ public class AminoAcid {
 	 */
 	private void applyRotamer(Rotamer rotamer) {
 		this.rotamer = rotamer;
+        
+        resetSidechainChiAngles(this.type, this.allatoms.values());
+
 		//TODO
 		List<Atom> atoms = new LinkedList<Atom>();
 		for(int i=0; i<type.chiAngleCount; i++) {
 			for(String label : type.chiAffectedAtomNames[i]) {
 				atoms.add(allatoms.get(label));
 			}
-			setChiAngle(i, rotamer.chis[i], type, new LinkedList<Atom>(allatoms.values()));
+			setChiAngle(i, rotamer.chis[i], type, allatoms.values());
 		}
 	}
 	
@@ -285,7 +289,8 @@ public class AminoAcid {
 			Rotamer rotamer = new Rotamer();
 			rotamer.probability = Double.parseDouble(tokens.get(7)) / 100;
 			for(int p=0; p<AminoAcidType.valueOf(type.toString()).chiAngleCount; p++) {
-				rotamer.chis[p] = Double.parseDouble(tokens.get(11 + 2*p));
+				double degrees = Double.parseDouble(tokens.get(11 + 2*p));
+                rotamer.chis[p] = (degrees/180.0) * Math.PI;
 			}
 			
 			if(type != previousType && previousType != null) {
@@ -324,7 +329,7 @@ public class AminoAcid {
 	// functions for running statistics and stuff on sidechains
 	
 
-	private static Atom getAtomByLabel(List<Atom> atoms, String label) {
+	private static Atom getAtomByLabel(Collection<Atom> atoms, String label) {
 		for(Atom a : atoms) {
 			if(a.label.matches(label)) {
 				return a;
@@ -341,7 +346,7 @@ public class AminoAcid {
 	 * @param atoms the atoms of the aminoacid
 	 * @return the specified chi angle
 	 */
-	private static double getChiAngle(int angleNumber, AminoAcidType type, List<Atom> atoms) {
+	public static double getChiAngle(int angleNumber, AminoAcidType type, Collection<Atom> atoms) {
 		Atom dihedralAtoms[] = new Atom[4];
 
 		// Which atoms are used to calculate the chi angle depends on
@@ -381,49 +386,49 @@ public class AminoAcid {
 	}
 	
 
-	private static List<Atom> getSidechainAtomsAfter(
-			AminoAcidType type, List<Atom> atoms, Atom terminator) {
-		List<String> labels = new LinkedList<String>();
+// 	private static List<Atom> getSidechainAtomsAfter(
+// 			AminoAcidType type, Collection<Atom> atoms, Atom terminator) {
+// 		List<String> labels = new LinkedList<String>();
 		
-		labels.add("N");
-		labels.add("C");
-		labels.add("CA");
-		labels.add("O");
-		labels.add("H");
-		if(type == AminoAcidType.GLY) {
-			labels.add("HA2");
-		} else {
-			labels.add("HA");
-		}
+// 		labels.add("N");
+// 		labels.add("C");
+// 		labels.add("CA");
+// 		labels.add("O");
+// 		labels.add("H");
+// 		if(type == AminoAcidType.GLY) {
+// 			labels.add("HA2");
+// 		} else {
+// 			labels.add("HA");
+// 		}
 		
-		String a = "CA";
-//		System.out.println("searching for terminator: " + terminator.label);
-		while(!a.equals(terminator.label)) {
-			String next = null;
-			for(String neighbor : type.followBond(a)) {
-				if(!labels.contains(neighbor)) {
-					labels.add(neighbor);
-					if(!neighbor.startsWith("H") && next == null) {
-						next = neighbor;
-					}
-				}
-			}
-			a = next;
-//			System.out.println(a);
-		}
+// 		String a = "CA";
+// //		System.out.println("searching for terminator: " + terminator.label);
+// 		while(!a.equals(terminator.label)) {
+// 			String next = null;
+// 			for(String neighbor : type.followBond(a)) {
+// 				if(!labels.contains(neighbor)) {
+// 					labels.add(neighbor);
+// 					if(!neighbor.startsWith("H") && next == null) {
+// 						next = neighbor;
+// 					}
+// 				}
+// 			}
+// 			a = next;
+// //			System.out.println(a);
+// 		}
 		
-		List<Atom> atomsAfter = new LinkedList<Atom>();
-		for(Atom atom : atoms) {
-			if(!labels.contains(atom.label)) {
-				atomsAfter.add(atom);
-			}
-		}
+// 		List<Atom> atomsAfter = new LinkedList<Atom>();
+// 		for(Atom atom : atoms) {
+// 			if(!labels.contains(atom.label)) {
+// 				atomsAfter.add(atom);
+// 			}
+// 		}
 		
-		return atomsAfter;
-	}
+// 		return atomsAfter;
+// 	}
 
 	
-	private static void setChiAngle(int angleNumber, double angle, AminoAcidType type, List<Atom> atoms) {
+	public static void setChiAngle(int angleNumber, double angle, AminoAcidType type, Collection<Atom> atoms) {
 		Vector rotationVector = null;
 		Atom rotationAtoms[] = null;
 
@@ -454,24 +459,35 @@ public class AminoAcid {
 				(float) angle);
 		
 		// Rotate all atoms affected by the change in chi-angle
-		List<Atom> atomsToRotate = getSidechainAtomsAfter(type, atoms, rotationAtoms[1]);
-		for(Atom a : atomsToRotate) {
+		Collection<String> atomsToRotate = getChiAffectedAtoms(angleNumber, type);
+        for(String name : atomsToRotate) {
+            Atom a = getAtomByLabel(atoms, name);
 			a.position = rotation.applyTo(new Vector(a.position));
 		}
 	}
 
+    public static Collection<String> getChiAffectedAtoms(int angleNumber, AminoAcidType type) {
+        TreeSet<String> affected = new TreeSet<String>();
+        for(int i = angleNumber; i <= type.chiAngleCount; i++) {
+            String[] atoms = type.chiAffectedAtomNames[i];
+            for(int j = 0; j < atoms.length; j++)
+                affected.add(atoms[j]);
+        }
+        return affected;
+    }
+
 	// Set the chi angle to zero
-	private static void resetChiAngle(int angleNumber, AminoAcidType type, List<Atom> atoms) {
-		if(angleNumber == 0) {
-			Atom gamma = getAtomByLabel(atoms, ".G.?");
-			setChiAngle(0, -Math.PI/2 + Math.atan2(gamma.position.y(), gamma.position.z()), type, atoms);
-		} else {
+	public static void resetChiAngle(int angleNumber, AminoAcidType type, Collection<Atom> atoms) {
+		// if(angleNumber == 0) {
+		// 	Atom gamma = getAtomByLabel(atoms, ".G.?");
+		// 	setChiAngle(0, -Math.PI/2 + Math.atan2(gamma.position.y(), gamma.position.z()), type, atoms);
+		// } else {
 //			double chiAngleBefore = getChiAngle(angleNumber, type, atoms);
 //			System.out.println("Chi angle before: " + chiAngleBefore);
 			setChiAngle(angleNumber, -getChiAngle(angleNumber, type, atoms), type, atoms);
 //			double chiAngleAfter = getChiAngle(angleNumber, type, atoms);
 //			System.out.println("Chi angle after: " + chiAngleAfter);
-		}
+//		}
 	}
 	// Filter amino acids
 	public static List<AminoAcid> getAminoAcidsOfType(Protein protein, AminoAcidType type) {
@@ -483,13 +499,13 @@ public class AminoAcid {
 		}
 		return acids;
 	}
-	public static void resetSidechainChiAngles(AminoAcidType type, List<Atom> atoms) {
+	public static void resetSidechainChiAngles(AminoAcidType type, Collection<Atom> atoms) {
 		for(int chi=0; chi<type.chiAngleCount; chi++) {
 			resetChiAngle(chi, type, atoms);
 		}
 	}
 
-	public static void resetSidechain(AminoAcidType type, List<Atom> atoms) {
+	public static void resetSidechain(AminoAcidType type, Collection<Atom> atoms) {
 		resetSidechainPosition(type, atoms);
 		
 		Atom cbeta = getAtomByLabel(atoms, "CB");
@@ -521,7 +537,7 @@ public class AminoAcid {
 	}
 
 	// Translate sidechain to (0,0,0)
-	public static void resetSidechainPosition(AminoAcidType type, List<Atom> atoms) {
+	public static void resetSidechainPosition(AminoAcidType type, Collection<Atom> atoms) {
 		Vector translation = getAtomByLabel(atoms, "CA").
 				position.vectorTo(new Point(0, 0, 0));
 		for(Atom a : atoms) {

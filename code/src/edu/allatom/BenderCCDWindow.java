@@ -13,13 +13,12 @@ import edu.math.Matrix;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
-
 public class BenderCCDWindow {
 	
-	private static final int WINDOW_SIZE = 10;
+	private static final int WINDOW_SIZE = 11;
 	private static final float DAMPING_FACTOR = 1f;
-	private static final int WINDOW_REPETITIONS = 1;
-	private static final int REPETITIONS = 50;
+	private static final int WINDOW_REPETITIONS = 8;
+	private static final int REPETITIONS = 20;
 	
 	/**
 	 * Bend a protein to try to match a given c_alpha trace.
@@ -100,13 +99,13 @@ public class BenderCCDWindow {
 					boolean debug = step==9 && aaIndex==1 && windowOffset==0;
 
 					// find optimal phi rotation angle
-					Line phiRotationAxis = new Line(new Vector(n.position), ca.vectorTo(n));
+					Line phiRotationAxis = new Line(new Vector(ca.position), n.vectorTo(ca));
 					float phiAngleDiff = angleFromCCD(phiRotationAxis, lookaheadBackboneWindow, 
 							lookaheadTraceWindow, renderer, false);
 					p.rotate(phiAngleDiff, aaIndex+windowOffset, RotationType.PHI);
 
 					// find optimal psi rotation angle
-					Line psiRotationAxis = new Line(new Vector(ca.position), c.vectorTo(ca));
+					Line psiRotationAxis = new Line(new Vector(c.position), ca.vectorTo(c));
 					float psiAngleDiff = angleFromCCD(psiRotationAxis, lookaheadBackboneWindow, 
 							lookaheadTraceWindow, renderer, false);
 					p.rotate(psiAngleDiff, aaIndex+windowOffset, RotationType.PSI);				
@@ -152,59 +151,43 @@ public class BenderCCDWindow {
 			List<AminoAcid> backboneAA, List<Atom> traceCA, Renderer renderer, boolean debug) {
 		int lookahead = backboneAA.size();
 		
-		float[] r_mags = new float[lookahead];
-		Vector[] r_units = new Vector[lookahead];
-		Vector[] fs = new Vector[lookahead];
-		Vector[] s_units = new Vector[lookahead];
+		float[] r_mag = new float[lookahead];
+		Vector[] r_unit = new Vector[lookahead];
+		Vector[] t = new Vector[lookahead];
+		Vector[] n_unit = new Vector[lookahead];
 
 		// collect vectors
 		for(int l=0; l<lookahead; l++) {
-			Vector M = new Vector(backboneAA.get(l).getAtom("CA").position);
-			Vector F = new Vector(traceCA.get(l).position);
-			Vector O = rotationAxis.projection(M);
-
-			Vector r = O.vectorTo(M);
-			Vector r_hat = r.norm();
-			float r_mag = r.length();
-			Vector f = O.vectorTo(F);
-			Vector s_hat = r_hat.cross(rotationAxis.getDirection());
-
-			r_mags[l] = r_mag;
-			r_units[l] = r_hat;
-			fs[l] = f;
-			s_units[l] = s_hat;
+			Vector Ca = new Vector(backboneAA.get(l).getAtom("CA").position);
+			Vector T = new Vector(traceCA.get(l).position);
+			Vector O = rotationAxis.projection(Ca);
+			Vector r = O.vectorTo(Ca);
+			r_mag[l] = r.length();
+			r_unit[l] = r.norm();
+			t[l] = O.vectorTo(T);
+			n_unit[l] = rotationAxis.getDirection().norm().cross(r_unit[l]);
 		}
 		
 		// calculate angle
 		float tan_alpha_denom = 0;
 		float tan_alpha_num = 0;
 		for(int i=0; i<lookahead; i++) {
-			Vector f = fs[i];
-			Vector s_unit = s_units[i];
-			float r_mag = r_mags[i];
-			Vector r_unit = r_units[i];
-			tan_alpha_num += f.dot(s_unit)*r_mag;
-			tan_alpha_denom += f.dot(r_unit)*r_mag;	
+			tan_alpha_num += t[i].dot(n_unit[i]) * r_mag[i];
+			tan_alpha_denom += t[i].dot(r_unit[i]) * r_mag[i];	
 		}
 		float tan_alpha = tan_alpha_num/tan_alpha_denom;
 		float alpha = (float)Math.atan(tan_alpha);
 		
 		// determine 2. derivative
-		float derivative = 0;
+		float second_derivative = 0;
 		for(int i=0; i<lookahead; i++) {
-			Vector f = fs[i];
-			Vector s_unit = s_units[i];
-			float r_mag = r_mags[i];
-			Vector r_unit = r_units[i];
-			derivative += Math.cos(alpha)*f.dot(r_unit)*2*r_mag
-					+ Math.sin(alpha)*f.dot(s_unit)*2*r_mag;
+			second_derivative += Math.cos(alpha) * t[i].dot(r_unit[i])*2*r_mag[i]
+					+ Math.sin(alpha) * t[i].dot(n_unit[i])*2*r_mag[i];
 		}
 		
 		// adjust angle according to 2. derivative
-        if (derivative<0) {
-//            alpha += Math.PI;
-            // Current alpha_rad is incorrect; change it by pi radians.
-            if (alpha >= 0.0) {
+        if (second_derivative<0) {
+            if (alpha>0) {
                 alpha -= Math.PI;
             } else {
                 alpha += Math.PI;

@@ -68,12 +68,6 @@ public class Protein {
 					Atom a = aa.getAtom("O");
 					Vector v = new Vector(a.position);
 					a.position = m.applyToIn(v);
-//					for(Atom a : aa.getAtoms()) {
-////						if(!(a.name.equals("CA") || a.name.equals("C") || a.name.equals("O"))) {
-//							Vector v = new Vector(a.position);
-//							a.position = m.applyToIn(v);
-////						}
-//					}					
 					break;
 				case OMEGA:
 					//TODO
@@ -83,12 +77,44 @@ public class Protein {
 				for(Atom a : aa.getAtoms()) {
 					Vector v = new Vector(a.position);
 					a.position = m.applyToIn(v);
-//					if(a.position.x()!=a.position.x()) {
-//						System.out.println("noooo  "+a.name+"  "+aa.type.name()+"   "+m);
-//					}
 				}
 			}
 			i++;
+		}
+	}
+
+	private void transformProteinReverse(Matrix m, int aaIdx, RotationType type) {
+		int i = aaSeq.size()-1;
+		for(AminoAcid aa : aaSeq) {
+			if(i > aaIdx) {
+				;
+			} else if(i == aaIdx) {
+				switch(type) {
+				case PHI:
+					Atom a = aa.getAtom("H");
+					Vector v = new Vector(a.position);
+					a.position = m.applyToIn(v);
+					break;
+				case PSI:
+					for(Atom at : aa.getAtoms()) {
+						if(at.label.equals("O")) {
+							continue;
+						}
+						v = new Vector(at.position);
+						at.position = m.applyToIn(v);
+					}
+					break;
+				case OMEGA:
+					//TODO
+					break;
+				}
+			} else {
+				for(Atom a : aa.getAtoms()) {
+					Vector v = new Vector(a.position);
+					a.position = m.applyToIn(v);
+				}
+			}
+			i--;
 		}
 	}
 	
@@ -121,10 +147,33 @@ public class Protein {
 			break;
 		} case PSI: {
 			Atom c = aa.getAtom("C");
-			Line rotationAxis = new Line(new Vector(ca.position), ca.vectorTo(c));
+			Line rotationAxis = new Line(new Vector(c.position), ca.vectorTo(c));
 			Matrix rotation = TransformationMatrix3D.createRotation(
 					rotationAxis, angle);
 			transformProtein(rotation, aaIndex, RotationType.PSI);
+			break;
+		} case OMEGA: {
+			throw new NotImplementedException();
+		}}
+	}
+	public void rotateReverse(float angle, int aaIndex, RotationType rotationType) {
+		AminoAcid aa = aaSeq.get(aaIndex);
+		Atom ca = aa.getAtom("CA");
+		
+		switch(rotationType) {
+		case PHI: {
+			Atom n = aa.getAtom("N");
+			Line rotationAxis = new Line(new Vector(n.position), ca.vectorTo(n));
+			Matrix rotation = TransformationMatrix3D.createRotation(
+					rotationAxis, angle);
+			transformProteinReverse(rotation, aaIndex, RotationType.PHI);
+			break;
+		} case PSI: {
+			Atom c = aa.getAtom("C");
+			Line rotationAxis = new Line(new Vector(ca.position), c.vectorTo(ca));
+			Matrix rotation = TransformationMatrix3D.createRotation(
+					rotationAxis, angle);
+			transformProteinReverse(rotation, aaIndex, RotationType.PSI);
 			break;
 		} case OMEGA: {
 			throw new NotImplementedException();
@@ -165,12 +214,13 @@ public class Protein {
 
 
 
+
 //---
 private static final float LENGTH_C_O = 1.2259989f;
 private static final float LENGTH_CA_C = 1.5272093f;
 private static final float LENGTH_N_CA = 1.4680145f;
 private static final float LENGTH_C_N = 1.3233874f;
-private static final float ANGLE_N_CA_C = 1.9304782;
+private static final float ANGLE_N_CA_C = 1.9304782f;
 private static final float ANGLE_CA_C_O = 2.1067827f;
 private static final float ANGLE_CA_C_N = 2.0382223f;
 private static final float ANGLE_C_N_CA = 2.1197803f;
@@ -338,4 +388,5 @@ private static final float LENGTH_CA_HAproj = 0.6108196f;
 		}
 		return Superposition.minRMSD(trace1, trace2);
 	}
+
 }

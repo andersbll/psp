@@ -349,7 +349,7 @@ enum AminoAcidType {
 					new Atom(Atom.Type.H, "HG2", new Point(2.5207396f, 1.7220876f, 0.8833633f)),
 			},
 			new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CD","N"},{"CG","HG2"},{"CG","HG3"}},
-			new String[][]{{}, {}, {}, {}}
+			new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3", "HD2", "HD3"}, {}, {}}
 	),
 	SER (
 			1,

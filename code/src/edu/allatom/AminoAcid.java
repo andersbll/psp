@@ -462,13 +462,13 @@ public class AminoAcid {
 		Collection<String> atomsToRotate = getChiAffectedAtoms(angleNumber, type);
         for(String name : atomsToRotate) {
             Atom a = getAtomByLabel(atoms, name);
-			a.position = rotation.applyTo(new Vector(a.position));
+            a.position = rotation.applyTo(new Vector(a.position));
 		}
 	}
 
     public static Collection<String> getChiAffectedAtoms(int angleNumber, AminoAcidType type) {
         TreeSet<String> affected = new TreeSet<String>();
-        for(int i = angleNumber; i <= type.chiAngleCount; i++) {
+        for(int i = angleNumber; i < type.chiAngleCount; i++) {
             String[] atoms = type.chiAffectedAtomNames[i];
             for(int j = 0; j < atoms.length; j++)
                 affected.add(atoms[j]);

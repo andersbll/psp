@@ -35,17 +35,17 @@ enum AminoAcidType {
 					new Atom(Atom.Type.N, "NH1", new Point(0.6433128f, -0.23890153f, -0.014702952f)),
 					new Atom(Atom.Type.C, "C", new Point(-0.5355225f, -0.10798472f, 0.5158807f)),
 					new Atom(Atom.Type.H, "HA", new Point(-0.35339427f, -0.28360578f, -0.23492327f)),
-					new Atom(Atom.Type.H, "HH21", new Point(-2.3025465f, 0.6745475f, -0.026077129f)),
+					new Atom(Atom.Type.H, "H21", new Point(-2.3025465f, 0.6745475f, -0.026077129f)),
 					new Atom(Atom.Type.N, "N", new Point(-0.4833972f, 0.46453363f, -0.17985764f)),
 					new Atom(Atom.Type.C, "CB", new Point(1.5529127f, 1.8626451E-9f, -3.3527613E-8f)),
 					new Atom(Atom.Type.O, "O", new Point(-1.0322281f, -0.49725437f, 0.62209934f)),
 					new Atom(Atom.Type.N, "NH2", new Point(-1.5216671f, 0.06772217f, -0.025147393f)),
 					new Atom(Atom.Type.C, "CA", new Point(0.0f, 0.0f, 0.0f)),
 					new Atom(Atom.Type.H, "H", new Point(0.14910278f, 0.7272794f, -0.32036102f)),
-					new Atom(Atom.Type.H, "HH22", new Point(-1.6209965f, -0.916125f, -0.030417502f)),
+					new Atom(Atom.Type.H, "H22", new Point(-1.6209965f, -0.916125f, -0.030417502f)),
 					new Atom(Atom.Type.C, "CG", new Point(2.139845f, 1.4660065f, 5.9604645E-8f)),
-					new Atom(Atom.Type.H, "HH12", new Point(0.5397807f, -1.2220974f, -0.02004344f)),
-					new Atom(Atom.Type.H, "HH11", new Point(1.5242354f, 0.13375983f, -0.0074163433f)),
+					new Atom(Atom.Type.H, "H12", new Point(0.5397807f, -1.2220974f, -0.02004344f)),
+					new Atom(Atom.Type.H, "H11", new Point(1.5242354f, 0.13375983f, -0.0074163433f)),
 					new Atom(Atom.Type.C, "CD", new Point(1.0022529f, 2.5156004f, 1.8835999E-7f)),
 					new Atom(Atom.Type.H, "HG3", new Point(2.7531648f, 1.612161f, -0.8833586f)),
 					new Atom(Atom.Type.H, "HG2", new Point(2.754526f, 1.6261079f, 0.87693137f)),
@@ -275,7 +275,7 @@ enum AminoAcidType {
              new Atom(Atom.Type.H, "HG2", new Point(2.9628015f, 1.1578494f, 1.2118248f)),
          },
          new String[][]{{"CA","CB"},{"CA","HA"},{"CB","CG"},{"CB","HB2"},{"CB","HB3"},{"CD","CE"},{"CD","CG"},{"CD","HD2"},{"CD","HD3"},{"CE","HE2"},{"CE","HE3"},{"CE","NZ"},{"CG","HG2"},{"CG","HG3"},{"HZ1","NZ"},{"HZ2","NZ"},{"HZ3","NZ"}},
-         new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"CE", "HD2", "HD3"}, {"NZ", "HE1", "HE2", "HZ1", "HZ2", "HZ3"}}
+         new String[][]{{"CG", "HB2", "HB3"}, {"CD", "HG2", "HG3"}, {"CE", "HD2", "HD3"}, {"NZ", "HE2", "HE3", "HZ1", "HZ2", "HZ3"}}
 	),
 
 	MET (

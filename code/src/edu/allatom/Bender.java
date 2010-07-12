@@ -17,10 +17,10 @@ import edu.math.Vector;
 
 public class Bender {
 	
-	private static final int WINDOW_SIZE = 8;
+	private static final int WINDOW_SIZE = 7;
 	private static final float DAMPING_FACTOR = 1f;
 	private static final int WINDOW_REPETITIONS = 20;
-	private static final int REPETITIONS = 20;
+	private static final int REPETITIONS = 5;
 	
 	/**
 	 * Bend a protein to try to match a given c_alpha trace.
@@ -142,11 +142,11 @@ public class Bender {
 						float psiAngleDiff = angleFromCCD(psiRotationAxis, backboneWindow, 
 								traceWindow, renderer, false);
 						rotate(psiAngleDiff, aaIndex+windowOffset, RotationType.PSI, aaSeq, reverse);
-						if(debug) {
-							renderer.addToScene(new Vector(ca.position), 0.4f, Color.MAGENTA);
-							renderer.addToScene(new Vector(c.position), 0.4f, Color.MAGENTA);
-//							return;
-						}
+//						if(debug) {
+//							renderer.addToScene(new Vector(ca.position), 0.4f, Color.MAGENTA);
+//							renderer.addToScene(new Vector(c.position), 0.4f, Color.MAGENTA);
+////							return;
+//						}
 					}
 				}
 			}

@@ -8,6 +8,8 @@ tex/*/*.pdf
 tex/*/*.toc
 tex/*/*-blx.bib
 tex/*/*.out
+tex/*/*.dvi
+tex/*/*.lox
 code/classes
 code/src/edu/Toolbox.java
 code/src/edu/geom2D
@@ -16,3 +18,12 @@ code/src/edu/j3dScene
 code/src/edu/jScene
 code/src/edu/math
 code/src/edu/protModel
+pdb/hash
+pdb/broken
+pdb/screwed/
+pdb/stats-stuff/
+pdb/top500H/
+code/pdb
+code/src/edu/allatom/semantic.cache
+code/semantic.cache
+

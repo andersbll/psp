@@ -26,24 +26,24 @@ public class PDBParser {
 		int terminator = data.indexOf("\nTER ");
 		int endmdl = data.indexOf("\nENDMDL ");
 
-        // If we don't know where to end, just consume everything
-        int end = data.length();
+		// If we don't know where to end, just consume everything
+		int end = data.length();
 
-        if(secondModelStart != -1 && secondModelStart < end)
-            end = secondModelStart;
+		if(secondModelStart != -1 && secondModelStart < end)
+			end = secondModelStart;
 
-        if(terminator != -1 && terminator < end)
-            end = terminator;
+		if(terminator != -1 && terminator < end)
+			end = terminator;
 
-        if(endmdl != -1 && endmdl < end)
-            end = endmdl;
+		if(endmdl != -1 && endmdl < end)
+			end = endmdl;
 
 		if (firstModelStart ==-1 ) {
 			// if no MODEL exist, just begin from first atom
 			firstModelStart = data.indexOf("\nATOM ");
 
-            if(end == -1)
-                end = data.length();
+			if(end == -1)
+				end = data.length();
 		}
 		String firstModel = data.substring(firstModelStart, end);
 

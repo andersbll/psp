@@ -31,8 +31,8 @@ public class Renderer extends J3DScene implements KeyListener {
 		}
 	}
 	private RenderMode renderMode = RenderMode.STICKS;
-	private static boolean renderH = false;
-	private static boolean renderBackboneOnly = true;
+	public static boolean renderH = false;
+	public static boolean renderBackboneOnly = true;
 	
 	private final static int C_ALPHA_OPACITY = 100;
 	// render mode STICKS:
@@ -276,7 +276,7 @@ public class Renderer extends J3DScene implements KeyListener {
 		} else if(e.getKeyCode() == KeyEvent.VK_H) {
 			renderH = !renderH;
 			render();
-		} else if(e.getKeyCode() == KeyEvent.VK_S) {
+		} else if(e.getKeyCode() == KeyEvent.VK_D) {
 			renderBackboneOnly = !renderBackboneOnly;
 			render();
 		}

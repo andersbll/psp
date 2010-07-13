@@ -17,17 +17,19 @@ import java.util.TreeMap;
 public class RotamerLibrary {
 	// map of valid rotamers of each amino acid type.
 	// must be loaded from a rotamer library (load*RotamerLibrary()) before use.
-    private static Map<AminoAcidType, List<Rotamer>> validRotamers;	
+	private static Map<AminoAcidType, List<Rotamer>> validRotamers;	
 
-    public static List<Rotamer> lookupRotamers(AminoAcidType aatype) {
-        return validRotamers.get(aatype);
-    }
+	public static List<Rotamer> lookupRotamers(AminoAcidType aatype) {
+		return validRotamers.get(aatype);
+	}
 
-    public static Rotamer getARotamer(AminoAcidType aatype) {
-        return validRotamers.get(aatype).get(0);
-    }
+	public static Rotamer mostLikelyRotamer(AminoAcidType aatype) {
+		// The most likely is the first one in the list, as they are
+		// sorted by probability.
+		return validRotamers.get(aatype).get(0);
+	}
 
-	public static void loadDunbrachRotamerLibrary(String filename) throws IOException {
+	public static void loadDunbrach(String filename) throws IOException {
 		// read file
 		StringBuilder sb = new StringBuilder();
 		FileReader fr = new FileReader(filename);
@@ -86,6 +88,6 @@ public class RotamerLibrary {
 		glyRotamer.probability = 1;
 		List<Rotamer> glyRotamers = new LinkedList<Rotamer>();
 		glyRotamers.add(glyRotamer);
-		validRotamers.put(AminoAcidType.GLY, glyRotamers);		
-	}	
+		validRotamers.put(AminoAcidType.GLY, glyRotamers);
+	}
 }

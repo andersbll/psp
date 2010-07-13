@@ -177,23 +177,23 @@ public class Bender {
 		}
 	}
 
-    public static int countCollisions(Protein p) {
-        int count = 0;
-        HashMap<AminoAcid,AminoAcid> foundCollisions = new HashMap<AminoAcid,AminoAcid>();
-        
-        for (AminoAcid aaa : p.aaSeq) {
-            AminoAcid before = foundCollisions.get(aaa);
-            AminoAcid collidee = aaa.collides(p);
-            if(before == collidee) 
-                continue;
+	public static int countCollisions(Protein p) {
+		int count = 0;
+		HashMap<AminoAcid,AminoAcid> foundCollisions = new HashMap<AminoAcid,AminoAcid>();
 
-            if (collidee != null) {
-                foundCollisions.put(collidee, aaa);
-                count++;
-            }
-        }
-        return count;
-    }
+		for (AminoAcid aaa : p.aaSeq) {
+			AminoAcid before = foundCollisions.get(aaa);
+			AminoAcid collidee = aaa.collides(p);
+			if(before == collidee)
+				continue;
+
+			if (collidee != null) {
+				foundCollisions.put(collidee, aaa);
+				count++;
+			}
+		}
+		return count;
+	}
 
 	public static void rotate(float angle, int aaIndex,
 			RotationType rotationType, List<AminoAcid> aaSeq, boolean reverse) {
@@ -335,89 +335,44 @@ public class Bender {
 		return alpha * DAMPING_FACTOR;
 	}
 
-    public static void searchForRotamers(Protein p) {
-        for (AminoAcid aaa : p.aaSeq) {
-            if (aaa.collides(p) != null) {
-                int depth = 5;
-                checkCollision(p, aaa, depth, new LinkedList<AminoAcid>());
-            }
-        }
-    }
+	public static void searchForRotamers(Protein p) {
+		for (AminoAcid aaa : p.aaSeq) {
+			if (aaa.collides(p) != null) {
+				int depth = 5;
+				checkCollision(p, aaa, depth, new LinkedList<AminoAcid>());
+			}
+		}
+	}
 
-    // Returns true if the collision is solved
-    private static boolean checkCollision(Protein p, AminoAcid aa, int depth, Collection<AminoAcid> visitedTrace){ 
-        // prøv alle rotamerer
-        List<Rotamer> rotamers = RotamerLibrary.lookupRotamers(aa.type);
-        List<AminoAcid> collidees = new ArrayList<AminoAcid>();
-        for(Rotamer r : rotamers) {
-            aa.applyRotamer(r);
-            AminoAcid collidee = aa.collides(p);
-            if(collidee == null) {
-                return true;
-            }
-            collidees.add(collidee);
-        }
-        depth--;
-        if(depth==0) {
-            return false;
-        }
-        // hvis der stadig er kollisioner spørger vi naboerne
-        for(int i = 0; i< collidees.size(); i++) {
-            AminoAcid collidee = collidees.get(i);
-            if(visitedTrace.contains(collidee))
-                continue;
-            Rotamer r = rotamers.get(i);
-            aa.applyRotamer(r);
-            visitedTrace.add(aa);
-            if(checkCollision(p, collidee, depth, visitedTrace)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-	// /**
-	//  * Tries to push the sidechains around to eliminate collisions. This resets
-	//  * the rotamers used by the amino acids.
-	//  */
-	// public static int tryToEliminateCollisions(Protein p) {
-	// 	int collisionsLeft = 0;
-	// 	for (AminoAcid aa : p.aaSeq) {
-	// 		aa.resetUsedRotamers();
-	// 	}
-
-	// 	for (AminoAcid aa : p.aaSeq) {
-    //         AminoAcid collidee = aa.collides(p);
-	// 		if (collidee != null) {
-	// 			if (aa.nextRotamer(p)) {
-	// 				continue;
-	// 			}
-	// 		} else {
-	// 			continue;
-	// 		}
-    //         collidee = aa.collides(p);
-	// 		List<AminoAcid> previousCollidees = new LinkedList<AminoAcid>();
-	// 		outer: while (aa.collides(p) != null) {
-				
-	// 			if (collidee == null) {
-	// 				break;
-	// 			}
-	// 			if (previousCollidees.contains(collidee)) {
-	// 				collisionsLeft++;
-	// 				break;
-	// 			}
-	// 			previousCollidees.add(collidee);
-	// 			aa.resetUsedRotamers();
-	// 			while (aa.collides(p) == collidee) {
-	// 				if (!collidee.nextCollisionlessRotamer(p)) {
-	// 					if (!aa.nextRotamer()) {
-	// 						collisionsLeft++;
-	// 						break outer;
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	return collisionsLeft;
-	// }
+	// Returns true if the collision is solved
+	private static boolean checkCollision(Protein p, AminoAcid aa, int depth, Collection<AminoAcid> visitedTrace){
+		// prøv alle rotamerer
+		List<Rotamer> rotamers = RotamerLibrary.lookupRotamers(aa.type);
+		List<AminoAcid> collidees = new ArrayList<AminoAcid>();
+		for(Rotamer r : rotamers) {
+			aa.applyRotamer(r);
+			AminoAcid collidee = aa.collides(p);
+			if(collidee == null) {
+				return true;
+			}
+			collidees.add(collidee);
+		}
+		depth--;
+		if(depth==0) {
+			return false;
+		}
+		// hvis der stadig er kollisioner spørger vi naboerne
+		for(int i = 0; i< collidees.size(); i++) {
+			AminoAcid collidee = collidees.get(i);
+			if(visitedTrace.contains(collidee))
+				continue;
+			Rotamer r = rotamers.get(i);
+			aa.applyRotamer(r);
+			visitedTrace.add(aa);
+			if(checkCollision(p, collidee, depth, visitedTrace)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

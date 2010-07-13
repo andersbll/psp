@@ -1,7 +1,5 @@
 package edu.allatom;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,13 +15,11 @@ import edu.math.Point;
 import edu.math.TransformationMatrix3D;
 import edu.math.Vector;
 
-
-
 public class AminoAcid {
 	public final AminoAcidType type;
 	public final Map<String, Atom> allatoms;
 	
-    public Rotamer rotamer = null;
+	public Rotamer rotamer = null;
 
 	public AminoAcid(AminoAcidType type) {
 		this.type = type;
@@ -255,15 +251,15 @@ public class AminoAcid {
 		}
 	}
 
-    public static Collection<String> getChiAffectedAtoms(int angleNumber, AminoAcidType type) {
-        TreeSet<String> affected = new TreeSet<String>();
-        for(int i = angleNumber; i < type.chiAngleCount; i++) {
-            String[] atoms = type.chiAffectedAtomNames[i];
-            for(int j = 0; j < atoms.length; j++)
-                affected.add(atoms[j]);
-        }
-        return affected;
-    }
+	public static Collection<String> getChiAffectedAtoms(int angleNumber, AminoAcidType type) {
+		TreeSet<String> affected = new TreeSet<String>();
+		for(int i = angleNumber; i < type.chiAngleCount; i++) {
+			String[] atoms = type.chiAffectedAtomNames[i];
+			for(int j = 0; j < atoms.length; j++)
+				affected.add(atoms[j]);
+		}
+		return affected;
+	}
 
 	// Set the chi angle to zero
 	public static void resetChiAngle(int angleNumber, AminoAcidType type, Collection<Atom> atoms) {
@@ -315,9 +311,9 @@ public class AminoAcid {
 		cbeta_vec = new Vector(cbeta.position);
 		float zproj_angle = -(float)Math.atan2(cbeta_vec.y(),cbeta_vec.x());
 		Matrix rotationZ = TransformationMatrix3D.createRotation(
-				new Vector(0,0,0), 
-                new Vector(0,0,1),
-                (float) zproj_angle);
+		          new Vector(0,0,0), 
+		          new Vector(0,0,1),
+		          (float) zproj_angle);
 		for(Atom a : atoms) {
 			a.position = rotationZ.applyTo(new Vector(a.position));
 		}
@@ -396,6 +392,4 @@ public class AminoAcid {
 		}
 		return typeTrace;
 	}
-
-
 }

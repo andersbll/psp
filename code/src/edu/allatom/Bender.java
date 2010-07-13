@@ -19,10 +19,11 @@ import edu.math.Vector;
 
 public class Bender {
 
-	private static final int WINDOW_SIZE = 7;
-	private static final float DAMPING_FACTOR = 1f;
-	private static final int WINDOW_REPETITIONS = 15;
-	private static final int REPETITIONS = 1;
+	public static int WINDOW_SIZE = 7;
+	private static float DAMPING_FACTOR = 1f;
+	public static int WINDOW_REPETITIONS = 15;
+	private static int REPETITIONS = 10;
+	public static int ROTAMER_SEARCH_DEPTH = 3;
 
 	/**
 	 * Bend a protein to try to match a given c_alpha trace.
@@ -166,27 +167,27 @@ public class Bender {
 				}
 			}
 			int collisionsBeforeElimination = countCollisions(p);
-			
-            searchForRotamers(p);
+
+			searchForRotamers(p);
 			actualCollisionsAfterElimination = countCollisions(p);
-			
+
 			rmsd = p.cATraceRMSD(trace);
-			// BendingStats.print("  ["+rmsd
-			System.out.print("  [" + rmsd + ", [" + collisionsBeforeElimination
+//			BendingStats.print("  ["+rmsd
+			System.out.print("  [" + rmsd 
+					+ ", [" + collisionsBeforeElimination
 					+ "," + actualCollisionsAfterElimination + "]],\n");
 		}
 	}
 
 	public static int countCollisions(Protein p) {
 		int count = 0;
-		HashMap<AminoAcid,AminoAcid> foundCollisions = new HashMap<AminoAcid,AminoAcid>();
-
+		HashMap<AminoAcid, AminoAcid> foundCollisions = new HashMap<AminoAcid, AminoAcid>();
 		for (AminoAcid aaa : p.aaSeq) {
 			AminoAcid before = foundCollisions.get(aaa);
 			AminoAcid collidee = aaa.collides(p);
-			if(before == collidee)
+			if (before == collidee)
 				continue;
-
+			
 			if (collidee != null) {
 				foundCollisions.put(collidee, aaa);
 				count++;
@@ -338,38 +339,39 @@ public class Bender {
 	public static void searchForRotamers(Protein p) {
 		for (AminoAcid aaa : p.aaSeq) {
 			if (aaa.collides(p) != null) {
-				int depth = 5;
-				checkCollision(p, aaa, depth, new LinkedList<AminoAcid>());
+				checkCollision(p, aaa, ROTAMER_SEARCH_DEPTH,
+						new LinkedList<AminoAcid>());
 			}
 		}
 	}
 
 	// Returns true if the collision is solved
-	private static boolean checkCollision(Protein p, AminoAcid aa, int depth, Collection<AminoAcid> visitedTrace){
+	private static boolean checkCollision(Protein p, AminoAcid aa, int depth,
+			Collection<AminoAcid> visitedTrace) {
 		// prøv alle rotamerer
 		List<Rotamer> rotamers = RotamerLibrary.lookupRotamers(aa.type);
 		List<AminoAcid> collidees = new ArrayList<AminoAcid>();
-		for(Rotamer r : rotamers) {
+		for (Rotamer r : rotamers) {
 			aa.applyRotamer(r);
 			AminoAcid collidee = aa.collides(p);
-			if(collidee == null) {
+			if (collidee == null) {
 				return true;
 			}
 			collidees.add(collidee);
 		}
 		depth--;
-		if(depth==0) {
+		if (depth == 0) {
 			return false;
 		}
 		// hvis der stadig er kollisioner spørger vi naboerne
-		for(int i = 0; i< collidees.size(); i++) {
+		for (int i = 0; i < collidees.size(); i++) {
 			AminoAcid collidee = collidees.get(i);
-			if(visitedTrace.contains(collidee))
+			if (visitedTrace.contains(collidee))
 				continue;
 			Rotamer r = rotamers.get(i);
 			aa.applyRotamer(r);
 			visitedTrace.add(aa);
-			if(checkCollision(p, collidee, depth, visitedTrace)) {
+			if (checkCollision(p, collidee, depth, visitedTrace)) {
 				return true;
 			}
 		}

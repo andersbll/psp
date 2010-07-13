@@ -167,7 +167,7 @@ public class Protein {
 				}
 			}
 
-            aa.nextCollisionlessRotamer(new Protein(acids));
+            aa.applyRotamer(RotamerLibrary.getARotamer(aa.type));
             acids.add(aa);
 			
 			type = aminoAcidTypes.get(i++);
@@ -262,7 +262,8 @@ public class Protein {
                 sa.position = rotationMatrix2.applyTo(new Vector(sa.position));
             }
         }
-        aa.nextCollisionlessRotamer(new Protein(acids));
+
+        aa.applyRotamer(RotamerLibrary.getARotamer(aa.type));
 		acids.add(aa);
 
         Protein p = new Protein(acids);

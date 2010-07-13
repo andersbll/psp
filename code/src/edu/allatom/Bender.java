@@ -2,6 +2,7 @@ package edu.allatom;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -72,12 +73,10 @@ public class Bender {
 
 		// start bending
 		int actualCollisionsAfterElimination = 1;
-		int actualCollisionsAfterMoreElimination = 1;
 		int repetition = 0;
 		double rmsd = 10;
 		while (repetition < REPETITIONS
-				&& (actualCollisionsAfterElimination > 0
-						|| actualCollisionsAfterMoreElimination > 0 || rmsd > .5)) {
+				&& (actualCollisionsAfterElimination > 0 || rmsd > .5)) {
 
 			boolean reverse = repetition % 2 == 1;
 			repetition++;
@@ -164,33 +163,27 @@ public class Bender {
 					}
 				}
 			}
-			int collisionsBeforeElimination = 0;
-			for (AminoAcid aaa : p.aaSeq) {
-				if (aaa.collides(p) != null) {
-					collisionsBeforeElimination++;
-				}
-			}
-			tryToEliminateCollisions(p);
-			actualCollisionsAfterElimination = 0;
-			for (AminoAcid aaa : p.aaSeq) {
-				if (aaa.collides(p) != null) {
-					actualCollisionsAfterElimination++;
-				}
-			}
-			tryToEliminateCollisions(p);
-			actualCollisionsAfterMoreElimination = 0;
-			for (AminoAcid aaa : p.aaSeq) {
-				if (aaa.collides(p) != null) {
-					actualCollisionsAfterMoreElimination++;
-				}
-			}
+			int collisionsBeforeElimination = countCollisions(p);
+			
+            searchForRotamers(p);
+			actualCollisionsAfterElimination = countCollisions(p);
+			
 			rmsd = p.cATraceRMSD(trace);
 			// BendingStats.print("  ["+rmsd
 			System.out.print("  [" + rmsd + ", [" + collisionsBeforeElimination
-					+ "," + actualCollisionsAfterElimination + ","
-					+ actualCollisionsAfterMoreElimination + "]],\n");
+					+ "," + actualCollisionsAfterElimination + "]],\n");
 		}
 	}
+
+    public static int countCollisions(Protein p) {
+        int count = 0;
+        for (AminoAcid aaa : p.aaSeq) {
+            if (aaa.collides(p) != null)
+                count++;
+        }
+
+        return count;
+    }
 
 	public static void rotate(float angle, int aaIndex,
 			RotationType rotationType, List<AminoAcid> aaSeq, boolean reverse) {
@@ -332,47 +325,89 @@ public class Bender {
 		return alpha * DAMPING_FACTOR;
 	}
 
-	/**
-	 * Tries to push the sidechains around to eliminate collisions. This resets
-	 * the rotamers used by the amino acids.
-	 */
-	public static int tryToEliminateCollisions(Protein p) {
-		int collisionsLeft = 0;
-		for (AminoAcid aa : p.aaSeq) {
-			aa.resetUsedRotamers();
-		}
-		int i = 0;
-		for (AminoAcid aa : p.aaSeq) {
-			i++;
-			if (aa.collides(p) != null) {
-				if (aa.nextCollisionlessRotamer(p)) {
-					continue;
-				}
-			} else {
-				continue;
-			}
-			List<AminoAcid> previousCollidees = new LinkedList<AminoAcid>();
-			outer: while (aa.collides(p) != null) {
-				AminoAcid collidee = aa.collides(p);
-				if (collidee == null) {
-					break;
-				}
-				if (previousCollidees.contains(collidee)) {
-					collisionsLeft++;
-					break;
-				}
-				previousCollidees.add(collidee);
-				aa.resetUsedRotamers();
-				while (aa.collides(p) == collidee) {
-					if (!collidee.nextCollisionlessRotamer(p)) {
-						if (!aa.nextRotamer()) {
-							collisionsLeft++;
-							break outer;
-						}
-					}
-				}
-			}
-		}
-		return collisionsLeft;
-	}
+    public static void searchForRotamers(Protein p) {
+        for (AminoAcid aaa : p.aaSeq) {
+            if (aaa.collides(p) != null) {
+                int depth = 5;
+                checkCollision(p, aaa, depth, new LinkedList<AminoAcid>());
+            }
+        }
+    }
+
+    // Returns true if the collision is solved
+    private static boolean checkCollision(Protein p, AminoAcid aa, int depth, Collection<AminoAcid> visitedTrace){ 
+        // prøv alle rotamerer
+        List<Rotamer> rotamers = RotamerLibrary.lookupRotamers(aa.type);
+        List<AminoAcid> collidees = new ArrayList<AminoAcid>();
+        for(Rotamer r : rotamers) {
+            aa.applyRotamer(r);
+            AminoAcid collidee = aa.collides(p);
+            if(collidee == null) {
+                return true;
+            }
+            collidees.add(collidee);
+        }
+        depth--;
+        if(depth==0) {
+            return false;
+        }
+        // hvis der stadig er kollisioner spørger vi naboerne
+        for(int i = 0; i< collidees.size(); i++) {
+            AminoAcid collidee = collidees.get(i);
+            if(visitedTrace.contains(collidee))
+                continue;
+            Rotamer r = rotamers.get(i);
+            aa.applyRotamer(r);
+            visitedTrace.add(aa);
+            if(checkCollision(p, collidee, depth, visitedTrace)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+	// /**
+	//  * Tries to push the sidechains around to eliminate collisions. This resets
+	//  * the rotamers used by the amino acids.
+	//  */
+	// public static int tryToEliminateCollisions(Protein p) {
+	// 	int collisionsLeft = 0;
+	// 	for (AminoAcid aa : p.aaSeq) {
+	// 		aa.resetUsedRotamers();
+	// 	}
+
+	// 	for (AminoAcid aa : p.aaSeq) {
+    //         AminoAcid collidee = aa.collides(p);
+	// 		if (collidee != null) {
+	// 			if (aa.nextRotamer(p)) {
+	// 				continue;
+	// 			}
+	// 		} else {
+	// 			continue;
+	// 		}
+    //         collidee = aa.collides(p);
+	// 		List<AminoAcid> previousCollidees = new LinkedList<AminoAcid>();
+	// 		outer: while (aa.collides(p) != null) {
+				
+	// 			if (collidee == null) {
+	// 				break;
+	// 			}
+	// 			if (previousCollidees.contains(collidee)) {
+	// 				collisionsLeft++;
+	// 				break;
+	// 			}
+	// 			previousCollidees.add(collidee);
+	// 			aa.resetUsedRotamers();
+	// 			while (aa.collides(p) == collidee) {
+	// 				if (!collidee.nextCollisionlessRotamer(p)) {
+	// 					if (!aa.nextRotamer()) {
+	// 						collisionsLeft++;
+	// 						break outer;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	return collisionsLeft;
+	// }
 }

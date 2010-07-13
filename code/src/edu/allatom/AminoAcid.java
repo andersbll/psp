@@ -19,23 +19,11 @@ import edu.math.Vector;
 
 
 
-public class AminoAcid {	
-	// map of valid rotamers of each amino acid type.
-	// must be loaded from a rotamer library (load*RotamerLibrary()) before use.
-	private static Map<AminoAcidType, List<Rotamer>> validRotamers;	
-	private static Random random = new Random(System.currentTimeMillis());
-	private static final boolean DETERMINISTIC = true;
-	
+public class AminoAcid {
 	public final AminoAcidType type;
 	public final Map<String, Atom> allatoms;
 	
-	// list of rotamers that have been tried for this amino acid
-	private List<Rotamer> usedRotamers = new LinkedList<Rotamer>();
-	// sum of the probabilities of the rotamers that have been tried for this
-	// amino acid
-	private double usedRotamersProbability = 0;
-	// the chosen rotamer. if null, no rotamer is chosen yet.
-	public Rotamer rotamer;
+    public Rotamer rotamer = null;
 
 	public AminoAcid(AminoAcidType type) {
 		this.type = type;
@@ -120,88 +108,7 @@ public class AminoAcid {
 		}
 		return s;
 	}	
-	
-	private static class Rotamer {
-		double probability;
-		double chis[] = new double[4];
 		
-		public String toString() {
-			return "Rotamer (p " + probability + ", phi " + chis[0] + ", " +
-					chis[1] + ", " + chis[2] + ", " + chis[3] + ")";
-		}
-	}
-	
-	/**
-	 * Apply the next rotamer chosen from all valid rotamers except the ones
-	 * already used.
-	 * Does not check for collisions.
-	 * 
-	 *  @return True only if a not previously used rotamer is found.
-	 */
-	public boolean nextRotamer() {
-		if(usedRotamersProbability >= 1) {
-			return false;
-		}
-		double r = random.nextDouble() * (1 - usedRotamersProbability);
-		if(DETERMINISTIC) {
-			r = 0;
-		}
-		List<Rotamer> notAdd = new LinkedList<Rotamer>();
-		for(Rotamer rotamer : validRotamers.get(type)) {
-			if(!usedRotamers.contains(rotamer)) {
-				usedRotamers.add(rotamer);
-				usedRotamersProbability += rotamer.probability;
-				if(r <= rotamer.probability) {
-					applyRotamer(rotamer);
-//					for(Rotamer rt : notAdd) {
-//						usedRotamers.remove(rt);
-//						usedRotamersProbability += rt.probability;
-//					}
-					return true;
-				} else {
-					r -= rotamer.probability;
-					usedRotamers.remove(rotamer);
-//					notAdd.add(rotamer);
-				}
-			}
-		}
-//		for(Rotamer rt : notAdd) {
-//			usedRotamers.remove(rt);
-//			usedRotamersProbability += rt.probability;
-//		}
-		return false;
-	}
-	
-	/**
-	 * Resets the rotamers so that the used rotamers can be picked again.
-	 */
-	public void resetUsedRotamers() {
-		usedRotamers.clear();
-		if(rotamer == null) {
-			usedRotamersProbability = 0;
-		} else {
-			usedRotamers.add(rotamer);
-			usedRotamersProbability = rotamer.probability;
-		}
-	}
-	
-	/**
-	 * Apply the next rotamer chosen from all valid rotamers except the ones
-	 * already used, and except those that collides with the given protein.
-	 * 
-	 * @param protein
-	 * @return true only if an not previously used collisionless rotamer is
-	 * found.
-	 */
-	public boolean nextCollisionlessRotamer(Protein protein) {
-		do {
-			boolean anymore = nextRotamer();
-			if(!anymore) {
-				return false;
-			}
-		} while(collides(protein) != null);
-		return true;
-	}
 	
 	/**
 	 * Apple the given rotamer by positioning the atoms of the sidechain
@@ -210,12 +117,11 @@ public class AminoAcid {
 	 * 
 	 * @param rotamer
 	 */
-	private void applyRotamer(Rotamer rotamer) {
+	public void applyRotamer(Rotamer rotamer) {
 		this.rotamer = rotamer;
         
         resetSidechainChiAngles(this.type, this.allatoms.values());
 
-		//TODO
 		List<Atom> atoms = new LinkedList<Atom>();
 		for(int i=0; i<type.chiAngleCount; i++) {
 			for(String label : type.chiAffectedAtomNames[i]) {
@@ -255,80 +161,6 @@ public class AminoAcid {
 		return null;
 	}
 	
-	static void loadDunbrachRotamerLibrary(String filename) throws IOException {
-		// read file
-		StringBuilder sb = new StringBuilder();
-		FileReader fr = new FileReader(filename);
-		int c;
-		while((c = fr.read()) != -1) {
-			sb.append((char) c);
-		}
-		String data = sb.toString();
-		
-		// parse data
-		validRotamers = new TreeMap<AminoAcidType, List<Rotamer>>();
-		String lines[] = data.substring(data.indexOf("\nARG ")).split("\n");
-		AminoAcidType previousType = null;
-		List<Rotamer> rotamersOfCurrentType = new LinkedList<Rotamer>();
-		for(String line : lines) {
-			if(line.trim().length() == 0) {
-				continue;
-			}
-			List<String> tokens = new ArrayList<String>(20);
-			for(String token : line.split(" ")) {
-				if(token.length() > 0) {
-					tokens.add(token);
-				}
-			}
-			
-			AminoAcidType type = AminoAcidType.valueOf(tokens.get(0));
-			if(type == null) {
-				System.out.println("Unknown amino acid in rotamer library: " +
-						tokens.get(0));
-			}
-			Rotamer rotamer = new Rotamer();
-			rotamer.probability = Double.parseDouble(tokens.get(7)) / 100;
-			for(int p=0; p<AminoAcidType.valueOf(type.toString()).chiAngleCount; p++) {
-				double degrees = Double.parseDouble(tokens.get(11 + 2*p));
-                rotamer.chis[p] = (degrees/180.0) * Math.PI;
-			}
-			
-			if(type != previousType && previousType != null) {
-				validRotamers.put(previousType, rotamersOfCurrentType);
-				rotamersOfCurrentType = new LinkedList<Rotamer>();
-			}
-			rotamersOfCurrentType.add(rotamer);
-			previousType = type;
-		}
-		validRotamers.put(previousType, rotamersOfCurrentType);
-		
-		Rotamer alaRotamer = new Rotamer();
-		alaRotamer.probability = 1;
-		List<Rotamer> alaRotamers = new LinkedList<Rotamer>();
-		alaRotamers.add(alaRotamer);
-		validRotamers.put(AminoAcidType.ALA, alaRotamers);
-		
-		Rotamer glyRotamer = new Rotamer();
-		glyRotamer.probability = 1;
-		List<Rotamer> glyRotamers = new LinkedList<Rotamer>();
-		glyRotamers.add(glyRotamer);
-		validRotamers.put(AminoAcidType.GLY, glyRotamers);
-		
-//		List<Rotamer> aspRotamers = validRotamers.get(AminoAcidType.ARG);
-//		double p = 0;
-//		for(Rotamer r : aspRotamers) {
-//			System.out.println(r);
-//			p += r.probability;
-//		}
-//		System.out.println("p: " + p);
-		
-//		throw new IOException();
-	}
-	
-	
-	// functions for running statistics and stuff on sidechains
-	
-
 	private static Atom getAtomByLabel(Collection<Atom> atoms, String label) {
 		for(Atom a : atoms) {
 			if(a.label.matches(label)) {
@@ -384,49 +216,6 @@ public class AminoAcid {
 				dihedralAtoms[2].position,
 				dihedralAtoms[3].position);
 	}
-	
-
-// 	private static List<Atom> getSidechainAtomsAfter(
-// 			AminoAcidType type, Collection<Atom> atoms, Atom terminator) {
-// 		List<String> labels = new LinkedList<String>();
-		
-// 		labels.add("N");
-// 		labels.add("C");
-// 		labels.add("CA");
-// 		labels.add("O");
-// 		labels.add("H");
-// 		if(type == AminoAcidType.GLY) {
-// 			labels.add("HA2");
-// 		} else {
-// 			labels.add("HA");
-// 		}
-		
-// 		String a = "CA";
-// //		System.out.println("searching for terminator: " + terminator.label);
-// 		while(!a.equals(terminator.label)) {
-// 			String next = null;
-// 			for(String neighbor : type.followBond(a)) {
-// 				if(!labels.contains(neighbor)) {
-// 					labels.add(neighbor);
-// 					if(!neighbor.startsWith("H") && next == null) {
-// 						next = neighbor;
-// 					}
-// 				}
-// 			}
-// 			a = next;
-// //			System.out.println(a);
-// 		}
-		
-// 		List<Atom> atomsAfter = new LinkedList<Atom>();
-// 		for(Atom atom : atoms) {
-// 			if(!labels.contains(atom.label)) {
-// 				atomsAfter.add(atom);
-// 			}
-// 		}
-		
-// 		return atomsAfter;
-// 	}
-
 	
 	public static void setChiAngle(int angleNumber, double angle, AminoAcidType type, Collection<Atom> atoms) {
 		Vector rotationVector = null;

@@ -136,13 +136,21 @@ problem.
     \label{fig:lysine-and-chi}
 \end{figure}
 
-Like for the backbone, we can describe the side-chains by bond
-lengths, bond angles and a few torsional angles. The torsional angles
-of protein side chains are named $\chi_1-\chi_5$, although most side
-chains only have the first or first two angles. On Figure
-\ref{fig:lysine-and-chi} we have illustrated the five $\chi$-angles on
-the side chain of Lysine. As can be seen, the first $chi$ angle
-defines the rotation about the $C_\alpha-C_\beta$ bond, and so forth
-along the side chain.
+As for the backbone, the side chains can be described by bond lengths,
+bond angles and a few torsional angles (see below), but to simplify how we
+construct the proteins, we have chosen to use another
+representation. We store the side chain of each amino acid by the
+position of the individual atoms when all torsional angles are zero
+and using a coordinate system that has $C_\alpha$ as origo \fixme{and
+  orientated such that ...}. To calculate these positions we have
+again used a set of proteins and taken the mean position of all atoms.
 
-Rotamers (evt. calculating bond angles and bond lengths)
+Thus, to place a side chain on a certain $C_\alpha$ of the backbone,
+we insert \fixme{}.
+
+The torsional angles of protein side chains are named $\chi_1-\chi_5$,
+but most side chains only have the first angle or two. On Figure
+\ref{fig:lysine-and-chi} we have illustrated the five $\chi$-angles on
+the side chain of the Lysine amino acid. As can be seen, the first
+$chi$ angle defines the rotation about the $C_\alpha-C_\beta$ bond,
+and so forth along the side chain.

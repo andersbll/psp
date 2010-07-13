@@ -282,4 +282,13 @@ public class Protein {
 		}
 		return Superposition.minRMSD(trace1, trace2);
 	}
+
+	public LinkedList<Atom> getCAlphaTrace() {
+		LinkedList<Atom> list = new LinkedList<Atom>();
+		for(AminoAcid aa : this.aaSeq) {
+			Atom ca = new Atom(aa.allatoms.get("CA"));
+			list.add(ca);
+		}
+		return list;
+	}
 }

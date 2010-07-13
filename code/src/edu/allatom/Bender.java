@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.HashMap;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -177,11 +179,19 @@ public class Bender {
 
     public static int countCollisions(Protein p) {
         int count = 0;
+        HashMap<AminoAcid,AminoAcid> foundCollisions = new HashMap<AminoAcid,AminoAcid>();
+        
         for (AminoAcid aaa : p.aaSeq) {
-            if (aaa.collides(p) != null)
-                count++;
-        }
+            AminoAcid before = foundCollisions.get(aaa);
+            AminoAcid collidee = aaa.collides(p);
+            if(before == collidee) 
+                continue;
 
+            if (collidee != null) {
+                foundCollisions.put(collidee, aaa);
+                count++;
+            }
+        }
         return count;
     }
 

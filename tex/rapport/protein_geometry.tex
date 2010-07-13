@@ -128,31 +128,33 @@ problem.
 % To place the atoms we have had the need to obtain further measures
 
 \section{Side-chain geometry}
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.35\textwidth]{figures/lysine}
     \caption{Illustration of the $\chi$-angles on the side chain of Lysine (LYS).}
     \label{fig:lysine-and-chi}
 \end{figure}
+\fixme{Skift til en ordentlig skrifttype på figuren}
 
 As for the backbone, the side chains can be described by bond lengths,
-bond angles and a few torsional angles (see below), but to simplify how we
-construct the proteins, we have chosen to use another
+bond angles and a few torsional angles (see below), but to simplify
+how we construct the proteins, we have chosen to use another
 representation. We store the side chain of each amino acid by the
 position of the individual atoms when all torsional angles are zero
-and using a coordinate system that has $C_\alpha$ as origo \fixme{and
-  orientated such that ...}. To calculate these positions we have
-again used a set of proteins and taken the mean position of all atoms.
+and using a coordinate system that has $C_\alpha$ as origo and
+orientated such that the $C_\alpha-C_\beta$ bond follows the
+x-axis. For the calculation of these positions, we have again used a
+set of proteins and taken the mean position of all atoms.
 
 Thus, to place a side chain on a certain $C_\alpha$ of the backbone,
-we insert \fixme{}.
+we insert the atoms, using the offset positions with the appropriate
+rotation using the bond angles to $C_\beta$.
 
 The torsional angles of protein side chains are named $\chi_1-\chi_5$,
 but most side chains only have the first angle or two. On Figure
 \ref{fig:lysine-and-chi} we have illustrated the five $\chi$-angles on
 the side chain of the Lysine amino acid. As can be seen, the first
-$chi$ angle defines the rotation about the $C_\alpha-C_\beta$ bond,
+$chi$ angle defines the rotation around the $C_\alpha-C_\beta$ bond,
 and so forth along the side chain.
 
 %%% Local Variables: 

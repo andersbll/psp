@@ -276,7 +276,7 @@ public class Renderer extends J3DScene implements KeyListener {
 		} else if(e.getKeyCode() == KeyEvent.VK_H) {
 			renderH = !renderH;
 			render();
-		} else if(e.getKeyCode() == KeyEvent.VK_D) {
+		} else if(e.getKeyCode() == KeyEvent.VK_S) {
 			renderBackboneOnly = !renderBackboneOnly;
 			render();
 		}

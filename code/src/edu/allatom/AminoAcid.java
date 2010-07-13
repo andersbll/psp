@@ -291,13 +291,16 @@ public class AminoAcid {
 	}
 
 	public static void resetSidechain(AminoAcidType type, Collection<Atom> atoms) {
+		// Translate side chain such that CA is (0,0,0)
 		resetSidechainPosition(type, atoms);
 		
+		// Find the first atom in the side chain
 		Atom cbeta = getAtomByLabel(atoms, "CB");
 		if(cbeta == null) {
 			cbeta = getAtomByLabel(atoms, "HA3");
 		}
 		
+		// Rotate such that the CA-CB bond follows the x-axis
 		Vector cbeta_vec = new Vector(cbeta.position);
 		float yproj_angle = (float)Math.atan2(cbeta_vec.z(), cbeta_vec.x());
 		Matrix rotationY = TransformationMatrix3D.createRotation(

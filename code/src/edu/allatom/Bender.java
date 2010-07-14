@@ -185,13 +185,15 @@ public class Bender {
 		HashMap<AminoAcid, AminoAcid> foundCollisions = new HashMap<AminoAcid, AminoAcid>();
 		for (AminoAcid aaa : p.aaSeq) {
 			AminoAcid before = foundCollisions.get(aaa);
-			AminoAcid collidee = aaa.collides(p);
-			if (before == collidee)
-				continue;
-			
-			if (collidee != null) {
-				foundCollisions.put(collidee, aaa);
-				count++;
+			Collection<AminoAcid> collidees = aaa.collides(p);
+			for(AminoAcid collidee : collidees) {
+				if (before == collidee)
+					continue;
+				
+				if (collidee != null) {
+					foundCollisions.put(collidee, aaa);
+					count++;
+				}
 			}
 		}
 		return count;
@@ -339,7 +341,7 @@ public class Bender {
 
 	public static void searchForRotamers(Protein p) {
 		for (AminoAcid aaa : p.aaSeq) {
-			if (aaa.collides(p) != null) {
+			if (!aaa.collides(p).isEmpty()) {
 				checkCollision(p, aaa, ROTAMER_SEARCH_DEPTH,
 						new LinkedList<AminoAcid>());
 			}
@@ -354,11 +356,11 @@ public class Bender {
 		List<AminoAcid> collidees = new ArrayList<AminoAcid>();
 		for (Rotamer r : rotamers) {
 			aa.applyRotamer(r);
-			AminoAcid collidee = aa.collides(p);
-			if (collidee == null) {
+			Collection<AminoAcid> collisions = aa.collides(p);
+			if (collisions.isEmpty()) {
 				return true;
 			}
-			collidees.add(collidee);
+			collidees.addAll(collisions);
 		}
 		depth--;
 		if (depth == 0) {

@@ -136,25 +136,27 @@ public class AminoAcid {
 	 * @param protein
 	 * @return One of the colliding amino acids, or null if there are no collisions
 	 */
-	public AminoAcid collides(Protein protein) {
+	public Collection<AminoAcid> collides(Protein protein) {
+		Collection<AminoAcid> collidees = new LinkedList<AminoAcid>();
 		for(AminoAcid aa : protein.aaSeq) {
 			if(aa != this) {
-				Iterable<Atom> collidees;
+				Iterable<Atom> possibleCollisions;
 				if(aa.rotamer == null) {
-					collidees = aa.getBackboneAtoms();
+					possibleCollisions = aa.getBackboneAtoms();
 				} else {
-					collidees = aa.allatoms.values();
+					possibleCollisions = aa.allatoms.values();
 				}
-				for(Atom a : collidees) {
+				check: for(Atom a : possibleCollisions) {
 					for(Atom b : allatoms.values()) {
 						if(a.collides(b)) {
-							return aa;
+							collidees.add(aa);
+							break check;
 						}
 					}
 				}
 			}
 		}
-		return null;
+		return collidees;
 	}
 	
 	private static Atom getAtomByLabel(Collection<Atom> atoms, String label) {

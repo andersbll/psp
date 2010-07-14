@@ -3,6 +3,7 @@ package edu.allatom;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 
 import edu.allatom.AminoAcidType;
@@ -78,12 +79,15 @@ public class Main {
 
 	private static void renderCollisions(Renderer renderer, Protein p) {
 		for(AminoAcid aa : p.aaSeq) {
-			if(aa.collides(p) != null) {
+			Collection<AminoAcid> collisions = aa.collides(p);
+			if(!collisions.isEmpty()) {
 				for(Atom a : aa.allatoms.values()) {
-					for(Atom b : aa.collides(p).allatoms.values()) {
-						if(a.collides(b)) {
-							renderer.addShape(new Sphere(new Vector(new Vector(a.position)
-									.plus(b.position)).times(0.5f), 0.5f), Color.PINK);
+					for(AminoAcid collidee : collisions) {
+						for(Atom b : collidee.allatoms.values()) {
+							if(a.collides(b)) {
+								renderer.addShape(new Sphere(new Vector(new Vector(a.position)
+								                                        .plus(b.position)).times(0.5f), 0.5f), Color.PINK);
+							}
 						}
 					}
 				}

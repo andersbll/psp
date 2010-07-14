@@ -1,3 +1,10 @@
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.75\textwidth]{figures/protein-torsion-angles}
+  \caption{Illustration of the protein torsion angles in a protein sequence extract.}
+  \label{fig:protein-torsion-angles}
+\end{figure*}
+
 The representation of proteins shown in the structure diagram of
 Figure \ref{fig:amino_connect} is suitable for determining the
 chemical properties of the molecules, getting an overview of how atoms
@@ -8,13 +15,17 @@ lengths, bond angles and torsional angles into the model.  We suggest
 that you refer to Figure \ref{fig:protein-torsion-angles} while
 reading the following explanation the concepts.
 
-\subsection{Dataset}
-To obtain suitable values we have run statistics on a collection of
-proteins from \url{pdb.org}. We downloaded a set of around 730 protein
-descriptions (randomly chosen from the site) and removed proteins with
-unrealistic bond lengths (as we assume that these proteins descriptors
-contained errors). Our final data set consists of 645 proteins.
-
+\subsection{Data set}
+In the next sections we have used a collection of proteins from
+\url{http://pdb.org/} to obtain suitable values for the bond lengths and bond
+angles of proteins. We have downloaded a set of 700 protein
+descriptions (randomly chosen from the site) and removed the proteins
+where we found unrealistic large bond lengths, as we assume that these
+protein descriptors contained errors. Our final data set consists of
+645 proteins. We have verified the values we present in Table
+\ref{tab:average_bond_lengths} and Table \ref{tab:average_bond_angles}
+by comparing them to those obtained by \cite{probik} and
+\cite{laskowski1993main}.
 
 \section{Backbone geometry}
 \textit{Bond lengths} are the distances between the individual atoms
@@ -76,14 +87,6 @@ the bond angles to their mean values.
   \label{tab:average_bond_angles}
 \end{table}
 
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.75\textwidth]{figures/protein-torsion-angles}
-  \caption{Illustration of the protein torsion angles in a protein sequence extract.}
-  \label{fig:protein-torsion-angles}
-\end{figure*}
-
 A \textit{torsional angle} is rotational angle around a bond. In the
 backbone, there are three of such torsional angles (see Figure
 \ref{fig:protein-torsion-angles}). The $\phi$ and $\psi$ angles were
@@ -102,7 +105,7 @@ needed to define a dihedral angle.
 Getting back to the $\phi$ and $\psi$, we can now see that these are
 the main variability of the protein backbone, as all bond lengths and
 bond angles are nearly rigid and the $\omega$-angle has rarely
-deviates from the $180^\circ$ value. 
+deviates from $180^\circ$. 
 
 Because of collisions between side-chains and the backbone, only
 certain combinations of $\phi$ and $\psi$ angles are legal. The legal
@@ -112,8 +115,8 @@ plot on the left (Figure \ref{fig:ramachandran}) legal values for all
 amino acids except Glycine has been shown. And in the right plot legal
 values for Glycine has been shown. Glycine is special because of its
 simplicity. It consists of a single H atom connected to the $C_\alpha$
-of the amino acid and thus collisions with the backbone is hardly a
-problem.
+of the amino acid and thus collisions with the backbone is hardly ever
+a problem.
 
 \begin{figure*}
 	\centering
@@ -131,31 +134,36 @@ problem.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.35\textwidth]{figures/lysine}
-    \caption{Illustration of the $\chi$-angles on the side chain of Lysine (LYS).}
+    \caption{Illustration of the torsional $\chi$-angles on the side chain of Lysine (LYS).}
     \label{fig:lysine-and-chi}
 \end{figure}
-\fixme{Skift til en ordentlig skrifttype på figuren}
+\fixme{Skift til en ordentlig skrifttype på figuren af Lysine}
 
 As for the backbone, the side chains can be described by bond lengths,
-bond angles and a few torsional angles (see below), but to simplify
-how we construct the proteins, we have chosen to use another
-representation. We store the side chain of each amino acid by the
-position of the individual atoms when all torsional angles are zero
-and using a coordinate system that has $C_\alpha$ as origo and
-orientated such that the $C_\alpha-C_\beta$ bond follows the
-x-axis. For the calculation of these positions, we have again used a
-set of proteins and taken the mean position of all atoms.
+bond angles and a few torsional angles.  The torsional angles of
+protein side chains are named $\chi_1-\chi_5$, but most side chains
+only have the first angle or two. On Figure \ref{fig:lysine-and-chi}
+we have illustrated the five $\chi$-angles on the side chain of the
+Lysine amino acid. As can be seen, the first $chi$ angle defines the
+rotation around the $C_\alpha-C_\beta$ bond, and so forth along the
+side chain. Side chains tends to have certain configuration of their
+$\chi$-angles, as we will explain in Section
+\ref{chap:handling_sidechains}, such a configuration is called a
+\textit{rotamer}.
 
-Thus, to place a side chain on a certain $C_\alpha$ of the backbone,
-we insert the atoms, using the offset positions with the appropriate
-rotation using the bond angles to $C_\beta$.
+To simplify how we construct the proteins, we have chosen to use
+another representation than directly measuring all bond lengths and
+bond angles as we did for the backbone. For each type of amino acid we
+store its side chain in a coordinate system that has \Ca\ as origo and
+orientated such that the first bond, $C_\alpha-C_\beta$, is following
+the x-axis. For the calculation of these positions, we have again used
+our protein data set and taken the mean position of all atoms when all
+torsional angles are set to zero.
 
-The torsional angles of protein side chains are named $\chi_1-\chi_5$,
-but most side chains only have the first angle or two. On Figure
-\ref{fig:lysine-and-chi} we have illustrated the five $\chi$-angles on
-the side chain of the Lysine amino acid. As can be seen, the first
-$chi$ angle defines the rotation around the $C_\alpha-C_\beta$ bond,
-and so forth along the side chain.
+Thus, to place a side chain on a certain \Ca\ of the backbone, we
+insert the side chain atoms, using the offset positions to \Ca\ with
+the appropriate rotation using the bond angles to $C_\beta$.
+
 
 %%% Local Variables: 
 %%% mode: latex

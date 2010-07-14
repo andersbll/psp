@@ -1,4 +1,5 @@
-The first part of our all-atom fitting algorithm is to fit the protein backbone to the given \Ca-trace ignoring the side-chain conformations.
+\fxnote{vi bør diskutere vores opdeling af problemet; først backbone-fitting, derefter side-chain conformations.}
+The first part of our all-atom fitting algorithm is to fit the protein backbone to the given \Ca-trace ignoring side-chain conformations.
 
 As input we are given a \Ca-trace target and a protein in form of an amino acid sequence.
 Only the amino acid types are provided; no spatial structure information about the protein is given as this is left to the fitting algorithm to find.
@@ -26,21 +27,21 @@ However, this simplification is not entirely valid as the entire backbone cannot
 For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca\ well to its target, but in such a way that the next \Ca\ in the backbone cannot come close to its target.
 Therefore, a good solution should take global context into account when solving IK problems locally. 
 
-An IK problem may have multiple solutions depending on the number of degrees of freedom (DOF) given by the adjustable angles.
-In our fitting problem, we just want a single solution.
-In most cases, however, there is no solution as our limitations make it impossible to conform to a given \Ca-trace.
-Furthermore, it is possible that the given \Ca-traces have a completely unrealistic structure.
-In these cases, we just want a solution that is somewhat close to the target.
+%An IK problem may have multiple solutions depending on the number of degrees of freedom (DOF) given by the adjustable angles.
+%In our fitting problem, we just want a single solution.
+%In most cases, however, there is no solution as our limitations make it impossible to conform to a given \Ca-trace.
+%Furthermore, it is possible that the given \Ca-traces have a completely unrealistic structure.
+%In these cases, we just want a solution that is somewhat close to the target.
 
 %As we have decided not to consider the bond angles (joint angles), the only adjustable angles in the kinematic chain are the dihedral angles around the atom bonds between \Ca-C and \Ca-N.
-%\fxfatal{skal vi indsætte en simpel IK-illustration her?} 
 
-\subsection{Related work}
+
+\section{Related work}
 Several IK solving methods exist and have been utilized in protein
 structure prediction.  However, these methods are mainly concerning
 the \emph{loop closure} problem \cite{coutsias2004kinematic} which
-differs from our problem, since the only constraint is that the
-position two ends of the chain must be locked. In these problems the
+differs from our problem since the only constraint is that the
+positions of both chain ends must be locked. In these problems the
 chains are also often relatively small (typically 4-14 amino acids),
 
   
@@ -64,26 +65,21 @@ In \cite{boomsma2005full}, the CCD method is extended to include bond angles.
 Finally, Wedemeyer and Scheraga has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial, \cite{wedemeyer1999exact}.
 
 
-\section{Our solution}
-The backbone fitting problem is different from the loop closure problem as the end-effector covers the entire backbone.
-Therefore, the methods above cannot be applied directly to our problem.
-%As discussed, we must take the global solution into consideration when solving a local IK problem.
+\section{Cyclic coordinate descent}
+For the backbone fitting problem we have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (ie. it is easy to introduce algorithmic constraints).
 
-We have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (ie. it is easy to introduce algorithmic constraints).
-
-\subsection{Cyclic coordinate descent}
-In the following, we present a single step in the CCD method with an end-effector consisting of three consecutive \Ca\ backbone atoms.
-In Figure \ref{fig:ccd} the situation is illustrated.
+In this section, we present a single step in the CCD method.
+Figure \ref{fig:ccd} illustrates the situation.
 CCD works iteratively by adjusting one angle at time according to the end-effector.
-In this case the angle to be adjusted is the $\phi$ angle around the bond between N and C$_{\alpha0}$.
+In this case the angle to be adjusted is the $\phi$ angle around the bond between N and C$_{\alpha0}$. Moreover, the end-effector consist of three consecutive backbone \Ca-atoms after C$_{\alpha0}$.
+
 In the illustration, T$_{1-3}$ denote the end-effector target (from the \Ca-trace). O$_{1-3}$ are the projections of C$_{\alpha1-3}$ on the rotation axis. C$_{\alpha1-3}$ and C$'_{\alpha1-3}$ denote the position of the end-effector before and after the rotation respectively.
-Furthermore, for $i=1,2,3$ we denote the vectors
+For $i=1,2,3$ we denote the vectors
  $$\v{r}_i = \overrightarrow{\text{O}_i\text{C}}_{\alpha i}~~,~~ \v{t}_i = \overrightarrow{\text{O}_i\text{T}}_{\alpha i} , $$
 $$\v{d}_i = \overrightarrow{\text{T}_i\text{C}}'_{\alpha i} = \overrightarrow{\text{O}_i\text{C}}'_{\alpha i}-\overrightarrow{\text{O}_i\text{T}}_{\alpha i}$$
 
 To compute $\overrightarrow{\text{O}_i\text{C}}'_{\alpha i}$, we define a local coordinate system from the orthogonal vectors $\hat{\v{r}}_i, \hat{\v{a}}, \hat{\v{n}}_i$ with $\hat{\v{r}}_i$ being the unit vector of $\v{r}_i$, $\hat{\v{a}}$ being the unit vector of the rotation axis $\v{a}$ and $\v{n}_i = \hat{\v{a}} \times \hat{\v{r}}_i$. We can now compute the vector by:
 $$\overrightarrow{\text{O}_i\text{C}}'_{\alpha i} = \hat{\v{r}}_i||\v{r}_i||\cos\theta + \hat{\v{n}}_i||\v{r}_i||\cos\theta$$
-
 And thus, $\v{d}_i$ is given by
 $$\v{d}_i =  \hat{\v{r}}_i||\v{r}_i||\cos\theta + \hat{\v{n}}_i||\v{r}_i||\cos\theta - \v{t}_i$$
 
@@ -126,15 +122,30 @@ If not, we shift the angle by $\pi$ to get the correct angle (the two angles are
 \end{figure}
 
 
-\subsection{Fitting algorithm}
-The protein backbone is fitted to the given \Ca-trace using the CCD method.
-For each of the $\phi$ and $\psi$ angles from the N-terminus to the C-terminus we select a window along the backbone and perform CCD on it.
-The window is selected so that it consists of the residue of the angle to be adjusted and the following $w$ residues. 
+\section{Our solution}
+As discussed, the backbone fitting problem is different from the loop closure problem as the end-effector covers the entire backbone. 
+This means that we cannot solve each angle wrt. to the entire end-effector.
+For a decomposition of the problem into local IK problems it is important that  the global solution is not worsened when solving a local problem.
+
+In our solution we perform CCD repeatedly on overlapping subsequences of the backbone.
+For \Ca-atom we select a window of size $w$ along the backbone and perform CCD on the $\phi$ and $\psi$ angles within it.
+%The window is selected so that it consists of the residue of the angle to be adjusted and the following $w$ residues. 
 When approaching the end of the backbone, the window size is reduced accordingly.
 A window of size $w$ will have an end-effector with $w$ points in space.
 As end-effector target we select a window in the \Ca-trace corresponding to the backbone window. 
 The algorithm is roughly sketched in Algorithm \ref{alg:ccd}.
 In practice we repeat the entire algorithm until convergence is reached.
+
+To initialize the fitting, we translate and rotate the initially uncoiled protein so that the first two \Ca-atoms overlap the first two atoms from the \Ca-trace.
+Because we risk to have positioned the first two residues unfavorably for the rest of the backbone, we perform Algorithm \ref{alg:ccd} repeatedly, alternating the direction in each iteration.
+Thus, if the first two amino acids have been placed unfortunately this will be fixed when folding in the opposite direction.
+
+%from the N-terminus to the C-terminus
+
+%To accommodate the foll Therefore, we use the CCD method differently than   above cannot be applied directly to our problem.
+
+
+
 
 \begin{algorithm}
 \caption{Sketch of backbone fitting algorithm}
@@ -144,7 +155,7 @@ In practice we repeat the entire algorithm until convergence is reached.
 	\FOR {$i \gets 0$ \textbf{to} $size(backbone)$}
 %		\STATE $C_\alpha \gets backbone[i]$
 %	\FOR {$C_\alpha \in backbone$}
-		\FOR {$j \gets 0$ \textbf{to} $window\_iterations$}
+		\FOR {$0$ \textbf{to} $window\_repetitions$}
 			\STATE $window \gets make\_window(backbone[i])$
 %			\STATE $trace\_window \gets make\_window(trace[i])$
 %			\STATE $k \gets 0$

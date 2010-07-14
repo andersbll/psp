@@ -14,7 +14,7 @@
    id="svg3881"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="lysine.pdf">
+   sodipodi:docname="lysine.svg">
   <defs
      id="defs3883">
     <marker
@@ -839,16 +839,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
+     inkscape:zoom="3.959798"
      inkscape:cx="53.151018"
-     inkscape:cy="71.90983"
+     inkscape:cy="76.345653"
      inkscape:document-units="px"
      inkscape:current-layer="g352"
      showgrid="false"
-     inkscape:window-width="1280"
+     inkscape:window-width="1272"
      inkscape:window-height="761"
      inkscape:window-x="0"
-     inkscape:window-y="39"
+     inkscape:window-y="12"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata3886">
@@ -858,7 +858,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1393,7 +1393,7 @@
            transform="matrix(0.91197133,0,0,0.91169509,11.212995,-128.44797)"
            id="g3807-7-6-97">
           <text
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella"
              y="-277.05759"
              x="1077.6547"
              id="text706-1-1-5"
@@ -1402,7 +1402,7 @@
                id="tspan708-72-0-6"
                y="-277.05759"
                x="1077.6547"
-               style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+               style="font-size:16.20000076000000178px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella">H</tspan>
           </text>
         </g>
       </g>

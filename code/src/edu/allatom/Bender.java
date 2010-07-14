@@ -183,13 +183,12 @@ public class Bender {
 	public static int countCollisions(Protein p) {
 		int count = 0;
 		HashMap<AminoAcid, AminoAcid> foundCollisions = new HashMap<AminoAcid, AminoAcid>();
-
 		for (AminoAcid aaa : p.aaSeq) {
 			AminoAcid before = foundCollisions.get(aaa);
 			AminoAcid collidee = aaa.collides(p);
 			if (before == collidee)
 				continue;
-
+			
 			if (collidee != null) {
 				foundCollisions.put(collidee, aaa);
 				count++;
@@ -379,50 +378,4 @@ public class Bender {
 		}
 		return false;
 	}
-
-	// /**
-	// * Tries to push the sidechains around to eliminate collisions. This
-	// resets
-	// * the rotamers used by the amino acids.
-	// */
-	// public static int tryToEliminateCollisions(Protein p) {
-	// int collisionsLeft = 0;
-	// for (AminoAcid aa : p.aaSeq) {
-	// aa.resetUsedRotamers();
-	// }
-
-	// for (AminoAcid aa : p.aaSeq) {
-	// AminoAcid collidee = aa.collides(p);
-	// if (collidee != null) {
-	// if (aa.nextRotamer(p)) {
-	// continue;
-	// }
-	// } else {
-	// continue;
-	// }
-	// collidee = aa.collides(p);
-	// List<AminoAcid> previousCollidees = new LinkedList<AminoAcid>();
-	// outer: while (aa.collides(p) != null) {
-
-	// if (collidee == null) {
-	// break;
-	// }
-	// if (previousCollidees.contains(collidee)) {
-	// collisionsLeft++;
-	// break;
-	// }
-	// previousCollidees.add(collidee);
-	// aa.resetUsedRotamers();
-	// while (aa.collides(p) == collidee) {
-	// if (!collidee.nextCollisionlessRotamer(p)) {
-	// if (!aa.nextRotamer()) {
-	// collisionsLeft++;
-	// break outer;
-	// }
-	// }
-	// }
-	// }
-	// }
-	// return collisionsLeft;
-	// }
 }

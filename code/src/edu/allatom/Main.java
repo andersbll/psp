@@ -36,7 +36,7 @@ public class Main {
 		}
 		
 		try {
-			RotamerLibrary.loadDunbrachRotamerLibrary("pdb/bbind02.May.lib");
+			RotamerLibrary.loadDunbrach("pdb/bbind02.May.lib");
 		} catch (IOException e) {
 			System.out.println("Dunbrach library file not found!");
 			return;
@@ -44,7 +44,7 @@ public class Main {
 		
 //		neatSidechainStatisticsStuff(renderer, p);
 		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
-		LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+		LinkedList<Atom> trace = p.getCAlphaTrace();
 ////		renderUncoiledProtein(renderer,typeTrace);
 		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 
@@ -189,7 +189,7 @@ public class Main {
 			}
 			try {
 				List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
-				LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+				LinkedList<Atom> trace = p.getCAlphaTrace();
 				System.out.println("PDB file: " + filename + " (" + trace.size() + " acids):");
 				Protein protein = Protein.getUncoiledProtein(typeTrace);
 				Bender.bendProteinBackbone(protein, trace, null);

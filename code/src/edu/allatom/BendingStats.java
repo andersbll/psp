@@ -19,7 +19,7 @@ public class BendingStats {
 		System.out.println(i);
 		try {
 			file = new PrintWriter(new FileWriter("./bendingstats"+i+".py"));
-			RotamerLibrary.loadDunbrachRotamerLibrary("bbind02.May.lib");
+			RotamerLibrary.loadDunbrach("bbind02.May.lib");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
@@ -50,7 +50,7 @@ public class BendingStats {
 
 				List<AminoAcidType> typeTrace = AminoAcid
 						.makeTypeTrace(p.aaSeq);
-				LinkedList<Atom> trace = CAlphaTrace.CAlphaTrace(p);
+				LinkedList<Atom> trace = p.getCAlphaTrace();
 				String proteinName = f.getName();
 				proteinName = proteinName.substring(0, proteinName
 						.lastIndexOf('.'));

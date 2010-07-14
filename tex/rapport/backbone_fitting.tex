@@ -73,6 +73,14 @@ Figure \ref{fig:ccd} illustrates the situation.
 CCD works iteratively by adjusting one angle at time according to the end-effector.
 In this case the angle to be adjusted is the $\phi$ angle around the bond between N and C$_{\alpha0}$. Moreover, the end-effector consist of three consecutive backbone \Ca-atoms after C$_{\alpha0}$.
 
+\begin{figure}
+  \centering
+	\includegraphics[width=0.98\columnwidth]{figures/ccd}
+  \caption{}
+  \label{fig:ccd}
+\end{figure}
+
+
 In the illustration, T$_{1-3}$ denote the end-effector target (from the \Ca-trace). O$_{1-3}$ are the projections of C$_{\alpha1-3}$ on the rotation axis. C$_{\alpha1-3}$ and C$'_{\alpha1-3}$ denote the position of the end-effector before and after the rotation respectively.
 For $i=1,2,3$ we denote the vectors
  $$\v{r}_i = \overrightarrow{\text{O}_i\text{C}}_{\alpha i}~~,~~ \v{t}_i = \overrightarrow{\text{O}_i\text{T}}_{\alpha i} , $$
@@ -114,12 +122,6 @@ where
 If value of the second order derivative is positive, the angle minimizes $S$. 
 If not, we shift the angle by $\pi$ to get the correct angle (the two angles are separated by $\pi$ radians).
 
-\begin{figure}
-  \centering
-	\includegraphics[width=0.98\columnwidth]{figures/ccd}
-  \caption{}
-  \label{fig:ccd}
-\end{figure}
 
 
 \section{Our solution}
@@ -135,17 +137,6 @@ A window of size $w$ will have an end-effector with $w$ points in space.
 As end-effector target we select a window in the \Ca-trace corresponding to the backbone window. 
 The algorithm is roughly sketched in Algorithm \ref{alg:ccd}.
 In practice we repeat the entire algorithm until convergence is reached.
-
-To initialize the fitting, we translate and rotate the initially uncoiled protein so that the first two \Ca-atoms overlap the first two atoms from the \Ca-trace.
-Because we risk to have positioned the first two residues unfavorably for the rest of the backbone, we perform Algorithm \ref{alg:ccd} repeatedly, alternating the direction in each iteration.
-Thus, if the first two amino acids have been placed unfortunately this will be fixed when folding in the opposite direction.
-
-%from the N-terminus to the C-terminus
-
-%To accommodate the foll Therefore, we use the CCD method differently than   above cannot be applied directly to our problem.
-
-
-
 
 \begin{algorithm}
 \caption{Sketch of backbone fitting algorithm}
@@ -175,6 +166,19 @@ Thus, if the first two amino acids have been placed unfortunately this will be f
 %\ENDWHILE
 \end{algorithmic}
 \end{algorithm}
+
+
+
+To initialize the fitting, we translate and rotate the initially uncoiled protein so that the first two \Ca-atoms overlap the first two atoms from the \Ca-trace.
+Because we risk to have positioned the first two residues unfavorably for the rest of the backbone, we perform Algorithm \ref{alg:ccd} repeatedly, alternating the direction in each iteration.
+Thus, if the first two amino acids have been placed unfortunately this will be fixed when folding in the opposite direction.
+
+%from the N-terminus to the C-terminus
+
+%To accommodate the foll Therefore, we use the CCD method differently than   above cannot be applied directly to our problem.
+
+
+
 
 
 

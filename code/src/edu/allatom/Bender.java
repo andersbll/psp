@@ -173,8 +173,8 @@ public class Bender {
 			actualCollisionsAfterElimination = countCollisions(p);
 
 			rmsd = p.cATraceRMSD(trace);
-			BendingStats.print("      ["+rmsd
-//			System.out.print("  [" + rmsd 
+			//BendingStats.print("      ["+rmsd
+			System.out.print("  [" + rmsd 
 					+ ", [" + collisionsBeforeElimination
 					+ "," + actualCollisionsAfterElimination + "]],\n");
 		}
@@ -353,29 +353,31 @@ public class Bender {
 			Collection<AminoAcid> visitedTrace) {
 		// prøv alle rotamerer
 		List<Rotamer> rotamers = RotamerLibrary.lookupRotamers(aa.type);
-		List<AminoAcid> collidees = new ArrayList<AminoAcid>();
+		List<Tuple<Rotamer, Collection<AminoAcid>>> collidees = new ArrayList<Tuple<Rotamer, Collection<AminoAcid>>>();
 		for (Rotamer r : rotamers) {
 			aa.applyRotamer(r);
 			Collection<AminoAcid> collisions = aa.collides(p);
 			if (collisions.isEmpty()) {
 				return true;
 			}
-			collidees.addAll(collisions);
+			
+			collidees.add(new Tuple(r,collisions));
 		}
 		depth--;
 		if (depth == 0) {
 			return false;
 		}
 		// hvis der stadig er kollisioner spørger vi naboerne
-		for (int i = 0; i < collidees.size(); i++) {
-			AminoAcid collidee = collidees.get(i);
-			if (visitedTrace.contains(collidee))
-				continue;
-			Rotamer r = rotamers.get(i);
+		for(Tuple<Rotamer, Collection<AminoAcid>> t : collidees) {
+			Rotamer r = t.a;
 			aa.applyRotamer(r);
 			visitedTrace.add(aa);
-			if (checkCollision(p, collidee, depth, visitedTrace)) {
-				return true;
+			for(AminoAcid collidee : t.b) {
+				if (visitedTrace.contains(collidee))
+					continue;
+				if (checkCollision(p, collidee, depth, visitedTrace)) {
+					return true;
+				}
 			}
 		}
 		return false;

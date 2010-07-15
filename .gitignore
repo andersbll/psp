@@ -10,6 +10,7 @@ tex/*/*-blx.bib
 tex/*/*.out
 tex/*/*.dvi
 tex/*/*.lox
+tex/*/*.lof
 code/classes
 code/src/edu/Toolbox.java
 code/src/edu/geom2D
@@ -28,3 +29,4 @@ code/src/edu/allatom/semantic.cache
 code/semantic.cache
 code/ramachandran.svg
 tex/rapport/auto/*
+

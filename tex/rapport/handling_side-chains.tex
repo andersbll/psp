@@ -21,17 +21,27 @@ predictor\footnote{We use the latest release from 15th May 2002}.
 We have devised a simple algorithm for selecting side-chain rotamers,
 with the goal of minimizing the number of collisions between
 atoms. Our first step is to apply the rotamer from the rotamer library
-with highest probability to each amino in the protein. After this, we
-go through each amino acid, this time trying to eliminate eventual
-collisions. We use a breadth-first search through a tree that
+with highest probability to each amino acid in the protein. After
+this, we go through each amino acid, this time trying to eliminate
+eventual collisions. We use a breadth-first search through a tree that
 represents the eventual collisions occuring for the different rotamers
 of the amino acids. On Figure \ref{fig:rotamer-search-tree} we have
 illustrated how our algorithm progresses, when trying to remove
 collisions with a single amino acid. Each vertex represents an amino
 acid and each edge represents a collision between the node and its
 child. The names on the edges represents rotamers of the node
-above. As an example, when rotamer \textit{k} is applied to amino acid
+above. As an example, when rotamer $3$ is applied to amino acid
 \textit{a}, \textit{a} collides with both \textit{c} and \textit{d}.
+
+The breadth-first search proceeds through each level, from the most
+probable rotamer to the least probable (left-to right on the figure),
+until a solution is found or a maximum depth is reached. For example,
+we can resolve the collision in Figure~\ref{fig:rotamer-search-tree}
+when rotamer $1$ is applied to \textit{a} and rotamer $3$ is applied
+to \textit{b} the collision is solved. In the case where the amino
+acid collides with more than one other amino acid, we stop as soon one
+of the collisions is solved and postpone the solution of the remaining
+collisions to we reach one of the collidees we haven't handled.
 
 %% Hvornår kigger vi på rotameren som /a/ startede ud med at have?
 

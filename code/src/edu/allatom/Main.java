@@ -22,7 +22,7 @@ public class Main {
 //		pdbfile = "pdb/2JOF.pdb"; // lille
 //		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
-		pdbfile = "pdb/1GPH.pdb"; // grande
+		pdbfile = "pdb/16PK.pdb"; // grande
 		
 //		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
 //		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus

@@ -10,8 +10,11 @@ rmsd_data = []
 collisions_data = []
 rmsd_convergence_data = []
 
+print [l for _,l,_ in bending_stats[0][2]]
+length_avg = avg([l for _,l,_ in bending_stats[0][2]])
+print 'length_avg:',lengt_avg
 
-for rotamer_depth, window_size, window_repetitions, proteins in bending_stats:
+for rotamer_depth, window_size, window_repetitions, proteins in bending_stats:	
 	print window_size, window_repetitions
 	rmsd_avg = 0
 	collisions = 0

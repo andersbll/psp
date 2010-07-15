@@ -19,7 +19,7 @@ import edu.math.Vector;
 
 public class Bender {
 
-	public static int WINDOW_SIZE = 7;
+	public static int WINDOW_SIZE = 8;
 	private static float DAMPING_FACTOR = 1f;
 	public static int WINDOW_REPETITIONS = 15;
 	private static int REPETITIONS = 10;

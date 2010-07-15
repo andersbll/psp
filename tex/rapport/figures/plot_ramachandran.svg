@@ -7,8 +7,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1075"
-   height="1090"
+   width="1176.35"
+   height="1148.61"
    version="1.1"
    id="svg2"
    inkscape:version="0.47 r22583"
@@ -34,6 +34,55 @@
        inkscape:vp_z="1000 : 500 : 1"
        inkscape:persp3d-origin="500 : 333.33333 : 1"
        id="perspective840" />
+    <inkscape:perspective
+       id="perspective6985"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7010"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7041"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7041-9"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7092"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7126"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7160"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -48,16 +97,16 @@
      inkscape:window-height="776"
      id="namedview834"
      showgrid="false"
-     inkscape:zoom="0.3337544"
-     inkscape:cx="508.12868"
-     inkscape:cy="490.06276"
+     inkscape:zoom="0.236"
+     inkscape:cx="587.99486"
+     inkscape:cy="797.25074"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g6086" />
+     inkscape:current-layer="g6512" />
   <g
      id="g6512"
-     transform="translate(-18.00636,6.19962)">
+     transform="translate(76.332623,8.6061289)">
     <g
        transform="translate(-11.738648,1.0098104)"
        id="g6086">
@@ -5032,7 +5081,7 @@
          id="circle832"
          transform="translate(90.738611,9.99019)" />
       <rect
-         style="opacity:0.98000003999999996;fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         style="opacity:0.98000004;fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          id="rect4063"
          width="1003.9879"
          height="1003.988"
@@ -5043,23 +5092,166 @@
     </g>
     <text
        id="text6504"
-       y="1061.8644"
-       x="562.28796"
+       y="1119.0679"
+       x="558.05066"
        style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro Italic"
        xml:space="preserve"><tspan
-         y="1061.8644"
-         x="562.28796"
+         y="1119.0679"
+         x="558.05066"
          id="tspan6506"
          sodipodi:role="line">φ</tspan></text>
     <text
        id="text6508"
-       y="522.46399"
-       x="17.54236"
+       y="522.96399"
+       x="-65.796623"
        style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro Italic"
        xml:space="preserve"><tspan
-         y="522.46399"
-         x="17.54236"
+         y="522.96399"
+         x="-65.796623"
          id="tspan6510"
          sodipodi:role="line">ψ</tspan></text>
+    <g
+       id="g7027">
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="55.222446"
+         y="1061.2942"
+         id="text6504-9"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8"
+           x="55.222446"
+           y="1061.2942">-180</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="160.09134"
+         y="1054.7329"
+         id="text6504-9-6"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-0"
+           x="160.09134"
+           y="1054.7329">ᵒ</tspan></text>
+    </g>
+    <g
+       transform="translate(-110.44337,-52.7419)"
+       id="g7027-5">
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="55.222446"
+         y="1061.2942"
+         id="text6504-9-1"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-3"
+           x="55.222446"
+           y="1061.2942">-180</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="160.09134"
+         y="1054.7329"
+         id="text6504-9-6-0"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-0-1"
+           x="160.09134"
+           y="1054.7329">ᵒ</tspan></text>
+    </g>
+    <g
+       transform="translate(911.26602,0)"
+       id="g7027-2">
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="75.318382"
+         y="1061.2942"
+         id="text6504-9-0"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-07"
+           x="75.318382"
+           y="1061.2942">180</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="160.09134"
+         y="1054.7329"
+         id="text6504-9-6-3"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-0-9"
+           x="160.09134"
+           y="1054.7329">ᵒ</tspan></text>
+    </g>
+    <g
+       transform="translate(-110.44337,-1017.5232)"
+       id="g7027-2-0">
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="75.318382"
+         y="1061.2942"
+         id="text6504-9-0-6"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-07-6"
+           x="75.318382"
+           y="1061.2942">180</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="160.09134"
+         y="1054.7329"
+         id="text6504-9-6-3-8"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-0-9-3"
+           x="160.09134"
+           y="1054.7329">ᵒ</tspan></text>
+    </g>
+    <g
+       transform="translate(-111.10473,-532.16341)"
+       id="g7027-2-0-2">
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="132.24648"
+         y="1061.2942"
+         id="text6504-9-0-6-3"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-07-6-1"
+           x="132.24648"
+           y="1061.2942">0</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="160.09134"
+         y="1054.7329"
+         id="text6504-9-6-3-8-1"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-0-9-3-9"
+           x="160.09134"
+           y="1054.7329">ᵒ</tspan></text>
+    </g>
+    <g
+       transform="translate(432.98789,0)"
+       id="g7027-2-0-2-5">
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="132.24648"
+         y="1061.2942"
+         id="text6504-9-0-6-3-6"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-07-6-1-9"
+           x="132.24648"
+           y="1061.2942">0</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro"
+         x="160.09134"
+         y="1054.7329"
+         id="text6504-9-6-3-8-1-2"><tspan
+           sodipodi:role="line"
+           id="tspan6506-8-0-9-3-9-5"
+           x="160.09134"
+           y="1054.7329">ᵒ</tspan></text>
+    </g>
   </g>
 </svg>

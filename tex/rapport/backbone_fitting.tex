@@ -130,7 +130,7 @@ This means that we cannot solve each angle wrt. to the entire end-effector.
 For a decomposition of the problem into local IK problems it is important that  the global solution is not worsened when solving a local problem.
 
 In our solution we perform CCD repeatedly on overlapping subsequences of the backbone.
-For \Ca-atom we select a window of size $w$ along the backbone and perform CCD on the $\phi$ and $\psi$ angles within it.
+For each \Ca-atom we select a window of size $w$ along the backbone and perform CCD on the $\phi$ and $\psi$ angles within it.
 %The window is selected so that it consists of the residue of the angle to be adjusted and the following $w$ residues. 
 When approaching the end of the backbone, the window size is reduced accordingly.
 A window of size $w$ will have an end-effector with $w$ points in space.
@@ -171,7 +171,7 @@ In practice we repeat the entire algorithm until convergence is reached.
 
 To initialize the fitting, we translate and rotate the initially uncoiled protein so that the first two \Ca-atoms overlap the first two atoms from the \Ca-trace.
 Because we risk to have positioned the first two residues unfavorably for the rest of the backbone, we perform Algorithm \ref{alg:ccd} repeatedly, alternating the direction in each iteration.
-Thus, if the first two amino acids have been placed unfortunately this will be fixed when folding in the opposite direction.
+Thus, if the first two amino acids have been placed unfortunately this will be fixed when adjusting angles in the opposite direction.
 
 %from the N-terminus to the C-terminus
 

@@ -28,7 +28,7 @@ torsional angles around the two bonds connecting $C_\alpha$-atoms with
 its neighbours ($N-C_\alpha$ and $C_\alpha-C'$), that contributes with
 the highest variability to the determination of the protein structure
 (see Section \ref{chap:protein_geometry}). Thus, when solving the
-structure prediction problem it is common \fxwarning{cite} to cut down
+structure prediction problem it is possible to cut down
 the problem by using a model that describes the protein solely by its
 $C_\alpha$-atoms. Such a sequence of $C_{\alpha}$ atoms is called a
 $C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}). This is
@@ -65,7 +65,9 @@ stable conformation where the free energy is minimized. This
 conformation is known as the native structure of the
 protein. Determining it computationally is the problem of protein
 structure prediction. Thus, protein structure prediction is an energy
-minimization problem.
+minimization problem. In despite of this, we will not use any energy
+measure to determine the structure and instead use other measures (see
+Section \ref{sec:eval-predictions} below).
 
 % Why simplifications are necessary to make the problem
 % computationally feasible.
@@ -81,18 +83,20 @@ physical/chemical interactions between atoms forms the basis. This
 group at our department.
 
 \subsection{Evaluating predictions}
+\label{sec:eval-predictions}
 %http://cnx.org/content/m11608/latest/
-To determine the quality of prediction algorithms it is common \fxwarning{cite}
-to compare predicted structures of a test proteins with the actual
-known structure of that protein. The known structure of such test
-proteins are obtained by other means (e.g. X-ray crystallography).
-Thus a comparison measure between protein conformations is
-needed. The most widely used comparison measure is \textit{least root mean
-  square deviation}, lRMSD. RMSD is based on the distances between
+To determine the quality of prediction algorithms, predicted
+structures of a test proteins can be compared with the actual known
+structure of that protein. The known structure of such test proteins
+are obtained by other means (e.g. X-ray crystallography).  Thus a
+comparison measure between protein conformations is needed. The most
+widely used comparison measure is \textit{least root mean square
+  deviation}, lRMSD. RMSD is based on the distances between
 corresponding atoms in the two protein conformations under comparison.
-If $\vec{A}$ and $\vec{B}$ are two different conformations of the same protein,
-where $\vec{a}_i$ and $\vec{b}_i$ are the respective coordinates of atom $i$ in the two
-structures, RMSD can be computed by:
+If $\vec{A}$ and $\vec{B}$ are two different conformations of the same
+protein, where $\vec{a}_i$ and $\vec{b}_i$ are the respective
+coordinates of atom $i$ in the two structures, RMSD can be computed
+by:
 \begin{equation}
   \label{eq:rmsd}
   D(\vec{A}, \vec{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\vec{a}_i - \vec{b}_i|^2}
@@ -102,6 +106,9 @@ translation of the two conformations. That is, to compute lRMSD, an
 \textit{optimal superpositioning} of the conformations is found and
 RMSD is computed.
 
+We will use lRMSD as a replacement for doing energy calculations, as
+we can use it to determine how close our current prediction is to the
+target \Ca-trace.
 
 % Limitation: A realistic energy calculation will require an insight in biochemistry
 % that is beyond the scope of this project.  Therefore, we limit

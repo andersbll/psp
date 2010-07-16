@@ -133,7 +133,7 @@
 %\def\thesubsection{\thesection.\arabic{subsection}}
 %\def\thesubsubsection{\alph{subsubsection}.}
 % \alph \roman \arabin
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{0}
 
 
 % USER DEFINED COMMANDS AND ENVIRONMENTS
@@ -162,7 +162,7 @@
 
 
 %DOCUMENT INFO
-\title{\vspace{-3cm}
+\title{%\vspace{-3cm}
   Fitting an All-atom Protein Model to a $C_\alpha$-trace\\
 }
 \author{
@@ -201,7 +201,7 @@
   In this report we will investigate a strategy for predicting the
   native structure of proteins including all atoms (an all-atom
   model). Our method uses an already folded $C_\alpha$-trace as target.
-  \vspace{0cm}
+  \vspace{1.5cm}
 \end{onecolabstract}
 ]
 \tableofcontents*
@@ -211,7 +211,7 @@
 
 \hspace{0.5cm}\includegraphics[width=0.4\textwidth]{figures/forside.png}
 
-\listoffixmes
+%\listoffixmes
 
 \newpage
 \chapter{Introduction}

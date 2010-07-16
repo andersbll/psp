@@ -1,4 +1,4 @@
-In this section we will deal with the problem of placing side-chains
+In this section we will deal with the problem of positioning side-chains
 on the protein and selecting side-chain conformations in a way that
 minimizes the number of collisions.
 
@@ -15,10 +15,12 @@ of each of those rotamer occuring in a protein. A comparison of some,
 but not the most recent, rotamer libraries can be found in
 \cite{dunbrack2002rotamer}. We have selected to use the rotamer
 library made by Dunbrack et al. for the SCWRL side-chain
-predictor\footnote{We use the latest release from 15th May 2002}.
+predictor\footnote{We use the latest release from 15th May 2002. The
+  library can be downloaded as \textit{bbind02.May.lib} from
+  \url{http://dunbrack.fccc.edu/bbdep/bbdepdownload.php}}.
 
 \section{Our approach}
-k\begin{figure}
+\begin{figure}
 	\centering
 	\includegraphics[width=.9\columnwidth]{figures/rotamersearch}
 	\caption{The structure of our rotamer search space when eliminating
@@ -56,9 +58,9 @@ reach one of the collidees we haven't handled.
 %% Hvornår kigger vi på rotameren som /a/ startede ud med at have?
 
 \section{Related Work}
-The side-chain placement problem has been investigated by several
-research groups, what we found most notably is the work done by
-Dunbrack Labs on the SCWRL project \cite{canutescu2003graph,
+The side-chain positioning (SCP) problem has been investigated by
+several research groups, what we found most notably is the work done
+by Dunbrack Labs on the SCWRL project \cite{canutescu2003graph,
   krivov2009improved}. The central algorithm in SCWRLs collision
 resolving uses an \textit{interaction graph}, which much like our tree
 has a vertex for each amino acid, but instead of the edges
@@ -74,8 +76,8 @@ into two seperate subgraphs. For each rotamer of the keystone residue
 the two subproblems can be solved. The rotamer of the keystone residue
 which results in the lowest amount of free energy for the complete
 cluster. Remark here that they use energies to evaluate the best
-rotamer where as we have limited us from dealing with energy
-functions and instead concentrate on the number of collisions.
+rotamer where as we have limited us from dealing with energy functions
+and instead concentrate on the number of collisions.
 
 In addition to this central algorithm, SCWRL has further advantages
 over our algorithm. They use a lot of effort to delimit their search
@@ -83,9 +85,10 @@ space e.g. by removing rotamers with high self-energy from the set of
 possible rotamers, where as we haven't focused at all on performance
 in our implementation. SCWRL also tries to resolve whether any
 collisions can be transformed into disulfide bridges, which are bonds
-between two Cysteine amino acids (only pairs of Cysteine residues can form
-disulfide bridges) from different places on the amino acid sequence
-but spatially near each other.
+between two Cysteine amino acids (only pairs of Cysteine residues can
+form disulfide bridges) from different places on the amino acid
+sequence but spatially near each other. A problem we limited ourselves
+from, from the beginning.
 
 %%% Local Variables: 
 %%% mode: latex

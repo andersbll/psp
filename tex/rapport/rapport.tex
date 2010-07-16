@@ -162,7 +162,7 @@
 
 
 %DOCUMENT INFO
-\title{%\vspace{-3cm}
+\title{\vspace{-1cm}
   Fitting an All-atom Protein Model to a $C_\alpha$-trace\\
 }
 \author{
@@ -192,16 +192,29 @@
 \begin{document}
 \twocolumn[\maketitle
 \begin{onecolabstract}
-  Protein structure prediction is often simplified by using a model
+  \vspace{-0.2cm}
+  Protein structure prediction can be simplified by using a model
   that only includes few of the atoms actually present in proteins. In
   particular, the algorithms group at our department only predicts a
   folding of the $C_\alpha$-trace, and are thus excluding most
   backbone atoms and all side-chain molecules.
 
-  In this report we will investigate a strategy for predicting the
-  native structure of proteins including all atoms (an all-atom
-  model). Our method uses an already folded $C_\alpha$-trace as target.
-  \vspace{1.5cm}
+  In this report we investigate a strategy for predicting the native
+  structure of proteins including all atoms (an all-atom model), where
+  we use an already folded $C_\alpha$-trace as target. The strategy
+  divides the problem into two separate tasks.
+
+  The first task is to build the protein backbone with all its all
+  atoms, not only \Ca-atoms and fit it to the $C_\alpha$-trace we get
+  as input. Our implementation of this uses inverse kinematics to ...
+
+  The second task is to position side-chains on the backbone and
+  selecting side-chain conformations in way that minimizes the number
+  of collisions. As this is our only goal, we can suffice with a
+  simple solution that iteratively goes through the amino acid trying
+  to eliminate eventual collisions one at a time. The collision
+  avoidance algorithm is on average reducing the number of collisions
+  in proteins from 10 to 1.  \vspace{1cm}
 \end{onecolabstract}
 ]
 \tableofcontents*

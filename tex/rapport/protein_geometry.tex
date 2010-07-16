@@ -21,7 +21,7 @@ In the next sections we have used a collection of proteins from
 angles of proteins. We have downloaded a set of 700 protein
 descriptions (randomly chosen from the site) and removed the proteins
 where we found unrealistic large bond lengths, as we assume that these
-protein descriptors contained errors. Our final data set consists of
+protein descriptors contained errors. The final data set consists of
 645 proteins. We have verified the values we present in Table
 \ref{tab:average_bond_lengths} and Table \ref{tab:average_bond_angles}
 by comparing them to those obtained by \cite{probik} and
@@ -135,18 +135,18 @@ a problem.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.42\textwidth]{figures/lysine}
-    \caption{Illustration of the torsional $\chi$-angles on the side chain of Lysine (LYS).}
+    \caption{Illustration of the torsional $\chi$-angles on the side-chain of Lysine (LYS).}
     \label{fig:lysine-and-chi}
 \end{figure}
 
-As for the backbone, the side chains can be described by bond lengths,
+As for the backbone, the side-chains can be described by bond lengths,
 bond angles and a few torsional angles.  The torsional angles of
-protein side chains are named $\chi_1-\chi_5$, but most side chains
+protein side-chains are named $\chi_1-\chi_5$, but most side-chains
 only have the first angle or two. On Figure \ref{fig:lysine-and-chi}
-we have illustrated the five $\chi$-angles on the side chain of the
+we have illustrated the five $\chi$-angles on the side-chain of the
 Lysine amino acid. As can be seen, the first $chi$ angle defines the
 rotation around the $C_\alpha-C_\beta$ bond, and so forth along the
-side chain. Side chains tends to have certain configuration of their
+side-chain. Side-chains tends to have certain configuration of their
 $\chi$-angles, as we will explain in Section
 \ref{chap:handling_sidechains}, such a configuration is called a
 \textit{rotamer}.
@@ -154,14 +154,14 @@ $\chi$-angles, as we will explain in Section
 To simplify how we construct the proteins, we have chosen to use
 another representation than directly measuring all bond lengths and
 bond angles as we did for the backbone. For each type of amino acid we
-store its side chain in a coordinate system that has \Ca\ as origin and
+store its side-chain in a coordinate system that has \Ca\ as origin and
 orientated such that the first bond, $C_\alpha-C_\beta$, is following
 the x-axis. For the calculation of these positions, we have again used
 our protein data set and taken the mean position of all atoms when all
 torsional angles are set to zero.
 
-Thus, to place a side chain on a certain \Ca\ of the backbone, we
-insert the side chain atoms, using the offset positions to \Ca\ with
+Thus, to place a side-chain on a certain \Ca\ of the backbone, we
+insert the side-chain atoms, using the offset positions to \Ca\ with
 the appropriate rotation using the bond angles to $C_\beta$.
 
 %%% Local Variables: 

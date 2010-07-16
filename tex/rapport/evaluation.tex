@@ -28,7 +28,7 @@ On the other hand if $w$ is too large, we see that the RMSD improves in each ite
 The problem is caused by the end-effector becoming too large such that there is no clear direction towards the target since all the elements of the end-effector must go in different directions to reach their separate targets.
 This results in small angular changes in each step of the CCD method and a slow RMSD convergence.
 Thus, in determining the window size we must strike a balance between small and flexible to get fast convergence and large with the ability to better capture the optimal global solution.
-To better illustrate the relationship between RMSD and $w$, the RMSD after 10 repetitions as a function of $w$ is plotted in Figure \ref{fig:rmsd_convergence}.
+To better illustrate the relationship between RMSD and $w$, the RMSD after 10 repetitions is plotted as a function of $w$ in Figure \ref{fig:rmsd_convergence}.
 We see that the optimal window size is between 5 and 12 amino acids.
 \begin{figure}
 	\centering
@@ -42,10 +42,10 @@ We see that the optimal window size is between 5 and 12 amino acids.
 \subsection{Ramachandran plot}
 To check if our fitted backbone structure contains realistic pairs of $\phi$ and $\psi$ angles we can inspect the resulting Ramachandran plots.
 Figure \ref{fig:eval_ramachandran} shows two Ramachandran plots of a protein and our fitted backbone version of the same protein.
-In the fitted protein the $\alpha$-helix region resembles the original.
+In the fitted protein the dense region (the $\alpha$-helix region) resembles the original.
 There is also a very slight resemblance in the upper left corner (the $\beta$-sheet region).
-More problematic, we see for the fitted protein that a large part of the angles are spread out in the Ramachandran space.
-This indicates that we are likely to have unrealistic angles since these do not occur in the original backbone nor in Figure \ref{fig:ramachandran}.
+More problematic, we see for the fitted protein that a large part of the angle sets are spread out in the Ramachandran space.
+This indicates that we are likely to have unrealistic angle sets since these do not occur in the original backbone nor in Figure \ref{fig:ramachandran}.
 
 \begin{figure*}
 	\centering
@@ -55,16 +55,27 @@ This indicates that we are likely to have unrealistic angles since these do not 
 \end{figure*}
 
 
-\section{Side-chain handling}
+\section{Collision handling}
+With the backbone in place the side-chain rotamers are chosen such that the number of collisions is minimized.
+There is a correlation between the average number of collisions in a fitted protein and how well we are able to fit it to the backbone. 
+For small RMSDs, the number of collisions is around 1 per 75 amino acids.
+	%Thus, collisions are more likely to occur in large proteins.
+
+In Figure \ref{fig:plot_scp} we have plotted the average number of collisions after SCP as a function of the number of initial collisions.
+In our experience, the collision avoidance algorithm is working quite efficiently reducing the number of collisions in a protein from 10 to 1 on average.
+We have performed a visual inspection on the remaining collisions and the majority of the collisions is caused by either: 
+1. A proline amino acid is given an unfavorable set of $\phi$ and $\psi$ angles such that the backbone will collide with all of the proline rotamers.
+2. The backbone is folded unfavorably such that the amino acids too close making side-chain collisions inevitable
+Thus, both problems are caused by a deficient fitting algorithm.
+
+Varying the search depth parameter for the SCP algorithm has little effect for depths over 3.
+When the search depth is below 3 we see that the number of resolved collisions drops.
+
 \label{sec:evaluation_handling_side-chains}
 \begin{figure}
 	\centering
-	\hspace*{-3.5mm}\includegraphics[width=1.1\columnwidth]{figures/plot_collisions}
-	\caption{The number of total collisions }
+	\hspace*{-3.5mm}\includegraphics[width=1.1\columnwidth]{figures/plot_scp}
+	\caption{SCP performance: The average number of collisions as a function of the number of initial collision. The fluctuations in the right half of the plot is caused by noise.}
+	\label{fig:plot_scp}
 \end{figure}
-
-
-%TODO billede af foldet backbone med \Ca trace
-%TODO plot, x: antal kollisioner før fiksning, y: antal kollisioner efter fiksning
-
 

@@ -82,7 +82,7 @@ public class Bender {
 //				&& (actualCollisionsAfterElimination > 0)) {//
 //						|| rmsd > .5)) {
 
-			boolean reverse = false;//repetition % 2 == 1;
+			boolean reverse = repetition % 2 == 1;
 			repetition++;
 			if (reverse) {
 				aaIterator = aaSeqReverse.listIterator();
@@ -173,8 +173,8 @@ public class Bender {
 			actualCollisionsAfterElimination = countCollisions(p);
 
 			rmsd = p.cATraceRMSD(trace);
-			BendingStats.print("      ["+rmsd
-//			System.out.print("  [" + rmsd 
+			//BendingStats.print("      ["+rmsd
+			System.out.print("  [" + rmsd 
 					+ ", [" + collisionsBeforeElimination
 					+ "," + actualCollisionsAfterElimination + "]],\n");
 		}

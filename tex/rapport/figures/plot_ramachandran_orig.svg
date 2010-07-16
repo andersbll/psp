@@ -12,7 +12,7 @@
    version="1.1"
    id="svg2"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="plot_ramachandran.svg">
+   sodipodi:docname="plot_ramachandran_orig.svg">
   <metadata
      id="metadata838">
     <rdf:RDF>
@@ -99,13 +99,11 @@
      showgrid="false"
      inkscape:zoom="0.472"
      inkscape:cx="587.99486"
-     inkscape:cy="163.98915"
+     inkscape:cy="562.96786"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g6512"
-     showguides="true"
-     inkscape:guide-bbox="true" />
+     inkscape:current-layer="svg2" />
   <g
      id="g6512"
      transform="translate(76.332623,8.6061289)">
@@ -5096,7 +5094,7 @@
        id="text6504"
        y="1119.0679"
        x="558.05066"
-       style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+       style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro Italic"
        xml:space="preserve"><tspan
          y="1119.0679"
          x="558.05066"
@@ -5106,7 +5104,7 @@
        id="text6508"
        y="522.96399"
        x="-65.796623"
-       style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+       style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:Adobe Garamond Pro Italic"
        xml:space="preserve"><tspan
          y="522.96399"
          x="-65.796623"

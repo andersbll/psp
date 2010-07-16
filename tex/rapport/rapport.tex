@@ -162,7 +162,7 @@
 
 
 %DOCUMENT INFO
-\title{\vspace{-1cm}
+\title{\vspace{-1.5cm}
   Fitting an All-atom Protein Model to a $C_\alpha$-trace\\
 }
 \author{
@@ -204,9 +204,9 @@
   we use an already folded $C_\alpha$-trace as target. The strategy
   divides the problem into two separate tasks.
 
-  The first task is to build the protein backbone with all its all
-  atoms, not only \Ca-atoms and fit it to the $C_\alpha$-trace we get
-  as input. Our implementation of this uses inverse kinematics to ...
+  The first task is to build the all-atom protein backbone with the given $C_\alpha$-trace as target. To solve the inverse kinematics problem of adjusting the backbone structure we use cyclic coordinate descent on consecutive overlapping windows within the backbone.
+  Typically we are able to reach an RMSD less than 0.2 Å.
+
 
   The second task is to position side-chains on the backbone and
   selecting side-chain conformations in way that minimizes the number
@@ -214,7 +214,7 @@
   simple solution that iteratively goes through the amino acid trying
   to eliminate eventual collisions one at a time. The collision
   avoidance algorithm is on average reducing the number of collisions
-  in proteins from 10 to 1.  \vspace{1cm}
+  in proteins from 10 to around 1.  \vspace{1.5cm}
 \end{onecolabstract}
 ]
 \tableofcontents*
@@ -222,7 +222,7 @@
 \newpage
 
 
-\hspace{0.5cm}\includegraphics[width=0.4\textwidth]{figures/forside.png}
+\hspace*{1.3cm}\includegraphics[width=0.4\textwidth]{figures/forside.png}
 
 %\listoffixmes
 
@@ -250,6 +250,20 @@
 \input{future_work}
 
 \chapter{Conclusion}
+In this report we have investigated a strategy for predicting the native structure of proteins including all atoms from an already folded $C_\alpha$-trace as target. 
+We have decomposed the problem into two separate subtasks:
+Fitting the all-atom backbone to the given \Ca-trace and selecting side-chain rotamers while minimizing the number of collisions.
+
+We have devised our own variant of the CCD method to solve the inverse kinematics problem of fitting the backbone structure to the given \Ca-trace. 
+Typically we are able to reach an RMSD less than 0.2 Å.
+
+For the problem of positioning side-chains on the backbone and
+selecting side-chain conformations with few or no collisions, we use
+simple algorithm that iteratively goes through the amino acid trying
+to eliminate eventual collisions one at a time. We have experienced reductions in the number of collision in proteins that on average goes from 10 to around 1.
+
+
+
 
 \defbibheading{bibliography}[\bibname]{
  \chapter{#1}

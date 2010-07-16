@@ -72,12 +72,13 @@ interact if there is a path between them). Large clusters cant be
 solved efficiently, but they a cluster can be partitioned if there
 exists what is called \textit{keystone vertices}
 or\textit{articulation points} a which when removed breaks the graph
-into two seperate subgraphs. For each rotamer of the keystone residue
+into two separate subgraphs. For each rotamer of the keystone residue
 the two subproblems can be solved. The rotamer of the keystone residue
 which results in the lowest amount of free energy for the complete
 cluster. Remark here that they use energies to evaluate the best
 rotamer where as we have limited us from dealing with energy functions
-and instead concentrate on the number of collisions.
+and instead concentrate on the number of collisions. This makes our
+problem considerably easier as rotamers with high energy states, can
 
 In addition to this central algorithm, SCWRL has further advantages
 over our algorithm. They use a lot of effort to delimit their search
@@ -89,6 +90,19 @@ between two Cysteine amino acids (only pairs of Cysteine residues can
 form disulfide bridges) from different places on the amino acid
 sequence but spatially near each other. A problem we limited ourselves
 from, from the beginning.
+
+C. L. Kingsford et al. \cite{kingsford2005solving} defines the problem
+in somewhat different way than the team behind SCWRL. Their graph
+representation contains vertices for each rotamer of each residue and
+they introduce weights on the graph that represents the energies it
+would incur to select the rotamer configuration represented by an
+edge. A solution to the problem is a selection of rotamers, such that
+all has exactly one rotamer. They state this problem as a minimization
+problem that can be solved by linear programming. Their first attempt
+at solving the problem relaxes the integrality constraint on the
+rotamer selection. If this returns a solution where all values are
+integral they use that solution. Otherwise, they have to solve the
+harder, unrelaxed definition of the problem using integer programming.
 
 %%% Local Variables: 
 %%% mode: latex

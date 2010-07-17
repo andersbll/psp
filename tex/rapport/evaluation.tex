@@ -1,17 +1,17 @@
 To evaluate our solution we have performed experiments on a collection of 100 different proteins.
-The average protein length is 78.12 amino acids spanning between 11 and 415.
-The total running time of our fitting algorithm is around 2 minutes for the protein of length 415 on a 1.86GHz CPU.
+The average protein length is 78.12 spanning between 11 and 415 amino acids.
+The total running time of our fitting algorithm is around 2 minutes for the protein of length 415 on a 1.86GHz CPU (Intel Core 2 Duo, L9400).
 There should be ample room for code optimizations as this has not been the focus of the project.
 
 \section{Backbone fitting}
 When fitting a protein to a given \Ca-trace we are interested in minimizing the RMSD while avoiding collisions.
-In this section we will only consider the RMSD as the evaluation of our collision avoidance method  is delayed until Section \ref{sec:evaluation_handling_side-chains}. 
+In this section we will only consider the RMSD as the evaluation of our collision avoidance method  is postponed until Section \ref{sec:evaluation_handling_side-chains}. 
 
 Typically we are able to reach an RMSD less than 0.2 Å with our backbone fitting algorithm (Algorithm \ref{alg:ccd}).
 This is considered satisfactory by the algorithms group at our department.
 % We will wait until Sectionwill not consider the collision when evaluating the backbone fitting algorithm.
 %In this experiment we have let our algorithm perform the same amount of work for different window sizes (ie. for small $w$ the number of window repetitions is large and vice versa).
-\newpage\vspace*{-15mm}
+%\newpage\vspace*{-15mm}
 \subsection{Choice of window size}
 As our fitting method performs CCD on a window within the backbone it is interesting to investigate the effect when varying the window size $w$.
 Figure \ref{fig:rmsd_convergence} shows the RMSD for four different window sizes $w$ as we repeat the fitting algorithm one to ten times.
@@ -25,7 +25,7 @@ After the first iteration we see that a small window size allows the fitting met
 However, if $w$ is too small, the fitting does not improve as we repeat the algorithm.
 This is because the chosen angles from a small window are too greedy and find local solutions that lead to an unfavorable global backbone conformation.
 On the other hand if $w$ is too large, we see that the RMSD improves in each iteration but requires many iterations to reach a low RMSD.
-The problem is caused by the end-effector becoming too large such that there is no clear direction towards the target since all the elements of the end-effector must go in different directions to reach their separate targets.
+The problem is caused by the end-effector becoming too large such that there is no clear direction towards the target since all the elements of the end-effector might go in different directions to reach their separate targets.
 This results in small angular changes in each step of the CCD method and a slow RMSD convergence.
 Thus, in determining the window size we must strike a balance between small and flexible to get fast convergence and large with the ability to better capture the optimal global solution.
 To better illustrate the relationship between RMSD and $w$, the RMSD after 10 repetitions is plotted as a function of $w$ in Figure \ref{fig:rmsd_windowsize}.
@@ -61,11 +61,11 @@ There is a correlation between the average number of collisions in a fitted prot
 For small RMSDs, the number of collisions is around 1 per 75 amino acids.
 	%Thus, collisions are more likely to occur in large proteins.
 
-In Figure \ref{fig:plot_scp} we have plotted the average number of collisions after SCP as a function of the number of initial collisions.
-In our experience, the collision avoidance algorithm is working quite efficiently reducing the number of collisions in a protein from 10 to 1 on average.
+In Figure \ref{fig:plot_scp} we have plotted the average number of collisions after side-chain positioning (SCP) as a function of the number of initial collisions.
+In our experience, the collision avoidance algorithm is working quite efficiently reducing the number of collisions in a protein by a factor of ten on average .
 We have performed a visual inspection on the remaining collisions and the majority of the collisions is caused by either: 
 1. A proline amino acid is given an unfavorable set of $\phi$ and $\psi$ angles such that the backbone will collide with all of the proline rotamers.
-2. The backbone is folded unfavorably such that the amino acids too close making side-chain collisions inevitable
+2. The backbone is folded unfavorably such that the amino acids are placed too close making side-chain collisions inevitable
 Thus, both problems are caused by a deficient fitting algorithm.
 
 Varying the search depth parameter for the SCP algorithm has little effect for depths over 3.
@@ -79,3 +79,8 @@ When the search depth is below 3 we see that the number of resolved collisions d
 	\label{fig:plot_scp}
 \end{figure}
 
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rapport"
+%%% End: 

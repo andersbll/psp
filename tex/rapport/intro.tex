@@ -17,8 +17,8 @@ open problem.
 The building blocks of proteins are amino acids\footnote{A detailed
   introduction to the structure of proteins is found in
   \cite{branden}}. There are twenty different amino acids which all
-share a common structure. The type of amino acid is identified by an
-attached molecule called the side-chain. A protein consists of one or
+share a common structure. An attached molecule called the side-chain
+determines the type of the amino acid. A protein consists of one or
 several unbranched chains (polymers) of amino acids. The order of
 amino acids in such a chain is the primary structure of the protein.
 The structure diagram in Figure \ref{fig:amino_connect} shows how a
@@ -27,14 +27,15 @@ backbone with the side-chains is called the $C_\alpha$-atom. It is the
 torsional angles around the two bonds connecting $C_\alpha$-atoms with
 its neighbours ($N-C_\alpha$ and $C_\alpha-C'$), that contributes with
 the highest variability to the determination of the protein structure
-(see Section \ref{chap:protein_geometry}). Thus, when solving the
-structure prediction problem it is possible to cut down
-the problem by using a model that describes the protein solely by its
-$C_\alpha$-atoms. Such a sequence of $C_{\alpha}$ atoms is called a
-$C_{\alpha}$-trace (see Figure \ref{fig:Calpha_backbone}). This is
-also the representation used by the algorithms group at our department
-and they have therefore requested a method for subsequently adding the
-remaining atoms to their model.
+(see Section \ref{chap:protein_geometry}). These two angles are named
+$\phi$ and $\psi$ respectively. Thus, it is possible to simplify the
+structure prediction problem by using a model that describes the
+protein solely by its $C_\alpha$-atoms. Such a sequence of
+$C_{\alpha}$ atoms is called a $C_{\alpha}$-trace (see Figure
+\ref{fig:Calpha_backbone}). This is also the representation used by
+the algorithms group at our department and they have therefore
+requested a method for subsequently adding the remaining atoms to
+their model.
 
 In Section \ref{chap:protein_geometry} we will describe the geometry
 of the protein backbone and its side-chains in detail.
@@ -53,7 +54,7 @@ of the protein backbone and its side-chains in detail.
     \includegraphics[width=0.48\textwidth]{figures/amino_connect}  
     \label{fig:amino_connect}
   }
-  \caption{(a) $C_{\alpha}$-trace. (b) All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains}
+  \caption{\textbf{(a)} $C_{\alpha}$-trace. \textbf{(b)} All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains}
 \end{figure}
 
 \section{Protein structure prediction}
@@ -65,9 +66,9 @@ stable conformation where the free energy is minimized. This
 conformation is known as the native structure of the
 protein. Determining it computationally is the problem of protein
 structure prediction. Thus, protein structure prediction is an energy
-minimization problem. In despite of this, we will not use any energy
+minimization problem. Despite of this, we will not use any energy
 measure to determine the structure and instead use other measures (see
-Section \ref{sec:eval-predictions} below).
+the section below).
 
 % Why simplifications are necessary to make the problem
 % computationally feasible.
@@ -93,18 +94,19 @@ comparison measure between protein conformations is needed. The most
 widely used comparison measure is \textit{least root mean square
   deviation}, lRMSD. RMSD is based on the distances between
 corresponding atoms in the two protein conformations under comparison.
-If $\vec{A}$ and $\vec{B}$ are two different conformations of the same
-protein, where $\vec{a}_i$ and $\vec{b}_i$ are the respective
+If $\v{A}$ and $\v{B}$ are two different conformations of the same
+protein, where $\v{a}_i$ and $\v{b}_i$ are the respective
 coordinates of atom $i$ in the two structures, RMSD can be computed
 by:
 \begin{equation}
   \label{eq:rmsd}
-  D(\vec{A}, \vec{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\vec{a}_i - \vec{b}_i|^2}
+  \text{RMSD}(\v{A}, \v{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\v{a}_i - \v{b}_i|^2}
 \end{equation}
-To compute lRMSD, the RMSD has to be minimized by rotation and
-translation of the two conformations. That is, to compute lRMSD, an
+To compute lRMSD, the RMSD is minimized by rotation and
+translation of the two conformations. That is, an
 \textit{optimal superpositioning} of the conformations is found and
-RMSD is computed.
+RMSD is computed. In the rest of the report we will refer to lRMSD as
+just RMSD.
 
 We will use lRMSD as a replacement for doing energy calculations, as
 we can use it to determine how close our current prediction is to the
@@ -130,12 +132,11 @@ such that it minimizes the number of clashes and at the same time
 minimizes the deviation from the target $C_\alpha$-trace.
 
 We consider our fitting problem as two somewhat separate problems.
-First, the backbone must be fitted to the \Ca-trace, only minimizing
-the deviation to the $C_{\alpha}$-trace.  Hereafter, the amino acid
-side-chains are added to the backbone changing the backbone
-conformation only if necessary.  In the following we have chosen to
+First, the backbone must be fitted to the \Ca-trace by minimizing
+the deviation from the $C_{\alpha}$-trace.  Hereafter, the amino acid
+side-chains are added to the backbone.  In the following we have chosen to
 consider these two tasks separately even though the residue handling
-will cause changes in the backbone.
+might cause changes in the backbone.
 
 In Section \ref{chap:fitting_backbone}, we will describe the strategy we use to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
 In Section \ref{chap:handling_sidechains}, we will explain how we add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.

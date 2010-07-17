@@ -1,19 +1,14 @@
-The first part of our all-atom fitting algorithm is to fit the protein backbone to the given \Ca-trace ignoring side-chain conformations.
+The first part of our all-atom fitting algorithm is concerned about fitting the protein backbone to the given \Ca-trace ignoring side-chain conformations.
 
 As input we are given a \Ca-trace target and a protein in form of an amino acid sequence.
 Only the amino acid types are provided; no spatial structure information about the protein is given as this is left to the fitting algorithm to find.
 
-
-\section{Limitations}
-The adjustable parameters in a protein backbone structure consists of bond angles, dihedral angles and bond lengths.
-As the dihedral angles are by far the most influential parameters we allow ourselves to perform the simplification of not considering bond lengths and bond angles.
-More specifically, we will only adjust the $\phi$ and $\psi$ angles on the atom bonds between \Ca-C and \Ca-N.
-For all other parameters we use known constants that approximate the average backbone structure.
+As discussed in the previous section, we use the obtained average values for bond lengths and bond angles.
 Thus, the protein backbone to be folded becomes a sequence of identical amino acid backbones that can only be modified by adjusting $\phi$ and $\psi$ for each amino acid.
 
 
 \section{Inverse kinematics}
-With the above limitations in place the backbone fitting problem can be regarded as an \emph{inverse kinematics} (IK) problem.
+The backbone fitting problem can be regarded as an \emph{inverse kinematics} (IK) problem.
 IK is the process of determining angles of joints in a chain of rigid links in order to make the end of the linked chain reach a desired position in space.
 The end of the the linked chain is called the \emph{end-effector}.
 
@@ -23,7 +18,7 @@ Our backbone fitting problem is not an ordinary IK problem since we have multipl
 To simplify the problem, we can separately consider each backbone \Ca\ as an end-effector that must reach its corresponding target \Ca.
 In this way the problem is decomposed into many small IK problems.
 However, this simplification is not entirely valid as the entire backbone cannot be fitted by solving many local problems.
-For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca\ well to its target, but in such a way that the next \Ca\ in the backbone cannot come close to its target.
+For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca\ to its target, but in such a way that the next \Ca\ in the backbone cannot come close to its target.
 Therefore, a good solution should take global context into account when solving IK problems locally. 
 
 %An IK problem may have multiple solutions depending on the number of degrees of freedom (DOF) given by the adjustable angles.
@@ -44,9 +39,9 @@ positions of both chain ends must be locked. In these problems the
 chains are also often relatively small (typically 4-14 amino acids),
 
   
-Shenkin et al. describe a Jacobian solution in which the partial derivatives model the movement of the end of the kinematic chain relative to the angular changes, \cite{shenkin1987}.
+Shenkin et al. describe a Jacobian solution in which the partial derivatives model the movement of the end-effector relative to the angular changes, \cite{shenkin1987}.
 To calculate the necessary angular changes the Jacobian is simply inverted.
-The method then works iteratively by calculating the angular changes and adjusting the angles correspondingly in each step in order to move the end effector towards its target.
+The method then works iteratively by calculating the angular changes and adjusting the angles correspondingly in each step in order to move the end-effector towards its target.
 %Moreover, the method is capable of handling lower limit constraints on interatomic distances between the end.
 
 The Jacobian approach has one downside according to Canutescu and Dunbrack
@@ -54,18 +49,18 @@ The Jacobian approach has one downside according to Canutescu and Dunbrack
 If the Jacobian matrix is close to singular by coincidence, the inversion is ill posed yielding unstable results.
 Instead, they propose a \emph{cyclic coordinate descent} (CCD) method.
 CCD decomposes the problem by solving one angle at a time wrt. the end-effector.
-1 DOF problems are simple and can be solved analytically.
+One degree of freedom (DOF) problems are simple and can be solved analytically.
 This is done repeatedly up the link chain, making the end-effector position converge towards the target.
 To give more realistic results, a Ramachandran probability map is used to determine if a proposed angle is acceptable. 
 It is claimed that their method has very fast performance. 
 However, the algorithm may fail to find solutions for short amino acid sequences.
 In \cite{boomsma2005full}, the CCD method is extended to include bond angles.
 
-Finally, Wedemeyer and Scheraga has proposed a method for solving loop closures with 3 amino acides (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial, \cite{wedemeyer1999exact}.
+Finally, Wedemeyer and Scheraga has proposed a method for solving loop closures with 3 amino acids (6 DOFs) in closed form by reducing the problem to extracting roots of a polynomial, \cite{wedemeyer1999exact}.
 
 
 \section{Cyclic coordinate descent}
-For the backbone fitting problem we have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (ie. it is easy to introduce algorithmic constraints).
+For the backbone fitting problem we have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (i.e. it is easy to introduce algorithmic constraints).
 
 In this section, we present a single step in the CCD method.
 Figure \ref{fig:ccd} illustrates the situation.
@@ -90,7 +85,7 @@ $$\overrightarrow{\text{O}_i\text{C}}'_{\alpha i} = \hat{\v{r}}_i||\v{r}_i||\cos
 And thus, $\v{d}_i$ is given by
 $$\v{d}_i =  \hat{\v{r}}_i||\v{r}_i||\cos\theta + \hat{\v{n}}_i||\v{r}_i||\cos\theta - \v{t}_i$$
 
-The rotation $\theta$ around $\v{a}$ is chosen such that the sum of square distances $S$ between the rotated end-effectors and their targets are minimized.
+The rotation $\theta$ around $\v{a}$ is chosen such that the sum of square distances $S$ between the rotated end-effector atoms and their separate targets is minimized.
 $$S=||\v{d}_1||^2+||\v{d}_2||^2+||\v{d}_3||^2$$
 with the square distance of $\v{d}_i$ given by
 \begin{eqnarray*}
@@ -124,8 +119,8 @@ If not, we shift the angle by $\pi$ to get the correct angle (the two angles are
 
 
 \section{Our solution}
-As discussed, the backbone fitting problem is different from the loop closure problem as the end-effector covers the entire backbone. 
-This means that we cannot solve each angle wrt. to the entire end-effector.
+As discussed, the backbone fitting problem is different from the loop closure problem as the end-effector in our case covers the entire backbone. 
+This means that we cannot solve each angle wrt. the entire end-effector.
 For a decomposition of the problem into local IK problems it is important that  the global solution is not worsened when solving a local problem.
 
 In our solution we perform CCD repeatedly on overlapping subsequences of the backbone.

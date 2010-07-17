@@ -194,7 +194,7 @@
 \begin{onecolabstract}
   \vspace{-0.2cm}
   Protein structure prediction can be simplified by using a model
-  that only includes few of the atoms actually present in proteins. In
+  that only includes a subset of the atoms present in proteins. In
   particular, the algorithms group at our department only predicts a
   folding of the $C_\alpha$-trace, and are thus excluding most
   backbone atoms and all side-chain molecules.
@@ -204,17 +204,20 @@
   we use an already folded $C_\alpha$-trace as target. The strategy
   divides the problem into two separate tasks.
 
-  The first task is to build the all-atom protein backbone with the given $C_\alpha$-trace as target. To solve the inverse kinematics problem of adjusting the backbone structure we use cyclic coordinate descent on consecutive overlapping windows within the backbone.
+  The first task is to build the all-atom protein backbone with the
+  given $C_\alpha$-trace as target. To solve the inverse kinematics
+  problem of adjusting the backbone structure we use cyclic coordinate
+  descent on consecutive overlapping windows within the backbone.
   Typically we are able to reach an RMSD less than 0.2 Å.
 
 
   The second task is to position side-chains on the backbone and
-  selecting side-chain conformations in way that minimizes the number
-  of collisions. As this is our only goal, we can suffice with a
-  simple solution that iteratively goes through the amino acid trying
-  to eliminate eventual collisions one at a time. The collision
-  avoidance algorithm is on average reducing the number of collisions
-  in proteins from 10 to around 1.  \vspace{1.5cm}
+  selecting side-chain conformations in a way that minimizes the
+  number of collisions. We have devised an algorithm that iteratively
+  goes through each amino acid eliminating eventual collisions when
+  possible. The collision avoidance algorithm is on average reducing
+  the number of collisions in proteins by a factor ten.
+  \vspace{1.5cm}
 \end{onecolabstract}
 ]
 \tableofcontents*
@@ -259,8 +262,8 @@ Typically we are able to reach an RMSD less than 0.2 Å.
 
 For the problem of positioning side-chains on the backbone and
 selecting side-chain conformations with few or no collisions, we use
-simple algorithm that iteratively goes through the amino acid trying
-to eliminate eventual collisions one at a time. We have experienced reductions in the number of collision in proteins that on average goes from 10 to around 1.
+a simple algorithm that iteratively goes through the amino acid trying
+to eliminate eventual collisions one at a time. We have experienced reductions in the number of collision in proteins by an average factor of ten.
 
 
 

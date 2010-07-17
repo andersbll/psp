@@ -1,17 +1,17 @@
-In this section we will deal with the problem of positioning side-chains
-on the protein and selecting side-chain conformations in a way that
-minimizes the number of collisions.
+In this section we will deal with the problem of positioning protein
+side-chains and selecting side-chain conformations such that
+the number of collisions is minimized.
 
 As we mentioned in Section \ref{chap:protein_geometry}, statistical
 analysis has shown that each type of amino acid side-chain has a small
-set of common conformations \cite{dunbrack2002rotamer}. A side-chain
+set of common conformations \cite{dunbrack2002rotamer}. A \textit{likely} side-chain
 conformation is a configuration of its $\chi$ angles and is called a
 \textit{rotamer}.
 
 There has been developed several \textit{rotamer libraries}
 \cite{dunbrack1997bayesian, lovell2000penultimate}, containing lists
 of the common rotamers for each side-chain together with a probability
-of each of those rotamer occuring in a protein. A comparison of some,
+of each of those rotamer occuring in any protein. A comparison of some,
 but not the most recent, rotamer libraries can be found in
 \cite{dunbrack2002rotamer}. We have selected to use the rotamer
 library made by Dunbrack et al. for the SCWRL side-chain
@@ -31,8 +31,8 @@ We have devised a simple algorithm for selecting side-chain rotamers,
 with the goal of minimizing the number of collisions between
 atoms. The first step of our algorithm is to apply the rotamer from the rotamer library
 with highest probability to each amino acid in the protein. After
-this, we go through each amino acid, this time trying to eliminate
-eventual collisions. The search for collisionless rotamers can be
+this, we go through each amino acid, this time eliminate
+eventual collisions when possible. The search path for collisionless rotamers can be
 described by a tree, that represents the eventual collisions occuring
 for each choice of rotamer for the amino acids. On Figure
 \ref{fig:rotamer-search-tree} we have illustrated such a tree, for the
@@ -46,14 +46,15 @@ with both \textit{c} and \textit{d}.
 We use a breadth-first search through the tree, visiting each level
 down to some maximum depth. The edges are followed in order of
 rotamer-probability, such that the most probable rotamer are visited
-first (left-to right on the figure). We continue through the tree
+first (left-to right in the figure). We continue through the tree
 until a solution (grey node in the figure) is found or the maximum
-depth is reached. In the example on figure, we can eliminate the
-collision by using rotamer $1$ for amino acid \textit{a} and rotamer
-$3$ amino acid \textit{b}. In cases where an amino acid collides with
-more than one other amino acid, we stop as soon one of the collisions
-is solved and postpone the solution of the remaining collisions to we
-reach one of the collidees we haven't handled.
+depth is reached. In the example in Figure
+\ref{fig:rotamer-search-tree}, we can eliminate the collision by using
+rotamer $1$ for amino acid \textit{a} and rotamer $3$ amino acid
+\textit{b}. In cases where an amino acid collides with more than one
+other amino acid, we stop as soon one of the collisions is solved and
+postpone the solution of the remaining collisions to we reach one of
+the collidees we have not handled.
 
 %% Hvornår kigger vi på rotameren som /a/ startede ud med at have?
 
@@ -68,41 +69,42 @@ representing that there currently is a collision, the graph has edges
 between two amino acids if they \textit{could} collide by applying
 certain rotamers on either or both of the amino acids. This graph can
 be used to find clusters of interacting residues (two residues can
-interact if there is a path between them). Large clusters cant be
-solved efficiently, but they a cluster can be partitioned if there
-exists what is called \textit{keystone vertices}
-or\textit{articulation points} a which when removed breaks the graph
-into two separate subgraphs. For each rotamer of the keystone residue
-the two subproblems can be solved. The rotamer of the keystone residue
-which results in the lowest amount of free energy for the complete
-cluster. Remark here that they use energies to evaluate the best
-rotamer where as we have limited us from dealing with energy functions
-and instead concentrate on the number of collisions. This makes our
-problem considerably easier as rotamers with high energy states, can
+interact if there is a path between them). Large clusters can not be
+solved efficiently, but a cluster can be partitioned if there exists
+what is called \textit{keystone vertices} or \textit{articulation
+  points} which when removed breaks the graph into two separate
+subgraphs. For each rotamer of the keystone residue the two
+subproblems can be solved. The rotamer of the keystone residue which
+results in the lowest amount of free energy for the complete cluster,
+is selected for the amino acid. Remark here that they use energies to
+evaluate the best rotamer whereas we have limited us from dealing
+with energy functions and instead concentrate on the number of
+collisions.
 
 In addition to this central algorithm, SCWRL has further advantages
 over our algorithm. They use a lot of effort to delimit their search
 space e.g. by removing rotamers with high self-energy from the set of
-possible rotamers, where as we haven't focused at all on performance
+possible rotamers, whereas we have not focused at all on performance
 in our implementation. SCWRL also tries to resolve whether any
 collisions can be transformed into disulfide bridges, which are bonds
-between two Cysteine amino acids (only pairs of Cysteine residues can
-form disulfide bridges) from different places on the amino acid
-sequence but spatially near each other. A problem we limited ourselves
-from, from the beginning. 
+between two cysteine amino acids from different places on the amino
+acid sequence but spatially near each other (only pairs of cysteine
+residues can form disulfide bridges). We limited ourselves from this
+problem from the beginning.
 
 C. L. Kingsford et al. \cite{kingsford2005solving} defines the problem
-in somewhat different way than the team behind SCWRL. Their graph
+in a somewhat different way than the team behind SCWRL. Their graph
 representation contains vertices for each rotamer of each residue and
 they introduce weights on the graph that represents the energies it
 would incur to select the rotamer configuration represented by an
 edge. A solution to the problem is a selection of rotamers, such that
-all has exactly one rotamer. They state this problem as a minimization
+all amino acids has exactly one rotamer. They state this problem as a minimization
 problem that can be solved by linear programming. Their first attempt
 at solving the problem relaxes the integrality constraint on the
-rotamer selection. If this returns a solution where all values are
-integral they use that solution. Otherwise, they have to solve the
-harder, unrelaxed definition of the problem using integer programming.
+rotamer selection, which can be solved by linear programming. If this
+does not return a solution where all values are integral they have to
+solve the harder, unrelaxed definition of the problem using integer
+programming.
 
 %%% Local Variables: 
 %%% mode: latex

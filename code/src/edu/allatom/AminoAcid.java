@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
+import edu.allatom.Atom.Type;
 import edu.math.Matrix;
 import edu.math.Point;
 import edu.math.TransformationMatrix3D;
@@ -147,7 +148,9 @@ public class AminoAcid {
 					possibleCollisions = aa.allatoms.values();
 				}
 				check: for(Atom a : possibleCollisions) {
+					if(a.type==Type.H) continue;
 					for(Atom b : allatoms.values()) {
+						if(b.type==Type.H) continue;
 						if(a.collides(b)) {
 							collidees.add(aa);
 							break check;
@@ -248,7 +251,12 @@ public class AminoAcid {
 		// Rotate all atoms affected by the change in chi-angle
 		Collection<String> atomsToRotate = getChiAffectedAtoms(angleNumber, type);
         for(String name : atomsToRotate) {
+//        	System.out.println(name + " " + type);
             Atom a = getAtomByLabel(atoms, name);
+            if(a==null) {
+            	// TODO: THIS IS SOME TRICK ASS SHIZZLE
+            	continue;
+            }
             a.position = rotation.applyTo(new Vector(a.position));
 		}
 	}

@@ -26,9 +26,11 @@ sequence of amino acids is connected. The carbon atom connecting the
 backbone with the side-chains is called the $C_\alpha$-atom. It is the
 torsional angles around the two bonds connecting $C_\alpha$-atoms with
 its neighbours ($N-C_\alpha$ and $C_\alpha-C'$), that contributes with
-the highest variability to the determination of the protein structure
+the highest variability to the protein structure
 (see Section \ref{chap:protein_geometry}). These two angles are named
-$\phi$ and $\psi$ respectively. Thus, it is possible to simplify the
+$\phi$ and $\psi$ respectively. 
+
+It is possible to simplify the
 structure prediction problem by using a model that describes the
 protein solely by its $C_\alpha$-atoms. Such a sequence of
 $C_{\alpha}$ atoms is called a $C_{\alpha}$-trace (see Figure
@@ -61,8 +63,8 @@ of the protein backbone and its side-chains in detail.
 The chemical stability of a protein molecule is determined by the
 amount of free energy in its structure. It is hypothesized
 (\textit{Anfinsens dogma} or the \textit{thermodynamic hypothesis},
-\cite{anfinsen73, soundararajan2010}) that all proteins has a unique
-stable conformation where the free energy is minimized. This
+\cite{anfinsen73, soundararajan2010}) that all proteins have a unique
+stable conformation where the free energy is minimal. This
 conformation is known as the native structure of the
 protein. Determining it computationally is the problem of protein
 structure prediction. Thus, protein structure prediction is an energy
@@ -87,7 +89,7 @@ group at our department.
 \label{sec:eval-predictions}
 %http://cnx.org/content/m11608/latest/
 To determine the quality of prediction algorithms, predicted
-structures of a test proteins can be compared with the actual known
+structures of a test protein can be compared with the actual known
 structure of that protein. The known structure of such test proteins
 are obtained by other means (e.g. X-ray crystallography).  Thus a
 comparison measure between protein conformations is needed. The most
@@ -135,8 +137,9 @@ We consider our fitting problem as two somewhat separate problems.
 First, the backbone must be fitted to the \Ca-trace by minimizing
 the deviation from the $C_{\alpha}$-trace.  Hereafter, the amino acid
 side-chains are added to the backbone.  In the following we have chosen to
-consider these two tasks separately even though the residue handling
-might cause changes in the backbone.
+consider these two tasks separately.
+%However, as we shall see in Section \ref{sec:evaluation_handling_side-chains}, the performance of our residue handling depends heavily on the backbone fitting.
+ % (even though the residue handling might require us to adjust the backbone).
 
 In Section \ref{chap:fitting_backbone}, we will describe the strategy we use to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
 In Section \ref{chap:handling_sidechains}, we will explain how we add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.

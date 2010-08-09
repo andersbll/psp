@@ -14,58 +14,100 @@ public class BendingStats {
 	static PrintWriter file;
 
 	public static void main(String[] args) {
+		rotamerBenderStats();
+	}
+	
+	public static void benderStats(String[] args) {
+	int i = Integer.parseInt(args[0]);
+	System.out.println(i);
+	try {
+		file = new PrintWriter(new FileWriter("./bendingstats"+i+".py"));
+		RotamerLibrary.loadDunbrach("bbind02.May.lib");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return;
+	}
+//	print("bending_stats = [\n");
 
-		int i = Integer.parseInt(args[0]);
-		System.out.println(i);
+//	for (int i = 0; i <= 23; i++) {
+		Bender.WINDOW_SIZE = 2 + i;
+		Bender.WINDOW_REPETITIONS = 25 - i;
+
+		print("  ["+Bender.ROTAMER_SEARCH_DEPTH
+				+ "," + Bender.WINDOW_SIZE
+				+ "," + Bender.WINDOW_REPETITIONS+",[\n");
+
+		Protein p;
+		File path = new File("./pdb/");
+		for (File f : path.listFiles()) {
+			if (!f.toString().endsWith(".pdb")) {
+				continue;
+			}
+			// System.out.println("PROTEIN:: " + f.toString());
+			try {
+				p = PDBParser.parseFile(f.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+
+			List<AminoAcidType> typeTrace = AminoAcid
+					.makeTypeTrace(p.aaSeq);
+			LinkedList<Atom> trace = p.getCAlphaTrace();
+			String proteinName = f.getName();
+			proteinName = proteinName.substring(0, proteinName
+					.lastIndexOf('.'));
+			print("    ['" + proteinName + "'," + trace.size() + ",[\n");
+			Bender.bendProteinBackbone(Protein
+					.getUncoiledProtein(typeTrace), trace, null);
+			print("    ]],\n");
+
+		}
+		print("  ]],\n");
+//	}
+//	print("]\n");
+	file.close();
+}
+	public static void rotamerBenderStats() {
+
+	    File dir = new File("./pdb_crap/");
 		try {
-			file = new PrintWriter(new FileWriter("./bendingstats"+i+".py"));
+			file = new PrintWriter(new FileWriter("./bendingstats.py"));
 			RotamerLibrary.loadDunbrach("bbind02.May.lib");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-//		print("bending_stats = [\n");
-
-//		for (int i = 0; i <= 23; i++) {
-			Bender.WINDOW_SIZE = 2 + i;
-			Bender.WINDOW_REPETITIONS = 25 - i;
-
-			print("  ["+Bender.ROTAMER_SEARCH_DEPTH
-					+ "," + Bender.WINDOW_SIZE
-					+ "," + Bender.WINDOW_REPETITIONS+",[\n");
-
 			Protein p;
-			File path = new File("./pdb/");
+			File path = new File("./pdbs_large/");
 			for (File f : path.listFiles()) {
 				if (!f.toString().endsWith(".pdb")) {
 					continue;
 				}
-				// System.out.println("PROTEIN:: " + f.toString());
 				try {
 					p = PDBParser.parseFile(f.toString());
 				} catch (Exception e) {
+					f.renameTo(new File(dir, f.getName()));
 					e.printStackTrace();
-					return;
+					continue;
 				}
-
-				List<AminoAcidType> typeTrace = AminoAcid
-						.makeTypeTrace(p.aaSeq);
-				LinkedList<Atom> trace = p.getCAlphaTrace();
 				String proteinName = f.getName();
 				proteinName = proteinName.substring(0, proteinName
 						.lastIndexOf('.'));
-				print("    ['" + proteinName + "'," + trace.size() + ",[\n");
-				Bender.bendProteinBackbone(Protein
-						.getUncoiledProtein(typeTrace), trace, null);
-				print("    ]],\n");
+				print("    ['" + proteinName + "'," + p.aaSeq.size() + ",");
+				try {
+					Bender.bendRotamers(p);
+				} catch (Exception e) {
+					f.renameTo(new File(dir, f.getName()));
+					print("skinke");					
+				}
+				print("],\n");
 
 			}
-			print("  ]],\n");
-//		}
-//		print("]\n");
 		file.close();
 	}
 
+	
 	public static void print(String s) {
 		file.print(s);
 		file.flush();

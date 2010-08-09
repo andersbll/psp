@@ -167,8 +167,8 @@ public class Bender {
 					}
 				}
 			}
-			int collisionsBeforeElimination = countCollisions(p);
 
+			int collisionsBeforeElimination = countCollisions(p);
 			searchForRotamers(p);
 			actualCollisionsAfterElimination = countCollisions(p);
 
@@ -178,6 +178,24 @@ public class Bender {
 					+ ", [" + collisionsBeforeElimination
 					+ "," + actualCollisionsAfterElimination + "]],\n");
 		}
+	}
+	
+	public static void bendRotamers(Protein p) {
+		int initialCollisions= countCollisions(p);
+		for (AminoAcid aa : p.aaSeq) {
+			aa.applyRotamer(RotamerLibrary.mostLikelyRotamer(aa.type));
+		}
+
+		int collisionsBeforeElimination = countCollisions(p);
+		searchForRotamers(p);
+		int actualCollisionsAfterElimination = countCollisions(p);
+
+		System.out.print(" (" + initialCollisions
+				+ "," + collisionsBeforeElimination
+				+ "," + actualCollisionsAfterElimination + ")");
+//		if(actualCollisionsAfterElimination>0) {
+//			System.out.print("  HOLY CRAP");
+//		}
 	}
 
 	public static int countCollisions(Protein p) {
@@ -365,6 +383,7 @@ public class Bender {
 		}
 		depth--;
 		if (depth == 0) {
+//			System.out.println("shite "+aa.type);
 			return false;
 		}
 		// hvis der stadig er kollisioner spørger vi naboerne

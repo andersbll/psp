@@ -23,6 +23,10 @@ print len(collisions_before_after)
 collisions_before_after[37].append(2.5)
 maxcollisions = 0
 
+coll_aa_count = 0;
+coll_bef = 0;
+coll_aft = 0;
+
 for rotamer_depth, window_size, window_repetitions, proteins in bending_stats:	
 	print window_size, window_repetitions
 	rmsd_avg = 0
@@ -40,6 +44,12 @@ for rotamer_depth, window_size, window_repetitions, proteins in bending_stats:
 		collisions += min([collisions_before for _,(collisions_before,_) in iterations])
 #		for rmsd,_ in iterations:
 		rmsd_convergence = [rmsd_convergence[i]+iterations[i][0] for i in range(0,len(iterations))]
+		for rmsd,(before,after) in iterations:
+			if rmsd < .1:
+				coll_aa_count += length;
+				coll_bef += before;	
+				coll_aft += after;
+
 
 	rmsd_avg /= stats_size
 	rmsd_convergence = [a/stats_size for a in rmsd_convergence]
@@ -49,7 +59,10 @@ for rotamer_depth, window_size, window_repetitions, proteins in bending_stats:
 	rmsd_convergence_data.append(rmsd_convergence)
 #	print rmsd_convergence
 
+coll_bef = float(coll_aa_count)/coll_bef;	
+coll_aft = float(coll_aa_count)/coll_aft;
 
+print 'collisions before:',coll_bef,'  after:',coll_aft, '  improvement',(coll_aft/coll_bef)
 	
 print maxcollisions,'woop', len(collisions_before_after[1])
 xticks = range(1,len(rmsd_data)+1)

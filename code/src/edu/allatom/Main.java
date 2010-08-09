@@ -18,11 +18,12 @@ public class Main {
 		Renderer renderer = new Renderer();
 
 		String pdbfile;
-//		pdbfile = "pdb/1UAO.pdb"; // meget lille
+		pdbfile = "pdb/1UAO.pdb"; // meget lille
+		pdbfile = "pdb/1CSY.pdb"; // meget lille
 //		pdbfile = "pdb/2JOF.pdb"; // lille
 //		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
-		pdbfile = "pdb/16PK.pdb"; // grande
+//		pdbfile = "pdb/16PK.pdb"; // grande
 		
 //		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
 //		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus
@@ -42,12 +43,16 @@ public class Main {
 			System.out.println("Dunbrach library file not found!");
 			return;
 		}
-		
+
+		Bender.bendRotamers(p);
+		int initialCollisions= Bender.countCollisions(p);
+		System.out.println("Initial collisions: "+initialCollisions);
+		renderProtein(renderer,p);
 //		neatSidechainStatisticsStuff(renderer, p);
-		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
-		LinkedList<Atom> trace = p.getCAlphaTrace();
-////		renderUncoiledProtein(renderer,typeTrace);
-		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
+//		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
+//		LinkedList<Atom> trace = p.getCAlphaTrace();
+//////		renderUncoiledProtein(renderer,typeTrace);
+//		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 
 //		renderer.addToScene(trace);
 //		renderProtein(renderer, p);
@@ -75,6 +80,7 @@ public class Main {
 		Bonder.bondAtoms(p);
 		renderer.addToScene(p);
 		renderer.render();
+		renderCollisions(renderer, p);
 	}
 
 	private static void renderCollisions(Renderer renderer, Protein p) {
@@ -107,7 +113,8 @@ public class Main {
 		// So we rotate and push the protein around to make it a problem
 		renderer.addToScene(trace);
 		renderer.addToScene(p);
-		Bender.bendProteinBackbone(p, trace, renderer);
+		Bender.bendRotamers(p);
+//		Bender.bendProteinBackbone(p, trace, renderer);
 		System.out.println(p.cATraceRMSD(trace));
 		Statistics.dumpRamachandranSVGPlot(p, "ramachandran.svg");
 		renderCollisions(renderer, p);

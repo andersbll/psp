@@ -21,37 +21,44 @@ predictor\footnote{We use the latest release from 15th May 2002. The
 
 \section{Our approach}
 \begin{figure}
-	\centering
-	\includegraphics[width=.9\columnwidth]{figures/rotamersearch}
-	\caption{The structure of our rotamer search space when eliminating
+    \centering
+    \includegraphics[width=.9\columnwidth]{figures/rotamersearch}
+    \caption{The structure of our rotamer search space when eliminating
       collisions with the amino acid \textit{a}.}
     \label{fig:rotamer-search-tree}
 \end{figure}
-We have devised a simple algorithm for selecting side-chain rotamers,
-with the goal of minimizing the number of collisions between
-atoms. The first step of our algorithm is to apply the rotamer from the rotamer library
-with highest probability to each amino acid in the protein. After
-this, we go through each amino acid, this time eliminate
-eventual collisions when possible. The search path for collisionless rotamers can be
-described by a tree, that represents the eventual collisions occuring
-for each choice of rotamer for the amino acids. On Figure
-\ref{fig:rotamer-search-tree} we have illustrated such a tree, for the
+We have devised a simple algorithm for the rotamer selection problem.
+The first step of our algorithm is to decide on an initial state with
+as few collisions to handle as possible. We obtain this by
+initializing the amino acids with their most propable rotamer from the
+rotamer library. The algorithm then iterates through the amino acids
+and solves \textit{local} collision problems. That is, we search for a
+rotamer configuration that can eliminate collisions involving the
+current amino acid or at least reduce the number of collidees. We can
+illustrate this search for collisionless rotamers by a tree that
+represents the eventual collisions occuring for each choice of rotamer
+for the current amino acid and choice of rotamers for its
+collidees. On Figure
+\ref{fig:rotamer-search-tree} we have shown such a tree, for the
 situation where we want to remove collisions with a single amino acid,
 \textit{a}. Each vertex represents an amino acid and each edge
 represents a collision between the node and its child. The names on
-the edges represents rotamers of the node above. For example, when
-the rotamer $3$ is applied to amino acid \textit{a}, \textit{a} collides
-with both \textit{c} and \textit{d}.
+the edges represents rotamers of the node above. For example, when the
+rotamer $3$ is applied to amino acid \textit{a}, \textit{a} collides
+with both \textit{c} and \textit{d} and no matter which of the three
+available rotamers for \textit{d} that is used, \textit{d} will always
+collide with \textit{a}. A solution is found when the application of a
+rotamer to an amino acid has no collidees. For example, we can
+eliminate the collision in the figure by using rotamer $1$ for amino
+acid \textit{a} and rotamer $3$ for amino acid
+\textit{b}. The solution is marked with grey in the figure.
+We use a breadth-first search through this tree, visiting
+each level down to some maximum depth. The edges are followed in order
+of rotamer-probability, such that the most probable rotamer are
+visited first (left-to right in the figure). We continue through the
+tree until a solution is found or the maximum depth is reached.
 
-We use a breadth-first search through the tree, visiting each level
-down to some maximum depth. The edges are followed in order of
-rotamer-probability, such that the most probable rotamer are visited
-first (left-to right in the figure). We continue through the tree
-until a solution (grey node in the figure) is found or the maximum
-depth is reached. In the example in Figure
-\ref{fig:rotamer-search-tree}, we can eliminate the collision by using
-rotamer $1$ for amino acid \textit{a} and rotamer $3$ amino acid
-\textit{b}. In cases where an amino acid collides with more than one
+In cases where an amino acid collides with more than one
 other amino acid, we stop as soon one of the collisions is solved and
 postpone the solution of the remaining collisions to we reach one of
 the collidees we have not handled.

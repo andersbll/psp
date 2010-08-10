@@ -6,7 +6,6 @@ As input we are given a \Ca-trace target and a protein in form of an amino acid 
 As discussed in the previous section, we use the obtained average values for bond lengths and bond angles.
 Thus, the protein backbone to be folded becomes a sequence of identical amino acid backbones that can only be modified by adjusting $\phi$ and $\psi$ for each amino acid.
 
-
 \section{Inverse kinematics}
 The backbone fitting problem can be regarded as an \emph{inverse kinematics} (IK) problem.
 IK is the process of determining angles of joints in a chain of rigid links in order to make the end of the linked chain reach a desired position in space.
@@ -30,7 +29,7 @@ Therefore, a good solution should take global context into account when solving 
 %As we have decided not to consider the bond angles (joint angles), the only adjustable angles in the kinematic chain are the dihedral angles around the atom bonds between \Ca-C and \Ca-N.
 
 
-\section{Related work}
+\subsection{Literature Study on IK}
 Several IK solving methods exist and have been utilized in protein
 structure prediction.  However, these methods are mainly concerning
 the \emph{loop closure} problem \cite{coutsias2004kinematic} which
@@ -172,8 +171,17 @@ Thus, if the first two amino acids have been placed unfortunately this will be f
 %To accommodate the foll Therefore, we use the CCD method differently than   above cannot be applied directly to our problem.
 
 
-
-
+\section{Related Work}
+The problem of fitting an all-atom backbone to a \Ca-trace has been
+investigated before. Bassolini and Bruccoleri
+\cite{bassolino1992application} describes a solution that makes a
+non-exhaustive search through the space of possible conformations of
+the backbone (at some particular resolution). They evaluate three
+different strategies for pruning the search space. Like us, they use
+RMSD as quality measure and reports RMSDs of 0.3-0.87 Å when they
+apply their method on proteins from PDB. Just as \cite{canutescu2003},
+which we mentioned in our literature study above, they use a
+Ramachandran probability map to select acceptable angles.
 
 
 

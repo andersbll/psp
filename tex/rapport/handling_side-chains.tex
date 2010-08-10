@@ -23,8 +23,12 @@ predictor\footnote{We use the latest release from 15th May 2002. The
 \begin{figure}
     \centering
     \includegraphics[width=.9\columnwidth]{figures/rotamersearch}
-    \caption{The structure of our rotamer search space when eliminating
-      collisions with the amino acid \textit{a}.}
+    \caption{The structure of our rotamer search space when
+      eliminating collisions with the amino acid \textit{a}. Edges
+      represents collisions and they are labelled with the rotamer
+      that performed the collision. Following the path from \texit{a}
+      to the grey node and applying the rotamers represented by edges
+      will resolve the collision.
     \label{fig:rotamer-search-tree}
 \end{figure}
 We have devised a simple algorithm for the rotamer selection problem.
@@ -38,7 +42,7 @@ current amino acid or at least reduce the number of collidees. We can
 illustrate this search for collisionless rotamers by a tree that
 represents the eventual collisions occuring for each choice of rotamer
 for the current amino acid and choice of rotamers for its
-collidees. On Figure
+collidees. In Figure
 \ref{fig:rotamer-search-tree} we have shown such a tree, for the
 situation where we want to remove collisions with a single amino acid,
 \textit{a}. Each vertex represents an amino acid and each edge

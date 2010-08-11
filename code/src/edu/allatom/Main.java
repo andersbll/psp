@@ -20,6 +20,8 @@ public class Main {
 		String pdbfile;
 		pdbfile = "pdb/1UAO.pdb"; // meget lille
 		pdbfile = "pdb/1CSY.pdb"; // meget lille
+		pdbfile = "pdbs_large/1ENW.pdb"; // meget lille
+//		pdbfile = "scwrl_out/scwrl_1ENW.pdb"; // meget lille
 //		pdbfile = "pdb/2JOF.pdb"; // lille
 //		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
 //		pdbfile = "pdb/2WU9.pdb"; // grande
@@ -44,7 +46,7 @@ public class Main {
 			return;
 		}
 
-		Bender.bendRotamers(p);
+//		Bender.bendRotamers(p);
 		int initialCollisions= Bender.countCollisions(p);
 		System.out.println("Initial collisions: "+initialCollisions);
 		renderProtein(renderer,p);

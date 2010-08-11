@@ -21,22 +21,22 @@ public class PDBParser {
 		String data = sb.toString();
 		
 		// get first model data
-		int firstModelStart = data.indexOf("\nMODEL ");
-		int secondModelStart = data.indexOf("\nMODEL ", firstModelStart + 1);
-		int terminator = data.indexOf("\nTER ");
-		int endmdl = data.indexOf("\nENDMDL ");
+		int firstModelStart = data.lastIndexOf("\nMODEL ");
+//		int secondModelStart = data.indexOf("\nMODEL ", firstModelStart + 1);
+//		int terminator = data.indexOf("\nTER");
+//		int endmdl = data.indexOf("\nENDMDL ");
 
 		// If we don't know where to end, just consume everything
 		int end = data.length();
+//
+//		if(secondModelStart != -1 && secondModelStart < end)
+//			end = secondModelStart;
 
-		if(secondModelStart != -1 && secondModelStart < end)
-			end = secondModelStart;
-
-		if(terminator != -1 && terminator < end)
-			end = terminator;
-
-		if(endmdl != -1 && endmdl < end)
-			end = endmdl;
+//		if(terminator != -1 && terminator < end)
+//			end = terminator;
+//
+//		if(endmdl != -1 && endmdl < end)
+//			end = endmdl;
 
 		if (firstModelStart ==-1 ) {
 			// if no MODEL exist, just begin from first atom

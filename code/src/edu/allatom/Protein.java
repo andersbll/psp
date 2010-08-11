@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import edu.allatom.Atom.Type;
 import edu.geom3D.Sphere;
 import edu.math.Line;
 import edu.math.Matrix;
@@ -61,6 +63,79 @@ public class Protein {
 		d = Math.sqrt(d);
 		return d;
 	}
+
+	public double RMSD(Protein otherProtein) {
+		assert(otherProtein.aaSeq.size() != aaSeq.size());
+		if(otherProtein.aaSeq.size() != aaSeq.size()) {
+			System.out.println("ikke samme proteinlængde");
+			return 0;
+		}
+		double d = 0;
+		int numAtoms = 0;
+		for(int i=0; i<aaSeq.size(); i++) {
+			AminoAcid aa = aaSeq.get(i);
+			AminoAcid otherAA = otherProtein.aaSeq.get(i);
+			assert(aa.type == otherAA.type);
+			if(aa.type != otherAA.type) {
+				System.out.println("ikke samme aa-type  "+aa.type+" vs. "+otherAA.type);
+			}
+			Set<String> atomLabels = aa.allatoms.keySet();
+			for(String l : atomLabels) {
+				Atom a = aa.getAtom(l);
+				if(a.type == Type.H) {
+					continue;
+				}
+				Atom otherA = otherAA.getAtom(l);
+				if(otherA==null) {
+					System.out.println("Av!");
+					continue;
+				}
+				double dx = a.position.x() - otherA.position.x();
+				double dy = a.position.y() - otherA.position.y();
+				double dz = a.position.z() - otherA.position.z();
+				d += dx*dx + dy*dy + dz*dz;
+				numAtoms++;
+			}
+		}
+		d /= (double)numAtoms;
+		d = Math.sqrt(d);
+		return d;
+	}
+
+	public double minRMSD(Protein otherProtein) {
+		assert(otherProtein.aaSeq.size() != aaSeq.size());
+		if(otherProtein.aaSeq.size() != aaSeq.size()) {
+//			System.out.println("ikke samme proteinlængde");
+			return -1;
+		}
+		List<Vector> trace1 = new LinkedList<Vector>();
+		List<Vector> trace2 = new LinkedList<Vector>();
+		for(int i=0; i<aaSeq.size(); i++) {
+			AminoAcid aa = aaSeq.get(i);
+			AminoAcid otherAA = otherProtein.aaSeq.get(i);
+			assert(aa.type == otherAA.type);
+			if(aa.type != otherAA.type) {
+//				System.out.println("ikke samme aa-type  "+aa.type+" vs. "+otherAA.type);
+				return -1;
+			}
+			Set<String> atomLabels = aa.allatoms.keySet();
+			for(String l : atomLabels) {
+				Atom a = aa.getAtom(l);
+				if(a.type == Type.H) {
+					continue;
+				}
+				Atom otherA = otherAA.getAtom(l);
+				if(otherA==null) {
+					System.out.println("Av!");
+					continue;
+				}
+				trace1.add(new Vector(a.position));
+				trace2.add(new Vector(otherA.position));
+			}
+		}
+		return Superposition.minRMSD(trace1, trace2);
+	}
+
 	
 	/* Bond lengths */
 	private static final float LENGTH_C_O = 1.2259989f;

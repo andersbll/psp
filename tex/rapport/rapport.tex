@@ -215,8 +215,7 @@
   selecting side-chain conformations in a way that minimizes the
   number of collisions. We have devised an algorithm that iteratively
   goes through each amino acid eliminating eventual collisions when
-  possible. The collision avoidance algorithm is on average reducing
-  the number of collisions in proteins by a factor ten.
+  possible. On realistic protein backbones the collision avoidance algorithm is able to reduce the number of collisions to 1 every 4700 amino acids in a protein sequence.
   \vspace{1.5cm}
 \end{onecolabstract}
 ]
@@ -263,7 +262,11 @@ Typically we are able to reach an RMSD less than 0.2 Å.
 For the problem of positioning side-chains on the backbone and
 selecting side-chain conformations with few or no collisions, we use
 a simple algorithm that iteratively goes through the amino acid trying
-to eliminate eventual collisions one at a time. We have experienced reductions in the number of collision in proteins by an average factor of ten.
+to eliminate eventual collisions one at a time. 
+On protein backbones fitted to \Ca-traces, the collision avoidance algorithm is able to reduce the number of collisions to 1 every 500 amino acids.
+On realistic protein backbones the collisions are reduced to 1 every 4700 amino acids.
+Compared to a state of the art method, our algorithm performs decently when measuring the ability to avoid collisions.
+In terms of RMSD our algorithm performs worse than the state of the art method.
 
 
 %\defbibheading{bibliography}[\bibname]{

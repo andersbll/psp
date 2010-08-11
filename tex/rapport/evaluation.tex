@@ -62,7 +62,7 @@ This is beyond the scope of the project.
 
 Since not all proteins in our collection contain hydrogen atoms (these are omitted if the resolution of the X-ray crystallography used to determine the protein structure is too low), we ignore all hydrogen atoms when counting collisions.
 Instead, we have increased the collision distance accordingly.
-The collision distance we used in the following is 1.25 Å.
+The collision distance used in the following is 1.25 Å.
 
 \subsection{Collision handling with fitted backbones}
 After having fitted the protein backbone to a \Ca-trace, the side-chain rotamers are chosen as described in Section \ref{chap:handling_sidechains} such that the number of collisions is minimized.
@@ -72,7 +72,7 @@ After SCP, the number of collisions is brought down to 1 every 500 amino acids.
 	%Thus, collisions are more likely to occur in large proteins.
 
 In Figure \ref{fig:plot_scp} we have plotted the average number of collisions after SCP as a function of the number of initial collisions.
-In our experience, the collision avoidance algorithm is working quite efficiently reducing the number of collisions in a protein by a factor of ten on average. \fixme{det er snarere en faktor 7 (skal også fikses i abstract)}
+In our experience, the collision avoidance algorithm is working quite efficiently reducing the number of collisions in a fitted protein by a factor of ten on average. %\fixme{det er snarere en faktor 7 (skal også fikses i abstract)}
 We have performed a visual inspection on the remaining collisions and the majority of the collisions is caused by either: 
 1. A proline amino acid is given an unfavorable set of $\phi$ and $\psi$ angles such that the backbone will collide with all of the proline rotamers.
 2. The backbone is folded unfavorably such that the amino acids are placed too close making side-chain collisions inevitable.
@@ -85,7 +85,7 @@ When the search depth is below 3 we see that the number of resolved collisions d
 \begin{figure}
 	\centering
 	\hspace*{-3.5mm}\includegraphics[width=1.1\columnwidth]{figures/plot_scp}
-	\caption{SCP performance: The average number of collisions as a function of the number of initial collision. The fluctuations in the right half of the plot is caused by noise.}
+	\caption{SCP performance on a backbone fitted to a \Ca-trace. The average number of collisions as a function of the number of initial collision. The fluctuations in the right half of the plot are caused by noise.}
 	\label{fig:plot_scp}
 \end{figure}
 
@@ -94,11 +94,23 @@ To verify our claim that the collisions are caused by an unfavorable backbone fo
 That is, we are only adjusting side-chain conformations on protein backbones extracted from \url{http://www.pdb.org}. 
 
 With realistic backbone, we get significantly better results.
-In a collections of 383 proteins with an average length of 215 amino acids, we have approximately 1 collision every 7500 amino acids after SCP.
+In a collections of 383 proteins with an average length of 215 amino acids, we have approximately 1 collision every 4700 amino acids after SCP.
 A visual inspection reveals that the remaining collisions are caused by the rotamer library not being flexible enough since these collisions could be avoided by small modifications of the $\chi$ angles.
 
 
-\section{Comparison with SCWRL}
+\section{Comparison with SCWRL4}
+Comparing our simple SCP algorithm to a state of the art side-chain prediction program such as SCWRL4 (the latest version of SCWRL) gives the following results.
+
+With the previously described collection of 383 proteins, SCWRL achieves an RMSD of 1.54 Å compared to the true original proteins. 
+Our SCP algorithms performs worse and gives an RMSD of 1.82 Å.
+This is not alarming, since SCWRL is far more advanced and mature than our algorithm. 
+
+Interestingly, our algorithm outperforms SCWRL in terms of molecule collisions.
+SCWRL gives 1 collision for every 1700 amino acids on average which is worse than our result (1 every 4700 amino acid).
+This result is most likely due to the fact that the collision measure used to check collisions is also used by our SCP algorithm.
+SCWRL uses a different and more complicated measure based on van der Waals forces.
+Nevertheless, this result indicates that our SCP algorithm is effective for collision avoidance. 
+
 
 %%% Local Variables: 
 %%% mode: latex

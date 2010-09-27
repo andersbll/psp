@@ -6,17 +6,18 @@
 \usepackage{url}
 \usepackage{listings}
 \usepackage{graphicx}
-\usepackage{soul}
+%\usepackage{soul}
 
 %FONT
-\usepackage{palatino}              % font : palatino
-\linespread{1.05}                  % Palatino needs more leading (space between lines)
-\usepackage[sc]{mathpazo}
+\usepackage{bera}
+\usepackage[garamond]{mathdesign}
+\renewcommand{\rmdefault}{ugm} % garamond
+\renewcommand{\sfdefault}{ugm} % sans-serif font
+
 
 \title{Fitting an All-atom Protein Model to a $C_{\alpha}$-trace}
-\subtitle{}
 
-\author{Martin Dybdal \and Anders Boesen Lindbo Larsen \and Esben Skaarup}
+\author{\small Martin Dybdal \and Anders Boesen Lindbo Larsen \and Esben Skaarup}
 
 \institute{\textrm{Datalogisk Institut, Københavns Universitet}}
 \date{\today}
@@ -44,11 +45,10 @@
 \frame{\titlepage}
 
 % Martin
-\section{Intro}
-\subsection{bla}
+\section{Introduction}
+\subsection{Protein structure}
 \begin{frame}[t, fragile]
-  \frametitle{bla} 
-  \framesubtitle{subtitle}
+  \frametitle{Protein structure prediction}
 
   \begin{block}{blok}
     a

@@ -18,11 +18,11 @@
 \renewcommand{\sfdefault}{ugm} % sans-serif font
 
 
-\title{Fitting an All-atom Protein Model to a $C_{\alpha}$-trace}
+\title{Fitting an All-atom Protein Model to a C$_{\alpha}$-trace}
 
 \author{\small Martin Dybdal \and Anders Boesen Lindbo Larsen \and Esben Skaarup}
 
-\institute{\textrm{Datalogisk Institut, Københavns Universitet}}
+\institute{\textrm{Department of Computer Science, University of Copenhagen}}
 \date{\today}
 
 \mode<presentation>
@@ -72,13 +72,13 @@
 \end{frame}
 
 \begin{frame}[t, fragile]
-  \frametitle{From $C_\alpha$-trace to an all-atom model}
+  \frametitle{From C$_\alpha$-trace to an all-atom model}
   \begin{columns}
     \column{5cm}
   \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{../rapport/figures/forside.png}
-    \caption{Fitting of an all-atom model to a $C_\alpha$-trace}
+    \caption{Fitting of an all-atom model to a C$_\alpha$-trace}
     \label{fig:front}
   \end{figure}
 
@@ -94,7 +94,7 @@
   \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{../rapport/figures/Calpha_backbone.pdf}
-    \caption{$C_\alpha$-trace}
+    \caption{C$_\alpha$-trace}
     \label{fig:front}
   \end{figure}
   \end{columns}
@@ -187,7 +187,7 @@ Minimizing RMSD by translation and rotation gives an \textit{optimal
   superpositioning} of the two structures and the RMSD at this point
 is called the lRMSD.\\\vspace{0.5cm}
 
-We only include $C_\alpha$-atoms and use RMSD as a quality measure
+We only include C$_\alpha$-atoms and use RMSD as a quality measure
 which we minimize by performing $\phi$ and $\psi$ rotations.
 
   
@@ -202,7 +202,7 @@ which we minimize by performing $\phi$ and $\psi$ rotations.
 \begin{columns}[c]
 \column{2.3in}
 \\\vspace*{4mm}
-\textbf{Problem:} Given an unfolded protein and a $C_\alpha$-trace, we want to restructure the protein such that the RMSD from the $C_\alpha$-trace is minimal.
+\textbf{Problem:} Given an unfolded protein and a C$_\alpha$-trace, we want to restructure the protein such that the RMSD from the C$_\alpha$-trace is minimal.
 \\\vspace*{4mm}
 \textbf{Solution:} Inverse kinematics! Different flavors of IK algorithms have been applied to protein folding.
 \\\vspace*{8mm}

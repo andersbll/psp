@@ -218,7 +218,7 @@ which we minimize by performing $\phi$ and $\psi$ rotations.
 \\\vspace*{8mm}
 We use cyclic coordinate descent.
 \column{2in}
-	\vspace*{4mm}
+	\vspace*{2mm}
 	\includegraphics[width=2in]{../rapport/figures/forside.png}
 \end{columns}
 \end{frame}
@@ -242,15 +242,36 @@ Cyclic coordinate descent has the advantage of being fast, numerically stable, f
 \frametitle{Backbone fitting} 
 \framesubtitle{Windowed cyclic coordinate descent}
 \begin{columns}[c]
-\column{3in}
+\column{2.2in}
 \begin{center}
 \vspace*{-6mm}
-\includegraphics[width=2.5in]{ccd}
+\hspace*{-4mm}
+\includegraphics[width=2.3in]{ccd}
 \end{center}
-\column{2.0in}
+
+\column{2.4in}
+CCD on proteins
+\vspace*{3mm}
 \begin{itemize}
-\item 
+\item Must use multipoint \emph{end-effector} to avoid local optimas.
+
+\item Angles are chosen to minimize the sum of distances between C$_\alpha$ in the window.
+$$S=||\v{d}_1||+||\v{d}_2||+||\v{d}_3||$$
+
+\item Iterates in both directions
 \end{itemize}
+
+%In 3D with a multipoint \emph{end-effector}, the CCD algorithm is more complex 
+%\item 3D
+%\item Multipoint \emph{end-effector}
+
+\vspace*{4mm}
+\footnotesize{
+\hspace*{-2.8cm}
+Adjusting an angle with a 
+\\\hspace*{-2.8cm}
+CCD window size $w=3$
+}
 \end{columns}
 \end{frame}
 

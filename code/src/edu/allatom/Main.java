@@ -18,9 +18,9 @@ public class Main {
 		Renderer renderer = new Renderer();
 
 		String pdbfile;
-		pdbfile = "pdb/1UAO.pdb"; // meget lille
-		pdbfile = "pdb/1CSY.pdb"; // meget lille
-		pdbfile = "pdbs_large/1ENW.pdb"; // meget lille
+//		pdbfile = "pdb/1UAO.pdb"; // meget lille
+//		pdbfile = "pdb/1CSY.pdb"; // meget lille
+//		pdbfile = "pdbs_large/1ENW.pdb"; // meget lille
 //		pdbfile = "scwrl_out/scwrl_1ENW.pdb"; // meget lille
 //		pdbfile = "pdb/2JOF.pdb"; // lille
 //		pdbfile = "pdb/2KQ6.pdb"; // 78 amino acids
@@ -29,7 +29,7 @@ public class Main {
 		
 //		pdbfile = "pdb/1CTF_3.6.pdb"; // rasmus
 //		pdbfile = "pdb/2CRO_2.9.pdb"; // rasmus
-//		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
+		pdbfile = "pdb/2CRO_6.2.pdb"; // rasmus
 		
 		Protein p;
 		try {
@@ -47,13 +47,13 @@ public class Main {
 		}
 
 //		Bender.bendRotamers(p);
-		int initialCollisions= Bender.countCollisions(p);
-		System.out.println("Initial collisions: "+initialCollisions);
-		renderProtein(renderer,p);
+//		int initialCollisions= Bender.countCollisions(p);
+//		System.out.println("Initial collisions: "+initialCollisions);
+//		renderProtein(renderer,p);
 //		neatSidechainStatisticsStuff(renderer, p);
-//		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
-//		LinkedList<Atom> trace = p.getCAlphaTrace();
-//////		renderUncoiledProtein(renderer,typeTrace);
+		List<AminoAcidType> typeTrace = AminoAcid.makeTypeTrace(p.aaSeq);
+		LinkedList<Atom> trace = p.getCAlphaTrace();
+		renderUncoiledProtein(renderer,typeTrace);
 //		rendAndBend(renderer, Protein.getUncoiledProtein(typeTrace), trace);
 
 //		renderer.addToScene(trace);

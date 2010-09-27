@@ -6,6 +6,9 @@
 \usepackage{url}
 \usepackage{listings}
 \usepackage{graphicx}
+%\usepackage{multicol} 
+
+\usepackage{booktabs}
 %\usepackage{soul}
 
 %FONT
@@ -19,11 +22,11 @@
 % \usepackage{algorithm}
 % \usepackage[noend]{algpseudocode}
 
-\title{Fitting an All-atom Protein Model to a $C_{\alpha}$-trace}
+\title{Fitting an All-atom Protein Model to a C$_{\alpha}$-trace}
 
 \author{\small Martin Dybdal \and Anders Boesen Lindbo Larsen \and Esben Skaarup}
 
-\institute{\textrm{Datalogisk Institut, Københavns Universitet}}
+\institute{\textrm{Department of Computer Science, University of Copenhagen}}
 \date{\today}
 
 \mode<presentation>
@@ -43,6 +46,7 @@
 \usenavigationsymbolstemplate{} % fjern navigation
 
 \setcounter{tocdepth}{1}
+\renewcommand\v[1]{\boldsymbol{#1}}
 
 \begin{document}
 
@@ -51,23 +55,243 @@
 % Martin
 \section{Introduction}
 \subsection{Protein structure}
+
 \begin{frame}[t, fragile]
-  \frametitle{Protein structure prediction}
+  \frametitle{Protein Structure Prediction}
+  \textbf{Proteins} are functional molecules of the body, that perform a
+    multitude of tasks. For example, blood transport and metabolism.
+\\\vspace*{2mm}
+\textbf{The thermodynamical hypothesis:} All proteins have a unique
+    stable conformation with minimal free energy.
+\\\vspace*{2mm}
+\textbf{Protein Structure Prediction} is to computationally
+    determine this native structure from a given amino acid sequence.
 
-  \begin{block}{blok}
-    a
-  \end{block}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{psp.pdf}
+    \end{center}
+%   \item is a more general term than \textit{Protein Folding}, which denotes a
+%     simulation of the entire folding process.
+%   \item will have many applications in medicine and biotechnology.
+\end{frame}
 
-  \pause
+\begin{frame}[t, fragile]
+  \frametitle{From C$_\alpha$-trace to an all-atom model}
+  \begin{columns}
+    \column{5cm}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../rapport/figures/forside.png}
+    \caption{Fitting of an all-atom model to a C$_\alpha$-trace}
+    \label{fig:front}
+  \end{figure}
 
-  \begin{itemize}
-    \item 1
-    \item 2
-  \end{itemize}
+  \column{5cm}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../rapport/figures/amino_connect.pdf}
+    \caption{All-atom model}
+    \label{fig:front}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../rapport/figures/Calpha_backbone.pdf}
+    \caption{C$_\alpha$-trace}
+    \label{fig:front}
+  \end{figure}
+  \end{columns}
+\end{frame}
+
+\section{Protein Geometry}
+\subsection{Protein Geometry}
+\begin{frame}[t, fragile]
+  \frametitle{Protein Geometry}
+  \framesubtitle{Needed measures}
+  
+  \vspace{0.5cm}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../rapport/figures/protein-torsion-angles.pdf}
+    \caption{Bond angles, bond lengths and torsion angles}
+    \label{fig:front}
+  \end{figure}
 
 \end{frame}
 
+\begin{frame}[t, fragile]
+  \frametitle{Protein Geometry}
+  \framesubtitle{Measured values}
+
+\vspace{-0.5cm}
+  \begin{columns}
+ \column{5.5cm}
+\begin{table}
+  \centering
+  \begin{tabular}{lrr}
+    \toprule
+    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
+    C-O   & 1.2260 Å & 0.0188 Å\\
+    CA-C  & 1.5272 Å & 0.0191 Å\\
+    N-CA  & 1.4680 Å & 0.0237 Å\\
+    C-N   & 1.3234 Å & 0.0215 Å\\
+    N-H   & 0.9793 Å & 0.0342 Å\\
+    CA-CB & 1.5327 Å & 0.0228 Å\\
+    CA-HA & 1.0747 Å & 0.0307 Å\\ \bottomrule
+  \end{tabular}
+  \vspace{1mm}
+  \caption{Average bond lengths}
+  \label{tab:average_bond_lengths}
+\end{table}
+
+\column{5.5cm}
+\begin{table}
+  \centering
+  \begin{tabular}{lrr}
+    \toprule
+    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
+    H-N-CA & $118.9553^\circ$ & $1.9979^\circ$\\
+    N-CA-C & $110.6099^\circ$ & $2.4668^\circ$\\
+    CA-C-O & $120.7088^\circ$ & $1.3064^\circ$\\
+    CA-C-N & $116.7804^\circ$ & $1.7682^\circ$\\
+    C-N-CA & $121.4547^\circ$ & $1.9946^\circ$\\
+    C-N-H  & $119.5112^\circ$ & $2.1599^\circ$\\ \bottomrule
+  \end{tabular}
+  \vspace{1mm}
+  \caption{Average bond angles}
+  \label{tab:average_bond_angles}
+\end{table}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t, fragile]
+  \frametitle{Amino-acid geometry}
+  \vspace{0.5cm}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{../rapport/figures/lysine.pdf}
+    \caption{$\chi$-angles on Lysine}
+    \label{fig:front}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[t, fragile]
+  \frametitle{RMSD as quality measure}
+  
+  \textbf{RMSD} is a distance measure between corresponding atoms in two structures:
+\begin{displaymath}
+  \label{eq:rmsd}
+  \text{RMSD}(\v{A}, \v{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\v{a}_i - \v{b}_i|^2}
+\end{displaymath}
+
+Minimizing RMSD by translation and rotation gives an \textit{optimal
+  superpositioning} of the two structures and the RMSD at this point
+is called the lRMSD.\\\vspace{0.5cm}
+
+We only include C$_\alpha$-atoms and use RMSD as a quality measure
+which we minimize by performing $\phi$ and $\psi$ rotations.
+
+  
+\end{frame}
+
 % Anders
+\section{Backbone fitting}
+\subsection*{}
+\begin{frame}[t, fragile]
+  \frametitle{Backbone fitting} 
+%  \framesubtitle{subtitle}
+\begin{columns}[c]
+\column{2.3in}
+\\\vspace*{4mm}
+\textbf{Problem:} Given an unfolded protein and a C$_\alpha$-trace, we want to restructure the protein such that the RMSD from the C$_\alpha$-trace is minimal.
+\\\vspace*{4mm}
+\textbf{Solution:} Inverse kinematics! Different flavors of IK algorithms have been applied to protein folding.
+\\\vspace*{8mm}
+We use cyclic coordinate descent.
+\column{2in}
+	\vspace*{4mm}
+	\includegraphics[width=2in]{../rapport/figures/forside.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t, fragile]
+\frametitle{Backbone fitting} 
+\framesubtitle{Cyclic coordinate descent}
+\begin{figure}
+	\centering
+	\includegraphics[width=4.3in]{ccd2d}
+	\caption{Example of cyclic coordinate descent in 2D.}
+\end{figure}
+\vspace*{2mm}
+Cyclic coordinate descent has the advantage of being fast, numerically stable, flexible and simple to implement.
+\end{frame}
+
+
+
+
+\begin{frame}[t, fragile]
+\frametitle{Backbone fitting} 
+\framesubtitle{Windowed cyclic coordinate descent}
+\begin{columns}[c]
+\column{3in}
+\begin{center}
+\vspace*{-6mm}
+\includegraphics[width=2.5in]{ccd}
+\end{center}
+\column{2.0in}
+\begin{itemize}
+\item 
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t, fragile]
+\frametitle{Backbone fitting} 
+\framesubtitle{Results}
+\begin{columns}[c]
+\column{2in}
+\centering
+Original\\
+\includegraphics[width=1\columnwidth]{plot_rmsd}
+
+\column{2in}
+\centering
+Fitted backbone\\
+\hspace*{-.4cm}\includegraphics[width=1\columnwidth]{plot_rmsd_convergence}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[t, fragile]
+\frametitle{Backbone fitting} 
+\framesubtitle{Results}
+
+Ramachandran plots are somewhat similar.
+
+\vspace*{2mm}
+\begin{columns}[c]
+\column{1.7in}
+\centering
+\begin{small}Original backbone\end{small}
+\\
+\hspace*{-.33cm}\includegraphics[width=1.7in]{plot_ramachandran_orig}
+
+\column{1.7in}
+\centering
+\begin{small}Fitted backbone\end{small}
+\\
+\hspace*{-.4cm}\includegraphics[width=1.7in]{plot_ramachandran}
+\end{columns}
+\vspace*{2mm}
+
+More realistic Ramachandran plots can be achieved by using a probability map to accept or reject proposed sets of $\phi$ and $\psi$ angles.
+%Ramachandran plot of (a) an original protein of length 415 (b) a protein backbone fitted to the original protein (RMSD = 0.15 Å).
+
+\end{frame}
+
 
 
 % Esben

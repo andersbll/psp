@@ -54,12 +54,21 @@
 
 \begin{frame}[t, fragile]
   \frametitle{Protein Structure Prediction}
-  \begin{itemize}
-  \item Determining protein structure from an amino acid sequence computationally.
-  \item A more general term than \textit{Protein Folding}, which denotes a
-    simulation of the entire folding process.
-  \item Will have many applications in medicine and biotechnology.
-  \end{itemize}
+  \textbf{Proteins} are functional molecules of the body, that perform a
+    multitude of tasks. For example, blood transport and metabolism.
+\\\vspace*{2mm}
+\textbf{The thermodynamical hypothesis:} All proteins have a unique
+    stable conformation with minimal free energy.
+\\\vspace*{2mm}
+\textbf{Protein Structure Prediction} is to computationally
+    determine this native structure from a given amino acid sequence.
+
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{psp.pdf}
+    \end{center}
+%   \item is a more general term than \textit{Protein Folding}, which denotes a
+%     simulation of the entire folding process.
+%   \item will have many applications in medicine and biotechnology.
 \end{frame}
 
 \begin{frame}[t, fragile]
@@ -167,15 +176,20 @@
 
 \begin{frame}[t, fragile]
   \frametitle{RMSD as quality measure}
-  \begin{itemize}
-  \item Distance measure between all atoms in two structures.
-
+  
+  \textbf{RMSD} is a distance measure between corresponding atoms in two structures:
 \begin{displaymath}
   \label{eq:rmsd}
   \text{RMSD}(\v{A}, \v{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\v{a}_i - \v{b}_i|^2}
 \end{displaymath}
-  \item We only include $C_\alpha$ atoms.
-  \end{itemize}
+
+Minimizing RMSD by translation and rotation gives an \textit{optimal
+  superpositioning} of the two structures and the RMSD at this point
+is called the lRMSD.\\\vspace{0.5cm}
+
+We only include $C_\alpha$-atoms and use RMSD as a quality measure
+which we minimize by performing $\phi$ and $\psi$ rotations.
+
   
 \end{frame}
 

@@ -7,6 +7,7 @@
 \usepackage{listings}
 \usepackage{graphicx}
 %\usepackage{multicol} 
+\usepackage[labelformat=empty,tableposition=above]{caption}
 
 \usepackage{booktabs}
 %\usepackage{soul}
@@ -39,6 +40,7 @@
   \usecolortheme[named=uofsgreen]{structure}
   \usefonttheme[onlylarge]{structuresmallcapsserif}
   \usefonttheme[onlysmall]{structurebold}
+	\useinnertheme{circles}
 }
 
 \logo{\includegraphics[height=1.5cm]{diku.png}}
@@ -57,14 +59,14 @@
 \subsection{Protein structure}
 
 \begin{frame}[t, fragile]
-  \frametitle{Protein Structure Prediction}
+  \frametitle{Protein structure prediction}
   \textbf{Proteins} are functional molecules of the body, that perform a
     multitude of tasks. For example, blood transport and metabolism.
 \\\vspace*{2mm}
 \textbf{The thermodynamical hypothesis:} All proteins have a unique
     stable conformation with minimal free energy.
 \\\vspace*{2mm}
-\textbf{Protein Structure Prediction} is to computationally
+\textbf{Protein structure prediction} is to computationally
     determine this native structure from a given amino acid sequence.
 
     \begin{center}
@@ -104,10 +106,10 @@
   \end{columns}
 \end{frame}
 
-\section{Protein Geometry}
-\subsection{Protein Geometry}
+\section{Protein geometry}
+\subsection{Protein geometry}
 \begin{frame}[t, fragile]
-  \frametitle{Protein Geometry}
+  \frametitle{Protein geometry}
   \framesubtitle{Needed measures}
   
   \vspace{0.5cm}
@@ -122,7 +124,7 @@
 \end{frame}
 
 \begin{frame}[t, fragile]
-  \frametitle{Protein Geometry}
+  \frametitle{Protein geometry}
   \framesubtitle{Measured values}
 
 \vspace{-0.5cm}
@@ -130,6 +132,7 @@
  \column{5.5cm}
   \centering
 \begin{table}
+  \caption{Average bond lengths}
 \begin{small}
   \begin{tabular}{lrr}
     \toprule
@@ -144,13 +147,13 @@
   \end{tabular}
 \end{small}
   \vspace{1mm}
-  \caption{Average bond lengths}
   \label{tab:average_bond_lengths}
 \end{table}
 
 \column{5.5cm}
 \begin{table}
   \centering
+  \caption{Average bond angles}
 \begin{small}
   \begin{tabular}{lrr}
     \toprule
@@ -164,7 +167,6 @@
   \end{tabular}
 \end{small}
   \vspace{1mm}
-  \caption{Average bond angles}
   \label{tab:average_bond_angles}
 \end{table}
 

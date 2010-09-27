@@ -42,6 +42,7 @@
 \usenavigationsymbolstemplate{} % fjern navigation
 
 \setcounter{tocdepth}{1}
+\renewcommand\v[1]{\boldsymbol{#1}}
 
 \begin{document}
 
@@ -53,7 +54,12 @@
 
 \begin{frame}[t, fragile]
   \frametitle{Protein Structure Prediction}
-  
+  \begin{itemize}
+  \item Determining protein structure from an amino acid sequence computationally.
+  \item A more general term than \textit{Protein Folding}, which denotes a
+    simulation of the entire folding process.
+  \item Will have many applications in medicine and biotechnology.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[t, fragile]
@@ -85,9 +91,11 @@
   \end{columns}
 \end{frame}
 
+\section{Protein Geometry}
+\subsection{Protein Geometry}
 \begin{frame}[t, fragile]
-  \frametitle{Protein structure}
-  \framesubtitle{Measures}
+  \frametitle{Protein Geometry}
+  \framesubtitle{Needed measures}
   
   \vspace{0.5cm}
 
@@ -101,8 +109,9 @@
 \end{frame}
 
 \begin{frame}[t, fragile]
-  \frametitle{Protein structure}
-  \framesubtitle{Measures}
+  \frametitle{Protein Geometry}
+  \framesubtitle{Measured values}
+
 \vspace{-0.5cm}
   \begin{columns}
  \column{5.5cm}
@@ -146,7 +155,27 @@
 \end{frame}
 
 \begin{frame}[t, fragile]
-  \frametitle{RMSD}
+  \frametitle{Amino-acid geometry}
+  \vspace{0.5cm}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{../rapport/figures/lysine.pdf}
+    \caption{$\chi$-angles on Lysine}
+    \label{fig:front}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[t, fragile]
+  \frametitle{RMSD as quality measure}
+  \begin{itemize}
+  \item Distance measure between all atoms in two structures.
+
+\begin{displaymath}
+  \label{eq:rmsd}
+  \text{RMSD}(\v{A}, \v{B}) = \sqrt{\frac{1}{n}\sum_{i=1}^n |\v{a}_i - \v{b}_i|^2}
+\end{displaymath}
+  \item We only include $C_\alpha$ atoms.
+  \end{itemize}
   
 \end{frame}
 

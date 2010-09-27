@@ -152,20 +152,33 @@
 
 % Anders
 \section{Backbone fitting}
+\subsection*{}
 \begin{frame}[t, fragile]
   \frametitle{Backbone fitting} 
 %  \framesubtitle{subtitle}
-\begin{center}
-	\includegraphics[width=.4\textwidth]{../rapport/figures/forside.png}
-\end{center}
+\begin{columns}[c]
+\column{2.3in}
+\textbf{Problem:} Given an unfolded protein and a $C_\alpha$-trace, we want to fold the protein such that the RMSD from the $C_\alpha$-trace is minimal.
+\\\vspace*{2mm}
+\textbf{Solution:} Inverse kinematics! Many flavors of IK methods have been applied to protein folding.
+\column{2in}
+	\vspace*{4mm}
+	\includegraphics[width=2in]{../rapport/figures/forside.png}
+\end{columns}
 \end{frame}
 
 \begin{frame}[t, fragile]
 \frametitle{Backbone fitting} 
-\framesubtitle{Cyclic coordinat descent}
+\framesubtitle{Cyclic coordinate descent}
+\begin{columns}[c]
+\column{3in}
 \begin{center}
-	\includegraphics[width=.45\textwidth]{ccd}
+\vspace*{-6mm}
+\includegraphics[width=2.5in]{ccd}
 \end{center}
+\column{2.0in}
+skinek
+\end{columns}
 \end{frame}
 
 \begin{frame}[t, fragile]
@@ -188,18 +201,30 @@ Fitted backbone\\
 \begin{frame}[t, fragile]
 \frametitle{Backbone fitting} 
 \framesubtitle{Results}
+
+Ramachandran plots are somewhat similar.
+
+\vspace*{2mm}
 \begin{columns}[c]
 \column{1.7in}
 \centering
-Original\\
-\hspace*{-.33cm}\includegraphics[width=1\columnwidth]{plot_ramachandran_orig}
+\begin{small}Original backbone\end{small}
+\\
+\hspace*{-.33cm}\includegraphics[width=1.7in]{plot_ramachandran_orig}
 
 \column{1.7in}
 \centering
-Fitted backbone\\
-\hspace*{-.4cm}\includegraphics[width=1\columnwidth]{plot_ramachandran}
+\begin{small}Fitted backbone\end{small}
+\\
+\hspace*{-.4cm}\includegraphics[width=1.7in]{plot_ramachandran}
 \end{columns}
+\vspace*{2mm}
+
+More realistic Ramachandran plots can be achieved by using a probability map to accept or reject proposed sets of $\phi$ and $\psi$ angles.
+%Ramachandran plot of (a) an original protein of length 415 (b) a protein backbone fitted to the original protein (RMSD = 0.15 Å).
+
 \end{frame}
+
 
 
 % Esben

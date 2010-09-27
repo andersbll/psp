@@ -302,7 +302,7 @@ More realistic Ramachandran plots can be achieved by using a probability map to 
 
 % Esben
 
-\section{Fitting side-chains}
+\section{Selecting rotamers}
 
 \subsection{dummy}
 \begin{frame}
@@ -435,8 +435,18 @@ More realistic Ramachandran plots can be achieved by using a probability map to 
 
 \subsection{dummy}
 \begin{frame}
-	\frametitle{Conclusion}
-	Det endte godt alligevel
+	\frametitle{Conclusion and Future Work}
+    \begin{itemize}
+    \item We have derived our own variant of the CCD method for the
+      problem of fitting our all-atom model to the C$_\alpha$-trace.
+    \item We typically reach a RMSD of less than 0.2 Å.
+    \item We successfully decomposed the problem into two separate
+      tasks. It could be interesting to adjust the backbone according
+      to side-chain collisions.
+    \item To avoid collisions caused by illegal $\phi$ and $\psi$
+      angles, it could be investigated
+      how to integrate Ramachandran propability maps.
+    \end{itemize}
 \end{frame}
 
 

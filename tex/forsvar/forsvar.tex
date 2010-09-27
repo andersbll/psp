@@ -187,9 +187,12 @@
 %  \framesubtitle{subtitle}
 \begin{columns}[c]
 \column{2.3in}
-\textbf{Problem:} Given an unfolded protein and a $C_\alpha$-trace, we want to fold the protein such that the RMSD from the $C_\alpha$-trace is minimal.
-\\\vspace*{2mm}
-\textbf{Solution:} Inverse kinematics! Many flavors of IK methods have been applied to protein folding.
+\\\vspace*{4mm}
+\textbf{Problem:} Given an unfolded protein and a $C_\alpha$-trace, we want to restructure the protein such that the RMSD from the $C_\alpha$-trace is minimal.
+\\\vspace*{4mm}
+\textbf{Solution:} Inverse kinematics! Different flavors of IK algorithms have been applied to protein folding.
+\\\vspace*{8mm}
+We use cyclic coordinate descent.
 \column{2in}
 	\vspace*{4mm}
 	\includegraphics[width=2in]{../rapport/figures/forside.png}
@@ -199,6 +202,21 @@
 \begin{frame}[t, fragile]
 \frametitle{Backbone fitting} 
 \framesubtitle{Cyclic coordinate descent}
+\begin{figure}
+	\centering
+	\includegraphics[width=4.3in]{ccd2d}
+	\caption{Example of cyclic coordinate descent in 2D.}
+\end{figure}
+\vspace*{2mm}
+Cyclic coordinate descent has the advantage of being fast, numerically stable, flexible and simple to implement.
+\end{frame}
+
+
+
+
+\begin{frame}[t, fragile]
+\frametitle{Backbone fitting} 
+\framesubtitle{Windowed cyclic coordinate descent}
 \begin{columns}[c]
 \column{3in}
 \begin{center}
@@ -206,7 +224,8 @@
 \includegraphics[width=2.5in]{ccd}
 \end{center}
 \column{2.0in}
-skinek
+\begin{itemize}
+\end{itemize}
 \end{columns}
 \end{frame}
 

@@ -7,6 +7,7 @@
 \usepackage{listings}
 \usepackage{graphicx}
 %\usepackage{multicol} 
+\usepackage[labelformat=empty,tableposition=above]{caption}
 
 \usepackage{booktabs}
 %\usepackage{soul}
@@ -126,6 +127,7 @@
  \column{5.5cm}
 \begin{table}
   \centering
+  \caption{Average bond lengths}
   \begin{tabular}{lrr}
     \toprule
     \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
@@ -138,13 +140,13 @@
     CA-HA & 1.0747 Å & 0.0307 Å\\ \bottomrule
   \end{tabular}
   \vspace{1mm}
-  \caption{Average bond lengths}
   \label{tab:average_bond_lengths}
 \end{table}
 
 \column{5.5cm}
 \begin{table}
   \centering
+  \caption{Average bond angles}
   \begin{tabular}{lrr}
     \toprule
     \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
@@ -156,7 +158,6 @@
     C-N-H  & $119.5112^\circ$ & $2.1599^\circ$\\ \bottomrule
   \end{tabular}
   \vspace{1mm}
-  \caption{Average bond angles}
   \label{tab:average_bond_angles}
 \end{table}
 

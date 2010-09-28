@@ -214,11 +214,11 @@ which we minimize by performing $\phi$ and $\psi$ rotations.
 \\\vspace*{4mm}
 \textbf{Problem:} Given an unfolded protein and a C$_\alpha$-trace, we want to restructure the protein such that the RMSD from the C$_\alpha$-trace is minimal.
 \\\vspace*{4mm}
-\textbf{Solution:} Inverse kinematics! Different flavors of IK algorithms have been applied to protein folding.
+\textbf{Solution:} Inverse kinematics! Different flavors of IK algorithms exist and have been applied to protein folding.
 \\\vspace*{8mm}
 We use cyclic coordinate descent.
 \column{2in}
-	\vspace*{2mm}
+	\vspace*{-3.2mm}
 	\includegraphics[width=2in]{../rapport/figures/forside.png}
 \end{columns}
 \end{frame}
@@ -241,7 +241,39 @@ Cyclic coordinate descent has the advantage of being fast, numerically stable, f
 \begin{frame}[t, fragile]
 \frametitle{Backbone fitting} 
 \framesubtitle{Windowed cyclic coordinate descent}
+
+
 \begin{columns}[c]
+\column{2.4in}
+CCD on protein backbones
+\vspace*{3mm}
+\begin{itemize}
+\item Must use \emph{windowed} multipoint \emph{end-effector} to avoid local optimas.
+
+\item Angles are chosen to minimize the sum of distances $S$ between C$_\alpha$ in the window.
+$$\hspace*{-8mm}S=||\v{d}_1||+||\v{d}_2||+||\v{d}_3||$$
+
+\item Folding is performed in both directions interchangeably.
+%\item Folding is performed in directions.
+%\item CCD is Iterates in both directions
+\end{itemize}
+
+%In 3D with a multipoint \emph{end-effector}, the CCD algorithm is more complex 
+%\item 3D
+%\item Multipoint \emph{end-effector}
+
+%\vspace*{-2mm}
+\hspace*{4.3cm}
+\parbox{4cm}{
+\begin{flushleft}
+\footnotesize{
+Adjusting an angle with a 
+%\\\hspace*{2.8cm}
+CCD window size $w=3$
+}
+\end{flushleft}
+}
+
 \column{2.2in}
 \begin{center}
 \vspace*{-6mm}
@@ -249,45 +281,27 @@ Cyclic coordinate descent has the advantage of being fast, numerically stable, f
 \includegraphics[width=2.3in]{ccd}
 \end{center}
 
-\column{2.4in}
-CCD on proteins
-\vspace*{3mm}
-\begin{itemize}
-\item Must use multipoint \emph{end-effector} to avoid local optimas.
-
-\item Angles are chosen to minimize the sum of distances between C$_\alpha$ in the window.
-$$S=||\v{d}_1||+||\v{d}_2||+||\v{d}_3||$$
-
-\item Iterates in both directions
-\end{itemize}
-
-%In 3D with a multipoint \emph{end-effector}, the CCD algorithm is more complex 
-%\item 3D
-%\item Multipoint \emph{end-effector}
-
-\vspace*{4mm}
-\footnotesize{
-\hspace*{-2.8cm}
-Adjusting an angle with a 
-\\\hspace*{-2.8cm}
-CCD window size $w=3$
-}
 \end{columns}
 \end{frame}
 
 \begin{frame}[t, fragile]
 \frametitle{Backbone fitting} 
 \framesubtitle{Results}
-\begin{columns}[c]
-\column{2in}
+\vspace*{5mm}
+\begin{columns}[t]
+\column{2.3in}
 \centering
-Original\\
-\includegraphics[width=1\columnwidth]{plot_rmsd}
+%Original\\
+\hspace*{-3mm}
+\includegraphics[width=2.5in]{plot_rmsd}\\
+\small{RMSD as a function of the window size.}
 
-\column{2in}
+\column{2.3in}
 \centering
-Fitted backbone\\
-\hspace*{-.4cm}\includegraphics[width=1\columnwidth]{plot_rmsd_convergence}
+%Fitted backbone\\
+\hspace*{-.4cm}\includegraphics[width=2.5in]{plot_rmsd_convergence}\\
+\small{RMSD as the fitting progresses for different
+choices of window size w.}
 \end{columns}
 \end{frame}
 

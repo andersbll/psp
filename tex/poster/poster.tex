@@ -16,6 +16,7 @@
 \usepackage[sc]{mathpazo}
 \usepackage{color}
 \usepackage{wallpaper}
+\usepackage{myfancybox}
 
 \let\Textsize\normalsize
 %\def\Subhead#1{\noindent{\large #1}}
@@ -41,6 +42,7 @@
 \parindent=0pt
 \parskip=0.5\baselineskip
 
+
 \begin{document}
 \ULCornerWallPaper{1.0}{ku-background.pdf}
 \fontsize{40pt}{60pt}\selectfont
@@ -58,9 +60,15 @@
 % \includegraphics{ku-logo.pdf}
 % \end{textblock}
 
+
 \begin{textblock}{7}(0,6)
 
-    \Head{Motivation}
+\setlength\fboxrule{4.0pt}%
+\setlength\fboxsep{30pt}%
+\linethickness{4mm}
+\ovalbox{%
+\begin{minipage}{\columnwidth}
+   \Head{Motivation}
 Proteins are the perhaps most important molecules of living
 organisms. They perform a multitude of biological tasks and are found
 in all lifeforms, from bacteria and unicellular organisms to
@@ -75,7 +83,7 @@ prediction and the related topic protein folding\footnote{The two
   sought without computing the intermediate steps (protein structure
   prediction).} are large and active research fields. It is still an
 open problem.
-
+\end{minipage}}
 \end{textblock}
 
 \begin{textblock}{7}(8,14)

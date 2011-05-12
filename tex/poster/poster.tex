@@ -1,5 +1,6 @@
 \documentclass[a0,portrait]{a0poster}
 
+\usepackage{epsf,pstricks}
 % Switch off page numbers on a poster, obviously, and section numbers too.
 \pagestyle{empty}
 \setcounter{secnumdepth}{0}
@@ -10,7 +11,11 @@
 
 \usepackage{graphics,wrapfig}
 \usepackage{palatino}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage[sc]{mathpazo}
 \usepackage{color}
+\usepackage{wallpaper}
 
 \let\Textsize\normalsize
 %\def\Subhead#1{\noindent{\large #1}}
@@ -31,19 +36,20 @@
 % Note however that texblocks can be positioned fractionally as well,
 % so really any convenient grid size can be used.
 %
-\TPGrid[80mm,80mm]{15}{25}  % 3 - 1 - 7 - 1 - 3 Columns
+\TPGrid[40mm,40mm]{15}{25}  % 3 - 1 - 7 - 1 - 3 Columns
 
 \parindent=0pt
 \parskip=0.5\baselineskip
 
 \begin{document}
+\ULCornerWallPaper{1.0}{ku-background.pdf}
 \fontsize{40pt}{60pt}\selectfont
 
-\begin{textblock}{12}(0,0)
+\begin{textblock}{12}(0,2)
 \baselineskip=3\baselineskip \Title{Fitting an All-atom Protein Model to a $C_\alpha$-trace}
 \end{textblock}
 
-\begin{textblock}{12}(0, 0.6)
+\begin{textblock}{12}(0, 2.6)
 \Authors{Martin Dybdal, Anders Boesen Lindbo Larsen and Esben Skaarup}
 \end{textblock}
 
@@ -52,7 +58,7 @@
 % \includegraphics{ku-logo.pdf}
 % \end{textblock}
 
-\begin{textblock}{7}(0,2)
+\begin{textblock}{7}(0,6)
 
     \Head{Motivation}
 Proteins are the perhaps most important molecules of living

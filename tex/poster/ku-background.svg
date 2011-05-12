@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="meh.svg">
+   sodipodi:docname="ku-background.svg">
   <defs
      id="defs4">
     <font
@@ -74,30 +74,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,3160.6222)">
-    <text
-       style="font-size:64.00827789px"
-       y="-2991.0044"
-       x="119.29883"
-       id="text13493-8">
-      <tspan
-         style="font-size:96.01241302px;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Adobe Garamond Pro;-inkscape-font-specification:AGaramondPro-Regular"
-         x="119.29883 186.79456 242.29013 293.94495 350.3035 406.56879 463.98267 541.27203 596.76764 664.84076 722.25726 758.74078 825.56586 877.41296 913.89648 972.46417 1031.0323 1089.6 1148.1682 1206.7358 1265.3019 1323.8696 1382.4377 1418.9235 1477.489 1536.0571 1594.6248 1653.193 1711.7611 1770.3289 1828.8944 1887.4625 1946.0303 2004.5984"
-         y="-2991.0044"
-         sodipodi:role="line"
-         id="tspan13495-0">department of xxxxxxxx xxxxxxxxxxx</tspan>
-    </text>
-    <text
-       style="font-size:64.00827789px"
-       y="-2900.3237"
-       x="119.29883"
-       id="text13497-5">
-      <tspan
-         style="font-size:80.01034546px;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Adobe Garamond Pro;-inkscape-font-specification:AGaramondPro-Regular"
-         x="119.29883 173.70558 230.43303 263.71716 312.36435 358.61014 407.89658 448.22192 481.50552 530.31146 575.75665 606.16101 661.84888 705.05402 735.45837 785.46472 841.15259 885.79767 932.04346 988.77087 1047.9783 1093.5042 1146.2321 1192.4773"
-         y="-2900.3237"
-         sodipodi:role="line"
-         id="tspan13499-2">university of copenhagen</tspan>
-    </text>
     <path
        d="m 0,-2331.9223 2979.9213,0 0,-3.2186 -2979.9213,0 0,3.2186 z"
        style="fill:#325d3d;fill-opacity:1;fill-rule:nonzero;stroke:none"

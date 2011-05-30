@@ -1,0 +1,121 @@
+\ProvidesPackage{abll-poster}
+\usepackage[utf8x]{inputenc}          %text encoding
+\usepackage[danish,english,american]{babel}
+
+\usepackage{epsf,pstricks}
+% Switch off page numbers on a poster, obviously, and section numbers too.
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+
+% The textpos package is necessary to position textblocks at arbitary
+% places on the page.
+\usepackage[absolute]{textpos}
+
+\usepackage{graphics,wrapfig}
+
+\usepackage[urw-garamond]{mathdesign}
+\usepackage{palatino}
+\usepackage{bera}                     % alternative monospace font
+\linespread{0.93}                     % palatino is best with more leading
+
+
+%\renewcommand{\small}{{\fontsize{25}{25}}}
+\usepackage{import}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage[sc]{mathpazo}
+\usepackage{color}
+\usepackage{wallpaper}
+\usepackage{sidecap} % side captions: \begin{SCfigure}[2.7][ht] ...
+\usepackage[small]{caption}
+\captionsetup{margin=0pt, labelfont=bf}
+\usepackage[caption=false,font=scriptsize]{subfig}
+\usepackage{soul}
+\usepackage{booktabs}
+%\let\Textsize\normalsize
+%\def\Subhead#1{\noindent{\large #1}}
+
+\usepackage{tikz}
+
+\definecolor{kugrey}{rgb}{.3984375,.3984375,.3984375}
+
+\sodef\an{}{.13em}{0.6em plus1em}{0.13em plus.1em minus.1em}
+
+\def\Faculty#1{\noindent{\color{kugrey} \scshape \bfseries \huge \fontfamily{mdugm}\selectfont #1}}
+\def\Department#1{\noindent{\fontsize{43pt}{60pt}\fontfamily{mdugm}\selectfont \color{kugrey} \scshape \bfseries  #1}}
+\def\Title#1{\noindent{\fontsize{75}{110}\selectfont\bfseries #1}}
+\def\Head#1{\noindent{\fontsize{45}{50}\selectfont \bfseries #1}\vspace*{10mm}\\}
+\def\Section#1{\noindent{\Large \bfseries #1}\vspace*{10mm}\\}
+\def\Authors#1{\noindent{\large #1}\smallskip}
+\def\AuthorEmails#1{\noindent{\large #1}\smallskip}
+%\renewcommand{\Name}[NumOfArguments]{Definition}
+% Set up the grid
+%
+% Note that [40mm,40mm] is the margin round the edge of the page --
+% it is _not_ the grid size. That is always defined as
+% PAGE_WIDTH/HGRID and PAGE_HEIGHT/VGRID. In this case we use
+% 15 x 25. This gives us a wide central column for text (7 grid
+% spacings) and two narrow columns (3 each) at each side for
+% pictures, separated by 1 grid spacing.
+%
+% Note however that texblocks can be positioned fractionally as well,
+% so really any convenient grid size can be used.
+%
+\TPGrid[30mm,40mm]{100}{100}  % 3 - 1 - 7 - 1 - 3 Columns
+
+\usepackage{environ}
+\definecolor{Shade}{HTML}{EAEBFE}
+\definecolor{DarkShade}{HTML}{D4D7FE}
+\definecolor{mehgrey}{rgb}{.70,.70,.70}
+\newlength{\GridBlockBorderWidth}
+\setlength{\GridBlockBorderWidth}{1mm}
+\newlength{\GridBlockMargin}
+\setlength{\GridBlockMargin}{60pt}
+%\definecolor{shade}{HTML}{D4D7FE}
+\NewEnviron{GridBlock}[3]{
+\begin{textblock}{#3}(#1,#2)
+\begin{tikzpicture}
+\node[fill=white, rounded corners=20pt, inner sep=\GridBlockMargin,draw=mehgrey,line width=\GridBlockBorderWidth]{
+\begin{minipage}{\textwidth-2\GridBlockMargin}
+\BODY
+\end{minipage}
+};
+\end{tikzpicture}
+\end{textblock}
+}
+
+\NewEnviron{GridBlockFill}[3]{
+\begin{textblock}{#3}(#1,#2)
+\begin{tikzpicture}
+\node[fill=Shade, rounded corners=20pt, inner sep=\GridBlockMargin,draw=mehgrey,line width=\GridBlockBorderWidth]{
+\begin{minipage}{\textwidth-2\GridBlockMargin}
+\BODY
+\end{minipage}
+};
+\end{tikzpicture}
+\end{textblock}
+}
+\NewEnviron{GridBlockBlank}[3]{
+\begin{textblock}{#3}(#1,#2)
+\begin{tikzpicture}
+\node[rounded corners=20pt, inner sep=\GridBlockMargin]{
+\begin{minipage}{\textwidth-2\GridBlockMargin}
+\BODY
+\end{minipage}
+};
+\end{tikzpicture}
+\end{textblock}
+}
+
+\def\smaller#1{{\fontsize{25}{25}\selectfont #1}}
+\NewEnviron{compact}{
+{\linespread{1.398} \fontsize{35}{35}\selectfont%
+\BODY%
+}%
+}
+
+
+
+\parindent=0pt
+\parskip=0.5\baselineskip
+

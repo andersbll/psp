@@ -1,96 +1,32 @@
 \documentclass[a0,portrait]{a0poster}
-\usepackage[utf8x]{inputenc}          %text encoding
-
-\usepackage{epsf,pstricks}
-% Switch off page numbers on a poster, obviously, and section numbers too.
-\pagestyle{empty}
-\setcounter{secnumdepth}{0}
-
-% The textpos package is necessary to position textblocks at arbitary 
-% places on the page.
-\usepackage[absolute]{textpos}
-
-\usepackage{graphics,wrapfig}
-
-\usepackage[urw-garamond]{mathdesign}
-\usepackage{palatino}
-\usepackage{bera}                     % alternative monospace font
-
-\usepackage{microtype}
-\usepackage{amsmath}
-\usepackage[sc]{mathpazo}
-\usepackage{color}
-\usepackage{wallpaper}
-\usepackage{myfancybox}
-
-\usepackage{soul}
-\usepackage{booktabs}
-\let\Textsize\normalsize
-%\def\Subhead#1{\noindent{\large #1}}
-
-\usepackage{tikz}
-
-\definecolor{kugrey}{rgb}{.3984375,.3984375,.3984375}
-
-\sodef\an{}{.13em}{0.6em plus1em}{0.13em plus.1em minus.1em}
-
-\def\Faculty#1{\noindent{\color{kugrey} \scshape \bfseries \huge \fontfamily{mdugm}\selectfont #1}}
-\def\Title#1{\noindent{\fontsize{70}{100}\selectfont #1}}
-\def\Head#1{\noindent{\huge \bfseries #1}}
-\def\Authors#1{\noindent{\large #1}\smallskip}
-\def\AuthorEmails#1{\noindent{\large #1}\smallskip}
-
-% Set up the grid
-%
-% Note that [40mm,40mm] is the margin round the edge of the page --
-% it is _not_ the grid size. That is always defined as 
-% PAGE_WIDTH/HGRID and PAGE_HEIGHT/VGRID. In this case we use
-% 15 x 25. This gives us a wide central column for text (7 grid
-% spacings) and two narrow columns (3 each) at each side for 
-% pictures, separated by 1 grid spacing.
-%
-% Note however that texblocks can be positioned fractionally as well,
-% so really any convenient grid size can be used.
-%
-\TPGrid[40mm,272mm]{15}{25}  % 3 - 1 - 7 - 1 - 3 Columns
-
-\parindent=0pt
-\parskip=0.5\baselineskip
+\usepackage{abll-poster}
 
 \newcommand{\Ca}{C$_{\alpha}${}}
 
-\definecolor{shade}{HTML}{D4D7FE}
 
 \begin{document}
 \ULCornerWallPaper{1.0}{ku-background.pdf}
 \fontsize{40pt}{60pt}\selectfont
 
-\begin{textblock}{12}(0,-9)
-\Faculty{\an{department of computer science} \\ {\LARGE \an{university of copenhagen}}}
+\begin{textblock}{100}(0,0)
+\Faculty{\an{department of computer science}}
+\\[1cm]
+\Department{\an{university of copenhagen}}
 \end{textblock}
 
-\begin{textblock}{12}(0,-5.5)
+\begin{textblock}{100}(0,6)
 \Title{Fitting an All-atom Protein Model to a $C_\alpha$-trace}
 \end{textblock}
 
-\begin{textblock}{12}(0, -3)
+\begin{textblock}{100}(0,13.5)
 \Authors{Martin Dybdal, Anders Boesen Lindbo Larsen and Esben Skaarup}
 \\[-8mm]
 \AuthorEmails{\texttt{dybber@dybber.dk}, \texttt{abll@diku.dk} and \texttt{sben@diku.dk}}
 \end{textblock}
 
-% Put the KU logo in the top right.
-% \begin{textblock}{2}(13,0)
-% \includegraphics{ku-logo.pdf}
-% \end{textblock}
+\linespread{1.075}\fontsize{28pt}{40pt}\selectfont
 
-\begin{textblock}{7}(0,0)
-\begin{tikzpicture}
- 
-\node [fill=shade, rounded corners=10pt, inner sep=30pt]
-%\node [draw=black, line width=2pt, rounded corners=10pt, inner sep=30pt]
-{
-\begin{minipage}{\textwidth} 
+\begin{GridBlock}{0}{21}{48}
   \Head{Motivation}
     \begin{itemize}
     \item[-- ] Proteins are the perhaps most important molecules of
@@ -100,23 +36,19 @@
     \item[-- ] Protein structure prediction and the related topic protein
       folding, are large and active research fields.
     \end{itemize}
+\end{GridBlock}
 
-\end{minipage} 
-};
-\end{tikzpicture}
-\end{textblock}
-
-\begin{textblock}{7}(0,7)
-\Head{Our problem}\\
+\begin{GridBlock}{51}{21}{48}
+\Head{Our problem}
 Nice graphics here
-\end{textblock}
+\end{GridBlock}
 
-\begin{textblock}{7}(0,14)
-\begin{wraptable}{r}{0.55\textwidth}
+\begin{GridBlock}{0}{45}{100}
+\begin{wraptable}{r}{0.75\textwidth}
 \addtolength\leftskip{9mm}
   \begin{tabular}{lrr}
     \toprule
-    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
+    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule
     C-O   & 1.2260 Å & 0.0188 Å\\
     CA-C  & 1.5272 Å & 0.0191 Å\\
     N-CA  & 1.4680 Å & 0.0237 Å\\
@@ -128,7 +60,8 @@ Nice graphics here
   \label{tab:average_bond_lengths}
   \caption{Average bond lengths (in ångstrøm)}
 \end{wraptable}
-  \Head{Protein structure} \\\textit{Bond lengths} are the distances between the covalently bonded atoms
+  \Head{Protein structure} 
+  \textit{Bond lengths} are the distances between the covalently bonded atoms
 in a molecule (usually measured in ångstrøm). We will name the
 individual bond lengths by the name of the two atoms which the bond
 connects. For example, the bond between a \Ca\ and N atom in an amino acid of
@@ -137,11 +70,20 @@ for all bonds in the backbone, the results are shown in Table
 \ref{tab:average_bond_lengths}. As can be seen from the last column in
 the table, the variation is very limited and we therefore have not
 found it necessary to consider any variations from the mean
-lengths. 
-\end{textblock}
+lengths.
+\end{GridBlock}
 
-\begin{textblock}{7}(8,0)
-\Head{Backbone fitting}\\
+\begin{GridBlock}{0}{40}{100}
+%\begin{wrapfigure}{r}{0.5\textwidth}
+ \begin{center}
+\resizebox{10\TPHorizModule}{!}{\includegraphics{../rapport/figures/protein-torsion-angles.pdf}}
+\textbf{Figure 1}: Protein torsion angles
+ \end{center}
+%\end{wrapfigure}
+\end{GridBlock}
+
+\begin{GridBlock}{0}{55}{48}
+\Head{Backbone fitting}
 \textit{Bond lengths} are the distances between the covalently bonded atoms
 in a molecule (usually measured in ångstrøm). We will name the
 individual bond lengths by the name of the two atoms which the bond
@@ -152,47 +94,40 @@ for all bonds in the backbone, the results are shown in Table
 the table, the variation is very limited and we therefore have not
 found it necessary to consider any variations from the mean
 lengths.
-\end{textblock}
+\end{GridBlock}
 
-\begin{textblock}{7}(8,11)
+\begin{GridBlock}{51}{55}{48}
 \begin{wrapfigure}{r}{0.55\textwidth}
     \centering
-    \includegraphics[width=.47\textwidth]{../rapport/figures/rotamersearch}
+    \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}
     \caption{The structure of our rotamer search space when
       eliminating collisions with the amino acid \textit{a}.}
     \label{fig:rotamer-search-tree}
 \end{wrapfigure}
-\Head{Rotamer selection}\\
+\Head{Rotamer selection}
 \textit{Bond lengths} are the distances between the covalently bonded atoms
 in a molecule (usually measured in ångstrøm). We will name the
 individual bond lengths by the name of the two atoms which the bond
 connects. For example, the bond between a \Ca\ and N atom in an amino acid of
 the protein backbone is called \Ca -N. We have computed bond lengths
 for all bonds in the backbone, the results are shown in Table
-\end{textblock}
+\end{GridBlock}
 
-\begin{textblock}{7}(8,22)
-\Head{Conclusion}
-\begin{itemize}
-\item[-- ] We can obtain a RMSD of less than $0.2$ Å with our devised
-  variant of cyclic coordinate descent
-\item[-- ] Selecting the appropriate rotamers makes it possible to
-  reduce the number collisions to 1 for every 4700 amino acids on a
-  realistic protein.
-\end{itemize}
-\end{textblock}
+%\begin{GridBlock}{51}{80}{48}
+%\Head{Conclusion}
+%\begin{itemize}
+%\item[-- ] We can obtain a RMSD of less than $0.2$ Å with our devised
+%  variant of cyclic coordinate descent
+%\item[-- ] Selecting the appropriate rotamers makes it possible to
+%  reduce the number collisions to 1 for every 4700 amino acids on a
+%  realistic protein.
+%\end{itemize}
+%\end{GridBlock}
 
 
 % If you want to add a figure do something like this:
 
-\begin{textblock}{3}(2,28)
-%\begin{wrapfigure}{r}{0.5\textwidth}
- \begin{center}
-\resizebox{10\TPHorizModule}{!}{\includegraphics{../rapport/figures/protein-torsion-angles.pdf}}
-\textbf{Figure 1}: Protein torsion angles
- \end{center}
-%\end{wrapfigure}
-\end{textblock}
+
 
 
 \end{document}

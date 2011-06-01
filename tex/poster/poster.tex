@@ -35,6 +35,8 @@
 
 \linespread{1.075}\fontsize{28pt}{40pt}\selectfont
 
+\renewcommand{\labelitemi}{--\ }
+
 \begin{GridBlock}{0}{21}{100}
 \begin{multicols}{3}
 \Head{Summary}
@@ -87,9 +89,7 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \end{multicols}
 \end{GridBlock}
 
-\begin{GridBlockFill}{0}{37.5}{100}
-
-\renewcommand{\labelitemi}{--\ }
+\begin{GridBlockFill}{0}{46.4}{100}
 
   \begin{multicols}{2}
 \begin{minipage}{\linewidth} 
@@ -120,10 +120,10 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
   \vspace{7mm}
   \begin{tabular}{lrr}
     \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule
+    C-O   & 1.2260 Å & 0.0188 Å\\
     CA-C  & 1.5272 Å & 0.0191 Å\\
     N-CA  & 1.4680 Å & 0.0237 Å\\
     C-N   & 1.3234 Å & 0.0215 Å\\
-    CA-HA & 1.0747 Å & 0.0307 Å\\
   \end{tabular}
   \vspace{4mm}
   \label{tab:average_bond_lengths}
@@ -135,7 +135,7 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \centering
   \vspace{7mm}
   \begin{tabular}{lrr}
-    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
+    \multicolumn{1}{c}{Angle} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
     H-N-CA & 118.9553$^\circ$ & 1.9979$^\circ$\\
     N-CA-C & 110.6099$^\circ$ & 2.4668$^\circ$\\
     CA-C-N & 116.7804$^\circ$ & 1.7682$^\circ$\\
@@ -153,7 +153,7 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
     
 \begin{minipage}{\linewidth} 
 \centering% 
-\includegraphics[width=0.90\linewidth, clip=]{../rapport/figures/protein-torsion-angles.pdf}
+\includegraphics[width=0.90\linewidth, clip=]{protein-torsion-angles.pdf}
 
 \figcaption{Rotational angles in a protein backbone}% 
 \label{fig:torsion_angles}
@@ -162,12 +162,14 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \begin{multicols}{2}
   \begin{itemize}
   \item The $\omega$-angle is almost always at $180^{\circ}$, except
-    for occurences where it is $0^{\circ}$. We assume that it is
-    always locked at $180^{\circ}$.
+    for a few occurences where it is $0^{\circ}$. To simplify the
+    problem, we have assumed that it is always locked at
+    $180^{\circ}$.
   \item The $\phi$ and $\psi$ angles are the most variable parts of
     the protein backbone and many models use these as the only
     parameters when performing protein structure prediction.
-  \item 
+  \item The $\phi$ and $\psi$ are the only parameters we modify when
+    folding the backbone in place.
   \end{itemize}
 \end{multicols}
 \end{multicols}
@@ -191,20 +193,44 @@ lengths.
 \end{GridBlock}
 
 \begin{GridBlock}{51}{75}{48}
-\begin{wrapfigure}{r}{0.55\textwidth}
-    \centering
-    \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}
-    \caption{The structure of our rotamer search space when
-      eliminating collisions with the amino acid \textit{a}.}
-    \label{fig:rotamer-search-tree}
-\end{wrapfigure}
-\Head{Rotamer selection}
-\textit{Bond lengths} are the distances between the covalently bonded atoms
-in a molecule (usually measured in ångstrøm). We will name the
-individual bond lengths by the name of the two atoms which the bond
-connects. For example, the bond between a \Ca\ and N atom in an amino acid of
-the protein backbone is called \Ca -N. We have computed bond lengths
-for all bonds in the backbone, the results are shown in Table
+% \begin{wrapfigure}{r}{0.55\textwidth}
+%     \centering
+%     \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}
+%     \caption{The structure of our rotamer search space when
+%       eliminating collisions with the amino acid \textit{a}.}
+%     \label{fig:rotamer-search-tree}
+% \end{wrapfigure}
+\Head{Rotamer selection} 
+\begin{multicols}{2}
+\begin{itemize}
+\item After the backbone is folded in place and fitted to the
+  \Ca-trace, we remain with the problem of adding side chains to each
+  amino acid.
+
+\begin{minipage}{\linewidth} 
+\centering% 
+\includegraphics[width=0.90\linewidth, clip=]{../rapport/figures/lysine.pdf}
+
+\figcaption{$\chi$-angles in Lysine side chain}
+\label{fig:lysine}
+\end{minipage}
+
+\item The rotational angles of side chains are named
+  $\chi_1$-$\chi_5$, but many amino acids only have one or two of
+  these angles.
+
+\item Each side chain tends to have certain configurations of its
+  $\chi$-angles. These often occuring configurations are called
+  rotamers of the side-chain.
+
+\item There exists rotamer libraries containing these common
+  configurations together with their likelyhood.
+
+\item We have developed a rotamer search algorithm that minimizes the
+  number of occurences, which uses the rotamer-probabilities as a good
+  initial guess.
+\end{itemize}
+\end{multicols}
 \end{GridBlock}
 
 %\begin{GridBlock}{51}{80}{48}

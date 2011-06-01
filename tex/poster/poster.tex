@@ -27,10 +27,12 @@
 \Title{Fitting an All-atom Protein Model to a $C_\alpha$-trace}
 \end{textblock}
 
-\begin{textblock}{100}(0,13.5)
+\begin{textblock}{100}(0,12.5)
 \Authors{Martin Dybdal, Anders Boesen Lindbo Larsen and Esben Skaarup}
 \\[-8mm]
 \AuthorEmails{\texttt{dybber@dybber.dk}, \texttt{abll@diku.dk} and \texttt{sben@diku.dk}}
+\\[-2mm]
+\AuthorEmails{Supervisors: Pawel Winter and Rasmus Fonseca}
 \end{textblock}
 
 \linespread{1.075}\fontsize{28pt}{40pt}\selectfont
@@ -39,21 +41,21 @@
 
 \begin{GridBlock}{0}{21}{100}
 \begin{multicols}{3}
-\begin{multicols}{2}
+%\begin{multicols}{2}
 \Head{Summary}
 
-\vspace*{-.7cm}
+\vspace*{-.4cm}
 In this work we investigate a strategy for predicting the structure of proteins. Given a so-called \emph{\Ca-trace}, we wish to fold the protein to match the trace.
-\newpage
+%\newpage
 \begin{figure}
-\vspace{2cm}
+\vspace{1.7cm}
 \hspace{-3cm}
-\includegraphics[width=\columnwidth]{../rapport/figures/forside.png}
+\includegraphics[width=.4\columnwidth]{../rapport/figures/forside.png}
 %\hspace{2cm}
 \vspace{-1.5cm}
 \end{figure}
-\end{multicols}
-\vspace{-.5cm}
+%\end{multicols}
+%\vspace{-.5cm}
 %Protein structure prediction can be simplified by using a model that only includes a subset of the atoms present in proteins. In particular, the algorithms group at our department only predicts a folding of the \Ca-trace, and are thus excluding most backbone atoms and all side-chain molecules.
 
 
@@ -87,12 +89,12 @@ The difference between the two is shown in Figure \ref{fig:all-atom_vs_trace}.
 \end{figure}
 
 \section{Our approach}
-The strategy we will pursue, is to use a given $C_\alpha$-trace as target when folding a protein model that contains all atoms. The folding should be conducted, such that it minimizes the number of clashes and at the same time minimizes the deviation from the target $C_\alpha$-trace.
+%The strategy we will pursue, is to use a given $C_\alpha$-trace as target when folding a protein model that contains all atoms. 
+The folding should be conducted, such that it minimizes the number of clashes and at the same time minimizes the deviation from the target $C_\alpha$-trace.
 
 We consider our fitting problem as two somewhat separate problems.
-First, the backbone must be folded to the \Ca-trace by minimizing
-the deviation from the $C_{\alpha}$-trace.  Hereafter, the amino acid
-side-chains are added to the backbone.  
+First, we fold the backbone to the \Ca-trace.
+Hereafter, the amino acid side-chains are added to the backbone.
 %In the following we have chosen to
 %consider these two tasks separately.
 %However, as we shall see in Section \ref{sec:evaluation_handling_side-chains}, the performance of our residue handling depends heavily on the backbone fitting.
@@ -176,7 +178,7 @@ side-chains are added to the backbone.
 \begin{multicols}{2}
   \begin{itemize}
   \item The $\omega$-angle is almost always at $180^{\circ}$, except
-    for a few occurences where it is $0^{\circ}$. To simplify the
+    for a few occurrences where it is $0^{\circ}$. To simplify the
     problem, we have assumed that it is always locked at
     $180^{\circ}$.
   \item The $\phi$ and $\psi$ angles are the most variable parts of
@@ -192,22 +194,43 @@ side-chains are added to the backbone.
 
 \end{GridBlockFill}
 
-\begin{GridBlock}{0}{72.3}{48}
-\Head{Backbone fitting}
+\begin{GridBlock}{0}{72.3}{49}
+\begin{multicols}{2}
+\Head{Backbone folding}
 
-\textit{Bond lengths} are the distances between the covalently bonded atoms
-in a molecule (usually measured in ångstrøm). We will name the
-individual bond lengths by the name of the two atoms which the bond
-connects. For example, the bond between a \Ca\ and N atom in an amino acid of
-the protein backbone is called \Ca -N. We have computed bond lengths
-for all bonds in the backbone, the results are shown in Table
-\ref{tab:average_bond_lengths}. As can be seen from the last column in
-the table, the variation is very limited and we therefore have not
-found it necessary to consider any variations from the mean
-lengths.
+Given a \Ca-trace, we wish to fold the protein backbone (only the $\phi$ and $\psi$ angles) to match the trace as closely as possible
+The backbone fitting problem can be regarded as an \emph{inverse kinematics} problem.
+%IK is the process of determining angles of joints in a chain of rigid links in order to make the end of the linked chain reach a desired position in space.
+%The end of the the linked chain is called the \emph{end-effector}.
+
+
+%To simplify the problem, we can separately consider each backbone \Ca\ as an end-effector that must reach its corresponding target \Ca.
+%In this way the problem is decomposed into many small IK problems.
+%However, this simplification is not entirely valid as the entire backbone cannot be fitted by solving many local problems.
+%For example, a configuration of $\phi$ and $\psi$ angles might fit a single \Ca\ to its target, but in such a way that the next \Ca\ in the backbone cannot come close to its target.
+%Therefore, a good solution should take global context into account when solving IK problems locally. 
+
+%For the backbone fitting problem we have chosen to experiment with the CCD approach as it is simple, fast, numerically stable and flexible (i.e. it is easy to introduce constraints).
+
+To solve this problem, we have devised an extension to the \emph{cyclic coordinate descent} (CCD) algorithm:
+\begin{itemize}
+	\item CCD works by adjusting angles one by one in a greedy manner.
+	\item We adjust each angle with the goal of minimizing the mean distance between the three forthcoming amino acids $C$ and their corresponding \Ca-targets $T$.
+	\item The angles are adjusted iteratively in both directions interchangably until the deviation has converged.
+\end{itemize}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.85\columnwidth]{../rapport/figures/ccd}
+  \caption{Adjusting an angle according to the \Ca-targets with the CCD algorithm.}
+  \label{fig:ccd}
+\end{figure}
+\end{multicols}
 \end{GridBlock}
 
-\begin{GridBlock}{51}{72.3}{48}
+
+
+\begin{GridBlock}{51}{72.3}{49}
 % \begin{wrapfigure}{r}{0.55\textwidth}
 %     \centering
 %     \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}

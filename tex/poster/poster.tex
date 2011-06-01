@@ -1,9 +1,10 @@
 \documentclass[a0,portrait]{a0poster}
 \usepackage{abll-poster}
-
-\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{wrapfig}
 \usepackage{nonfloat}
-\setlength{\columnsep}{88pt}
+\usepackage{multicol}
+\setlength{\columnsep}{75pt}
 
 
 \definecolor{Shade}{HTML}{F2E6CE}
@@ -18,11 +19,11 @@
 
 \begin{textblock}{100}(0,0)
 \Faculty{\an{department of computer science}}
-\\[1cm]
+\\
 \Department{\an{university of copenhagen}}
 \end{textblock}
 
-\begin{textblock}{100}(0,6)
+\begin{textblock}{100}(0,7)
 \Title{Fitting an All-atom Protein Model to a $C_\alpha$-trace}
 \end{textblock}
 
@@ -34,9 +35,18 @@
 
 \linespread{1.075}\fontsize{28pt}{40pt}\selectfont
 
-\begin{GridBlock}{0}{21}{48}
-  \Head{Motivation}
-    \begin{itemize}
+\begin{GridBlock}{0}{21}{100}
+\begin{multicols}{3}
+\Head{Summary}
+%Protein structure prediction can be simplified by using a model that only includes a subset of the atoms present in proteins. In particular, the algorithms group at our department only predicts a folding of the \Ca-trace, and are thus excluding most backbone atoms and all side-chain molecules.
+
+In this work we investigate a strategy for predicting the structure of proteins. Given a so-called \emph{\Ca-trace}, we wish to fold the protein to match the trace.
+
+%The strategy divides the problem into two separate tasks.
+
+
+\section{Motivation}
+\begin{itemize}
     \item[-- ] Proteins are the perhaps most important molecules of
       living organisms.
     \item[-- ] Computational resolution of the protein 3D-structure has
@@ -44,11 +54,37 @@
     \item[-- ] Protein structure prediction and the related topic protein
       folding, are large and active research fields.
     \end{itemize}
-\end{GridBlock}
 
-\begin{GridBlock}{51}{21}{48}
-\Head{Our problem}
-Nice graphics here
+\section{Our problem}
+Currently, we are only able to predict protein structures at the $C_\alpha$-trace level. 
+Our goal with this project is
+to extend this model with the remaining atoms to get an all-atom
+model.  This will also enable the algorithms group to participate in
+the CASP experiment \cite{caspwebsite}.
+
+The strategy we will pursue, is to use a given $C_\alpha$-trace as target when fitting a
+protein model that contains all atoms. The fitting should be conducted,
+such that it minimizes the number of clashes and at the same time
+minimizes the deviation from the target $C_\alpha$-trace.
+
+We consider our fitting problem as two somewhat separate problems.
+First, the backbone must be fitted to the \Ca-trace by minimizing
+the deviation from the $C_{\alpha}$-trace.  Hereafter, the amino acid
+side-chains are added to the backbone.  In the following we have chosen to
+consider these two tasks separately.
+%However, as we shall see in Section \ref{sec:evaluation_handling_side-chains}, the performance of our residue handling depends heavily on the backbone fitting.
+ % (even though the residue handling might require us to adjust the backbone).
+
+In Section \ref{chap:fitting_backbone}, we will describe the strategy we use to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
+In Section \ref{chap:handling_sidechains}, we will explain how we add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.
+
+\begin{wrapfigure}{r}{.3\columnwidth}
+\vspace{-.8cm}
+\includegraphics[width=.3\columnwidth]{../rapport/figures/forside.png}
+\vspace{-3.5cm}
+\end{wrapfigure}
+
+\end{multicols}
 \end{GridBlock}
 
 \begin{GridBlockFill}{0}{37.5}{100}

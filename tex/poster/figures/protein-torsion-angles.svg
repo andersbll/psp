@@ -1,0 +1,1431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="401.36069"
+   height="142.89999"
+   id="svg3881"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="protein-torsion-angles.svg">
+  <defs
+     id="defs3883">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path4127"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path4130"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.4,0,0,0.4,4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path4124"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible">
+      <path
+         id="path4133"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="42830.101 : -54407.542 : 1"
+       inkscape:vp_y="0 : 130814.55 : 0"
+       inkscape:vp_z="-54508.279 : -54407.542 : 1"
+       inkscape:persp3d-origin="-5839.0923 : -77351.597 : 1"
+       id="perspective3889" />
+    <inkscape:perspective
+       id="perspective3668"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath364">
+      <path
+         d="M 0,0 398,0 398,958 0,958 0,0 z"
+         id="path366" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath514">
+      <path
+         d="M 0,9580 0,0 3980,0 3980,9580 0,9580 z M 2323.61,456.801 2288.8,476 l -62.4,-111.602 56.4,60 -21.6,-79.199 62.41,111.602 z"
+         clip-rule="evenodd"
+         id="path516" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath574">
+      <path
+         d="M 0,9580 0,0 l 3980,0 0,9580 -3980,0 z m 2248.61,-3783.8 -34.81,19.2 -62.4,-112.2 56.4,60.6 -21.6,-79.8 62.41,112.2 z"
+         clip-rule="evenodd"
+         id="path576" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath588">
+      <path
+         d="M 0,9580 0,0 l 3980,0 0,9580 -3980,0 z m 2213.8,-8674.398 34.81,19.199 -62.41,112.799 21.6,-79.799 -56.4,60.599 62.4,-112.798 z"
+         clip-rule="evenodd"
+         id="path590" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath602">
+      <path
+         d="M 0,9580 0,0 l 3980,0 0,9580 -3980,0 z m 1693.61,-5523.8 -34.81,19.2 -62.4,-112.2 56.4,60.6 -21.6,-79.8 62.41,112.2 z"
+         clip-rule="evenodd"
+         id="path604" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath616">
+      <path
+         d="M 0,9580 0,0 l 3980,0 0,9580 -3980,0 z m 2213.8,-3410 34.81,19.2 -62.41,112.2 21.6,-79.2 -56.4,60 62.4,-112.2 z"
+         clip-rule="evenodd"
+         id="path618" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath630">
+      <path
+         d="M 0,9580 0,0 l 3980,0 0,9580 -3980,0 z m 728.805,-395 34.8,19.2 -62.402,112.2 21.602,-79.2 -56.403,60 62.403,-112.2 z"
+         clip-rule="evenodd"
+         id="path632" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath644">
+      <path
+         d="M 0,9580 0,0 l 3980,0 0,9580 -3980,0 z m 1613.8,-6935 34.81,19.2 -62.41,112.2 21.6,-79.2 -56.4,60 62.4,-112.2 z"
+         clip-rule="evenodd"
+         id="path646" />
+    </clipPath>
+    <inkscape:perspective
+       id="perspective3978"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4000"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4040"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4068"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4090"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5709"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-4"
+       style="overflow:visible">
+      <path
+         id="path4133-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective6719"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-6"
+       style="overflow:visible">
+      <path
+         id="path4127-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective6763"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-8"
+       style="overflow:visible">
+      <path
+         id="path4127-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective6803"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-2"
+       style="overflow:visible">
+      <path
+         id="path4127-67"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective6803-3"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-7"
+       style="overflow:visible">
+      <path
+         id="path4127-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective6873"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-78"
+       style="overflow:visible">
+      <path
+         id="path4127-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective6963"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3018"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-4"
+       style="overflow:visible">
+      <path
+         id="path4127-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3061"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-88"
+       style="overflow:visible">
+      <path
+         id="path4127-92"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3101"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5"
+       style="overflow:visible">
+      <path
+         id="path4127-93"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3141"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-9"
+       style="overflow:visible">
+      <path
+         id="path4127-97"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective3188"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3904"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3926"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-71"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4127-72"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="348.97926"
+     inkscape:cy="51.229931"
+     inkscape:document-units="px"
+     inkscape:current-layer="g352"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="782"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3886">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-167.2312,-144.06812)">
+    <g
+       id="g352"
+       transform="matrix(0.4438375,0,0,-0.4438375,164.58994,132.74301)">
+      <path
+         d="m 67.824372,-263.57383 15.465389,-23.22061"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.90000004;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path480-1" />
+      <path
+         style="fill:#efefef;fill-opacity:1;stroke:none"
+         d="M 105.97803,-122.71189 332.43518,-118.16 252.7769,-311.61585 68.424831,-266.09682 105.97803,-122.71189 z"
+         id="path3964" />
+      <path
+         d="m 908.87046,-166.65747 -57.00001,49.2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:5.4;stroke-dashoffset:0;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path508-1" />
+      <path
+         d="m 63.40099,-261.58859 -57.0000196,49.2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:5.4;stroke-dashoffset:0;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path508" />
+      <path
+         d="m 841.31868,-107.87176 -23.01442,25.276669"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path506" />
+      <path
+         d="M 876.30237,-71.456925 852.765,-107.59704"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path504" />
+      <path
+         d="m 620.72839,-286.08368 -22.39224,28.59396"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999992;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path530-4" />
+      <path
+         d="m 318.5,-99.087696 -9.6,14.399604"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#acd7ff;fill-opacity:1;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path486" />
+      <path
+         d="m 63.8,-302.1877 0.9,28.8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path550" />
+      <path
+         d="M 352.1,-74.188092 338.6,-100.5877"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#acd7ff;fill-opacity:1;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path488" />
+      <path
+         style="fill:#efefef;fill-opacity:1;stroke:none"
+         d="m 597.1846,-258.0849 37.01485,136.79396 212.43296,5.63269 -67.59231,-196.33956 -181.8555,53.91291 z"
+         id="path3968" />
+      <path
+         style="fill:#efefef;fill-opacity:1;stroke:none"
+         d="m 334.05742,-118.47459 75.63901,-184.67185 188.29286,44.25687 -30.57748,140.81731 -233.35439,-0.40233 z"
+         id="path3966"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         d="m 101.04178,-289.92901 c 0,-7.455 -6.044499,-13.5 -13.499999,-13.5 -7.4555,0 -13.5,6.045 -13.5,13.5 0,7.455 6.0445,13.5 13.5,13.5 7.4555,0 13.499999,-6.045 13.499999,-13.5 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:8.80000019;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path372" />
+      <path
+         d="m 583.1,-118.28814 c 0,-8.118 -6.582,-14.7 -14.7,-14.7 -8.119,0 -14.7,6.582 -14.7,14.7 0,8.11799 6.581,14.69999 14.7,14.69999 8.118,0 14.7,-6.582 14.7,-14.69999 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path406" />
+      <path
+         d="m 318.8,-75.686751 c 0,-8.9469 -7.254,-16.200001 -16.2,-16.200001 -8.947,0 -16.2,7.253101 -16.2,16.200001 0,8.9469 7.253,16.2 16.2,16.2 8.946,0 16.2,-7.2531 16.2,-16.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path426" />
+      <path
+         d="m 386.3,-52.286751 c 0,-13.4203 -10.88,-24.3 -24.3,-24.3 -13.421,0 -24.3,10.8797 -24.3,24.3 0,13.4203 10.879,24.3 24.3,24.3 13.42,0 24.3,-10.8797 24.3,-24.3 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.90123074;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:5.40738446,1.80246149;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
+         id="path438" />
+      <path
+         d="m 829.97541,-74.625054 c 0,-9.941 -8.059,-17.999998 -18,-17.999998 -9.941,0 -18,8.058998 -18,17.999998 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path458" />
+      <path
+         d="m 910.02211,-59.887281 c 0,-14.911 -12.089,-27 -27,-27 -14.912,0 -27,12.089 -27,27 0,14.9113 12.088,27 27,27 14.911,0 27,-12.0887 27,-27"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.90123077;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5.40738455,0.90123077;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
+         id="path460" />
+      <path
+         d="m 81.8,-320.18723 c 0,-9.941 -8.059,-18 -18,-18 -9.941,0 -18,8.059 -18,18 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.90123077;stroke-miterlimit:9.39999962;stroke-opacity:1;stroke-dasharray:5.40738455,0.90123077;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
+         id="path472" />
+      <path
+         d="m 245.80468,-237.00362 4.60234,-60.63778"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#acd7ff;fill-opacity:1;stroke:#000000;stroke-width:0.90000004;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path480" />
+      <path
+         d="m 140.02983,-181.88688 -31.57323,53.68374"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path482" />
+      <path
+         d="m 143.45344,-179.46506 -31.19285,54.08737"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path484" />
+      <path
+         d="m 663.5,-202.8877 -57,-49.2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path492" />
+      <path
+         d="m 692,-196.8877 58.2,-25.5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path494" />
+      <path
+         d="m 776.3,-208.2877 57,77.1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path496" />
+      <path
+         d="m 771.5,-251.4877 4.2,-36.9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path498" />
+      <path
+         d="m 664.90071,-177.50162 -27.59496,45.44051"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path500" />
+      <path
+         d="m 667.89293,-175.45168 -27.26249,45.78218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path502" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="325.67902"
+         x="57.749298"
+         id="text558"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan560"
+           y="325.67902"
+           x="57.749298"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="293.62329"
+         x="82.233009"
+         id="text562"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan564"
+           y="293.62329"
+           x="82.233009"
+           style="font-size:12.60000038px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <path
+         d="m 427.81155,-224.69939 -16.42546,-66.7793"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#acd7ff;fill-opacity:1;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path660" />
+      <path
+         d="m 417.54564,-293.68991 16.01483,65.89479"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#acd7ff;fill-opacity:1;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path662" />
+      <path
+         d="m 347.3,-131.1877 71.7,-66.6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path664" />
+      <path
+         d="m 454.1,-205.2877 50.1,16.8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path666" />
+      <path
+         d="m 533,-168.9877 27.3,38.1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path668" />
+      <path
+         d="m 534.2,-196.8877 55.2,-53.7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path670" />
+      <path
+         d="M 147.46073,-193.634 71.148633,-260.93908"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path672" />
+      <path
+         d="m 165.5,-196.8877 58.2,-25.5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path674" />
+      <path
+         d="m 251.007,-218.74841 76.86305,96.00975"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path676" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="59.60915"
+         x="353.9324"
+         id="text680"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan682"
+           y="59.60915"
+           x="353.9324"
+           style="font-size:21.60000038px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="81.825356"
+         x="805.67609"
+         id="text706"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan708"
+           y="81.825356"
+           x="805.67609"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="69.367683"
+         x="874.92285"
+         id="text710"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan712"
+           y="69.367683"
+           x="874.92285"
+           style="font-size:24.29999923999999822px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="124.1684"
+         x="563.2395"
+         id="text726"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan728"
+           y="124.1684"
+           x="563.2395"
+           style="font-size:13.5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="82.168297"
+         x="296.89941"
+         id="text744"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan746"
+           y="82.168297"
+           x="296.89941"
+           style="font-size:15.30000019px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <path
+         d="m 693.8,-189.68814 c 0,-9.941 -8.059,-18 -18,-18 -9.941,0 -18,8.059 -18,18 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path442" />
+      <path
+         d="m 648.8,-120.98814 c 0,-8.118 -6.582,-14.7 -14.7,-14.7 -8.119,0 -14.7,6.582 -14.7,14.7 0,8.11799 6.581,14.69999 14.7,14.69999 8.118,0 14.7,-6.582 14.7,-14.69999 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path446" />
+      <path
+         d="m 792.79921,-229.5877 c 0,-12.095 -9.805,-21.9 -21.90003,-21.9 -12.095,0 -21.9,9.805 -21.9,21.9 0,12.095 9.805,21.9 21.9,21.9 12.09503,0 21.90003,-9.805 21.90003,-21.9 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path450" />
+      <path
+         d="m 801.79921,-311.0677 c 0,-12.36 -10.02,-22.38 -22.38,-22.38 -12.36003,0 -22.38003,10.02 -22.38003,22.38 0,12.36 10.02,22.38 22.38003,22.38 12.36,0 22.38,-10.02 22.38,-22.38 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path454" />
+      <path
+         d="m 869.29921,-115.1677 c 0,-12.824 -10.396,-23.22 -23.22,-23.22 -12.824,0 -23.22,10.396 -23.22,23.22 0,12.824 10.396,23.220008 23.22,23.220008 12.824,0 23.22,-10.396008 23.22,-23.220008 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path466" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="195.26904"
+         x="668.68835"
+         id="text692"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan694"
+           y="195.26904"
+           x="668.68835"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C'</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="126.1482"
+         x="628.93982"
+         id="text696"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan698"
+           y="126.1482"
+           x="628.93982"
+           style="font-size:13.5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">O</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="236.24049"
+         x="762.68219"
+         id="text700"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan702"
+           y="236.24049"
+           x="762.68219"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">N</tspan>
+        <tspan
+           id="tspan704"
+           y="318.98029"
+           x="771.08221"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std" />
+      </text>
+      <path
+         d="m 594.8,-297.6877 0.9,28.8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path530" />
+      <path
+         d="m 634.88672,-285.99891 c 0,-7.455 -6.045,-13.5 -13.5,-13.5 -7.456,0 -13.5,6.045 -13.5,13.5 0,7.455 6.044,13.5 13.5,13.5 7.455,0 13.5,-6.045 13.5,-13.5 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path376" />
+      <path
+         d="m 612.8,-258.38814 c 0,-8.118 -6.582,-14.7 -14.7,-14.7 -8.119,0 -14.7,6.582 -14.7,14.7 0,8.118 6.581,14.7 14.7,14.7 8.118,0 14.7,-6.582 14.7,-14.7 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path394" />
+      <path
+         d="m 612.8,-315.68814 c 0,-9.94101 -8.059,-18.00001 -18,-18.00001 -9.941,0 -18,8.059 -18,18.00001 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.90123077;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:9.39999962;stroke-opacity:1;stroke-dasharray:5.40738455,0.90123077;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std;stroke-dashoffset:0"
+         id="path470" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold"
+         y="321.17993"
+         x="588.74933"
+         id="text538"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan540"
+           y="321.17993"
+           x="588.74933"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Bold">R</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="291.39923"
+         x="616.64685"
+         id="text542"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan544"
+           y="291.39923"
+           x="616.64685"
+           style="font-size:12.60000038px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <path
+         d="m 456.56,-214.16676 c 0,-12.029 -9.752,-21.78 -21.78,-21.78 -12.029,0 -21.78,9.751 -21.78,21.78 0,12.028 9.751,21.78 21.78,21.78 12.028,0 21.78,-9.752 21.78,-21.78 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path398" />
+      <path
+         d="m 539.9,-183.38814 c 0,-9.941 -8.059,-18 -18,-18 -9.941,0 -18,8.059 -18,18 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.45061538;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path400" />
+      <path
+         d="m 433.04,-302.30676 c 0,-12.493 -10.128,-22.62 -22.62,-22.62 -12.493,0 -22.62,10.127 -22.62,22.62 0,12.492 10.127,22.62 22.62,22.62 12.492,0 22.62,-10.128 22.62,-22.62 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path434" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="220.98785"
+         x="426.08795"
+         id="text714"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan716"
+           y="220.98785"
+           x="426.08795"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C'</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="310.28827"
+         x="402.49969"
+         id="text718"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan720"
+           y="310.28827"
+           x="402.49969"
+           style="font-size:20.70000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">O</tspan>
+      </text>
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="189.68831"
+         x="515.59967"
+         id="text722"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan724"
+           y="189.68831"
+           x="515.59967"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">N</tspan>
+      </text>
+      <path
+         d="m 356.3,-116.96676 c 0,-12.824 -10.396,-23.22 -23.22,-23.22 -12.824,0 -23.22,10.396 -23.22,23.22 0,12.824 10.396,23.220008 23.22,23.220008 12.824,0 23.22,-10.396008 23.22,-23.220008 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path430" />
+      <path
+         d="m 122.3,-120.98723 c 0,-8.118 -6.582,-14.7 -14.7,-14.7 -8.1184,0 -14.7,6.582 -14.7,14.7 0,8.118 6.5816,14.7 14.7,14.7 8.118,0 14.7,-6.582 14.7,-14.7 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:8.80000019;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path414" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="126.14851"
+         x="102.4393"
+         id="text734"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan736"
+           y="126.14851"
+           x="102.4393"
+           style="font-size:13.5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">O</tspan>
+      </text>
+      <path
+         d="m 167.3,-189.68723 c 0,-9.941 -8.059,-18 -18,-18 -9.941,0 -18,8.059 -18,18 0,9.941 8.059,18 18,18 9.941,0 18,-8.059 18,-18 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:8.80000019;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path410" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="195.26813"
+         x="142.18832"
+         id="text730"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan732"
+           y="195.26813"
+           x="142.18832"
+           style="font-size:16.20000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C'</tspan>
+      </text>
+      <path
+         d="m 266.3,-229.58676 c 0,-12.095 -9.805,-21.9 -21.9,-21.9 -12.095,0 -21.9,9.805 -21.9,21.9 0,12.095 9.805,21.9 21.9,21.9 12.095,0 21.9,-9.805 21.9,-21.9 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path418" />
+      <text
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="236.24049"
+         x="236.183"
+         id="text738-8"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan740-9"
+           y="236.24049"
+           x="236.183"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">N</tspan>
+        <tspan
+           id="tspan742-7"
+           y="318.98029"
+           x="244.58299"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std" />
+      </text>
+      <path
+         d="m 275.3,-311.06676 c 0,-12.36 -10.02,-22.38 -22.38,-22.38 -12.36,0 -22.38,10.02 -22.38,22.38 0,12.36 10.02,22.38 22.38,22.38 12.36,0 22.38,-10.02 22.38,-22.38 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#93d0ff;fill-opacity:1;stroke:#000000;stroke-width:0.45061538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path422" />
+      <text
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="235.149"
+         x="236.2832"
+         id="text738"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan742"
+           y="317.88876"
+           x="244.6832"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <path
+         d="m 81.8,-262.88723 c 0,-8.118 -6.5816,-14.7 -14.7,-14.7 -8.1184,0 -14.7,6.582 -14.7,14.7 0,8.118 6.5816,14.7 14.7,14.7 8.1184,0 14.7,-6.582 14.7,-14.7 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff8a8a;fill-opacity:1;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:8.80000019;stroke-opacity:1;stroke-dasharray:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         id="path478" />
+      <g
+         id="g4098"
+         transform="translate(1.2070055,8.6099723)">
+        <text
+           transform="scale(1,-1)"
+           id="text554"
+           x="58.280102"
+           y="275.561"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">
+          <tspan
+             style="font-size:13.5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+             x="58.280102"
+             y="275.561"
+             id="tspan556">C</tspan>
+        </text>
+        <text
+           transform="scale(1,-1)"
+           id="text566"
+           x="67.269569"
+           y="278.61722"
+           style="font-size:10.81476879px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Gentium;-inkscape-font-specification:Gentium">
+          <tspan
+             style="font-size:10.81476879px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+             x="67.269569"
+             y="278.61722"
+             id="tspan568">α</tspan>
+        </text>
+      </g>
+      <text
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="261.65958"
+         x="590.72534"
+         id="text554-9"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan556-1"
+           y="261.65958"
+           x="590.72534"
+           style="font-size:13.49999905px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">C</tspan>
+      </text>
+      <text
+         style="font-size:11.26538467px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Gentium;-inkscape-font-specification:Gentium"
+         y="265.52045"
+         x="599.3125"
+         id="text566-6"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan568-5"
+           y="265.52045"
+           x="599.3125"
+           style="font-size:11.26538467px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium">α</tspan>
+      </text>
+      <g
+         id="g6705"
+         style="font-size:22.53076935px"
+         transform="translate(0,9.0123074)">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(1.6533387,1.5306295,1.5306295,-1.6533387,-491.63014,-331.52822)"
+           d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+           sodipodi:ry="3.8626099"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729"
+           d="m 379.51815,-184.58808 -3.31572,-1.94144"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+        <text
+           transform="scale(1,-1)"
+           id="text6691"
+           y="185.64354"
+           x="360.8576"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             id="tspan6695"
+             y="185.64354"
+             x="360.8576"
+             sodipodi:role="line">ψ</tspan></text>
+      </g>
+      <g
+         transform="translate(249.43565,-57.652437)"
+         id="g6705-7"
+         style="font-size:22.53076935px">
+        <g
+           id="g6751"
+           transform="matrix(-1,0,0,1,771.08172,3.6984209)"
+           style="font-size:22.53076935px">
+          <path
+             sodipodi:type="arc"
+             style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+             id="path4119-6"
+             sodipodi:cx="332.58929"
+             sodipodi:cy="211.6479"
+             sodipodi:rx="7.4201674"
+             sodipodi:ry="3.8626099"
+             d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+             transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+             sodipodi:start="4.4450932"
+             sodipodi:end="8.403886"
+             sodipodi:open="true" />
+          <path
+             style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+             d="m 389.57211,-161.12243 3.31572,1.94144"
+             id="path5729-0" />
+        </g>
+        <text
+           transform="scale(1,-1)"
+           id="text6691-8"
+           y="167.55379"
+           x="361.64206"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             id="tspan6695-0"
+             y="167.55379"
+             x="361.64206"
+             sodipodi:role="line">ψ</tspan></text>
+      </g>
+      <g
+         transform="translate(177.15884,-53.954016)"
+         id="g6705-9"
+         style="font-size:22.53076935px">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(1.6533387,1.5306295,1.5306295,-1.6533387,-491.63014,-331.52822)"
+           d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+           sodipodi:ry="3.8626099"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119-0"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729-7"
+           d="m 379.51815,-184.58808 -3.31572,-1.94144"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+        <text
+           transform="scale(1,-1)"
+           id="text6691-7"
+           y="182.18428"
+           x="361.53403"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="182.18428"
+             x="361.53403"
+             sodipodi:role="line"
+             id="tspan6931">φ</tspan></text>
+      </g>
+      <g
+         transform="translate(422.28419,1.1736001)"
+         id="g6705-7-8"
+         style="font-size:22.53076935px">
+        <g
+           id="g6751-9"
+           transform="matrix(-1,0,0,1,771.08172,3.6984209)"
+           style="font-size:22.53076935px">
+          <path
+             sodipodi:type="arc"
+             style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+             id="path4119-6-7"
+             sodipodi:cx="332.58929"
+             sodipodi:cy="211.6479"
+             sodipodi:rx="7.4201674"
+             sodipodi:ry="3.8626099"
+             d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+             transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+             sodipodi:start="4.4450932"
+             sodipodi:end="8.403886"
+             sodipodi:open="true" />
+          <path
+             style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+             d="m 389.57211,-161.12243 3.31572,1.94144"
+             id="path5729-0-0" />
+        </g>
+        <text
+           transform="scale(1,-1)"
+           id="text6691-8-9"
+           y="166.34677"
+           x="362.84906"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="166.34677"
+             x="362.84906"
+             sodipodi:role="line"
+             id="tspan6861">φ</tspan></text>
+      </g>
+      <g
+         transform="translate(-277.37663,-58.372002)"
+         id="g6705-7-9"
+         style="font-size:22.53076935px">
+        <g
+           id="g6751-4"
+           transform="matrix(-1,0,0,1,771.08172,3.6984209)"
+           style="font-size:22.53076935px">
+          <path
+             sodipodi:type="arc"
+             style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+             id="path4119-6-5"
+             sodipodi:cx="332.58929"
+             sodipodi:cy="211.6479"
+             sodipodi:rx="7.4201674"
+             sodipodi:ry="3.8626099"
+             d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+             transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+             sodipodi:start="4.4450932"
+             sodipodi:end="8.403886"
+             sodipodi:open="true" />
+          <path
+             style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+             d="m 389.57211,-161.12243 3.31572,1.94144"
+             id="path5729-0-1" />
+        </g>
+        <text
+           transform="scale(1,-1)"
+           id="text6691-8-5"
+           y="165.94444"
+           x="360.83737"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             id="tspan6695-0-1"
+             y="165.94444"
+             x="360.83737"
+             sodipodi:role="line">ψ</tspan></text>
+      </g>
+      <g
+         transform="translate(-92.41688,4.4137052)"
+         id="g6705-7-8-2"
+         style="font-size:22.53076935px">
+        <g
+           id="g6751-9-4"
+           transform="matrix(-1,0,0,1,771.08172,3.6984209)"
+           style="font-size:22.53076935px">
+          <path
+             sodipodi:type="arc"
+             style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+             id="path4119-6-7-3"
+             sodipodi:cx="332.58929"
+             sodipodi:cy="211.6479"
+             sodipodi:rx="7.4201674"
+             sodipodi:ry="3.8626099"
+             d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+             transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+             sodipodi:start="4.4450932"
+             sodipodi:end="8.403886"
+             sodipodi:open="true" />
+          <path
+             style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+             d="m 389.57211,-161.12243 3.31572,1.94144"
+             id="path5729-0-0-6" />
+        </g>
+        <text
+           transform="scale(1,-1)"
+           id="text6691-8-9-9"
+           y="166.34677"
+           x="362.04437"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="166.34677"
+             x="362.04437"
+             sodipodi:role="line"
+             id="tspan6861-7">φ</tspan></text>
+      </g>
+      <g
+         id="g6949"
+         transform="translate(0,9.0123074)">
+        <text
+           transform="scale(1,-1)"
+           id="text684"
+           x="319.90485"
+           y="131.1367"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">
+          <tspan
+             style="font-size:20.70000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+             x="319.90485"
+             y="131.1367"
+             id="tspan686">C</tspan>
+        </text>
+        <text
+           transform="scale(1,-1)"
+           id="text688"
+           x="333.35516"
+           y="136.95702"
+           style="font-size:18.9258461px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">
+          <tspan
+             style="font-size:18.9258461px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+             x="333.35516"
+             y="136.95702"
+             id="tspan690">α</tspan>
+        </text>
+      </g>
+      <g
+         transform="translate(514.63277,10.398935)"
+         id="g6949-0">
+        <text
+           transform="scale(1,-1)"
+           id="text684-0"
+           x="319.90485"
+           y="131.1367"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">
+          <tspan
+             style="font-size:20.70000076px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+             x="319.90485"
+             y="131.1367"
+             id="tspan686-3">C</tspan>
+        </text>
+        <text
+           transform="scale(1,-1)"
+           id="text688-3"
+           x="333.35516"
+           y="136.95702"
+           style="font-size:18.9258461px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">
+          <tspan
+             style="font-size:18.9258461px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+             x="333.35516"
+             y="136.95702"
+             id="tspan690-9">α</tspan>
+        </text>
+      </g>
+      <g
+         transform="translate(-192.21692,-40.795108)"
+         id="g6705-9-8"
+         style="font-size:22.53076935px">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(1.6533387,1.5306295,1.5306295,-1.6533387,-491.63014,-331.52822)"
+           d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+           sodipodi:ry="3.8626099"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119-0-8"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729-7-8"
+           d="m 379.51815,-184.58808 -3.31572,-1.94144"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+        <text
+           transform="scale(1,-1)"
+           id="text6691-7-6"
+           y="182.18428"
+           x="361.53403"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="182.18428"
+             x="361.53403"
+             sodipodi:role="line"
+             id="tspan6931-8">ω</tspan></text>
+      </g>
+      <g
+         transform="translate(337.95629,-41.050487)"
+         id="g6705-9-8-5"
+         style="font-size:22.53076935px">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(1.6533387,1.5306295,1.5306295,-1.6533387,-491.63014,-331.52822)"
+           d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+           sodipodi:ry="3.8626099"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119-0-8-7"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729-7-8-0"
+           d="m 379.51815,-184.58808 -3.31572,-1.94144"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+        <text
+           transform="scale(1,-1)"
+           id="text6691-7-6-8"
+           y="182.18428"
+           x="361.53403"
+           style="font-size:22.53076935px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           xml:space="preserve"><tspan
+             y="182.18428"
+             x="361.53403"
+             sodipodi:role="line"
+             id="tspan6931-8-1">ω</tspan></text>
+      </g>
+      <g
+         id="g3207">
+        <text
+           transform="matrix(1,0,0,-1,-192.21692,-40.795108)"
+           xml:space="preserve"
+           style="font-size:22.53076934999999992px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Adobe Garamond Pro Italic"
+           x="649.31061"
+           y="149.09862"
+           id="text6691-7-6-80"><tspan
+             id="tspan6931-8-9"
+             sodipodi:role="line"
+             x="649.31061"
+             y="149.09862">ω</tspan></text>
+        <g
+           style="font-size:22.53076935px"
+           id="g6705-7-8-2-8"
+           transform="matrix(0.98149759,-0.19147451,0.19147451,0.98149759,133.2283,45.892941)">
+          <g
+             style="font-size:22.53076935px"
+             transform="matrix(-1,0,0,1,771.08172,3.6984209)"
+             id="g6751-9-4-2">
+            <path
+               sodipodi:open="true"
+               sodipodi:end="8.403886"
+               sodipodi:start="4.4450932"
+               transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+               d="m 330.62945,207.92246 c 3.95252,-0.56345 8.03412,0.64773 9.11651,2.70523 1.08239,2.05751 -1.2443,4.18221 -5.19682,4.74566 -1.97706,0.28183 -4.09002,0.12537 -5.83767,-0.43228"
+               sodipodi:ry="3.8626099"
+               sodipodi:rx="7.4201674"
+               sodipodi:cy="211.6479"
+               sodipodi:cx="332.58929"
+               id="path4119-6-7-3-5"
+               style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+               sodipodi:type="arc" />
+            <path
+               id="path5729-0-0-6-3"
+               d="m 389.57211,-161.12243 3.31572,1.94144"
+               style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+          </g>
+        </g>
+      </g>
+      <text
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std"
+         y="235.14905"
+         x="762.78235"
+         id="text700-6"
+         transform="scale(1,-1)">
+        <tspan
+           id="tspan704-1"
+           y="317.88879"
+           x="771.18237"
+           style="font-size:19.79999924px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Palatino LT Std;-inkscape-font-specification:Palatino LT Std">H</tspan>
+      </text>
+      <text
+         xml:space="preserve"
+         style="font-size:15.77153778px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Palatino;-inkscape-font-specification:Palatino Medium"
+         x="149.33589"
+         y="143.78339"
+         id="text3265"
+         sodipodi:linespacing="125%"
+         transform="scale(1,-1)"><tspan
+           sodipodi:role="line"
+           id="tspan3267"
+           x="149.33589"
+           y="143.78339">bond length</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:42.44836044px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Palatino;-inkscape-font-specification:Palatino Medium"
+         x="65.549583"
+         y="149.81967"
+         id="text3269"
+         sodipodi:linespacing="125%"
+         transform="matrix(0.60526542,0.3487289,0.71466987,-1.2404045,0,0)"><tspan
+           sodipodi:role="line"
+           id="tspan3271"
+           x="65.549583"
+           y="149.81967">}</tspan></text>
+      <g
+         style="font-size:22.53076935px"
+         transform="matrix(-1.5443519,-0.45864518,-0.4731638,1.5932391,1307,218.4132)"
+         id="g6751-9-4-22">
+        <path
+           sodipodi:open="true"
+           sodipodi:end="8.403886"
+           sodipodi:start="4.4450932"
+           transform="matrix(-1.6533387,-1.5306295,-1.5306295,1.6533387,1260.7204,-14.182288)"
+           d="m 330.62945,203.95908 c 3.95252,-1.16287 8.03412,1.33683 9.11651,5.58325 1.08239,4.24642 -1.2443,8.63152 -5.19682,9.79439 -1.97706,0.58168 -4.09002,0.25875 -5.83767,-0.89217"
+           sodipodi:ry="7.9719129"
+           sodipodi:rx="7.4201674"
+           sodipodi:cy="211.6479"
+           sodipodi:cx="332.58929"
+           id="path4119-6-7-3-6"
+           style="font-size:10px;opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.39999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+           sodipodi:type="arc" />
+        <path
+           id="path5729-0-0-6-1"
+           d="m 376.65653,-158.94517 11.17738,4.66303"
+           style="font-size:22.53076935px;fill:none;stroke:#000000;stroke-width:0.5632692;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cc" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:15.77153778px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Palatino;-inkscape-font-specification:Palatino Medium"
+         x="824.15546"
+         y="247.33916"
+         id="text3317"
+         sodipodi:linespacing="125%"
+         transform="scale(1,-1)"><tspan
+           sodipodi:role="line"
+           id="tspan3319"
+           x="824.15546"
+           y="247.33916">bond angle</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -14,7 +14,7 @@
 
 
 \begin{document}
-\ULCornerWallPaper{1.0}{ku-background.pdf}
+\ULCornerWallPaper{1.0}{figures/ku-background.pdf}
 \fontsize{40pt}{60pt}\selectfont
 
 \begin{textblock}{100}(0,0)
@@ -35,10 +35,14 @@
 
 \linespread{1.075}\fontsize{28pt}{40pt}\selectfont
 
+\renewcommand{\labelitemi}{--\ }
+
 \begin{GridBlock}{0}{21}{100}
 \begin{multicols}{3}
 \begin{multicols}{2}
 \Head{Summary}
+
+\vspace*{-.7cm}
 In this work we investigate a strategy for predicting the structure of proteins. Given a so-called \emph{\Ca-trace}, we wish to fold the protein to match the trace.
 \newpage
 \begin{figure}
@@ -46,10 +50,10 @@ In this work we investigate a strategy for predicting the structure of proteins.
 \hspace{-3cm}
 \includegraphics[width=\columnwidth]{../rapport/figures/forside.png}
 %\hspace{2cm}
-%\vspace{-3.5cm}
+\vspace{-1.5cm}
 \end{figure}
 \end{multicols}
-\vspace{-1cm}
+\vspace{-.5cm}
 %Protein structure prediction can be simplified by using a model that only includes a subset of the atoms present in proteins. In particular, the algorithms group at our department only predicts a folding of the \Ca-trace, and are thus excluding most backbone atoms and all side-chain molecules.
 
 
@@ -69,44 +73,37 @@ In this work we investigate a strategy for predicting the structure of proteins.
 
 \section{Our problem}
 Currently, we are only able to predict protein structures at the $C_\alpha$-trace level. 
-Our goal with this project is to extend the $C_\alpha$-trace with the remaining atoms to get an all-atom model.
-
+Our goal with this project is to extend the \Ca-trace with the remaining atoms to get an all-atom model.
+The difference between the two is shown in Figure \ref{fig:all-atom_vs_trace}.
 
 \begin{figure}
   \centering
   \vspace{1cm}
-  \includegraphics[width=0.48\columnwidth]{../rapport/figures/amino_connect}  
+  \includegraphics[width=0.65\columnwidth]{../rapport/figures/amino_connect}  
   \\[1cm]
-  \includegraphics[width=0.48\columnwidth]{../rapport/figures/Calpha_backbone}
-  \label{fig:amino_connect}
+  \includegraphics[width=0.65\columnwidth]{../rapport/figures/Calpha_backbone}
   \caption{\textbf{Top}: All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains. \textbf{Bottom}: $C_{\alpha}$-trace. }
+  \label{fig:all-atom_vs_trace}
 \end{figure}
 
-The strategy we will pursue, is to use a given $C_\alpha$-trace as target when fitting a
-protein model that contains all atoms. The fitting should be conducted,
-such that it minimizes the number of clashes and at the same time
-minimizes the deviation from the target $C_\alpha$-trace.
+\section{Our approach}
+The strategy we will pursue, is to use a given $C_\alpha$-trace as target when folding a protein model that contains all atoms. The folding should be conducted, such that it minimizes the number of clashes and at the same time minimizes the deviation from the target $C_\alpha$-trace.
 
 We consider our fitting problem as two somewhat separate problems.
-First, the backbone must be fitted to the \Ca-trace by minimizing
+First, the backbone must be folded to the \Ca-trace by minimizing
 the deviation from the $C_{\alpha}$-trace.  Hereafter, the amino acid
-side-chains are added to the backbone.  In the following we have chosen to
-consider these two tasks separately.
+side-chains are added to the backbone.  
+%In the following we have chosen to
+%consider these two tasks separately.
 %However, as we shall see in Section \ref{sec:evaluation_handling_side-chains}, the performance of our residue handling depends heavily on the backbone fitting.
  % (even though the residue handling might require us to adjust the backbone).
 
-In Section \ref{chap:fitting_backbone}, we will describe the strategy we use to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
-In Section \ref{chap:handling_sidechains}, we will explain how we add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.
 
 
 \end{multicols}
 \end{GridBlock}
 
-
-
-\begin{GridBlockFill}{0}{46}{100}
-
-\renewcommand{\labelitemi}{--\ }
+\begin{GridBlockFill}{0}{46.4}{100}
 
   \begin{multicols}{2}
 \begin{minipage}{\linewidth} 
@@ -137,10 +134,10 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
   \vspace{7mm}
   \begin{tabular}{lrr}
     \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule
+    C-O   & 1.2260 Å & 0.0188 Å\\
     CA-C  & 1.5272 Å & 0.0191 Å\\
     N-CA  & 1.4680 Å & 0.0237 Å\\
     C-N   & 1.3234 Å & 0.0215 Å\\
-    CA-HA & 1.0747 Å & 0.0307 Å\\
   \end{tabular}
   \vspace{4mm}
   \label{tab:average_bond_lengths}
@@ -152,15 +149,15 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \centering
   \vspace{7mm}
   \begin{tabular}{lrr}
-    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
+    \multicolumn{1}{c}{Angle} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
     H-N-CA & 118.9553$^\circ$ & 1.9979$^\circ$\\
     N-CA-C & 110.6099$^\circ$ & 2.4668$^\circ$\\
     CA-C-N & 116.7804$^\circ$ & 1.7682$^\circ$\\
     C-N-CA & 121.4547$^\circ$ & 1.9946$^\circ$\\
   \end{tabular}
   \vspace{4mm}
-  \label{tab:average_bond_lengths}
-  \tabcaption{Average bond lengths (in ångstrøm)}
+  \label{tab:average_bond_angles}
+  \tabcaption{Average bond angles}
 \end{minipage}
 
    \end{multicols}
@@ -170,7 +167,7 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 
 \begin{minipage}{\linewidth} 
 \centering% 
-\includegraphics[width=0.90\linewidth, clip=]{../rapport/figures/protein-torsion-angles.pdf}
+\includegraphics[width=0.90\linewidth, clip=]{figures/protein-torsion-angles.pdf}
 
 \figcaption{Rotational angles in a protein backbone}% 
 \label{fig:torsion_angles}
@@ -179,12 +176,14 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \begin{multicols}{2}
   \begin{itemize}
   \item The $\omega$-angle is almost always at $180^{\circ}$, except
-    for occurences where it is $0^{\circ}$. We assume that it is
-    always locked at $180^{\circ}$.
+    for a few occurences where it is $0^{\circ}$. To simplify the
+    problem, we have assumed that it is always locked at
+    $180^{\circ}$.
   \item The $\phi$ and $\psi$ angles are the most variable parts of
     the protein backbone and many models use these as the only
     parameters when performing protein structure prediction.
-  \item 
+  \item The $\phi$ and $\psi$ are the only parameters we modify when
+    folding the backbone in place.
   \end{itemize}
 \end{multicols}
 \end{multicols}
@@ -195,6 +194,7 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 
 \begin{GridBlock}{0}{75}{48}
 \Head{Backbone fitting}
+
 \textit{Bond lengths} are the distances between the covalently bonded atoms
 in a molecule (usually measured in ångstrøm). We will name the
 individual bond lengths by the name of the two atoms which the bond
@@ -208,20 +208,44 @@ lengths.
 \end{GridBlock}
 
 \begin{GridBlock}{51}{75}{48}
-\begin{wrapfigure}{r}{0.55\textwidth}
-    \centering
-    \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}
-    \caption{The structure of our rotamer search space when
-      eliminating collisions with the amino acid \textit{a}.}
-    \label{fig:rotamer-search-tree}
-\end{wrapfigure}
-\Head{Rotamer selection}
-\textit{Bond lengths} are the distances between the covalently bonded atoms
-in a molecule (usually measured in ångstrøm). We will name the
-individual bond lengths by the name of the two atoms which the bond
-connects. For example, the bond between a \Ca\ and N atom in an amino acid of
-the protein backbone is called \Ca -N. We have computed bond lengths
-for all bonds in the backbone, the results are shown in Table
+% \begin{wrapfigure}{r}{0.55\textwidth}
+%     \centering
+%     \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}
+%     \caption{The structure of our rotamer search space when
+%       eliminating collisions with the amino acid \textit{a}.}
+%     \label{fig:rotamer-search-tree}
+% \end{wrapfigure}
+\Head{Rotamer selection} 
+\begin{multicols}{2}
+\begin{itemize}
+\item After the backbone is folded in place and fitted to the
+  \Ca-trace, we remain with the problem of adding side chains to each
+  amino acid.
+
+\begin{minipage}{\linewidth} 
+\centering% 
+\includegraphics[width=0.90\linewidth, clip=]{../rapport/figures/lysine.pdf}
+
+\figcaption{$\chi$-angles in Lysine side chain}
+\label{fig:lysine}
+\end{minipage}
+
+\item The rotational angles of side chains are named
+  $\chi_1$-$\chi_5$, but many amino acids only have one or two of
+  these angles.
+
+\item Each side chain tends to have certain configurations of its
+  $\chi$-angles. These often occuring configurations are called
+  rotamers of the side-chain.
+
+\item There exists rotamer libraries containing these common
+  configurations together with their likelyhood.
+
+\item We have developed a rotamer search algorithm that minimizes the
+  number of occurences, which uses the rotamer-probabilities as a good
+  initial guess.
+\end{itemize}
+\end{multicols}
 \end{GridBlock}
 
 %\begin{GridBlock}{51}{80}{48}
@@ -234,9 +258,6 @@ for all bonds in the backbone, the results are shown in Table
 %  realistic protein.
 %\end{itemize}
 %\end{GridBlock}
-
-
-% If you want to add a figure do something like this:
 
 
 

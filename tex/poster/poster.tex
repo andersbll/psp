@@ -5,6 +5,14 @@
 \usepackage{wrapfig}
 \setlength{\columnsep}{60pt}
 
+\usepackage{multicol}
+\usepackage{nonfloat}
+\setlength{\columnsep}{88pt}
+
+
+\definecolor{Shade}{HTML}{F2E6CE}
+
+
 \newcommand{\Ca}{C$_{\alpha}${}}
 
 
@@ -82,46 +90,96 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \end{multicols}
 \end{GridBlock}
 
-\begin{GridBlock}{0}{45}{100}
-\begin{wraptable}{r}{0.75\textwidth}
-\addtolength\leftskip{9mm}
+\begin{GridBlockFill}{0}{37.5}{100}
+
+\renewcommand{\labelitemi}{--\ }
+
+  \begin{multicols}{2}
+\begin{minipage}{\linewidth} 
+    \begin{multicols}{2}
+    \Head{Protein Geometry}
+
+    \begin{itemize}
+    \item Proteins are built from unbranched chains of amino acids.
+    \item All amino acids share
+      the same basic structure and a variable side-chain.
+    \item The structure of an amino acid can be described by bond lengths,
+      bond angles and rotational angles.
+    \item The bond lengths and bond angles only displays small variations
+      between amino acids (see tables)
+    \item Only three different rotational angles occurs along an amino
+      acid chain. These are named $\phi$, $\psi$ and $\omega$ and are
+      shown on Figure \ref{fig:torsion_angles}.
+    \end{itemize} 
+   \end{multicols}
+
+
+\begin{multicols}{2}
+
+
+\begin{minipage}{\linewidth} 
+\centering
+
+  \vspace{7mm}
   \begin{tabular}{lrr}
-    \toprule
     \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. length} & \multicolumn{1}{c}{Std.dev.} \\ \midrule
-    C-O   & 1.2260 Å & 0.0188 Å\\
     CA-C  & 1.5272 Å & 0.0191 Å\\
     N-CA  & 1.4680 Å & 0.0237 Å\\
     C-N   & 1.3234 Å & 0.0215 Å\\
-    N-H   & 0.9793 Å & 0.0342 Å\\
-    CA-CB & 1.5327 Å & 0.0228 Å\\
-    CA-HA & 1.0747 Å & 0.0307 Å\\ \bottomrule
+    CA-HA & 1.0747 Å & 0.0307 Å\\
   \end{tabular}
+  \vspace{4mm}
   \label{tab:average_bond_lengths}
-  \caption{Average bond lengths (in ångstrøm)}
-\end{wraptable}
-  \Head{Protein structure} 
-  \textit{Bond lengths} are the distances between the covalently bonded atoms
-in a molecule (usually measured in ångstrøm). We will name the
-individual bond lengths by the name of the two atoms which the bond
-connects. For example, the bond between a \Ca\ and N atom in an amino acid of
-the protein backbone is called \Ca -N. We have computed bond lengths
-for all bonds in the backbone, the results are shown in Table
-\ref{tab:average_bond_lengths}. As can be seen from the last column in
-the table, the variation is very limited and we therefore have not
-found it necessary to consider any variations from the mean
-lengths.
-\end{GridBlock}
+  \tabcaption{Average bond lengths (in ångstrøm)}
+\end{minipage}
 
-\begin{GridBlock}{0}{40}{100}
-%\begin{wrapfigure}{r}{0.5\textwidth}
- \begin{center}
-\resizebox{10\TPHorizModule}{!}{\includegraphics{../rapport/figures/protein-torsion-angles.pdf}}
-\textbf{Figure 1}: Protein torsion angles
- \end{center}
-%\end{wrapfigure}
-\end{GridBlock}
 
-\begin{GridBlock}{0}{55}{48}
+\begin{minipage}{\linewidth} 
+\centering
+  \vspace{7mm}
+  \begin{tabular}{lrr}
+    \multicolumn{1}{c}{Bond} & \multicolumn{1}{c}{Avg. angle} & \multicolumn{1}{c}{Std.dev.} \\ \midrule 
+    H-N-CA & 118.9553$^\circ$ & 1.9979$^\circ$\\
+    N-CA-C & 110.6099$^\circ$ & 2.4668$^\circ$\\
+    CA-C-N & 116.7804$^\circ$ & 1.7682$^\circ$\\
+    C-N-CA & 121.4547$^\circ$ & 1.9946$^\circ$\\
+  \end{tabular}
+  \vspace{4mm}
+  \label{tab:average_bond_lengths}
+  \tabcaption{Average bond lengths (in ångstrøm)}
+\end{minipage}
+
+   \end{multicols}
+\end{minipage}
+
+\pagebreak
+    
+\begin{minipage}{\linewidth} 
+\centering% 
+\includegraphics[width=0.90\linewidth, clip=]{../rapport/figures/protein-torsion-angles.pdf}
+
+\figcaption{Rotational angles in a protein backbone}% 
+\label{fig:torsion_angles}
+\end{minipage}
+
+\begin{multicols}{2}
+  \begin{itemize}
+  \item The $\omega$-angle is almost always at $180^{\circ}$, except
+    for occurences where it is $0^{\circ}$. We assume that it is
+    always locked at $180^{\circ}$.
+  \item The $\phi$ and $\psi$ angles are the most variable parts of
+    the protein backbone and many models use these as the only
+    parameters when performing protein structure prediction.
+  \item 
+  \end{itemize}
+\end{multicols}
+\end{multicols}
+
+
+
+\end{GridBlockFill}
+
+\begin{GridBlock}{0}{75}{48}
 \Head{Backbone fitting}
 \textit{Bond lengths} are the distances between the covalently bonded atoms
 in a molecule (usually measured in ångstrøm). We will name the
@@ -135,7 +193,7 @@ found it necessary to consider any variations from the mean
 lengths.
 \end{GridBlock}
 
-\begin{GridBlock}{51}{55}{48}
+\begin{GridBlock}{51}{75}{48}
 \begin{wrapfigure}{r}{0.55\textwidth}
     \centering
     \includegraphics[width=.45\textwidth]{../rapport/figures/rotamersearch}

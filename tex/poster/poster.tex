@@ -37,30 +37,50 @@
 
 \begin{GridBlock}{0}{21}{100}
 \begin{multicols}{3}
+\begin{multicols}{2}
 \Head{Summary}
+In this work we investigate a strategy for predicting the structure of proteins. Given a so-called \emph{\Ca-trace}, we wish to fold the protein to match the trace.
+\newpage
+\begin{figure}
+\vspace{2cm}
+\hspace{-3cm}
+\includegraphics[width=\columnwidth]{../rapport/figures/forside.png}
+%\hspace{2cm}
+%\vspace{-3.5cm}
+\end{figure}
+\end{multicols}
+\vspace{-1cm}
 %Protein structure prediction can be simplified by using a model that only includes a subset of the atoms present in proteins. In particular, the algorithms group at our department only predicts a folding of the \Ca-trace, and are thus excluding most backbone atoms and all side-chain molecules.
 
-In this work we investigate a strategy for predicting the structure of proteins. Given a so-called \emph{\Ca-trace}, we wish to fold the protein to match the trace.
+
 
 %The strategy divides the problem into two separate tasks.
 
 
-\section{Motivation}
-\begin{itemize}
-    \item[-- ] Proteins are the perhaps most important molecules of
-      living organisms.
-    \item[-- ] Computational resolution of the protein 3D-structure has
-      many applications in biotechnology and medicine.
-    \item[-- ] Protein structure prediction and the related topic protein
-      folding, are large and active research fields.
-    \end{itemize}
+%\section{Motivation}
+%\begin{itemize}
+%    \item[-- ] Proteins are the perhaps most important molecules of
+%      living organisms.
+%    \item[-- ] Computational resolution of the protein 3D-structure has
+%      many applications in biotechnology and medicine.
+%    \item[-- ] Protein structure prediction and the related topic protein
+%      folding, are large and active research fields.
+%    \end{itemize}
 
 \section{Our problem}
 Currently, we are only able to predict protein structures at the $C_\alpha$-trace level. 
-Our goal with this project is
-to extend this model with the remaining atoms to get an all-atom
-model.  This will also enable the algorithms group to participate in
-the CASP experiment \cite{caspwebsite}.
+Our goal with this project is to extend the $C_\alpha$-trace with the remaining atoms to get an all-atom model.
+
+
+\begin{figure}
+  \centering
+  \vspace{1cm}
+  \includegraphics[width=0.48\columnwidth]{../rapport/figures/amino_connect}  
+  \\[1cm]
+  \includegraphics[width=0.48\columnwidth]{../rapport/figures/Calpha_backbone}
+  \label{fig:amino_connect}
+  \caption{\textbf{Top}: All-atom protein backbone, with $R_1$, $R_2$ and $R_3$ representing side-chains. \textbf{Bottom}: $C_{\alpha}$-trace. }
+\end{figure}
 
 The strategy we will pursue, is to use a given $C_\alpha$-trace as target when fitting a
 protein model that contains all atoms. The fitting should be conducted,
@@ -78,16 +98,13 @@ consider these two tasks separately.
 In Section \ref{chap:fitting_backbone}, we will describe the strategy we use to fit the all-atom backbone to the \Ca-trace ignoring the amino acid residues.
 In Section \ref{chap:handling_sidechains}, we will explain how we add the side-chains to the all-atom backbone changing the backbone-conformation only if necessary.
 
-\begin{wrapfigure}{r}{.3\columnwidth}
-\vspace{-.8cm}
-\includegraphics[width=.3\columnwidth]{../rapport/figures/forside.png}
-\vspace{-3.5cm}
-\end{wrapfigure}
 
 \end{multicols}
 \end{GridBlock}
 
-\begin{GridBlockFill}{0}{37.5}{100}
+
+
+\begin{GridBlockFill}{0}{46}{100}
 
 \renewcommand{\labelitemi}{--\ }
 
@@ -150,7 +167,7 @@ In Section \ref{chap:handling_sidechains}, we will explain how we add the side-c
 \end{minipage}
 
 \pagebreak
-    
+
 \begin{minipage}{\linewidth} 
 \centering% 
 \includegraphics[width=0.90\linewidth, clip=]{../rapport/figures/protein-torsion-angles.pdf}
